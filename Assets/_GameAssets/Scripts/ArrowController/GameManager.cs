@@ -12,8 +12,15 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if(Instance==null)
-          Instance=this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
    public void click_arrow()
    {
@@ -23,4 +30,6 @@ public class GameManager : MonoBehaviour
         else
          btn_touch.image.sprite = Image[0];
    }
+
+   
 }

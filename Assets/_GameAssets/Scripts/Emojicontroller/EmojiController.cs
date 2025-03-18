@@ -2,41 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EmojiController : MonoBehaviour
+public class EmojiController : Singleton<EmojiController>
 {
-    public static  EmojiController Instance;
-    [SerializeField] List<Texture> texturesEmoji = new List<Texture>();
+    
+    public List<Material> materialsEmoji = new List<Material>();
 
-    public EmojiType currentEmoji = EmojiType.Happy; // Mặc định là Happy
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+
+
+    public EmojiType currentEmoji = EmojiType.Love; // Mặc định là Love
+
+    public delegate void EmojiChangedHandler(EmojiType newEmoji);
+    public event EmojiChangedHandler OnEmojiChanged;
+
+    
+
     void Start()
     {
-        Debug.Log("Emoji hiện tại: " + currentEmoji);
+        ChangeEmoji(currentEmoji);
     }
 
     public void ChangeEmoji(EmojiType newEmoji)
     {
+        Debug.Log("Emoji hiện tại: " + currentEmoji);
         currentEmoji = newEmoji;
-        Debug.Log("Đã đổi sang emoji: " + currentEmoji);
+        int emojiIndex = (int)newEmoji;
+        if (emojiIndex >= 0 && emojiIndex < materialsEmoji.Count) if (emojiIndex >= 0 && emojiIndex < materialsEmoji.Count)
+        {
+          
+            Debug.Log($"Đã đổi sang emoji: {newEmoji}");
+
+            // Notify subscribers about the emoji change
+            OnEmojiChanged?.Invoke(newEmoji);
+        }
+        else
+        {
+            Debug.LogError($"Material for emoji {newEmoji} not found");
+        }
     }
 }
 
 public enum EmojiType
 {
-    Happy,
+    Love,
     Sad,
     Angry,
-    Laughing,
-    Surprised
+    Pray,
+    Devil,
+    Dance,
+    Vomit
 }
+
+

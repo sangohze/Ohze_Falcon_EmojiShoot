@@ -29,38 +29,37 @@ MonoBehaviour:
     referenceMode: 2
     serializationDepthLimit: 64
     assemblyNames:
+    - MoreMountains.Feedbacks
+    - RootMotion
+    - Assembly-CSharp
     - Assembly-CSharp-firstpass
     - CW.Common
-    - MoreMountains.Feedbacks
+    - MoreMountains.NiceVibrations.Haptics
     - MoreMountains.Tools
-    - RootMotion
     - MoreMountains.Feedbacks.URP
     - LeanCommonPlus
-    - MoreMountains.NiceVibrations.Haptics
-    - MoreMountains.Feedbacks.MMTools
-    - Assembly-CSharp
     - MoreMountains.Feedbacks.NiceVibrations
     - MoreMountains.Feedbacks.PostProcessing
+    - MoreMountains.Feedbacks.MMTools
+    - MoreMountains.Feedbacks.TextMeshPro
+    - LeanTouch
     - MoreMountains.Feedbacks.HDRP
     - LeanPool
-    - MoreMountains.Feedbacks.TextMeshPro
     - LeanTouchPlus
-    - LeanTouch
+    - UOP1.StateMachine
+    - LeanCommon
     - MoreMountains.NiceVibrations
     - MoreMountains.Feedbacks.Cinemachine
     - Lofelt.NiceVibrations
-    - LeanCommon
-    - UOP1.StateMachine
     - Hierarchy4.Runtime
     - MoreMountains.Tools.Editor
     - RootMotionEditor
     - MoreMountains.Feedbacks.Editor
     - UOP1.StateMachine.Editor
-    - PPv2URPConverters
-    - MoreMountains.NiceVibrations.Editor
-    - Sirenix.OdinInspector.Modules.UnityMathematics
     - Hierarchy4.Editor
+    - MoreMountains.NiceVibrations.Editor
     - Lofelt.NiceVibrations.Editor
+    - Sirenix.OdinInspector.Modules.UnityMathematics
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

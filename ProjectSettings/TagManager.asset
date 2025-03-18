@@ -6,6 +6,7 @@ TagManager:
   tags:
   - shootable
   - EmojiProjectile
+  - Enemy
   layers:
   - Default
   - TransparentFX
