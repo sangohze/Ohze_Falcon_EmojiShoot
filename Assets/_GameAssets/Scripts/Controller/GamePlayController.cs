@@ -35,7 +35,7 @@ public class GamePlayController : Singleton<GamePlayController>
     private void OnGameWin()
     {
         Debug.Log("You win the game!");
-        // Add your win game logic here
+        UIManager.I.Show<PanelGameWin>();
     }
 
     void Start()
