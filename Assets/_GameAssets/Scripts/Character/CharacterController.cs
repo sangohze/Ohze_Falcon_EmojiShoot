@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     public Animator animator;
-    public EmojiController emojiController;
+    
     public CharacterMove characterMove;
     public bool isEnemyTarget;
 
@@ -17,25 +17,12 @@ public class CharacterController : MonoBehaviour
     }
 
     [SerializeField] private List<EmojiAnimation> emojiAnimations;
-    private RuntimeAnimatorController defaultAnimatorController;
+ 
     private Dictionary<EmojiType, RuntimeAnimatorController> emojiToControllerMap;
 
     void Start()
     {
-        if (animator == null)
-        {
-            animator = GetComponent<Animator>();
-        }
-        if (emojiController == null)
-        {
-            emojiController = GetComponent<EmojiController>();
-        }
-        if (characterMove == null)
-        {
-            characterMove = GetComponent<CharacterMove>();
-        }
 
-        defaultAnimatorController = animator.runtimeAnimatorController;
         emojiToControllerMap = new Dictionary<EmojiType, RuntimeAnimatorController>();
         foreach (var emojiAnimation in emojiAnimations)
         {
@@ -47,19 +34,25 @@ public class CharacterController : MonoBehaviour
     {
         if (other.transform.tag == "EmojiProjectile")
         {
-            characterMove.isCharacterMove = false;
-            if (emojiController != null)
+            characterMove.isCharacterMove = false; // Dừng di chuyển
+
+            if (EmojiController.I != null)
             {
-                if (emojiToControllerMap.TryGetValue(emojiController.currentEmoji, out var controller))
+                if (emojiToControllerMap.TryGetValue(EmojiController.I.currentEmoji, out var controller))
                 {
                     if (controller != null)
                     {
-                        Debug.Log("Target anim");
                         characterMove.isCharacterMove = false;
-                        animator.runtimeAnimatorController = controller;
+
+                        // Lấy tên animation trực tiếp từ EmojiType bằng ToString()
+                        string animState = EmojiController.I.currentEmoji.ToString();
+                        animator.CrossFade(animState, 0, 0);
+                        Debug.Log("Target anim: " + animState);
+
                         StartCoroutine(ResetCharacterState());
                     }
                 }
+
                 if (isEnemyTarget)
                 {
                     GamePlayController.I.OnEnemyHit(this);
@@ -68,11 +61,12 @@ public class CharacterController : MonoBehaviour
         }
     }
 
+
     private IEnumerator ResetCharacterState()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         // Reset character movement and animation
-        animator.runtimeAnimatorController = defaultAnimatorController;
+
         characterMove.RestartMovement(); // Gọi phương thức mới để khởi động lại việc di chuyển
     }
 

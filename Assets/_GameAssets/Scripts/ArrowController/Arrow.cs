@@ -13,6 +13,7 @@ public class Arrow : MonoBehaviour
         if (EmojiController.I != null)
         {
             EmojiController.I.OnEmojiChanged += UpdateArrowMaterial;
+            UpdateArrowMaterial(EmojiController.I.currentEmoji);
         }
     }
 
@@ -21,7 +22,6 @@ public class Arrow : MonoBehaviour
         transform.parent = ropeTransform;
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
-
         rb.isKinematic = true;
         trailRenderer.enabled = false;
     }

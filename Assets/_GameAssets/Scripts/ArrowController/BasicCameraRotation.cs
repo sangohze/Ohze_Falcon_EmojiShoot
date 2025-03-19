@@ -4,14 +4,26 @@ using UnityEngine;
 
 public class BasicCameraRotation : MonoBehaviour
 {
+    private float verticalRotation = 0f; // Lưu trữ góc xoay dọc hiện tại
+    private const float MIN_VERTICAL_ANGLE = -90f; // góc trên
+    private const float MAX_VERTICAL_ANGLE = 30f;  // góc dưới
+
     public void RotateUpDown(float axis)
     {
-        transform.RotateAround(transform.position, transform.right, -axis * Time.deltaTime);
+        // Cập nhật góc quay dọc
+        verticalRotation += axis * Time.deltaTime;
+
+        // Giới hạn góc quay trong khoảng cho phép
+        verticalRotation = Mathf.Clamp(verticalRotation, MIN_VERTICAL_ANGLE, MAX_VERTICAL_ANGLE);
+
+        // Áp dụng góc quay mới
+        transform.localEulerAngles = new Vector3(verticalRotation, transform.localEulerAngles.y, transform.localEulerAngles.z);
     }
 
-    //rotate the camera rigt and left (y rotation)
+    //rotate the camera right and left (y rotation)
     public void RotateRightLeft(float axis)
     {
         transform.RotateAround(transform.position, Vector3.up, -axis * Time.deltaTime);
     }
 }
+

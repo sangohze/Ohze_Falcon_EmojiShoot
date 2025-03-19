@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class Characteranimationkey : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static string Walking = "isWalking";
+    public static string Idel = "Idel";
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
