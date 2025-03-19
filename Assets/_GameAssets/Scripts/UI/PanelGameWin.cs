@@ -14,10 +14,16 @@ public class PanelGameWin : PanelBase
     public void ButtonRePlayOnClick()
     {
         GamePlayManager.I.GoToGamePlayFW();
-        DeActiveMe(null);
+      
+    }
+
+    public void ButtonNextLevelOnClick()
+    {
+        GamePlayManager.I.GoToGamePlayFW();
+        
     }
     private void OnDisable()
     {
-      
+     
     }
 }

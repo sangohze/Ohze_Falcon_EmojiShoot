@@ -15,8 +15,9 @@ public class CharacterMove : MonoBehaviour
 
     private NavMeshAgent navMeshAgent;
     private Vector3 startPosition;
-    public bool isCharacterMove;
+    private bool isCharacterMove;
     private Camera mainCamera;
+    private Coroutine moveCoroutine;
 
     void Start()
     {
@@ -25,7 +26,7 @@ public class CharacterMove : MonoBehaviour
         navMeshAgent.speed = moveSpeed;
         startPosition = transform.position;
         mainCamera = Camera.main;
-        StartCoroutine(MoveRandomly());
+        moveCoroutine = StartCoroutine(MoveRandomly());
     }
 
     public void RestartMovement()
@@ -65,11 +66,19 @@ public class CharacterMove : MonoBehaviour
                 }
             }
 
-            animator.CrossFade(Characteranimationkey.Idel, 0, 0);
+            animator.CrossFade(Characteranimationkey.Idel, 1f, 0);
             yield return new WaitForSeconds(waitTime);
         }
     }
 
+    public void StopMoving()
+    {
+        isCharacterMove = false;
+        
+        StopCoroutine(moveCoroutine);
+
+        navMeshAgent.ResetPath();
+    }
 
     Vector3 GetValidRandomPosition()
     {

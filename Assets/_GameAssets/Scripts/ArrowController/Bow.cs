@@ -35,7 +35,7 @@ public class Bow : MonoBehaviour
         SpawnArrow();
     }
 
- 
+
 
     void Update()
     {
@@ -52,34 +52,38 @@ public class Bow : MonoBehaviour
         if (IsPointerOverUIElement())
             return;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.touchCount > 0)
         {
-            _pressed = true;
-            if (CurrentArrow != null)
+            Touch touch = Input.GetTouch(0);
+            switch (touch.phase)
             {
-                CurrentArrow.SetToRope(RopeTransform, transform);
-                BowAudio.pitch = Random.Range(0.8f, 1.2f);
-                BowAudio.Play();
-            }
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            _pressed = false;
+                case TouchPhase.Began:
+                    _pressed = true;
+                    if (CurrentArrow != null)
+                    {
+                        CurrentArrow.SetToRope(RopeTransform, transform);
+                        BowAudio.pitch = Random.Range(0.8f, 1.2f);
+                        BowAudio.Play();
+                    }
+                    break;
 
-            if (CurrentArrow != null)
-            {
-                StartCoroutine(RopeReturn());
-                CurrentArrow.Shot(ArrowSpeed * Tension);
-                Tension = 0;
+                case TouchPhase.Ended:
+                    _pressed = false;
+                    if (CurrentArrow != null)
+                    {
+                        StartCoroutine(RopeReturn());
+                        CurrentArrow.Shot(ArrowSpeed * Tension);
+                        Tension = 0;
 
-                BowAudio.Stop();
+                        BowAudio.Stop();
+                        ArrowAudio.pitch = Random.Range(0.8f, 1.2f);
+                        ArrowAudio.Play();
+                        CurrentArrow = null;
 
-                ArrowAudio.pitch = Random.Range(0.8f, 1.2f);
-                ArrowAudio.Play();
-                CurrentArrow = null;
-
-                // Spawn a new arrow after the current arrow is destroyed
-                StartCoroutine(SpawnArrowAfterDelay(timeshot)); // Adjust delay as needed
+                        // Spawn a new arrow after delay
+                        StartCoroutine(SpawnArrowAfterDelay(timeshot));
+                    }
+                    break;
             }
         }
 
@@ -92,6 +96,7 @@ public class Bow : MonoBehaviour
             RopeTransform.localPosition = Vector3.Lerp(RopeNearLocalPosition, RopeFarLocalPosition, Tension);
         }
     }
+
 
     private bool IsPointerOverUIElement()
     {

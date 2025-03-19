@@ -7,6 +7,7 @@ public class GamePlayController : Singleton<GamePlayController>
     [SerializeField] private List<CharacterController> enemyTargets = new List<CharacterController>();
     private int hitCount = 0;
     private bool isWaitingForSecondHit = false;
+    public EmojiType EmojiTypeTarget;
 
     private void OnEnable()
     {
@@ -35,6 +36,7 @@ public class GamePlayController : Singleton<GamePlayController>
     private void OnGameWin()
     {
         Debug.Log("You win the game!");
+        UIManager.I.Hide<PanelGamePlay>();
         UIManager.I.Show<PanelGameWin>();
     }
 
@@ -54,8 +56,7 @@ public class GamePlayController : Singleton<GamePlayController>
             hitCount++;
             if (enemyTargets.Count == 1)
             {
-                Debug.Log("enemysa" + enemyTargets.Count);
-                OnGameWin();
+                StartCoroutine(WaiGameWin());
                 return;
             }
             if (hitCount == 1)
@@ -65,9 +66,15 @@ public class GamePlayController : Singleton<GamePlayController>
             else if (hitCount == 2)
             {
 
-                StartCoroutine(MoveEnemiesTogetherAndWin());
+                StartCoroutine(WaiGameWin());
             }
         }
+    }
+    private IEnumerator WaiGameWin()
+    {
+      
+        yield return new WaitForSeconds(3f);
+        OnGameWin();
     }
 
     private IEnumerator WaitForSecondHit()
@@ -82,40 +89,7 @@ public class GamePlayController : Singleton<GamePlayController>
             Debug.Log("Failed to hit the second enemy within the time limit.");
         }
     }
-    private IEnumerator MoveEnemiesTogetherAndWin()
-    {
-        if (enemyTargets.Count < 2)
-        {
-            yield break;
-        }
-
-        CharacterController enemy1 = enemyTargets[0];
-        CharacterController enemy2 = enemyTargets[1];
-
-        Vector3 midpoint = (enemy1.transform.position + enemy2.transform.position) / 2;
-        Vector3 direction1 = (midpoint - enemy1.transform.position).normalized;
-        Vector3 direction2 = (midpoint - enemy2.transform.position).normalized;
-
-        float moveSpeed = 2f;
-        float distanceThreshold = 1f;
-
-        while (Vector3.Distance(enemy1.transform.position, midpoint) > distanceThreshold &&
-               Vector3.Distance(enemy2.transform.position, midpoint) > distanceThreshold)
-        {
-            enemy1.transform.position = Vector3.MoveTowards(enemy1.transform.position, midpoint, moveSpeed * Time.deltaTime);
-            enemy2.transform.position = Vector3.MoveTowards(enemy2.transform.position, midpoint, moveSpeed * Time.deltaTime);
-            yield return null;
-        }
-
-        // Make enemies face each other
-        enemy1.transform.LookAt(enemy2.transform);
-        enemy2.transform.LookAt(enemy1.transform);
-
-        // Wait for a moment before winning the game
-        yield return new WaitForSeconds(3f);
-
-        OnGameWin();
-    }
+   
 }
 
 

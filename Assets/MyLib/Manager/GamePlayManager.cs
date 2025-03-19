@@ -17,9 +17,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
     //sai
     //
     [SerializeField] private GameSceneSO _gamePlayDIY;
-    [SerializeField] private GameSceneSO _gamePlayFW;
-    [SerializeField] private GameSceneSO _gamePlayBomb;
-    [SerializeField] private GameSceneSO _gamePlayFWMain;
+   
 
     [SerializeField] private LoadEventChannelSO _loadGamePlayEvent;
 
@@ -147,9 +145,8 @@ public class GamePlayManager : Singleton<GamePlayManager>
     {
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
-        _onGoToTestFW.RaiseEvent();
-        _loadGamePlayEvent.RaiseEvent(_gamePlayFW, false);
-        //AnalyticsManager.Instance.LogEvent("Click_Step_Fire_Firework");
+         _loadGamePlayEvent.RaiseEvent(_gamePlayDIY, false);
+       
     }
     //bomb
     [Button]
@@ -158,7 +155,6 @@ public class GamePlayManager : Singleton<GamePlayManager>
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
         _onGoToTestFW.RaiseEvent();
-        _loadGamePlayEvent.RaiseEvent(_gamePlayBomb, false);
         
     }
     //Main
@@ -168,7 +164,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
         _onGoToTestFW.RaiseEvent();
-        _loadGamePlayEvent.RaiseEvent(_gamePlayFWMain, false);
+
 
     }
 }
