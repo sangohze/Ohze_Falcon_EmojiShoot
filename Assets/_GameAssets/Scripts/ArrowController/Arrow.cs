@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Lean.Pool;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    public Rigidbody rb;
-    public TrailRenderer trailRenderer;
+    [SerializeField] Rigidbody rb;
+    [SerializeField] TrailRenderer trailRenderer;
     [SerializeField] MeshRenderer headArrow;
 
     private void OnEnable()
@@ -33,7 +34,7 @@ public class Arrow : MonoBehaviour
         rb.velocity = transform.forward * velocity;
         trailRenderer.Clear();
         trailRenderer.enabled = true;
-        Destroy(gameObject, 5f);
+        LeanPool.Despawn(gameObject,3f);
     }
 
     public void UpdateHeadMaterial(Material newMaterial)
@@ -50,7 +51,7 @@ public class Arrow : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
             rb.isKinematic = true;
-            Destroy(gameObject, 0.2f);
+            LeanPool.Despawn(gameObject, 0.2f);
         }
     }
 

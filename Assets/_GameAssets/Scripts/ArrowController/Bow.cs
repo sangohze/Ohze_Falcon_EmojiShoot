@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Lean.Pool;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,17 +9,17 @@ public class Bow : MonoBehaviour
 {
     public float Tension;
     private bool _pressed;
-    public Transform RopeTransform;
-    public Vector3 RopeNearLocalPosition;
-    public Vector3 RopeFarLocalPosition;
-    public AnimationCurve RopeReturnAnimation;
-    public float ReturnTime;
-    public Arrow CurrentArrow = null;
-    public float ArrowSpeed;
-    public AudioSource ArrowAudio;
-    public AudioSource BowAudio;
-    private int ArrowIndex = 0;
-    public GameObject ar;
+    [SerializeField] Transform RopeTransform;
+    [SerializeField] Vector3 RopeNearLocalPosition;
+    [SerializeField] Vector3 RopeFarLocalPosition;
+    [SerializeField] AnimationCurve RopeReturnAnimation;
+    [SerializeField] float ReturnTime;
+    [SerializeField] Arrow CurrentArrow = null;
+    [SerializeField] float ArrowSpeed;
+    [SerializeField] AudioSource ArrowAudio;
+    [SerializeField] AudioSource BowAudio;
+
+    [SerializeField] GameObject ar;
 
     [SerializeField] GraphicRaycaster graphicRaycaster;
     private PointerEventData pointerEventData;
@@ -81,7 +82,7 @@ public class Bow : MonoBehaviour
 
                 case TouchPhase.Ended:
                     _pressed = false;
-                    if (CurrentArrow != null && isShotting && Tension > 0.2f)
+                    if (CurrentArrow != null && isShotting )
                     {
                         isShotting = false;
                         StartCoroutine(RopeReturn());
@@ -105,12 +106,11 @@ public class Bow : MonoBehaviour
                 Tension += Time.deltaTime;
             }
             RopeTransform.localPosition = Vector3.Lerp(RopeNearLocalPosition, RopeFarLocalPosition, Tension);
-            // Zoom camera ra xa khi kéo cung
+            //BowAudio.Play();
             mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, zoomOutFOV, Time.deltaTime * zoomSpeed);
         }
         else
         {
-            // Trả camera về trạng thái bình thường khi không kéo cung
             mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, normalFOV, Time.deltaTime * zoomSpeed);
         }
     }
@@ -141,10 +141,16 @@ public class Bow : MonoBehaviour
 
     private void SpawnArrow()
     {
-        CurrentArrow = Instantiate(ar).GetComponent<Arrow>();
+        //CurrentArrow = Instantiate(ar).GetComponent<Arrow>();
+        CurrentArrow = LeanPool.Spawn(ar).GetComponent<Arrow>();
         CurrentArrow.SetToRope(RopeTransform, transform);
         isShotting = true;
         Tension = 0;
+        if (_pressed)
+        {
+            BowAudio.pitch = Random.Range(0.8f, 1.2f);
+            BowAudio.Play();
+        }
     }
 
     private IEnumerator SpawnArrowAfterDelay(float delay)

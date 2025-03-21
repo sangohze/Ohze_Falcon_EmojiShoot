@@ -1,39 +1,58 @@
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public List<LevelData> levels;
-    private CharacterController enemyTarget;
+    public LevelData[] levels; 
+    private int currentLevelIndex = 0; 
+
+    private GameObject currentMap;
+    private GameObject currentWeapon;
 
     void Start()
     {
-        // Initialize the level (for example, level 0)
-        InitializeLevel(0);
+        LoadLevel(currentLevelIndex);
     }
 
-    public void InitializeLevel(int levelIndex)
+    public void LoadLevel(int index)
     {
-        if (levelIndex < 0 || levelIndex >= levels.Count)
+        if (index < 0 || index >= levels.Length) return;
+        // Xóa level cũ nếu có
+        if (currentMap) Destroy(currentMap);
+        if (currentWeapon) Destroy(currentWeapon);
+
+        // Lấy dữ liệu level mới
+        LevelData level = levels[index];
+
+        // Spawn map
+        currentMap = Instantiate(level.map, Vector3.zero, Quaternion.identity);
+
+        // Spawn enemy
+        foreach (CharacterController charactersPrefab in level.characters)
         {
-            Debug.LogError("Invalid level index");
-            return;
+            Instantiate(charactersPrefab, GetRandomSpawnPosition(), Quaternion.identity);
         }
 
-        LevelData levelData = levels[levelIndex];
+        // Đặt vũ khí vào camera
+        // Set vị trí camera
+        Camera.main.transform.position = level.cameraPosition;
+        Camera.main.transform.rotation = level.cameraRotation;
+    }
 
-        // Instantiate characters for the level
-        foreach (CharacterController character in levelData.characters)
+    public void NextLevel()
+    {
+        currentLevelIndex++;
+        if (currentLevelIndex < levels.Length)
         {
-            Instantiate(character, character.transform.position, character.transform.rotation);
+            LoadLevel(currentLevelIndex);
         }
+        else
+        {
+            Debug.Log("Game Over - No more levels");
+        }
+    }
 
-        // Select a random character as the enemy target
-        if (levelData.characters.Count > 0)
-        {
-            int randomIndex = Random.Range(0, levelData.characters.Count);
-            enemyTarget = levelData.characters[randomIndex];
-            enemyTarget.SetAsEnemyTarget();
-        }
+    private Vector3 GetRandomSpawnPosition()
+    {
+        return new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5)); // Random vị trí enemy
     }
 }

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80eb8161b1c30c94dbaff5b54a66a7f6, type: 3}
+  m_Name: Level2
+  m_EditorClassIdentifier: 
+  level: 2
+  characters:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  charactersTarget: {fileID: 0}
+  map: {fileID: 5422693854562149174, guid: 11f19a64515ac3340be9794f238fa71d, type: 3}
+  playerWeapon: {fileID: 0}
+  cameraPosition: {x: 0, y: 0, z: 0}
+  EmojiTypeTarget: 4
