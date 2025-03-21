@@ -39,7 +39,7 @@ public class TouchCameraRotation : BasicCameraRotation
                 Vector3 secondPoint = Input.GetTouch(0).position;
 
                 float x = FilterGyroValues(secondPoint.x - firstPoint.x);
-                RotateRightLeft(x * sensitivity);
+                RotateRightLeft(-x * sensitivity);
 
                 float y = FilterGyroValues(secondPoint.y - firstPoint.y);
                 RotateUpDown(y * -sensitivity);
@@ -64,23 +64,23 @@ public class TouchCameraRotation : BasicCameraRotation
       void HandleTouch() {
         switch(Input.touchCount) {
     
-        case 2: // Zooming
-            Vector2[] newPositions = new Vector2[]{Input.GetTouch(0).position, Input.GetTouch(1).position};
-            if (!wasZoomingLastFrame) {
-                lastZoomPositions = newPositions;
-                wasZoomingLastFrame = true;
-            } else {
-                // Zoom based on the distance between the new positions compared to the 
-                // distance between the previous positions.
-                float newDistance = Vector2.Distance(newPositions[0], newPositions[1]);
-                float oldDistance = Vector2.Distance(lastZoomPositions[0], lastZoomPositions[1]);
-                float offset = newDistance - oldDistance;
+        //case 2: // Zooming
+        //    Vector2[] newPositions = new Vector2[]{Input.GetTouch(0).position, Input.GetTouch(1).position};
+        //    if (!wasZoomingLastFrame) {
+        //        lastZoomPositions = newPositions;
+        //        wasZoomingLastFrame = true;
+        //    } else {
+        //        // Zoom based on the distance between the new positions compared to the 
+        //        // distance between the previous positions.
+        //        float newDistance = Vector2.Distance(newPositions[0], newPositions[1]);
+        //        float oldDistance = Vector2.Distance(lastZoomPositions[0], lastZoomPositions[1]);
+        //        float offset = newDistance - oldDistance;
     
-                ZoomCamera(offset, ZoomSpeedTouch);
+        //        ZoomCamera(offset, ZoomSpeedTouch);
     
-                lastZoomPositions = newPositions;
-            }
-            break;
+        //        lastZoomPositions = newPositions;
+        //    }
+        //    break;
             
         default: 
             wasZoomingLastFrame = false;

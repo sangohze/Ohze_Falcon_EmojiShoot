@@ -6,18 +6,18 @@ using static RootMotion.Demos.CharacterThirdPerson;
 
 public class CharacterMove : MonoBehaviour
 {
-    public float moveRadius = 10f;
-    public float moveInterval = 3f;
-    public float waitTime = 3f;
-    public float avoidDistance = 2f;
-    public float moveSpeed = 3.5f;
+    [SerializeField] float moveRadius = 10f;
+    [SerializeField] float moveInterval = 3f;
+    [SerializeField] float waitTime = 3f;
+    [SerializeField] float avoidDistance = 2f;
     public Animator animator;
-
-    private NavMeshAgent navMeshAgent;
     private Vector3 startPosition;
     private bool isCharacterMove;
     private Camera mainCamera;
     private Coroutine moveCoroutine;
+
+    [SerializeField] float moveSpeed = 2f;
+    private NavMeshAgent navMeshAgent;
 
     void Start()
     {
@@ -32,18 +32,35 @@ public class CharacterMove : MonoBehaviour
     public void RestartMovement()
     {
         isCharacterMove = true;
-        animator.CrossFade(Characteranimationkey.Walking, 0, 0);
-        StartCoroutine(MoveRandomly());
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+        }
+        moveCoroutine = StartCoroutine(MoveRandomly());
+    }
+
+    public void StopMoving()
+    {
+        isCharacterMove = false;
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+        }
+        navMeshAgent.isStopped = true; // Dừng NavMeshAgent
+        navMeshAgent.velocity = Vector3.zero;
+        navMeshAgent.ResetPath();
+        animator.CrossFade(Characteranimationkey.Idel, 0, 0);
     }
 
     IEnumerator MoveRandomly()
     {
         while (isCharacterMove)
         {
-            animator.CrossFade(Characteranimationkey.Walking, 0, 0);
+            animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
             Vector3 randomPosition = GetValidRandomPosition();
             if (randomPosition != Vector3.zero)
             {
+                navMeshAgent.isStopped = false; // Cho phép NavMeshAgent di chuyển
                 navMeshAgent.SetDestination(randomPosition);
 
                 while (navMeshAgent.pathPending || navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
@@ -71,18 +88,8 @@ public class CharacterMove : MonoBehaviour
         }
     }
 
-    public void StopMoving()
-    {
-        isCharacterMove = false;
-        
-        StopCoroutine(moveCoroutine);
-
-        navMeshAgent.ResetPath();
-    }
-
     Vector3 GetValidRandomPosition()
     {
-
         for (int i = 0; i < 10; i++)
         {
             Vector3 randomDirection = Random.insideUnitSphere * moveRadius;
@@ -124,3 +131,5 @@ public class CharacterMove : MonoBehaviour
         return false;
     }
 }
+
+

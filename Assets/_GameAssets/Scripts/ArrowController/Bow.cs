@@ -20,22 +20,25 @@ public class Bow : MonoBehaviour
     private int ArrowIndex = 0;
     public GameObject ar;
 
-    private GraphicRaycaster graphicRaycaster;
+    [SerializeField] GraphicRaycaster graphicRaycaster;
     private PointerEventData pointerEventData;
-    private EventSystem eventSystem;
+    [SerializeField] EventSystem eventSystem;
     [SerializeField] private float timeshot = 1f;
 
-    
+    private Camera mainCamera;
+    public float zoomOutFOV = 70f; 
+    public float normalFOV = 60f; 
+    public float zoomSpeed = 5f;
+    [SerializeField] private float FixedArrowSpeed = 20f;
+    [SerializeField] private float ShootingAngle = 30f;
+    private bool isShotting = true;
 
     void Start()
     {
         RopeNearLocalPosition = RopeTransform.localPosition;
-        graphicRaycaster = FindObjectOfType<GraphicRaycaster>();
-        eventSystem = FindObjectOfType<EventSystem>();
+        mainCamera = Camera.main; // Lấy camera chính
         SpawnArrow();
     }
-
-
 
     void Update()
     {
@@ -52,14 +55,23 @@ public class Bow : MonoBehaviour
         if (IsPointerOverUIElement())
             return;
 
+        HandleTouchInput();
+    }
+
+    private void HandleTouchInput()
+    {
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            switch (touch.phase)
+
+            if (IsPointerOverUIElement(touch.position))
+                return;
+
+            switch (touch.phase )
             {
                 case TouchPhase.Began:
                     _pressed = true;
-                    if (CurrentArrow != null)
+                    if (CurrentArrow != null && isShotting)
                     {
                         CurrentArrow.SetToRope(RopeTransform, transform);
                         BowAudio.pitch = Random.Range(0.8f, 1.2f);
@@ -69,34 +81,39 @@ public class Bow : MonoBehaviour
 
                 case TouchPhase.Ended:
                     _pressed = false;
-                    if (CurrentArrow != null)
+                    if (CurrentArrow != null && isShotting && Tension > 0.2f)
                     {
+                        isShotting = false;
                         StartCoroutine(RopeReturn());
-                        CurrentArrow.Shot(ArrowSpeed * Tension);
-                        Tension = 0;
-
+                        //CurrentArrow.Shot(ArrowSpeed * Tension);
+                        //Tension = 0;
+                        CurrentArrow.Shot(FixedArrowSpeed);
                         BowAudio.Stop();
                         ArrowAudio.pitch = Random.Range(0.8f, 1.2f);
                         ArrowAudio.Play();
                         CurrentArrow = null;
-
-                        // Spawn a new arrow after delay
                         StartCoroutine(SpawnArrowAfterDelay(timeshot));
                     }
                     break;
             }
         }
 
-        if (_pressed)
+        if (_pressed && isShotting)
         {
             if (Tension < 1f)
             {
                 Tension += Time.deltaTime;
             }
             RopeTransform.localPosition = Vector3.Lerp(RopeNearLocalPosition, RopeFarLocalPosition, Tension);
+            // Zoom camera ra xa khi kéo cung
+            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, zoomOutFOV, Time.deltaTime * zoomSpeed);
+        }
+        else
+        {
+            // Trả camera về trạng thái bình thường khi không kéo cung
+            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, normalFOV, Time.deltaTime * zoomSpeed);
         }
     }
-
 
     private bool IsPointerOverUIElement()
     {
@@ -110,13 +127,24 @@ public class Bow : MonoBehaviour
         return results.Count > 0;
     }
 
+    private bool IsPointerOverUIElement(Vector2 touchPosition)
+    {
+        pointerEventData = new PointerEventData(eventSystem)
+        {
+            position = touchPosition
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        graphicRaycaster.Raycast(pointerEventData, results);
+        return results.Count > 0;
+    }
+
     private void SpawnArrow()
     {
         CurrentArrow = Instantiate(ar).GetComponent<Arrow>();
         CurrentArrow.SetToRope(RopeTransform, transform);
-
-        // Change the material of the arrow based on the current emoji
-     
+        isShotting = true;
+        Tension = 0;
     }
 
     private IEnumerator SpawnArrowAfterDelay(float delay)
@@ -124,8 +152,6 @@ public class Bow : MonoBehaviour
         yield return new WaitForSeconds(delay);
         SpawnArrow();
     }
-
-   
 
     IEnumerator RopeReturn()
     {
@@ -138,5 +164,8 @@ public class Bow : MonoBehaviour
         RopeTransform.localPosition = RopeNearLocalPosition;
     }
 }
+
+
+
 
 

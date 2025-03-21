@@ -8,15 +8,23 @@ public class CharacterController : MonoBehaviour
 
     public CharacterMove characterMove;
     public bool isEnemyTarget;
+    [SerializeField] private List<ParticleSystem> emojiEffects = new List<ParticleSystem>();
 
-
+    private Dictionary<EmojiType, ParticleSystem> emojiToEffectMap;
 
 
 
 
     void Start()
     {
-
+        emojiToEffectMap = new Dictionary<EmojiType, ParticleSystem>();
+        for (int i = 0; i < emojiEffects.Count; i++)
+        {
+            if (i < System.Enum.GetValues(typeof(EmojiType)).Length)
+            {
+                emojiToEffectMap[(EmojiType)i] = emojiEffects[i];
+            }
+        }
 
 
     }
@@ -25,6 +33,7 @@ public class CharacterController : MonoBehaviour
     {
         if (other.transform.tag == "EmojiProjectile")
         {
+            Debug.Log("Target anim: ");
             characterMove.StopMoving();
 
             if (EmojiController.I == null) return;
@@ -32,7 +41,23 @@ public class CharacterController : MonoBehaviour
             
             string animState = EmojiController.I.currentEmoji.ToString();
             animator.CrossFade(animState, 0, 0);
-            Debug.Log("Target anim: " + animState);
+            if (EmojiController.I.currentEmoji == EmojiType.Love )
+            {
+                if (emojiEffects.Count > 0)
+                {
+                    emojiEffects[0].Play();
+                    emojiEffects[1].Play();
+                }
+            }
+            else
+            {
+                int index = (int)EmojiController.I.currentEmoji;
+                if (index >= 1 && index < emojiEffects.Count)
+                {
+                    emojiEffects[index+1].Play();
+                }
+            }
+           
 
             StartCoroutine(ResetCharacterState());
 
