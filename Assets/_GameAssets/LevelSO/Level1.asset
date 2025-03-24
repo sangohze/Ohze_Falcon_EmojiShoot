@@ -14,16 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   characters:
-  - {fileID: 3234202099635492431, guid: bba34666fdf34c347a54d90ce8d0ded0, type: 3}
-  - {fileID: 3787413763558385064, guid: ee4e364bfd6ac194bad4c5bb3cc86d17, type: 3}
-  - {fileID: 5358644597195900079, guid: 54e53366c3363584884db0dbd417ac65, type: 3}
-  - {fileID: 6297382148357208258, guid: ccd0e375723aa224fb47327857aa7174, type: 3}
-  - {fileID: 4391909374876427040, guid: 467911b4c5f71834cbfd893e76d422db, type: 3}
+  - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
+  - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
+  - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
+  - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
+  - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
+  - {fileID: 1687073297, guid: 4e08f0009cd891145bc70e47c987f2e2, type: 3}
   charactersTarget:
-  - {fileID: 3234202099635492431, guid: bba34666fdf34c347a54d90ce8d0ded0, type: 3}
-  - {fileID: 3787413763558385064, guid: ee4e364bfd6ac194bad4c5bb3cc86d17, type: 3}
+  - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
   map: {fileID: 5422693854562149174, guid: 9cf4f833001943745bb3cb85ac115ed6, type: 3}
-  playerWeapon: {fileID: 0}
+  playerWeapon: {fileID: 2853730959728609451, guid: ced1e285caf614640880a624c8d29e6b, type: 3}
   EmojiTypeTarget: 4
   cameraPosition: {x: 10, y: 1.5, z: 0}
-  cameraRotation: {x: 0, y: 0, z: 0, w: 0}
+  cameraRotation: {x: 0.0185099, y: 0.7068645, z: 0.0185099, w: -0.7068645}
+  PreviewCharaterTarget: {fileID: 21300000, guid: 27fd0288f1c03a54984b20c0c321d185, type: 3}
+  PreviewEmojiTarget: {fileID: 21300000, guid: bd77912bc82d6584ab964d496602ab46, type: 3}

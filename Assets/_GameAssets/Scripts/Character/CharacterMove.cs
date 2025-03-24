@@ -21,6 +21,7 @@ public class CharacterMove : MonoBehaviour
 
     void Start()
     {
+        animator.applyRootMotion = false;
         isCharacterMove = true;
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.speed = moveSpeed;
@@ -49,6 +50,7 @@ public class CharacterMove : MonoBehaviour
         navMeshAgent.isStopped = true; // Dừng NavMeshAgent
         navMeshAgent.velocity = Vector3.zero;
         navMeshAgent.ResetPath();
+        StopAllCoroutines();
         animator.CrossFade(Characteranimationkey.Idel, 0, 0);
     }
 
@@ -56,11 +58,11 @@ public class CharacterMove : MonoBehaviour
     {
         while (isCharacterMove)
         {
-            animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
+            animator.CrossFade(Characteranimationkey.Walking, 1f, 0);
             Vector3 randomPosition = GetValidRandomPosition();
             if (randomPosition != Vector3.zero)
             {
-                navMeshAgent.isStopped = false; // Cho phép NavMeshAgent di chuyển
+                navMeshAgent.isStopped = false; 
                 navMeshAgent.SetDestination(randomPosition);
 
                 while (navMeshAgent.pathPending || navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
@@ -74,6 +76,7 @@ public class CharacterMove : MonoBehaviour
                     // Nếu bị chặn bởi obstacle, tìm đường khác
                     if (navMeshAgent.isPathStale || navMeshAgent.remainingDistance < 0.5f)
                     {
+                    Debug.Log($"sangdevisPathStale: {navMeshAgent.isPathStale}, Remaining Distance: {navMeshAgent.remainingDistance}");
                         Debug.Log("Va chạm với vật thể khác, tìm hướng khác...");
                         randomPosition = GetValidRandomPosition();
                         navMeshAgent.SetDestination(randomPosition);

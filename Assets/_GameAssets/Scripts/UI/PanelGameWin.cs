@@ -20,7 +20,7 @@ public class PanelGameWin : PanelBase
     public void ButtonNextLevelOnClick()
     {
         GamePlayManager.I.GoToGamePlayFW();
-        
+        LevelManager.I.NextLevel();
     }
     private void OnDisable()
     {

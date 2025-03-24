@@ -1,18 +1,22 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PanelGamePlay : PanelBase
 {
-    void OnEnable()
+    [SerializeField] Image PreviewAvatar;
+    [SerializeField] Image PreviewEmoji;
+
+    private void Start()
     {
-
-        //SoundManager.I.PlaySFX(TypeSound.SFX_PhaoGiay);
+        PreviewAvatar.sprite = LevelManager.I.levels[LevelManager.I.currentLevelIndex].PreviewCharaterTarget;
+        PreviewEmoji.sprite = LevelManager.I.levels[LevelManager.I.currentLevelIndex].PreviewEmojiTarget;
     }
-
-    
-    private void OnDisable()
+    public void ButtonNextLevelOnClick()
     {
-
+        GamePlayManager.I.GoToGamePlayFW();
+        LevelManager.I.NextLevel();
     }
+   
 }

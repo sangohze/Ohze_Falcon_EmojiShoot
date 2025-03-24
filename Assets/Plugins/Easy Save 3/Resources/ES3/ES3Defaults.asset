@@ -31,6 +31,7 @@ MonoBehaviour:
     assemblyNames:
     - MoreMountains.Feedbacks
     - RootMotion
+    - Assembly-CSharp
     - Assembly-CSharp-firstpass
     - CW.Common
     - MoreMountains.NiceVibrations.Haptics
@@ -38,7 +39,6 @@ MonoBehaviour:
     - MoreMountains.Feedbacks.URP
     - LeanCommonPlus
     - MoreMountains.Feedbacks.NiceVibrations
-    - Assembly-CSharp
     - MoreMountains.Feedbacks.PostProcessing
     - MoreMountains.Feedbacks.MMTools
     - MoreMountains.Feedbacks.TextMeshPro

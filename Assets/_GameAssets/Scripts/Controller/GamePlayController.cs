@@ -4,17 +4,34 @@ using UnityEngine;
 
 public class GamePlayController : Singleton<GamePlayController>
 {
-    [SerializeField] private List<CharacterController> enemyTargets = new List<CharacterController>();
+    [SerializeField] private List<CharacterController> enemyTargets ;
     private int hitCount = 0;
     private bool isWaitingForSecondHit = false;
     public EmojiType EmojiTypeTarget;
+  
 
     private void OnEnable()
     {
         // _onGameInit.OnEventRaised += OnGameInit;
         // _onGameActive.OnEventRaised += OnGameActive;
         // _onGameWin.OnEventRaised += OnGameWin;
+        
     }
+
+    private void Start()
+    {
+        SetUpLeveLGamePlay();
+    }
+    public void SetUpLeveLGamePlay()
+    {
+        enemyTargets = LevelManager.I.CurrentEnemyTargets;
+        EmojiTypeTarget = LevelManager.I.emojiTypeTarget;
+        foreach (var enemy in enemyTargets)
+        {
+            enemy.SetAsEnemyTarget();
+        }
+    }    
+
 
     private void OnDisable()
     {
@@ -40,19 +57,14 @@ public class GamePlayController : Singleton<GamePlayController>
         UIManager.I.Show<PanelGameWin>();
     }
 
-    void Start()
-    {
-        // Set all characters in enemyTargets as enemy targets
-        foreach (var enemy in enemyTargets)
-        {
-            enemy.SetAsEnemyTarget();
-        }
-    }
+ 
 
     public void OnEnemyHit(CharacterController enemy)
     {
+        Debug.Log("You win" + enemy.name);
         if (enemyTargets.Contains(enemy))
         {
+            Debug.Log("You win the game!0");
             hitCount++;
             if (enemyTargets.Count == 1)
             {
@@ -72,7 +84,7 @@ public class GamePlayController : Singleton<GamePlayController>
     }
     private IEnumerator WaiGameWin()
     {
-      
+        Debug.LogError("YouWIN");
         yield return new WaitForSeconds(3f);
         OnGameWin();
     }

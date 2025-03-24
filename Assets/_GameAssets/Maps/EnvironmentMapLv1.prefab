@@ -57,6 +57,10 @@ PrefabInstance:
       value: Tree (5)
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
@@ -157,6 +161,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_Apartment_Stack_02
       objectReference: {fileID: 0}
+    - target: {fileID: 198584, guid: f9c5e344bb1131f4f83e34b3f8cae927, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 421600, guid: f9c5e344bb1131f4f83e34b3f8cae927, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -239,6 +247,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
       propertyPath: m_Name
       value: Tree (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -340,6 +352,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
       propertyPath: m_Name
       value: Tree (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -509,22 +525,36 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 219522487147905610, guid: 5fd7ae6ba2990e847b1df2bc7a99c59a, type: 3}
   m_PrefabInstance: {fileID: 5422693853339081545}
   m_PrefabAsset: {fileID: 0}
---- !u!208 &5422693853394126547
-NavMeshObstacle:
+--- !u!114 &1791579384342111187
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5209153893045442819}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 2.5, y: 0.069000006, z: 2.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 2.5, y: 0.069000006, z: -2.5}
-  m_TimeToStationary: 0.5
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2.45
+  m_NavMeshData: {fileID: 23800000, guid: c917c6d19128ab340a2ad19d21fd0172, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!4 &5209153893045743355 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 219522487148213682, guid: 5fd7ae6ba2990e847b1df2bc7a99c59a, type: 3}
@@ -540,6 +570,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
       propertyPath: m_Name
       value: Tree (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -650,6 +684,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_Apartment_Stack_02 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 198584, guid: f9c5e344bb1131f4f83e34b3f8cae927, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 421600, guid: f9c5e344bb1131f4f83e34b3f8cae927, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -729,6 +767,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5422693854562149175}
     m_Modifications:
+    - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
@@ -831,6 +873,10 @@ PrefabInstance:
       value: Tree (4)
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
@@ -931,6 +977,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_Apartment_Stack_02 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 198584, guid: f9c5e344bb1131f4f83e34b3f8cae927, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 421600, guid: f9c5e344bb1131f4f83e34b3f8cae927, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1013,6 +1063,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
       propertyPath: m_Name
       value: Tree (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1124,6 +1178,10 @@ PrefabInstance:
       value: Tree (8)
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
@@ -1233,6 +1291,10 @@ PrefabInstance:
       value: Tree (2)
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d99082c2a05485e40b85926f9016c039, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
@@ -1332,6 +1394,10 @@ PrefabInstance:
     - target: {fileID: 198584, guid: f9c5e344bb1131f4f83e34b3f8cae927, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Apartment_Stack_02 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 198584, guid: f9c5e344bb1131f4f83e34b3f8cae927, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 421600, guid: f9c5e344bb1131f4f83e34b3f8cae927, type: 3}
       propertyPath: m_RootOrder

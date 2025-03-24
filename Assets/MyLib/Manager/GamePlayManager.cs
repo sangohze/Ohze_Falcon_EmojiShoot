@@ -146,7 +146,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
          _loadGamePlayEvent.RaiseEvent(_gamePlayDIY, false);
-       
+
     }
     //bomb
     [Button]

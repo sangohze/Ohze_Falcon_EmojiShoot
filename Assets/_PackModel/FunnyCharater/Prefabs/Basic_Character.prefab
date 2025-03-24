@@ -1600,21 +1600,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   characterMove: {fileID: 1723622894}
   isEnemyTarget: 0
-  emojiAnimations:
-  - emojiType: 0
-    animatorController: {fileID: 9100000, guid: 23678d0a3f8e12b4693ce6231f0686e9, type: 2}
-  - emojiType: 1
-    animatorController: {fileID: 9100000, guid: a354b8b3c02037a44a31607cbddc5402, type: 2}
-  - emojiType: 2
-    animatorController: {fileID: 9100000, guid: 2820c16d3e3a41f44b31ee5369833f5e, type: 2}
-  - emojiType: 3
-    animatorController: {fileID: 9100000, guid: 6e7068705c7545d428ebe653f67e30a5, type: 2}
-  - emojiType: 4
-    animatorController: {fileID: 9100000, guid: 729018a5c9056d749b5c30aa75575332, type: 2}
-  - emojiType: 5
-    animatorController: {fileID: 9100000, guid: c87d99b8ae231944791ea37a96b25ab6, type: 2}
-  - emojiType: 6
-    animatorController: {fileID: 9100000, guid: a35aa6881466f3e42985c4b494cc626d, type: 2}
+  emojiEffects: []
 --- !u!114 &1723622894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1631,9 +1617,8 @@ MonoBehaviour:
   moveInterval: 2
   waitTime: 3
   avoidDistance: 2
-  moveSpeed: 2
   animator: {fileID: 0}
-  isCharacterMove: 1
+  moveSpeed: 2
 --- !u!195 &1723622895
 NavMeshAgent:
   m_ObjectHideFlags: 0

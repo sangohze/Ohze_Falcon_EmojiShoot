@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "NewLevel", menuName = "Game/LevelData")]
 public class LevelData : ScriptableObject
@@ -12,4 +13,6 @@ public class LevelData : ScriptableObject
     public EmojiType EmojiTypeTarget;
     public Vector3 cameraPosition;
     public Quaternion cameraRotation;
+    public Sprite PreviewCharaterTarget;
+    public Sprite PreviewEmojiTarget;
 }
