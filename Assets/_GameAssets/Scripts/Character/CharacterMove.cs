@@ -47,18 +47,19 @@ public class CharacterMove : MonoBehaviour
         {
             StopCoroutine(moveCoroutine);
         }
-        navMeshAgent.isStopped = true; // Dừng NavMeshAgent
+        navMeshAgent.isStopped = true;
         navMeshAgent.velocity = Vector3.zero;
         navMeshAgent.ResetPath();
         StopAllCoroutines();
-        animator.CrossFade(Characteranimationkey.Idel, 0, 0);
+        animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
     }
 
     IEnumerator MoveRandomly()
     {
+        Debug.LogError("sangdevh");
         while (isCharacterMove)
         {
-            animator.CrossFade(Characteranimationkey.Walking, 1f, 0);
+            animator.CrossFade(Characteranimationkey.Walking, 0.1f, 0);
             Vector3 randomPosition = GetValidRandomPosition();
             if (randomPosition != Vector3.zero)
             {
@@ -69,24 +70,21 @@ public class CharacterMove : MonoBehaviour
                 {
                     if (!navMeshAgent.isOnNavMesh)
                     {
-                        Debug.LogError("NavMeshAgent is not on a valid NavMesh");
                         yield break;
                     }
 
                     // Nếu bị chặn bởi obstacle, tìm đường khác
-                    if (navMeshAgent.isPathStale || navMeshAgent.remainingDistance < 0.5f)
+                    if (navMeshAgent.isPathStale || navMeshAgent.remainingDistance < 0.2f)
                     {
-                    Debug.Log($"sangdevisPathStale: {navMeshAgent.isPathStale}, Remaining Distance: {navMeshAgent.remainingDistance}");
-                        Debug.Log("Va chạm với vật thể khác, tìm hướng khác...");
+                        animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
                         randomPosition = GetValidRandomPosition();
                         navMeshAgent.SetDestination(randomPosition);
                     }
-
                     yield return null;
                 }
             }
 
-            animator.CrossFade(Characteranimationkey.Idel, 1f, 0);
+            animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
             yield return new WaitForSeconds(waitTime);
         }
     }

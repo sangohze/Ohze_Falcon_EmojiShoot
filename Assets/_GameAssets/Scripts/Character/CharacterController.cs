@@ -67,7 +67,7 @@ public class CharacterController : MonoBehaviour
 
     private IEnumerator ResetCharacterState()
     {
-        yield return new WaitForSeconds(50f);
+        yield return new WaitForSeconds(5f);
         // Reset character movement and animation
 
         characterMove.RestartMovement(); // Gọi phương thức mới để khởi động lại việc di chuyển
