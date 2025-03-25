@@ -9,6 +9,7 @@ public class Arrow : MonoBehaviour
     [SerializeField] TrailRenderer trailRenderer;
     [SerializeField] MeshRenderer headArrow;
 
+
     private void OnEnable()
     {
         if (EmojiController.I != null)
@@ -16,6 +17,7 @@ public class Arrow : MonoBehaviour
             EmojiController.I.OnEmojiChanged += UpdateArrowMaterial;
             UpdateArrowMaterial(EmojiController.I.currentEmoji);
         }
+        headArrow.GetComponent<SphereCollider>().enabled = true;
     }
 
     public void SetToRope(Transform ropeTransform, Transform bow)
@@ -51,6 +53,7 @@ public class Arrow : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
             rb.isKinematic = true;
+            headArrow.GetComponent<SphereCollider>().enabled = false;
             LeanPool.Despawn(gameObject, 0.2f);
         }
     }

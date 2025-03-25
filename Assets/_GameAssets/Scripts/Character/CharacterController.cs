@@ -43,13 +43,13 @@ public class CharacterController : MonoBehaviour
         EmojiType currentEmoji = EmojiController.I.currentEmoji;
         string animStateSingle = currentEmoji.ToString();
         string animStateDouble = $"{currentEmoji}2";
-        Debug.LogError("currentEmoji" + currentEmoji + EmojiController.I.currentEmoji);
-        if (GamePlayController.I.firstHitEnemy == null)
+        if (GamePlayController.I.firstHitEnemy == null || GamePlayController.I.firstHitEnemy == this)
         {
             HandleFirstHit(animStateSingle, currentEmoji);
         }
         else
         {
+        Debug.LogError("currentEmoji" + currentEmoji + EmojiController.I.currentEmoji);
             HandleSecondHit(animStateDouble, currentEmoji);
         }
         if (isEnemyTarget && currentEmoji == GamePlayController.I.EmojiTypeTarget)
@@ -73,15 +73,11 @@ public class CharacterController : MonoBehaviour
     {
         if (GamePlayController.I.firstHitEnemy != this)
         {
-            // Lưu lại người thứ hai trước khi cập nhật
             var previousFirstHit = GamePlayController.I.firstHitEnemy;
-
-            // Cập nhật người thứ nhất và thứ hai
             GamePlayController.I.firstHitEnemy = this;
             GamePlayController.I.firstHitEmoji = currentEmoji;
             GamePlayController.I.secondHitEnemy = previousFirstHit;
 
-            // Kiểm tra nếu có người thứ hai (tránh lỗi null)
             if (GamePlayController.I.secondHitEnemy != null)
             {
                 GamePlayController.I.secondHitEnemy.characterMove.MoveTowardsEnemy(characterMove, () =>
@@ -97,13 +93,13 @@ public class CharacterController : MonoBehaviour
                     });
                 });
             }
-            else
-            {
-                transform.DORotateQuaternion(characterRotationDefault, 0.5f);
-                animator.CrossFade(animState, 0, 0);
-                PlayEmojiEffectSingle(currentEmoji);
-                StartCoroutine(ResetCharacterState());
-            }
+        }
+        else
+        {
+            transform.DORotateQuaternion(characterRotationDefault, 0.5f);
+            animator.CrossFade(animState, 0, 0);
+            PlayEmojiEffectSingle(currentEmoji);
+            StartCoroutine(ResetCharacterState());
         }
     }
 
@@ -161,9 +157,10 @@ public class CharacterController : MonoBehaviour
 
         foreach (var enemy in LevelManager.I.CurrentListEnemy)
         {
-            if (enemy == this || enemy == GamePlayController.I.firstHitEnemy) continue;
+            if (enemy == GamePlayController.I.secondHitEnemy || enemy == GamePlayController.I.firstHitEnemy) continue;
+                    print("sangdev :" + enemy);
 
-            print("sangdev :" + enemy);
+            
 
             string animationKey = emojitype == EmojiType.Pray ? Characteranimationkey.PrayRemaining :
                                   emojitype == EmojiType.Devil ? Characteranimationkey.DevilRemaining :

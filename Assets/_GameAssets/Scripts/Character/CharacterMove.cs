@@ -54,39 +54,41 @@ public class CharacterMove : MonoBehaviour
         animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
     }
 
-    IEnumerator MoveRandomly()
+   IEnumerator MoveRandomly()
+{
+    while (isCharacterMove)
     {
-        while (isCharacterMove)
-        {
-            animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
-            Vector3 randomPosition = GetValidRandomPosition();
+        Vector3 randomPosition = GetValidRandomPosition();
+            animator.CrossFade(Characteranimationkey.Walking, 0.1f, 0);
             if (randomPosition != Vector3.zero)
+        {
+            navMeshAgent.isStopped = false;
+            navMeshAgent.SetDestination(randomPosition);
+
+            bool hasStartedMoving = false;
+
+            while (navMeshAgent.pathPending || navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
             {
-                navMeshAgent.isStopped = false; 
-                navMeshAgent.SetDestination(randomPosition);
-
-                while (navMeshAgent.pathPending || navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
+                if (!navMeshAgent.isOnNavMesh)
                 {
-                    if (!navMeshAgent.isOnNavMesh)
-                    {
-                        yield break;
-                    }
-
-                    // Nếu bị chặn bởi obstacle, tìm đường khác
-                    if (navMeshAgent.isPathStale || navMeshAgent.remainingDistance < 0.2f)
-                    {
-                        animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
-                        randomPosition = GetValidRandomPosition();
-                        navMeshAgent.SetDestination(randomPosition);
-                    }
-                    yield return null;
+                    yield break;
                 }
+                if (!hasStartedMoving && navMeshAgent.velocity.magnitude > 0.1f)
+                {
+                    animator.CrossFade(Characteranimationkey.Walking, 0.1f, 0);
+                    hasStartedMoving = true;
+                }
+
+                yield return null;
             }
 
             animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
-            yield return new WaitForSeconds(waitTime);
         }
+
+        yield return new WaitForSeconds(waitTime);
     }
+}
+
 
     Vector3 GetValidRandomPosition()
     {
@@ -171,7 +173,6 @@ public class CharacterMove : MonoBehaviour
 
         navMeshAgent.isStopped = true;
         otherEnemy.navMeshAgent.isStopped = true;
-
         transform.LookAt(otherEnemy.transform);
         otherEnemy.transform.LookAt(transform);
         animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
