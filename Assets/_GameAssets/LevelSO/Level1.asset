@@ -18,13 +18,12 @@ MonoBehaviour:
   - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
   - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
   - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
-  - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
-  - {fileID: 1687073297, guid: 4e08f0009cd891145bc70e47c987f2e2, type: 3}
   charactersTarget:
   - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
+  - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
   map: {fileID: 5422693854562149174, guid: 9cf4f833001943745bb3cb85ac115ed6, type: 3}
   playerWeapon: {fileID: 2853730959728609451, guid: ced1e285caf614640880a624c8d29e6b, type: 3}
-  EmojiTypeTarget: 4
+  EmojiTypeTarget: 2
   cameraPosition: {x: 10, y: 1.5, z: 0}
   cameraRotation: {x: 0.0185099, y: 0.7068645, z: 0.0185099, w: -0.7068645}
   PreviewCharaterTarget: {fileID: 21300000, guid: 27fd0288f1c03a54984b20c0c321d185, type: 3}

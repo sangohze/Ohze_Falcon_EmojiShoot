@@ -2521,6 +2521,8 @@ MonoBehaviour:
   _isPersistent: 0
   enemyTargets: []
   EmojiTypeTarget: 4
+  firstHitEmoji: 0
+  firstHitEnemy: {fileID: 0}
 --- !u!4 &1399659066
 Transform:
   m_ObjectHideFlags: 0
@@ -3772,6 +3774,10 @@ PrefabInstance:
     - target: {fileID: 832506843175065961, guid: 82a900a33a3b39a4cbc9cb0f3d70ce83, type: 3}
       propertyPath: m_Name
       value: ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 832506843175065961, guid: 82a900a33a3b39a4cbc9cb0f3d70ce83, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 836518891874854581, guid: 82a900a33a3b39a4cbc9cb0f3d70ce83, type: 3}
       propertyPath: m_RootOrder

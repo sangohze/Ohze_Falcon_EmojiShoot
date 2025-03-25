@@ -30,14 +30,9 @@ public class EmojiController : Singleton<EmojiController>
         {
           
             Debug.Log($"Đã đổi sang emoji: {newEmoji}");
-
-            // Notify subscribers about the emoji change
             OnEmojiChanged?.Invoke(newEmoji);
         }
-        else
-        {
-            Debug.LogError($"Material for emoji {newEmoji} not found");
-        }
+       
     }
 }
 

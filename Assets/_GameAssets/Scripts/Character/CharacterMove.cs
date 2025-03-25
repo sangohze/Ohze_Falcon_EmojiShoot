@@ -43,23 +43,22 @@ public class CharacterMove : MonoBehaviour
     public void StopMoving()
     {
         isCharacterMove = false;
-        if (moveCoroutine != null)
-        {
-            StopCoroutine(moveCoroutine);
-        }
         navMeshAgent.isStopped = true;
         navMeshAgent.velocity = Vector3.zero;
         navMeshAgent.ResetPath();
-        StopAllCoroutines();
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+        }     
+        //StopAllCoroutines();
         animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
     }
 
     IEnumerator MoveRandomly()
     {
-        Debug.LogError("sangdevh");
         while (isCharacterMove)
         {
-            animator.CrossFade(Characteranimationkey.Walking, 0.1f, 0);
+            animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
             Vector3 randomPosition = GetValidRandomPosition();
             if (randomPosition != Vector3.zero)
             {
@@ -131,6 +130,58 @@ public class CharacterMove : MonoBehaviour
         }
         return false;
     }
+    public void MoveTowardsEnemy(CharacterMove otherEnemy, System.Action onComplete = null)
+    {
+        StartCoroutine(MoveTowardsEachOther(otherEnemy, onComplete));
+    }
+
+    private IEnumerator MoveTowardsEachOther(CharacterMove otherEnemy, System.Action onComplete)
+    {
+        Debug.LogError("sangMoveTowardsEachOther");
+        Vector3 midpoint = (transform.position + otherEnemy.transform.position) / 2;
+
+        navMeshAgent.isStopped = false;
+        otherEnemy.navMeshAgent.isStopped = false;
+
+        navMeshAgent.SetDestination(midpoint);
+        otherEnemy.navMeshAgent.SetDestination(midpoint);
+
+        while (Vector3.Distance(transform.position, otherEnemy.transform.position) > navMeshAgent.stoppingDistance * 2)
+        {
+            if (navMeshAgent.velocity.magnitude > 0.1f)
+            {
+                animator.CrossFade(Characteranimationkey.Walking, 0.1f, 0);
+            }
+            else
+            {
+                animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
+            }
+
+            if (otherEnemy.navMeshAgent.velocity.magnitude > 0.1f)
+            {
+                otherEnemy.animator.CrossFade(Characteranimationkey.Walking, 0.1f, 0);
+            }
+            else
+            {
+                otherEnemy.animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
+            }
+
+            yield return null;
+        }
+
+        navMeshAgent.isStopped = true;
+        otherEnemy.navMeshAgent.isStopped = true;
+
+        transform.LookAt(otherEnemy.transform);
+        otherEnemy.transform.LookAt(transform);
+        animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
+        onComplete?.Invoke();
+    }
+
+
+
+
+
 }
 
 

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,14 +8,15 @@ public class GamePlayController : Singleton<GamePlayController>
     private int hitCount = 0;
     private bool isWaitingForSecondHit = false;
     public EmojiType EmojiTypeTarget;
-  
+    public EmojiType firstHitEmoji ;
+    public CharacterController firstHitEnemy = null;
+    public CharacterController secondHitEnemy = null;
+    private float hitResetTime = 5f;
+    public Coroutine resetHitCoroutine;
 
     private void OnEnable()
     {
-        // _onGameInit.OnEventRaised += OnGameInit;
-        // _onGameActive.OnEventRaised += OnGameActive;
-        // _onGameWin.OnEventRaised += OnGameWin;
-        
+            
     }
 
     private void Start()
@@ -35,40 +36,23 @@ public class GamePlayController : Singleton<GamePlayController>
 
     private void OnDisable()
     {
-        // _onGameInit.OnEventRaised -= OnGameInit;
-        // _onGameActive.OnEventRaised -= OnGameActive;
-        // _onGameWin.OnEventRaised -= OnGameWin;
-    }
-
-    private void OnGameInit()
-    {
-        // Initialize game logic here
-    }
-
-    private void OnGameActive()
-    {
-        // Activate game logic here
+       
     }
 
     private void OnGameWin()
     {
-        Debug.Log("You win the game!");
         UIManager.I.Hide<PanelGamePlay>();
         UIManager.I.Show<PanelGameWin>();
     }
 
- 
-
-    public void OnEnemyHit(CharacterController enemy)
+    public void OnEnemyTargetHit(CharacterController enemy)
     {
-        Debug.Log("You win" + enemy.name);
         if (enemyTargets.Contains(enemy))
         {
-            Debug.Log("You win the game!0");
             hitCount++;
             if (enemyTargets.Count == 1)
             {
-                StartCoroutine(WaiGameWin());
+                StartCoroutine(WaitGameWin());
                 return;
             }
             if (hitCount == 1)
@@ -77,31 +61,38 @@ public class GamePlayController : Singleton<GamePlayController>
             }
             else if (hitCount == 2)
             {
-
-                StartCoroutine(WaiGameWin());
+                StartCoroutine(WaitGameWin());
             }
         }
     }
-    private IEnumerator WaiGameWin()
+    private IEnumerator WaitGameWin()
     {
-        Debug.LogError("YouWIN");
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(3.5f);
         OnGameWin();
     }
 
     private IEnumerator WaitForSecondHit()
     {
         isWaitingForSecondHit = true;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         isWaitingForSecondHit = false;
-
         if (hitCount < 2)
         {
-            hitCount = 0;
-            Debug.Log("Failed to hit the second enemy within the time limit.");
+           hitCount = 0;       
         }
     }
-   
+    public void ResetHitState()
+    {
+        if (resetHitCoroutine != null) StopCoroutine(resetHitCoroutine);
+        resetHitCoroutine = StartCoroutine(IEResetHitState());
+    }    
+    private IEnumerator IEResetHitState()
+    {
+        yield return new WaitForSeconds(hitResetTime);
+        firstHitEnemy = null;
+        secondHitEnemy = null;
+    }
+
 }
 
 
