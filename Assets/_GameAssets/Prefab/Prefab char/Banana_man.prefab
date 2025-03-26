@@ -3032,6 +3032,7 @@ MonoBehaviour:
   animator: {fileID: 3318271497083194972}
   characterMove: {fileID: 671989378167827423}
   isEnemyTarget: 0
+  isMan: 1
 --- !u!114 &671989378167827423
 MonoBehaviour:
   m_ObjectHideFlags: 0

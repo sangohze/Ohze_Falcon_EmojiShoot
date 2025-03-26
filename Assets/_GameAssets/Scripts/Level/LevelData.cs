@@ -15,4 +15,5 @@ public class LevelData : ScriptableObject
     public Quaternion cameraRotation;
     public Sprite PreviewCharaterTarget;
     public Sprite PreviewEmojiTarget;
+    public Sprite PreviewCharaterTarget2;
 }

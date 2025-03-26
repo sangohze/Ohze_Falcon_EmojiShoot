@@ -26,8 +26,6 @@ public class LevelManager : Singleton<LevelManager>
     public void  LoadLevel(int index)
     {
         if (index < 0 || index >= levels.Length) return;
-
-        Debug.LogError("load level");
         CurrentEnemyTargets.Clear();
         CurrentListEnemy.Clear();
 

@@ -12,7 +12,7 @@ public class PanelSetting : PanelBase
     }
     public void Close_OnClick()
     {
-        gameObject.SetActive(false);
+        DeActiveMe(null);
         //        
     }
 }

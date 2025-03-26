@@ -54,7 +54,6 @@ public class ToogleSoundGameObject : MonoBehaviour
                 if(DataManager.I.SaveData.IsMusic)
                 {
                     //MusicPlayer.I.ResumeMusic ();
-                Debug.LogError("Múicplat");
                 }    
                 break;
         }

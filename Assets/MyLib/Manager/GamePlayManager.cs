@@ -11,11 +11,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
 
     public bool m_isTutModeFWShow = false;
     public bool m_isTutModeBomb = false;
-    //public bool m_isTutFWIdel = false;
-    //public bool m_isTutBomb = false;
-    //public bool m_isTutASRM = false;
-    //sai
-    //
+    
     [SerializeField] private GameSceneSO _gamePlayDIY;
    
 
@@ -45,8 +41,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
 
     
 
-    //
-    public List<int> VideoPlayList;
+
 
     protected override void Awake()
     {
@@ -56,11 +51,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
         //{
         //    isCallADS = ES3.Load<bool>("isCallADS");
         //}      
-        if (ES3.KeyExists("VideoPlayList"))
-        {
-            VideoPlayList = ES3.Load<List<int>>("VideoPlayList");
-
-        }
+      
         m_isTutModeDIY = ES3.Load<bool>("m_isTutModeDIY",true);
         m_isTutModeFWShow = ES3.Load<bool>("m_isTutModeFWShow", true);
         //m_isTutFWIdel = ES3.Load<bool>("m_isTutModeDIY", true);

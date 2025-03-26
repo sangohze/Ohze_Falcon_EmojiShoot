@@ -43,8 +43,6 @@ public class AudioCueEventChannelSO : EventChannelBaseSO
         if (OnAudioCuePlayRequested != null)
         {
              audioCueKey = OnAudioCuePlayRequested.Invoke(audioCue, audioConfiguration, positionInSpace);
-            Debug.LogError("PlayMusic");
-
         }
         else
         {

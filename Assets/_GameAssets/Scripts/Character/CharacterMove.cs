@@ -14,7 +14,8 @@ public class CharacterMove : MonoBehaviour
     private Vector3 startPosition;
     private bool isCharacterMove;
     private Camera mainCamera;
-    private Coroutine moveCoroutine;
+    public Coroutine moveCoroutine;
+
 
     [SerializeField] float moveSpeed = 2f;
     private NavMeshAgent navMeshAgent;
@@ -49,45 +50,45 @@ public class CharacterMove : MonoBehaviour
         if (moveCoroutine != null)
         {
             StopCoroutine(moveCoroutine);
-        }     
+        }
         //StopAllCoroutines();
-        animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
+        //animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
     }
 
-   IEnumerator MoveRandomly()
-{
-    while (isCharacterMove)
+    IEnumerator MoveRandomly()
     {
-        Vector3 randomPosition = GetValidRandomPosition();
+        while (isCharacterMove)
+        {
+            Vector3 randomPosition = GetValidRandomPosition();
             animator.CrossFade(Characteranimationkey.Walking, 0.1f, 0);
             if (randomPosition != Vector3.zero)
-        {
-            navMeshAgent.isStopped = false;
-            navMeshAgent.SetDestination(randomPosition);
-
-            bool hasStartedMoving = false;
-
-            while (navMeshAgent.pathPending || navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
             {
-                if (!navMeshAgent.isOnNavMesh)
+                navMeshAgent.isStopped = false;
+                navMeshAgent.SetDestination(randomPosition);
+
+                bool hasStartedMoving = false;
+
+                while (navMeshAgent.pathPending || navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
                 {
-                    yield break;
-                }
-                if (!hasStartedMoving && navMeshAgent.velocity.magnitude > 0.1f)
-                {
-                    animator.CrossFade(Characteranimationkey.Walking, 0.1f, 0);
-                    hasStartedMoving = true;
+                    if (!navMeshAgent.isOnNavMesh)
+                    {
+                        yield break;
+                    }
+                    if (!hasStartedMoving && navMeshAgent.velocity.magnitude > 0.1f &&  !navMeshAgent.isStopped)
+                    {
+                        animator.CrossFade(Characteranimationkey.Walking, 0.1f, 0);
+                        hasStartedMoving = true;
+                    }
+
+                    yield return null;
                 }
 
-                yield return null;
+                animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
             }
 
-            animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
+            yield return new WaitForSeconds(waitTime);
         }
-
-        yield return new WaitForSeconds(waitTime);
     }
-}
 
 
     Vector3 GetValidRandomPosition()
@@ -101,7 +102,7 @@ public class CharacterMove : MonoBehaviour
             if (NavMesh.SamplePosition(randomDirection, out hit, moveRadius, NavMesh.AllAreas))
             {
                 Vector3 finalPosition = hit.position;
-                if (IsInView(finalPosition) && !IsNearOtherEnemies(finalPosition))
+                if (/*IsInView(finalPosition) &&*/ !IsNearOtherEnemies(finalPosition))
                 {
                     return finalPosition;
                 }
@@ -139,48 +140,32 @@ public class CharacterMove : MonoBehaviour
 
     private IEnumerator MoveTowardsEachOther(CharacterMove otherEnemy, System.Action onComplete)
     {
-        Debug.LogError("sangMoveTowardsEachOther");
         Vector3 midpoint = (transform.position + otherEnemy.transform.position) / 2;
-
         navMeshAgent.isStopped = false;
         otherEnemy.navMeshAgent.isStopped = false;
+        StopMoving();
+        //otherEnemy.StopMoving();
+        otherEnemy.StopCoroutine(moveCoroutine);
 
         navMeshAgent.SetDestination(midpoint);
         otherEnemy.navMeshAgent.SetDestination(midpoint);
+        // Bắt đầu animation đi ngay lập tức
+        animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
+        otherEnemy.animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
 
         while (Vector3.Distance(transform.position, otherEnemy.transform.position) > navMeshAgent.stoppingDistance * 2)
         {
-            if (navMeshAgent.velocity.magnitude > 0.1f)
-            {
-                animator.CrossFade(Characteranimationkey.Walking, 0.1f, 0);
-            }
-            else
-            {
-                animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
-            }
-
-            if (otherEnemy.navMeshAgent.velocity.magnitude > 0.1f)
-            {
-                otherEnemy.animator.CrossFade(Characteranimationkey.Walking, 0.1f, 0);
-            }
-            else
-            {
-                otherEnemy.animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
-            }
-
             yield return null;
         }
 
+        // Khi đến nơi, dừng di chuyển & đổi animation về Idle
         navMeshAgent.isStopped = true;
         otherEnemy.navMeshAgent.isStopped = true;
+
         transform.LookAt(otherEnemy.transform);
         otherEnemy.transform.LookAt(transform);
-        animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
         onComplete?.Invoke();
     }
-
-
-
 
 
 }

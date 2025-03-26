@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: f91f4f2a65717b84db22b9f2ee108258
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Ezydraw
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 50bc7d0c5d09c6f4ca31d9f0919b7f7f, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

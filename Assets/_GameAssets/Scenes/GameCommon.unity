@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3708985, g: 0.3783704, b: 0.35722548, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.13414727, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -217,8 +217,9 @@ MonoBehaviour:
   _audioConfig: {fileID: 11400000, guid: 85c3b07dd23ee4946b09de9a1084986a, type: 2}
   _audioConfig_3D: {fileID: 11400000, guid: b34acd36f37f97b40914ca671c9ca9d6, type: 2}
   _mapper:
-    keyData: 
-    valueData: []
+    keyData: 00000000
+    valueData:
+    - {fileID: 11400000, guid: b0e24a3c32842494597f3c43219d4834, type: 2}
 --- !u!1 &917420400
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,9 +269,6 @@ MonoBehaviour:
   m_isTutModeFWShow: 0
   m_isTutModeBomb: 0
   _gamePlayDIY: {fileID: 11400000, guid: 1739eb3afc403c04f9159a75aa87673e, type: 2}
-  _gamePlayFW: {fileID: 11400000, guid: d686d25e48c87634f87cd428e1d06869, type: 2}
-  _gamePlayBomb: {fileID: 11400000, guid: 2e3617a9902032a4584398fbaf2ffdac, type: 2}
-  _gamePlayFWMain: {fileID: 11400000, guid: 84b3786ab2c9c584381397f819ee0f91, type: 2}
   _loadGamePlayEvent: {fileID: 11400000, guid: 87c5e1288eb20e142b5404e704c3503b, type: 2}
   _onGameReady: {fileID: 11400000, guid: 8993b524371a91549ad10dbcddee34c5, type: 2}
   _onGameInit: {fileID: 11400000, guid: cc238b9bf07caaa4090e06d61389289c, type: 2}
@@ -282,7 +280,6 @@ MonoBehaviour:
   _onChangeCoin: {fileID: 11400000, guid: 99ffc034e590c9143bcb6678ae3ef9b3, type: 2}
   _onGoToTestFW: {fileID: 11400000, guid: b58583915ea0b6340856c4cf58b9c082, type: 2}
   SecondPlay: 0
-  VideoPlayList: 
 --- !u!1 &1917627064
 GameObject:
   m_ObjectHideFlags: 0
