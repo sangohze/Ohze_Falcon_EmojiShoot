@@ -17,6 +17,9 @@ public class CharacterController : MonoBehaviour
     private Dictionary<EmojiType, ParticleSystem> emojiToEffectMap = new Dictionary<EmojiType, ParticleSystem>();
     private Coroutine resetMovementCoroutine;
     public bool isMan;
+    [SerializeField] private Transform headPosition;
+    [SerializeField] private Transform eyesPosition;
+    [SerializeField] private Transform mouthPosition;
     void Start()
     {
         InitializeEmojiEffects();
@@ -68,6 +71,7 @@ public class CharacterController : MonoBehaviour
         transform.DORotateQuaternion(characterRotationDefault, 0.5f);
         animator.CrossFade(animState, 0, 0);
         PlayEmojiEffectSingle(currentEmoji);
+        //PlayEffectCombo(this, currentEmoji);
         GamePlayController.I.firstHitEnemy = this;
         GamePlayController.I.firstHitEmoji = currentEmoji;
         resetMovementCoroutine = StartCoroutine(ResetCharacterState());
@@ -95,7 +99,6 @@ public class CharacterController : MonoBehaviour
                     PlayEmojiEffectSingle(currentEmoji);
                     GamePlayController.I.secondHitEnemy.animator.CrossFade(animState, 0, 0);
                     GamePlayController.I.secondHitEnemy.PlayEmojiEffectSingle(currentEmoji);
-                    PlayEffectCombo("TearCry");
                     StopAllCharaterMoving();
                     ResetAllCharacters();
                     PlayAnimationForRemainingEnemies(currentEmoji, () =>
@@ -164,19 +167,7 @@ public class CharacterController : MonoBehaviour
         effectInstance.Play();
     }
 
-    public void PlayEffectCombo(string effectName)
-    {
-        if (EmojiController.I.emojiEffectsDictComBo.TryGetValue(effectName, out var effectData))
-        {
-            Debug.LogWarning($"sangdev: {effectName}");
-            // Gọi SpawnEmojiEffect với dữ liệu lấy từ dictionary
-            SpawnEmojiEffect(effectData.effect, effectData.position);
-        }
-        else
-        {
-            Debug.LogWarning($"Không tìm thấy hiệu ứng: {effectName}");
-        }
-    }
+    
 
 
     private IEnumerator ResetCharacterState()
@@ -197,32 +188,38 @@ public class CharacterController : MonoBehaviour
 
         foreach (var enemy in LevelManager.I.CurrentListEnemy)
         {
-            if (enemy == GamePlayController.I.secondHitEnemy || enemy == GamePlayController.I.firstHitEnemy) continue;
-            string animationKey = emojitype == EmojiType.Pray ? Characteranimationkey.PrayRemaining :
-                                  emojitype == EmojiType.Devil ? Characteranimationkey.DevilRemaining :
-                                   (emojitype == EmojiType.Love && GamePlayController.I.firstHitEnemy != null
-                       && GamePlayController.I.secondHitEnemy != null
-                       && GamePlayController.I.firstHitEnemy.isMan == GamePlayController.I.secondHitEnemy.isMan)
-                      ? Characteranimationkey.Vomit :
-                                  Characteranimationkey.Cherring;
-
-            enemy.PlayVFXCharaterRemaining(animationKey);
-            //if (emojitype != EmojiType.Devil)
-            //{
-            //    enemy.characterMove.StopMoving();
-            //}
-            enemy.characterMove.StopMoving();
-            enemy.animator.CrossFade(animationKey, 0, 0);
-
-            StartCoroutine(WaitForAnimation(enemy, () =>
+            if (enemy == GamePlayController.I.secondHitEnemy || enemy == GamePlayController.I.firstHitEnemy)
             {
-                completedAnimations++;
-                if (completedAnimations >= totalEnemies)
-                {
-                    onComplete?.Invoke();
+                PlayEffectCombo(enemy, emojitype);
+            }
+            else
+            {
+                string animationKey = emojitype == EmojiType.Pray ? Characteranimationkey.PrayRemaining :
+                                      emojitype == EmojiType.Devil ? Characteranimationkey.DevilRemaining :
+                                       (emojitype == EmojiType.Love && GamePlayController.I.firstHitEnemy != null
+                           && GamePlayController.I.secondHitEnemy != null
+                           && GamePlayController.I.firstHitEnemy.isMan == GamePlayController.I.secondHitEnemy.isMan)
+                          ? Characteranimationkey.Vomit :
+                                      Characteranimationkey.Cherring;
 
-                }
-            }));
+                enemy.PlayVFXCharaterRemaining(animationKey);
+                //if (emojitype != EmojiType.Devil)
+                //{
+                //    enemy.characterMove.StopMoving();
+                //}
+                enemy.characterMove.StopMoving();
+                enemy.animator.CrossFade(animationKey, 0, 0);
+
+                StartCoroutine(WaitForAnimation(enemy, () =>
+                {
+                    completedAnimations++;
+                    if (completedAnimations >= totalEnemies)
+                    {
+                        onComplete?.Invoke();
+
+                    }
+                }));
+            }
         }
     }
 
@@ -251,6 +248,39 @@ public class CharacterController : MonoBehaviour
                 break;
         }
     }
+
+    private void PlayEffectCombo(CharacterController enemy, EmojiType emojiType)
+    {
+        GameObject eff;
+        Transform parentTransform = null;
+
+        switch (emojiType)
+        {
+            case EmojiType.Sad:
+                parentTransform = eyesPosition.transform;
+                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_TearCry, transform.position);
+                break;
+            case EmojiType.Angry:
+                parentTransform = headPosition.transform;
+                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_FireAngry, transform.position);
+                break;
+            case EmojiType.Vomit:
+                parentTransform = mouthPosition.transform;
+                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Vomit, transform.position);
+                break;
+            default:
+                return;
+        }
+
+       
+        eff.transform.SetParent(parentTransform, worldPositionStays: false);
+        // Set Parent nhưng giữ nguyên thông số Prefab
+        eff.transform.localPosition = Vector3.zero;  // Đặt về đúng vị trí gốc của parent
+        eff.transform.localRotation = Quaternion.identity; // Giữ nguyên góc xoay
+        eff.transform.localScale = Vector3.one;
+        eff.GetComponent<ParticleSystem>().Play();
+    }
+
 }
 
 

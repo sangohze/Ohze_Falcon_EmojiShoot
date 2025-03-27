@@ -14,13 +14,11 @@ public class EmojiController : Singleton<EmojiController>
     public delegate void EmojiChangedHandler(EmojiType newEmoji);
     public event EmojiChangedHandler OnEmojiChanged;
 
-    public Dictionary<string, (ParticleSystem effect, Vector3 position)> emojiEffectsDictComBo = new Dictionary<string, (ParticleSystem, Vector3)>();
-    public List<ParticleSystem> emojiEffectsCombo = new List<ParticleSystem>();
-    public List<Vector3> effectPositionsCombo = new List<Vector3>();
+    
 
     void Start()
     {
-        SetUpEmoji();
+        
         ChangeEmoji(currentEmoji);
     }
 
@@ -38,19 +36,7 @@ public class EmojiController : Singleton<EmojiController>
        
     }
 
-    private void SetUpEmoji()
-    {
-        if (emojiEffectsCombo.Count != effectPositionsCombo.Count)
-        {
-            return;
-        }
-        for (int i = 0; i < emojiEffectsCombo.Count; i++)
-        {
-            string effectName = emojiEffectsCombo[i].name;
-            Debug.Log($" tìm thấy hiệu ứng: {effectName}");
-            emojiEffectsDictComBo[effectName] = (emojiEffectsCombo[i], effectPositions[i]);
-        }
-    }
+   
 }
 
 public enum EmojiType

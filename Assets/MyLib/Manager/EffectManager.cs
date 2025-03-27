@@ -4,15 +4,13 @@ using System.Collections.Generic;
 
 public enum TypeEffect
 {
-    Eff_Foot_Player,
-    Eff_Collect_Banana,
-    Eff_Collect_Chest,
-    Eff_Collect_Final_Chest,
-    Eff_Collect_Coin,
-    Eff_Boss_Colision_Ground,
-    Eff_Win,
+    Eff_TearCry,
+    Eff_FireAngry,
+    Eff_Smoke,
+    Eff_Dance,
+    Eff_Vomit,
+    Eff_Devil,
 }
-
 public class EffectManager : Singleton<EffectManager>
 {
     public List<EffectObject> _effects = new List<EffectObject>();

@@ -157,8 +157,9 @@ public class CharacterMove : MonoBehaviour
         {
             yield return null;
         }
+        EffectManager.I.PlayEffect(TypeEffect.Eff_Smoke, midpoint);
+        // Khi đến nơi, spawn effect midpoint
 
-        // Khi đến nơi, dừng di chuyển & đổi animation về Idle
         navMeshAgent.isStopped = true;
         otherEnemy.navMeshAgent.isStopped = true;
 
