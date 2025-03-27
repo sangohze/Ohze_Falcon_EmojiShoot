@@ -54,7 +54,7 @@ public class Arrow : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.isKinematic = true;
             headArrow.GetComponent<SphereCollider>().enabled = false;
-            LeanPool.Despawn(gameObject, 0.2f);
+            LeanPool.Despawn(gameObject, 0f);
         }
     }
 

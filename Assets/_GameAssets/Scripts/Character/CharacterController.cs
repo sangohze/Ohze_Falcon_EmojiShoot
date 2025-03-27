@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using DG.Tweening;
+using Lean.Pool;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
@@ -94,6 +95,7 @@ public class CharacterController : MonoBehaviour
                     PlayEmojiEffectSingle(currentEmoji);
                     GamePlayController.I.secondHitEnemy.animator.CrossFade(animState, 0, 0);
                     GamePlayController.I.secondHitEnemy.PlayEmojiEffectSingle(currentEmoji);
+                    PlayEffectCombo("TearCry");
                     StopAllCharaterMoving();
                     ResetAllCharacters();
                     PlayAnimationForRemainingEnemies(currentEmoji, () =>
@@ -157,10 +159,25 @@ public class CharacterController : MonoBehaviour
 
     private void SpawnEmojiEffect(ParticleSystem effectPrefab, Vector3 position)
     {
-        ParticleSystem effectInstance = Instantiate(effectPrefab, transform);
+        ParticleSystem effectInstance = LeanPool.Spawn(effectPrefab, transform);
         effectInstance.transform.localPosition = position;
         effectInstance.Play();
     }
+
+    public void PlayEffectCombo(string effectName)
+    {
+        if (EmojiController.I.emojiEffectsDictComBo.TryGetValue(effectName, out var effectData))
+        {
+            Debug.LogWarning($"sangdev: {effectName}");
+            // Gọi SpawnEmojiEffect với dữ liệu lấy từ dictionary
+            SpawnEmojiEffect(effectData.effect, effectData.position);
+        }
+        else
+        {
+            Debug.LogWarning($"Không tìm thấy hiệu ứng: {effectName}");
+        }
+    }
+
 
     private IEnumerator ResetCharacterState()
     {
