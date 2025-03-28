@@ -17,12 +17,37 @@ public class CharacterController : MonoBehaviour
     private Dictionary<EmojiType, ParticleSystem> emojiToEffectMap = new Dictionary<EmojiType, ParticleSystem>();
     private Coroutine resetMovementCoroutine;
     public bool isMan;
-    [SerializeField] private Transform headPosition;
-    [SerializeField] private Transform eyesPosition;
-    [SerializeField] private Transform mouthPosition;
+    private Transform headPosition;
+    private Transform eyesPosition;
+    private Transform mouthPosition;
+    [SerializeField] private Transform parentPos;
+
     void Start()
     {
         InitializeEmojiEffects();
+        SetUpPostionEffect();
+    }
+
+    void SetUpPostionEffect()
+    {
+        headPosition = new GameObject("Head").GetComponent<Transform>();
+        eyesPosition = new GameObject("Eyes").GetComponent<Transform>();
+        mouthPosition = new GameObject("Mouth").GetComponent<Transform>();
+
+        headPosition.transform.SetParent(parentPos, worldPositionStays: false);
+        headPosition.transform.localPosition = new Vector3(0.00015f, -0.00192f, 0.005f);
+        headPosition.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        headPosition.transform.localScale = new Vector3(0.002f, 0.002f, 0.002f);
+
+        eyesPosition.transform.SetParent(parentPos, worldPositionStays: false);
+        eyesPosition.transform.localPosition = new Vector3(-0.00115f, -0.00064f, 0.0024f);
+        eyesPosition.transform.localRotation = Quaternion.Euler(0, -0, -90);
+        eyesPosition.transform.localScale = new Vector3(0.002f, 0.002f, 0.002f);
+
+        mouthPosition.transform.SetParent(parentPos, worldPositionStays: false);
+        mouthPosition.transform.localPosition = new Vector3(0.0001f, -0.0003f, 0.001f);
+        mouthPosition.transform.localScale = new Vector3(0.002f, 0.002f, 0.002f);
+
     }
 
     void OnCollisionEnter(Collision other)
@@ -47,6 +72,10 @@ public class CharacterController : MonoBehaviour
     private void HandleCollision()
     {
         characterMove.StopMoving();
+        if (resetMovementCoroutine != null)
+        {
+            StopCoroutine(resetMovementCoroutine);
+        }
         if (EmojiController.I == null) return;
         EmojiType currentEmoji = EmojiController.I.currentEmoji;
         string animStateSingle = currentEmoji.ToString();
@@ -68,10 +97,11 @@ public class CharacterController : MonoBehaviour
 
     private void HandleFirstHit(string animState, EmojiType currentEmoji)
     {
+
         transform.DORotateQuaternion(characterRotationDefault, 0.5f);
         animator.CrossFade(animState, 0, 0);
         PlayEmojiEffectSingle(currentEmoji);
-        //PlayEffectCombo(this, currentEmoji);
+        PlayEffectCombo(this, currentEmoji);
         GamePlayController.I.firstHitEnemy = this;
         GamePlayController.I.firstHitEmoji = currentEmoji;
         resetMovementCoroutine = StartCoroutine(ResetCharacterState());
@@ -90,7 +120,6 @@ public class CharacterController : MonoBehaviour
                 previousFirstHit.StopCoroutine(previousFirstHit.resetMovementCoroutine);
                 previousFirstHit.resetMovementCoroutine = null;
             }
-
             if (GamePlayController.I.secondHitEnemy != null)
             {
                 GamePlayController.I.secondHitEnemy.characterMove.MoveTowardsEnemy(characterMove, () =>
@@ -135,7 +164,7 @@ public class CharacterController : MonoBehaviour
         foreach (var enemy in LevelManager.I.CurrentListEnemy)
         {
             if (enemy != (GamePlayController.I.secondHitEnemy || GamePlayController.I.firstHitEnemy) && enemy.resetMovementCoroutine != null)
-            {           
+            {
                 enemy.characterMove.StopCoroutine(resetMovementCoroutine);
             }
         }
@@ -167,7 +196,7 @@ public class CharacterController : MonoBehaviour
         effectInstance.Play();
     }
 
-    
+
 
 
     private IEnumerator ResetCharacterState()
@@ -231,7 +260,6 @@ public class CharacterController : MonoBehaviour
 
     private void PlayVFXCharaterRemaining(string animationKey)
     {
-        Debug.Log("sangdevmoving" + animationKey);
         switch (animationKey)
         {
             case "Praying":
@@ -253,26 +281,26 @@ public class CharacterController : MonoBehaviour
     {
         GameObject eff;
         Transform parentTransform = null;
-
+        Debug.Log("sangdevmoving" + enemy.name);
         switch (emojiType)
         {
             case EmojiType.Sad:
-                parentTransform = eyesPosition.transform;
+                parentTransform = enemy.eyesPosition.transform;
                 eff = EffectManager.I.PlayEffect(TypeEffect.Eff_TearCry, transform.position);
                 break;
             case EmojiType.Angry:
-                parentTransform = headPosition.transform;
+                parentTransform = enemy.headPosition.transform;
                 eff = EffectManager.I.PlayEffect(TypeEffect.Eff_FireAngry, transform.position);
                 break;
             case EmojiType.Vomit:
-                parentTransform = mouthPosition.transform;
+                parentTransform = enemy.mouthPosition.transform;
                 eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Vomit, transform.position);
                 break;
             default:
                 return;
         }
 
-       
+
         eff.transform.SetParent(parentTransform, worldPositionStays: false);
         // Set Parent nhưng giữ nguyên thông số Prefab
         eff.transform.localPosition = Vector3.zero;  // Đặt về đúng vị trí gốc của parent

@@ -6,10 +6,10 @@ using static RootMotion.Demos.CharacterThirdPerson;
 
 public class CharacterMove : MonoBehaviour
 {
-    [SerializeField] float moveRadius = 10f;
+    [SerializeField] float moveRadius = 5f;
     [SerializeField] float moveInterval = 3f;
     [SerializeField] float waitTime = 3f;
-    [SerializeField] float avoidDistance = 2f;
+    [SerializeField] float avoidDistance = 1f;
     public Animator animator;
     private Vector3 startPosition;
     private bool isCharacterMove;
@@ -153,21 +153,39 @@ public class CharacterMove : MonoBehaviour
         animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
         otherEnemy.animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
 
-        while (Vector3.Distance(transform.position, otherEnemy.transform.position) > navMeshAgent.stoppingDistance * 2)
+        while (Vector3.Distance(transform.position, otherEnemy.transform.position) > navMeshAgent.stoppingDistance * 1.3)
         {
             yield return null;
         }
-        EffectManager.I.PlayEffect(TypeEffect.Eff_Smoke, midpoint);
         // Khi đến nơi, spawn effect midpoint
-
         navMeshAgent.isStopped = true;
         otherEnemy.navMeshAgent.isStopped = true;
-
         transform.LookAt(otherEnemy.transform);
         otherEnemy.transform.LookAt(transform);
+        PlayEffectComboMidPoint(midpoint, EmojiController.I.currentEmoji);
         onComplete?.Invoke();
     }
 
+    private void PlayEffectComboMidPoint(Vector3 pos, EmojiType emojiType)
+    {
+        GameObject eff;
+        switch (emojiType)
+        {
+            case EmojiType.Devil:               
+                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Devil, pos);
+                break;
+            case EmojiType.Angry:
+               
+                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Smoke, pos);
+                break;
+            case EmojiType.Dance:
+                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Dance, pos);
+                break;
+            default:
+                return;
+        }     
+        eff.GetComponent<ParticleSystem>().Play();
+    }
 
 }
 

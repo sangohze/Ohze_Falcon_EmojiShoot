@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80eb8161b1c30c94dbaff5b54a66a7f6, type: 3}
+  m_Name: Level6
+  m_EditorClassIdentifier: 
+  level: 3
+  characters:
+  - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
+  - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
+  - {fileID: 1687073297, guid: 4e08f0009cd891145bc70e47c987f2e2, type: 3}
+  - {fileID: 341427779, guid: 64d9012f6f795ef439c08bf0ca92fcde, type: 3}
+  - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
+  - {fileID: 1339324416, guid: edb07d12f793e654eb331e176c1935ee, type: 3}
+  - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
+  charactersTarget:
+  - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
+  - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
+  map: {fileID: 5422693854562149174, guid: bc5c3f594ed4f174493d888bc7faf62b, type: 3}
+  playerWeapon: {fileID: 2853730959728609451, guid: ced1e285caf614640880a624c8d29e6b, type: 3}
+  EmojiTypeTarget: 2
+  cameraPosition: {x: -15, y: 1.5, z: 0}
+  cameraRotation: {x: 0.0185099, y: 0.7068645, z: 0.0185099, w: -0.7068645}
+  PreviewCharaterTarget: {fileID: 21300000, guid: 5fadde877f47fea49bff686a810afe40, type: 3}
+  PreviewEmojiTarget: {fileID: 21300000, guid: dcbf26ca32670e94bb6e2319741caaf5, type: 3}
+  PreviewCharaterTarget2: {fileID: 21300000, guid: 8f4e5f47969c1cf419bc23c9e276fcaf, type: 3}

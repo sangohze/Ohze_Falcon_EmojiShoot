@@ -298,6 +298,10 @@ PrefabInstance:
       value: SM_Env_Grass_03 (1) Variant
       objectReference: {fileID: 0}
     - target: {fileID: 219522487147905610, guid: 5fd7ae6ba2990e847b1df2bc7a99c59a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 219522487147905610, guid: 5fd7ae6ba2990e847b1df2bc7a99c59a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}

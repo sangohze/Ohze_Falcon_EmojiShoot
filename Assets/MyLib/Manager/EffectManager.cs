@@ -47,7 +47,7 @@ public class EffectManager : Singleton<EffectManager>
         }
     }
 
-    public GameObject PlayEffect(TypeEffect type, Vector3 pos, float time = 1.5f)
+    public GameObject PlayEffect(TypeEffect type, Vector3 pos, float time = 10f)
     {
         bool isPool = false;
         for (int j = 0; j < _mapper[type].Count; j++)

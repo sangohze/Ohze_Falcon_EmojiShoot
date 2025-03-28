@@ -84,6 +84,6 @@ public class LevelManager : Singleton<LevelManager>
 
     private Vector3 GetRandomSpawnPosition()
     {
-        return new Vector3(Random.Range(-5, 5), 0.2f, Random.Range(-5, 10)); // Random vị trí enemy
+        return new Vector3(Random.Range(-21, -24), 0.2f, Random.Range(-10, 10)); // Random vị trí enemy
     }
 }

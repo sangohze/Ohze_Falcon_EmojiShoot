@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80eb8161b1c30c94dbaff5b54a66a7f6, type: 3}
+  m_Name: Level5
+  m_EditorClassIdentifier: 
+  level: 3
+  characters:
+  - {fileID: 1869493647, guid: 65704417072f21441a2d139595e887a5, type: 3}
+  - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
+  - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
+  - {fileID: 1392860938, guid: cbe875f83232da2439ee0dc71ff5a64a, type: 3}
+  - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
+  charactersTarget:
+  - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
+  - {fileID: 1392860938, guid: cbe875f83232da2439ee0dc71ff5a64a, type: 3}
+  map: {fileID: 5422693854562149174, guid: bc5c3f594ed4f174493d888bc7faf62b, type: 3}
+  playerWeapon: {fileID: 2853730959728609451, guid: ced1e285caf614640880a624c8d29e6b, type: 3}
+  EmojiTypeTarget: 3
+  cameraPosition: {x: -15, y: 1.5, z: 0}
+  cameraRotation: {x: 0.0185099, y: 0.7068645, z: 0.0185099, w: -0.7068645}
+  PreviewCharaterTarget: {fileID: 21300000, guid: befdb7ae1a0390245a9e62deebde4ab9, type: 3}
+  PreviewEmojiTarget: {fileID: 21300000, guid: 21c5b6044184d4b46b4751448a06ea17, type: 3}
+  PreviewCharaterTarget2: {fileID: 21300000, guid: e0c0d78da820bbd45803e4676668a4cb, type: 3}

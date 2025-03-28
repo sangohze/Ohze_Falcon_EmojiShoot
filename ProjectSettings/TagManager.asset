@@ -7,11 +7,16 @@ TagManager:
   - shootable
   - EmojiProjectile
   - Enemy
+  - Terrain
+  - Car
+  - TrafficLight
+  - Crosswalk
+  - TrafficLightCrosswalk
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy
   - Water
   - UI
   - 

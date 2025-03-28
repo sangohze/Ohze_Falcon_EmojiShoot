@@ -34,9 +34,18 @@ public class Arrow : MonoBehaviour
         transform.parent = null;
         rb.isKinematic = false;
         rb.velocity = transform.forward * velocity;
+
+        // Đợi 1 frame để tránh lỗi trail bị reset
+        StartCoroutine(EnableTrail());
+
+        LeanPool.Despawn(gameObject, 3f);
+    }
+
+    private IEnumerator EnableTrail()
+    {
+        yield return null; // Chờ 1 frame
         trailRenderer.Clear();
         trailRenderer.enabled = true;
-        LeanPool.Despawn(gameObject,3f);
     }
 
     public void UpdateHeadMaterial(Material newMaterial)
@@ -44,6 +53,14 @@ public class Arrow : MonoBehaviour
         if (headArrow != null)
         {
             headArrow.material = newMaterial;
+        }
+    }
+    void FixedUpdate()
+    {
+        if (!rb.isKinematic && rb.velocity.sqrMagnitude > 0.01f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(rb.velocity);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * 10f);
         }
     }
 
