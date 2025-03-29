@@ -14,6 +14,7 @@ public class LevelManager : Singleton<LevelManager>
     public List<CharacterController> CurrentListEnemy;
     public EmojiType emojiTypeTarget;
     private Vector3 mappositation = new Vector3 (0,0.3f,0);
+    private Vector3 mappositation2 = new Vector3(-48.82f, 0.3f, 861);
 
 
 
@@ -31,7 +32,9 @@ public class LevelManager : Singleton<LevelManager>
 
         LevelData level = levels[index];
 
-        // Spawn map
+       if(index == 1 || index == 4 || index == 7) {
+            mappositation = mappositation2;
+        }
         currentMap = Instantiate(level.map, mappositation, Quaternion.identity);
 
         // Spawn enemy

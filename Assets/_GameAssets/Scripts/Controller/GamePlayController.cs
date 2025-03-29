@@ -67,7 +67,7 @@ public class GamePlayController : Singleton<GamePlayController>
     }
     private IEnumerator WaitGameWin()
     {
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(8f);
         OnGameWin();
     }
 

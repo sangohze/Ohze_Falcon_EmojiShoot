@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.064130485, g: 0.6007586, b: 0.9712043, a: 1}
+  m_IndirectSpecularColor: {r: 0.06532725, g: 0.6047585, b: 0.98033154, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5062,7 +5062,7 @@ PrefabInstance:
       objectReference: {fileID: 456764798}
     - target: {fileID: 2853730959569067838, guid: ced1e285caf614640880a624c8d29e6b, type: 3}
       propertyPath: FixedArrowSpeed
-      value: 15
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2853730959569067838, guid: ced1e285caf614640880a624c8d29e6b, type: 3}
       propertyPath: graphicRaycaster

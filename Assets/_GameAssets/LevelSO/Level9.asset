@@ -19,14 +19,16 @@ MonoBehaviour:
   - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
   - {fileID: 1392860938, guid: cbe875f83232da2439ee0dc71ff5a64a, type: 3}
   - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
+  - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
+  - {fileID: 1392860938, guid: cbe875f83232da2439ee0dc71ff5a64a, type: 3}
   charactersTarget:
-  - {fileID: 1869493647, guid: 65704417072f21441a2d139595e887a5, type: 3}
-  - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
+  - {fileID: 1392860938, guid: cbe875f83232da2439ee0dc71ff5a64a, type: 3}
+  - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
   map: {fileID: 5422693854562149174, guid: bc5c3f594ed4f174493d888bc7faf62b, type: 3}
   playerWeapon: {fileID: 2853730959728609451, guid: ced1e285caf614640880a624c8d29e6b, type: 3}
-  EmojiTypeTarget: 1
+  EmojiTypeTarget: 0
   cameraPosition: {x: -15, y: 1.5, z: 0}
   cameraRotation: {x: 0.0185099, y: 0.7068645, z: 0.0185099, w: -0.7068645}
-  PreviewCharaterTarget: {fileID: 21300000, guid: 3e6388fc730aaf1499de0bd151a8e993, type: 3}
-  PreviewEmojiTarget: {fileID: 21300000, guid: b10fdab46eaf10b46b62e1559c6dc3cf, type: 3}
-  PreviewCharaterTarget2: {fileID: 21300000, guid: 0f3fea16766a2064ca7f65b5ab5c3022, type: 3}
+  PreviewCharaterTarget: {fileID: 21300000, guid: 1ec00a552bcca0e45bd80adb5a80cc70, type: 3}
+  PreviewEmojiTarget: {fileID: 21300000, guid: ab1816a305f6e5b45b223a8bbc685640, type: 3}
+  PreviewCharaterTarget2: {fileID: 21300000, guid: e0c0d78da820bbd45803e4676668a4cb, type: 3}

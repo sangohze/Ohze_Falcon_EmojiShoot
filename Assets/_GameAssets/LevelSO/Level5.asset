@@ -22,7 +22,7 @@ MonoBehaviour:
   charactersTarget:
   - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
   - {fileID: 1392860938, guid: cbe875f83232da2439ee0dc71ff5a64a, type: 3}
-  map: {fileID: 5422693854562149174, guid: bc5c3f594ed4f174493d888bc7faf62b, type: 3}
+  map: {fileID: 5217212134163750675, guid: 49fd3960fabc4ce49bc7e061ea5633ad, type: 3}
   playerWeapon: {fileID: 2853730959728609451, guid: ced1e285caf614640880a624c8d29e6b, type: 3}
   EmojiTypeTarget: 3
   cameraPosition: {x: -15, y: 1.5, z: 0}
