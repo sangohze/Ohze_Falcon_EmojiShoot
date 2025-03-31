@@ -35,16 +35,12 @@ public class Arrow : MonoBehaviour
         rb.isKinematic = false;
         rb.velocity = transform.forward * velocity;
         // Đợi 1 frame để tránh lỗi trail bị reset
-        StartCoroutine(EnableTrail());
+        trailRenderer.Clear();
+        trailRenderer.enabled = true;
         LeanPool.Despawn(gameObject, 2f);  
     }
 
-    private IEnumerator EnableTrail()
-    {
-        yield return null; // Chờ 1 frame
-        trailRenderer.Clear();
-        trailRenderer.enabled = true;
-    }
+   
 
     public void UpdateHeadMaterial(Material newMaterial)
     {

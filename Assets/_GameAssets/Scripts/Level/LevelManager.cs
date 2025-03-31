@@ -15,16 +15,25 @@ public class LevelManager : Singleton<LevelManager>
     public EmojiType emojiTypeTarget;
     private Vector3 mappositation = new Vector3 (0,0.3f,0);
     private Vector3 mappositation2 = new Vector3(-48.82f, 0.3f, 861);
+    [SerializeField] private bool _isTest;
 
+    [SerializeField] private LevelTest _LevelTest;
 
 
     void OnEnable()
     {
-        currentLevelIndex = ES3.Load<int>("currentLevelIndex", 0);
-        LoadLevel(currentLevelIndex);
+        if (_isTest)
+        {
+            LoadLevelTest();
+        }
+        else{
+
+            currentLevelIndex = ES3.Load<int>("currentLevelIndex", 0);
+            LoadLevel(currentLevelIndex);
+        }
     }
 
-    public void  LoadLevel(int index)
+    public void LoadLevel(int index)
     {
         if (index < 0 || index >= levels.Length) return;
         CurrentEnemyTargets.Clear();
@@ -59,28 +68,27 @@ public class LevelManager : Singleton<LevelManager>
                 {
                     CurrentEnemyTargets.Add(enemy);
                 }
-            }      
-           
+            }
+
         }
         else
         {
             Debug.LogError("Không tìm thấy vị trí hợp lệ trên NavMesh!");
         }
-       
+
     }
 
     public void NextLevel()
     {
-        currentLevelIndex++;    
+        currentLevelIndex++;
         ES3.Save("currentLevelIndex", currentLevelIndex);
         if (currentLevelIndex < levels.Length)
         {
-            //LoadLevel(currentLevelIndex);
+           
         }
         else
         {
             currentLevelIndex = 0;
-            //LoadLevel(currentLevelIndex);
             ES3.Save("currentLevelIndex", currentLevelIndex);
         }
     }
@@ -88,5 +96,10 @@ public class LevelManager : Singleton<LevelManager>
     private Vector3 GetRandomSpawnPosition()
     {
         return new Vector3(Random.Range(-21, -24), 0.2f, Random.Range(-10, 10)); // Random vị trí enemy
+    }
+
+    private void LoadLevelTest()
+    {
+        _LevelTest.LoadLevelTest();
     }
 }

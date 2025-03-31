@@ -63,13 +63,6 @@ sysinfo.txt
 *.unitypackage.meta
 *.app
 
-# Ignore Unity build files
-*.exe
-*.dll
-
-# Ignore Unity crash handler
-UnityCrashHandler*.exe
-
 # Crashlytics generated file
 crashlytics-build.properties
 
