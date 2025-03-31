@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GamePlayController : Singleton<GamePlayController>
 {
-    [SerializeField] private List<CharacterController> enemyTargets ;
+    public List<CharacterController> enemyTargets ;
+    public List<CharacterController> CurrentListEnemy;
     private int hitCount = 0;
     private bool isWaitingForSecondHit = false;
     public EmojiType EmojiTypeTarget;
@@ -13,31 +14,8 @@ public class GamePlayController : Singleton<GamePlayController>
     public CharacterController secondHitEnemy = null;
     private float hitResetTime = 5f;
     public Coroutine resetHitCoroutine;
+    public CharacterTarget[] _characterTarget;
 
-    private void OnEnable()
-    {
-            
-    }
-
-    private void Start()
-    {
-        SetUpLeveLGamePlay();
-    }
-    public void SetUpLeveLGamePlay()
-    {
-        enemyTargets = LevelManager.I.CurrentEnemyTargets;
-        EmojiTypeTarget = LevelManager.I.emojiTypeTarget;
-        foreach (var enemy in enemyTargets)
-        {
-            enemy.SetAsEnemyTarget();
-        }
-    }    
-
-
-    private void OnDisable()
-    {
-       
-    }
 
     private void OnGameWin()
     {
@@ -67,6 +45,7 @@ public class GamePlayController : Singleton<GamePlayController>
     }
     private IEnumerator WaitGameWin()
     {
+        //next target tiếp theo nếu là cuối cùng mới win
         yield return new WaitForSeconds(8f);
         OnGameWin();
     }

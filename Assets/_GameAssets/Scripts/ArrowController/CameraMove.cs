@@ -5,7 +5,7 @@ public class CameraMove : MonoBehaviour {
 
 
     [Header("Sitting")]
-    public float StandingHeight = 1.5f;
+    //public float StandingHeight = 1.5f;
     public float SittingHeight = 0.5f;
     public float SittingTime = .1f;
     // Sitting
@@ -18,7 +18,7 @@ public class CameraMove : MonoBehaviour {
   
 
     void Awake() {
-        _yPosTarget = StandingHeight;
+        //_yPosTarget = StandingHeight;
     }
 
     void Update() {
@@ -50,8 +50,8 @@ public class CameraMove : MonoBehaviour {
         //    _yPosTarget = _isSitting ? SittingHeight : StandingHeight;
         //}
         
-        _yPosCurrent = Mathf.SmoothDamp(_yPosCurrent, _yPosTarget, ref _yPosRef, SittingTime);
-        transform.position = new Vector3(transform.position.x, _yPosCurrent, transform.position.z);
+        //_yPosCurrent = Mathf.SmoothDamp(_yPosCurrent, _yPosTarget, ref _yPosRef, SittingTime);
+        //transform.position = new Vector3(transform.position.x, _yPosCurrent, transform.position.z);
     }
 
   

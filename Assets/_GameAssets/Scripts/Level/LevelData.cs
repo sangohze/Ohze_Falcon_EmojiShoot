@@ -7,13 +7,10 @@ public class LevelData : ScriptableObject
 {
     public int level;
     public List<CharacterController> characters;
-    public List<CharacterController> charactersTarget;
     public GameObject map;
-    public GameObject playerWeapon; 
-    public EmojiType EmojiTypeTarget;
+    public GameObject playerWeapon;  
     public Vector3 cameraPosition;
     public Quaternion cameraRotation;
-    public Sprite PreviewCharaterTarget;
-    public Sprite PreviewEmojiTarget;
-    public Sprite PreviewCharaterTarget2;
+    public CharacterTarget[] _characterTarget;
+
 }

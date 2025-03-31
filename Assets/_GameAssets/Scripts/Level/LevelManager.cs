@@ -2,22 +2,22 @@
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
+using static RootMotion.FinalIK.InteractionTrigger;
 
 public class LevelManager : Singleton<LevelManager>
 {
-    public LevelData[] levels; 
-    public int currentLevelIndex ; 
+    public LevelData[] levels;
+    public int currentLevelIndex;
 
     private GameObject currentMap;
     private GameObject currentWeapon;
-    public List<CharacterController> CurrentEnemyTargets = new List<CharacterController>();  
+    private List<CharacterController> currentEnemyTargets = new List<CharacterController>();
+    public EmojiType currentEmojiTypeTarget;
     public List<CharacterController> CurrentListEnemy;
-    public EmojiType emojiTypeTarget;
-    private Vector3 mappositation = new Vector3 (0,0.3f,0);
-    private Vector3 mappositation2 = new Vector3(-48.82f, 0.3f, 861);
+  
     [SerializeField] private bool _isTest;
-
     [SerializeField] private LevelTest _LevelTest;
+    [SerializeField] private CharacterTarget[] _characterTarget;
 
 
     void OnEnable()
@@ -25,36 +25,98 @@ public class LevelManager : Singleton<LevelManager>
         if (_isTest)
         {
             LoadLevelTest();
+            GamePlayController.I._characterTarget = _LevelTest._characterTarget;
         }
-        else{
-
+        else
+        {
             currentLevelIndex = ES3.Load<int>("currentLevelIndex", 0);
             LoadLevel(currentLevelIndex);
+            GamePlayController.I._characterTarget = _characterTarget;
+        }
+    }
+
+    private void Start()
+    {
+        SetUpLeveLGamePlay();
+    }
+    public void SetUpLeveLGamePlay()
+    {
+        if (_isTest)
+        {
+            GamePlayController.I.enemyTargets = _LevelTest.currentEnemyTargets;
+            GamePlayController.I.EmojiTypeTarget = _LevelTest.currentEmojiTypeTarget;
+            GamePlayController.I.CurrentListEnemy = _LevelTest.CurrentListEnemy;
+            foreach (var enemy in GamePlayController.I.enemyTargets)
+            {
+                enemy.SetAsEnemyTarget();
+            }
+        }
+        else
+        {
+            GamePlayController.I.enemyTargets = currentEnemyTargets;
+            GamePlayController.I.EmojiTypeTarget = currentEmojiTypeTarget;
+            GamePlayController.I.CurrentListEnemy = CurrentListEnemy;
+            foreach (var enemy in GamePlayController.I.enemyTargets)
+            {
+                enemy.SetAsEnemyTarget();
+            }
+        }
+        SetUpUI();
+    }
+    private void SetUpUI()
+    {
+
+        if (_isTest)
+        {
+            UIManager.I.Get<PanelGamePlay>().PreviewAvatar.sprite = _LevelTest._characterTarget[0].PreviewCharaterTarget;
+            UIManager.I.Get<PanelGamePlay>().PreviewEmoji.sprite = _LevelTest._characterTarget[0].PreviewEmojiTarget;
+            if (_LevelTest._characterTarget[0].PreviewCharaterTarget2 != null)
+            {
+                UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.gameObject.SetActive(true);
+                UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.sprite = _LevelTest._characterTarget[0].PreviewCharaterTarget2;
+            }
+            else
+            {
+                UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+
+            UIManager.I.Get<PanelGamePlay>().PreviewAvatar.sprite = levels[currentLevelIndex]._characterTarget[0].PreviewCharaterTarget;
+            UIManager.I.Get<PanelGamePlay>().PreviewEmoji.sprite = levels[currentLevelIndex]._characterTarget[0].PreviewEmojiTarget;
+            if (levels[currentLevelIndex]._characterTarget[0].PreviewCharaterTarget2 != null)
+            {
+                UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.gameObject.SetActive(true);
+                UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.sprite = levels[currentLevelIndex]._characterTarget[0].PreviewCharaterTarget2;
+            }
+            else
+            {
+                UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.gameObject.SetActive(false);
+            }
         }
     }
 
     public void LoadLevel(int index)
     {
         if (index < 0 || index >= levels.Length) return;
-        CurrentEnemyTargets.Clear();
+        currentEnemyTargets.Clear();
         CurrentListEnemy.Clear();
 
         LevelData level = levels[index];
 
-       if(index == 1 || index == 4 || index == 7) {
-            mappositation = mappositation2;
-        }
-        currentMap = Instantiate(level.map, mappositation, Quaternion.identity);
+        
+        currentMap = Instantiate(level.map, level.map.transform.position, Quaternion.identity);
 
-        // Spawn enemy
-      
-        emojiTypeTarget = level.EmojiTypeTarget;
+        _characterTarget = level._characterTarget;
+
+        currentEmojiTypeTarget = _characterTarget[0].EmojiTypeTarget;
 
         // Đặt vũ khí vào camera
         // Set vị trí camera
         Camera.main.transform.position = level.cameraPosition;
         Camera.main.transform.rotation = level.cameraRotation;
-    
+
         Vector3 spawnPosition = new Vector3(0, 1, 0); // Chỉnh vị trí spawn phù hợp
         NavMeshHit hit;
         if (NavMesh.SamplePosition(spawnPosition, out hit, 2f, NavMesh.AllAreas))
@@ -62,11 +124,11 @@ public class LevelManager : Singleton<LevelManager>
             foreach (CharacterController charactersPrefab in level.characters)
             {
                 Quaternion spawnRot = Quaternion.Euler(0, 90, 0);
-                CharacterController enemy = Instantiate(charactersPrefab, GetRandomSpawnPosition(), spawnRot);
+                CharacterController enemy = Instantiate(charactersPrefab, GetRandomSpawnPosition(level), spawnRot);
                 CurrentListEnemy.Add(enemy);
-                if (level.charactersTarget.Contains(charactersPrefab))
+                if (level._characterTarget[0].EnemyTarget.Contains(charactersPrefab))
                 {
-                    CurrentEnemyTargets.Add(enemy);
+                    currentEnemyTargets.Add(enemy);
                 }
             }
 
@@ -78,13 +140,15 @@ public class LevelManager : Singleton<LevelManager>
 
     }
 
+    
+
     public void NextLevel()
     {
         currentLevelIndex++;
         ES3.Save("currentLevelIndex", currentLevelIndex);
         if (currentLevelIndex < levels.Length)
         {
-           
+
         }
         else
         {
@@ -93,10 +157,26 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
-    private Vector3 GetRandomSpawnPosition()
+    private Vector3 GetRandomSpawnPosition(LevelData lv)
     {
-        return new Vector3(Random.Range(-21, -24), 0.2f, Random.Range(-10, 10)); // Random vị trí enemy
+        // Lấy hướng camera từ LevelData
+        Quaternion rotation = lv.cameraRotation;
+
+        // Khoảng cách ngẫu nhiên trước mặt camera
+        float randomDistance = Random.Range(6f, 9f); // Enemy cách camera từ 6 đến 9 đơn vị
+
+        // Tạo vị trí spawn trước mặt camera
+        Vector3 spawnPosition = lv.cameraPosition + (rotation * Vector3.forward * randomDistance);
+
+        // Điều chỉnh Y để enemy thấp hơn camera một chút
+        spawnPosition.y = lv.cameraPosition.y;
+
+        // Thêm random sang hai bên (trái/phải)
+        spawnPosition += rotation * Vector3.right * Random.Range(-5f, 5f);
+
+        return spawnPosition;
     }
+
 
     private void LoadLevelTest()
     {

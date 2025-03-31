@@ -147,7 +147,7 @@ public class CharacterController : MonoBehaviour
 
     private void ResetAllCharacters()
     {
-        foreach (var enemy in LevelManager.I.CurrentListEnemy)
+        foreach (var enemy in GamePlayController.I.CurrentListEnemy)
         {
             enemy.resetMovementCoroutine = enemy.StartCoroutine(ResetCharacterState(enemy.characterMove));
         }
@@ -161,7 +161,7 @@ public class CharacterController : MonoBehaviour
 
     private void StopAllCharaterMoving()
     {
-        foreach (var enemy in LevelManager.I.CurrentListEnemy)
+        foreach (var enemy in GamePlayController.I.CurrentListEnemy)
         {
             if (enemy != (GamePlayController.I.secondHitEnemy || GamePlayController.I.firstHitEnemy) && enemy.resetMovementCoroutine != null)
             {
