@@ -13,8 +13,8 @@ public class EmojiController : Singleton<EmojiController>
     public EmojiType currentEmoji = EmojiType.Love; // Mặc định là Love
     public delegate void EmojiChangedHandler(EmojiType newEmoji);
     public event EmojiChangedHandler OnEmojiChanged;
-
-    
+    public List<Sprite> spritesEmojiSingle = new List<Sprite>();
+    public List<Sprite> spritesEmojiCombo = new List<Sprite>();
 
     void Start()
     {
