@@ -1531,6 +1531,7 @@ MonoBehaviour:
   isEnemyTarget: 0
   isMan: 1
   parentPos: {fileID: 9071788188059780614}
+  characterID: 10
 --- !u!114 &1244974225
 MonoBehaviour:
   m_ObjectHideFlags: 0

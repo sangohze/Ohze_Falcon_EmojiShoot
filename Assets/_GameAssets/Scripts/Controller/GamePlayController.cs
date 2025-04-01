@@ -1,20 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GamePlayController : Singleton<GamePlayController>
 {
-    public List<CharacterController> enemyTargets ;
     public List<CharacterController> CurrentListEnemy;
     private int hitCount = 0;
     private bool isWaitingForSecondHit = false;
     public EmojiType EmojiTypeTarget;
-    public EmojiType firstHitEmoji ;
+    public EmojiType firstHitEmoji;
     public CharacterController firstHitEnemy = null;
     public CharacterController secondHitEnemy = null;
     private float hitResetTime = 5f;
     public Coroutine resetHitCoroutine;
     public CharacterTarget[] _characterTarget;
+    public int currentTargetIndex = 0;
 
 
     private void OnGameWin()
@@ -25,10 +26,13 @@ public class GamePlayController : Singleton<GamePlayController>
 
     public void OnEnemyTargetHit(CharacterController enemy)
     {
-        if (enemyTargets.Contains(enemy))
+        if (currentTargetIndex >= _characterTarget.Length) return;
+
+        var currentTarget = _characterTarget[currentTargetIndex];
+        if (currentTarget.EnemyTarget.Any(e => e.characterID == enemy.characterID))
         {
             hitCount++;
-            if (enemyTargets.Count == 1)
+            if (currentTarget.EnemyTarget.Count == 1)
             {
                 StartCoroutine(WaitGameWin());
                 return;
@@ -45,9 +49,19 @@ public class GamePlayController : Singleton<GamePlayController>
     }
     private IEnumerator WaitGameWin()
     {
-        //next target tiếp theo nếu là cuối cùng mới win
-        yield return new WaitForSeconds(8f);
-        OnGameWin();
+        yield return new WaitForSeconds(6.5f);
+
+        currentTargetIndex++;
+        hitCount = 0;
+        if (currentTargetIndex >= _characterTarget.Length)
+        {
+            OnGameWin();
+        }
+        else
+        {
+            LevelManager.I.currentTargetIndex = currentTargetIndex;
+            LevelManager.I.SetUpLeveLGamePlay();
+        }
     }
 
     private IEnumerator WaitForSecondHit()
@@ -57,21 +71,20 @@ public class GamePlayController : Singleton<GamePlayController>
         isWaitingForSecondHit = false;
         if (hitCount < 2)
         {
-           hitCount = 0;       
+            hitCount = 0;
         }
     }
     public void ResetHitState()
     {
         if (resetHitCoroutine != null) StopCoroutine(resetHitCoroutine);
         resetHitCoroutine = StartCoroutine(IEResetHitState());
-    }    
+    }
     private IEnumerator IEResetHitState()
     {
         yield return new WaitForSeconds(hitResetTime);
         firstHitEnemy = null;
         secondHitEnemy = null;
     }
-
 }
 
 

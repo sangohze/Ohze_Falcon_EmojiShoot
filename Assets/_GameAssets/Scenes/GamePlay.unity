@@ -1446,7 +1446,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: -536.3, z: 0}
 --- !u!1 &727515139
 GameObject:
@@ -2197,11 +2197,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   emojiType: 5
---- !u!1 &983610071 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 355144773906350180, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
-  m_PrefabInstance: {fileID: 1375482609}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1040522598
 GameObject:
   m_ObjectHideFlags: 0
@@ -3192,67 +3187,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!1001 &1375482609
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 355144773906350180, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
-      propertyPath: m_Name
-      value: Hospital
-      objectReference: {fileID: 0}
-    - target: {fileID: 355144773906350180, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8590207859897828232, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
-      propertyPath: m_RootOrder
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 8590207859897828232, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8590207859897828232, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 39.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8590207859897828232, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8590207859897828232, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8590207859897828232, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8590207859897828232, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8590207859897828232, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8590207859897828232, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8590207859897828232, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8590207859897828232, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
 --- !u!1 &1399659064
 GameObject:
   m_ObjectHideFlags: 0
@@ -3283,12 +3217,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isPersistent: 0
-  enemyTargets: []
   CurrentListEnemy: []
   EmojiTypeTarget: 4
   firstHitEmoji: 0
   firstHitEnemy: {fileID: 0}
   secondHitEnemy: {fileID: 0}
+  _characterTarget: []
+  currentTargetIndex: 0
 --- !u!4 &1399659066
 Transform:
   m_ObjectHideFlags: 0
@@ -4484,7 +4419,7 @@ MonoBehaviour:
   _isPersistent: 0
   currentLevelIndex: 6
   cameraTransform: {fileID: 696260434}
-  currentMap: {fileID: 983610071}
+  currentMap: {fileID: 355144773906350180, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
   CurrentListEnemy:
   - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
   - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
@@ -4494,16 +4429,14 @@ MonoBehaviour:
   currentEnemyTargets: []
   currentEmojiTypeTarget: 0
   _characterTarget:
-  - ID: 0
-    EmojiTypeTarget: 0
+  - EmojiTypeTarget: 0
     EnemyTarget:
     - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
     - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
     PreviewCharaterTarget: {fileID: 21300000, guid: 9bde78dc022809a46a8dab0383de03d8, type: 3}
     PreviewEmojiTarget: {fileID: 21300000, guid: ab1816a305f6e5b45b223a8bbc685640, type: 3}
     PreviewCharaterTarget2: {fileID: 21300000, guid: 692ec6fb1daeaed41866a3948435afed, type: 3}
-  - ID: 0
-    EmojiTypeTarget: 0
+  - EmojiTypeTarget: 0
     EnemyTarget:
     - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
     - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
@@ -4984,10 +4917,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4b74157c2542a614a8f66da733170a9d, type: 2}
   - {fileID: 11400000, guid: 36781bc3d03f1f24aad638aa2c60e24d, type: 2}
   - {fileID: 11400000, guid: 41d69fde0553eeb46a65955849fbcf5f, type: 2}
-  currentLevelIndex: 0
+  currentTargetIndex: 0
   currentEmojiTypeTarget: 0
   CurrentListEnemy: []
-  _isTest: 0
+  _isTest: 1
   _LevelTest: {fileID: 1904175973}
   _characterTarget: []
 --- !u!4 &2091643277

@@ -7,7 +7,8 @@ using static RootMotion.FinalIK.InteractionTrigger;
 public class LevelManager : Singleton<LevelManager>
 {
     public LevelData[] levels;
-    public int currentLevelIndex;
+    private int currentLevelIndex;
+    public int currentTargetIndex;
 
     private GameObject currentMap;
     private GameObject currentWeapon;
@@ -37,26 +38,27 @@ public class LevelManager : Singleton<LevelManager>
 
     private void Start()
     {
+        currentTargetIndex = 0;
         SetUpLeveLGamePlay();
     }
     public void SetUpLeveLGamePlay()
     {
         if (_isTest)
         {
-            GamePlayController.I.enemyTargets = _LevelTest.currentEnemyTargets;
+            //GamePlayController.I.enemyTargets = _LevelTest.currentEnemyTargets;
             GamePlayController.I.EmojiTypeTarget = _LevelTest.currentEmojiTypeTarget;
             GamePlayController.I.CurrentListEnemy = _LevelTest.CurrentListEnemy;
-            foreach (var enemy in GamePlayController.I.enemyTargets)
+            foreach (var enemy in GamePlayController.I._characterTarget[currentTargetIndex].EnemyTarget)
             {
                 enemy.SetAsEnemyTarget();
             }
         }
         else
         {
-            GamePlayController.I.enemyTargets = currentEnemyTargets;
+            //GamePlayController.I.enemyTargets = currentEnemyTargets;
             GamePlayController.I.EmojiTypeTarget = currentEmojiTypeTarget;
             GamePlayController.I.CurrentListEnemy = CurrentListEnemy;
-            foreach (var enemy in GamePlayController.I.enemyTargets)
+            foreach (var enemy in GamePlayController.I._characterTarget[currentTargetIndex].EnemyTarget)
             {
                 enemy.SetAsEnemyTarget();
             }
@@ -68,12 +70,12 @@ public class LevelManager : Singleton<LevelManager>
 
         if (_isTest)
         {
-            UIManager.I.Get<PanelGamePlay>().PreviewAvatar.sprite = _LevelTest._characterTarget[0].PreviewCharaterTarget;
-            UIManager.I.Get<PanelGamePlay>().PreviewEmoji.sprite = _LevelTest._characterTarget[0].PreviewEmojiTarget;
-            if (_LevelTest._characterTarget[0].PreviewCharaterTarget2 != null)
+            UIManager.I.Get<PanelGamePlay>().PreviewAvatar.sprite = _LevelTest._characterTarget[currentTargetIndex].PreviewCharaterTarget;
+            UIManager.I.Get<PanelGamePlay>().PreviewEmoji.sprite = _LevelTest._characterTarget[currentTargetIndex].PreviewEmojiTarget;
+            if (_LevelTest._characterTarget[currentTargetIndex].PreviewCharaterTarget2 != null)
             {
                 UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.gameObject.SetActive(true);
-                UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.sprite = _LevelTest._characterTarget[0].PreviewCharaterTarget2;
+                UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.sprite = _LevelTest._characterTarget[currentTargetIndex].PreviewCharaterTarget2;
             }
             else
             {
@@ -83,12 +85,12 @@ public class LevelManager : Singleton<LevelManager>
         else
         {
 
-            UIManager.I.Get<PanelGamePlay>().PreviewAvatar.sprite = levels[currentLevelIndex]._characterTarget[0].PreviewCharaterTarget;
-            UIManager.I.Get<PanelGamePlay>().PreviewEmoji.sprite = levels[currentLevelIndex]._characterTarget[0].PreviewEmojiTarget;
-            if (levels[currentLevelIndex]._characterTarget[0].PreviewCharaterTarget2 != null)
+            UIManager.I.Get<PanelGamePlay>().PreviewAvatar.sprite = levels[currentLevelIndex]._characterTarget[currentTargetIndex].PreviewCharaterTarget;
+            UIManager.I.Get<PanelGamePlay>().PreviewEmoji.sprite = levels[currentLevelIndex]._characterTarget[currentTargetIndex].PreviewEmojiTarget;
+            if (levels[currentLevelIndex]._characterTarget[currentTargetIndex].PreviewCharaterTarget2 != null)
             {
                 UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.gameObject.SetActive(true);
-                UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.sprite = levels[currentLevelIndex]._characterTarget[0].PreviewCharaterTarget2;
+                UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.sprite = levels[currentLevelIndex]._characterTarget[currentTargetIndex].PreviewCharaterTarget2;
             }
             else
             {

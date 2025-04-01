@@ -21,7 +21,7 @@ public class CharacterController : MonoBehaviour
     private Transform eyesPosition;
     private Transform mouthPosition;
     [SerializeField] private Transform parentPos;
-
+    public int characterID;
     void Start()
     {
         InitializeEmojiEffects();
