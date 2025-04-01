@@ -13,13 +13,14 @@ public class PanelGameLose : PanelBase
     public void ButtonRePlayOnClick()
     {
         GamePlayManager.I.GoToGamePlayFW();
-      
+        SoundManager.I.PlaySFX(TypeSound.SFX_Click);
     }
 
     public void ButtonNextLevelOnClick()
     {
         GamePlayManager.I.GoToGamePlayFW();
         LevelManager.I.NextLevel();
+        SoundManager.I.PlaySFX(TypeSound.SFX_Click);
     }
     private void OnDisable()
     {

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e854ccd8588da4694c3ae040c10c5e, type: 3}
+  m_Name: angry_man
+  m_EditorClassIdentifier: 
+  looping: 0
+  _audioClipGroups:
+  - sequenceMode: 1
+    audioClips:
+    - {fileID: 8300000, guid: 8fc7f3835a3678b498e8bbd7d8d5cdeb, type: 3}
+    - {fileID: 8300000, guid: 1629f982fedb25b4ba3d3b1fca4406f6, type: 3}
+    - {fileID: 8300000, guid: d43636636dfbf034c8c3b2fe8fa352cd, type: 3}
+    - {fileID: 8300000, guid: 0a73dd6f37d6fb74fb97505b8a879391, type: 3}
+    - {fileID: 8300000, guid: 70506aa227e022f4cbc3e6a0916ffb0c, type: 3}

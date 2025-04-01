@@ -47,5 +47,5 @@ MonoBehaviour:
   _isPersistent: 1
   _onSceneReady: {fileID: 11400000, guid: 8993b524371a91549ad10dbcddee34c5, type: 2}
   _playMusicOn: {fileID: 11400000, guid: ed832123acde482409fa7553eab13728, type: 2}
-  _musicTrack: {fileID: 11400000, guid: cb252418fb4dead4f929d6428a45a33d, type: 2}
+  _musicTrack: {fileID: 11400000, guid: c52e47f8dc39e5b48a87261728ea1970, type: 2}
   _audioConfig: {fileID: 11400000, guid: ec728d67126fdd14bae159c58d37eafd, type: 2}

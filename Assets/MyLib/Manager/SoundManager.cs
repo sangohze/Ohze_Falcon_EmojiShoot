@@ -1,7 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.Serialization;
+using MoreMountains.Tools;
 
 public class SoundManager : Singleton<SoundManager>
 {
@@ -9,6 +10,7 @@ public class SoundManager : Singleton<SoundManager>
     [SerializeField] private AudioConfigurationSO _audioConfig = default;
     [SerializeField] private AudioConfigurationSO _audioConfig_3D = default;
     [SerializeField] private SoundDataDictionary _mapper;
+    
 
 
     public AudioCueKey PlaySFX(AudioCueSO audioCueSO)
@@ -23,9 +25,16 @@ public class SoundManager : Singleton<SoundManager>
 
     public AudioCueKey PlaySFX(TypeSound typeSound)
     {
-        Debug.LogError("typeSound" + typeSound.ToString());
+        if (_audioConfig == null)
+        {
+            Debug.LogError("No mapping found for TypeSound: " + typeSound.ToString());
+          
+        }
+
+        Debug.Log("Playing sound: " + typeSound.ToString());
         return _playSFXOn.RaisePlayEvent(_mapper[typeSound], _audioConfig);
     }
+
 
     public AudioCueKey PlaySFX(TypeSound typeSound, Vector3 position)
     {
@@ -41,13 +50,23 @@ public class SoundManager : Singleton<SoundManager>
 public enum TypeSound
 {
     SFX_Click,
-    SFX_Open,
-    SFX_Cart,
-    SFX_Enfuse,
-    SFX_Cup,
-    SFX_Sort,
-    SFX_Bullet,
-    SFX_PhaoGiay
+    SFX_Love_Man,
+    SFX_Love_Girl,
+    SFX_Sad_Man,
+    SFX_Sad_Girl,
+    SFX_Angry_Man,
+    SFX_Angry_Girl,
+    SFX_Pray,
+    SFX_Devil,
+    SFX_Dance,
+    SFX_Vomit,
+    SFX_Lovers,
+    SFX_Fight,
+    SFX_God,
+    SFX_Summon,
+    SFX_Stinky,
+    SFX_Bow,
+    SFX_Arrow,
 }
 
 [System.Serializable] public class SoundDataDictionary : UnitySerializedDictionary<TypeSound, AudioCueSO> { }

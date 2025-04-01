@@ -29,6 +29,7 @@ public class CharacterMove : MonoBehaviour
         startPosition = transform.position;
         mainCamera = Camera.main;
         moveCoroutine = StartCoroutine(MoveRandomly());
+        
     }
 
     public void RestartMovement()
@@ -63,6 +64,11 @@ public class CharacterMove : MonoBehaviour
             animator.CrossFade(Characteranimationkey.Walking, 0.1f, 0);
             if (randomPosition != Vector3.zero)
             {
+                while (!navMeshAgent.isOnNavMesh)
+                {
+                    // Nếu không có NavMesh, đợi một chút và thử lại
+                    yield return null;
+                }
                 navMeshAgent.isStopped = false;
                 navMeshAgent.SetDestination(randomPosition);
 

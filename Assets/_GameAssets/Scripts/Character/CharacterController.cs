@@ -22,6 +22,7 @@ public class CharacterController : MonoBehaviour
     private Transform mouthPosition;
     [SerializeField] private Transform parentPos;
     public int characterID;
+    public Sprite Avatar;
     void Start()
     {
         InitializeEmojiEffects();
@@ -90,6 +91,7 @@ public class CharacterController : MonoBehaviour
         }
         if (isEnemyTarget && currentEmoji == GamePlayController.I.EmojiTypeTarget)
         {
+            HapticManager.I.PlayHaptic(MoreMountains.NiceVibrations.HapticTypes.LightImpact);
             GamePlayController.I.OnEnemyTargetHit(this);
         }
         GamePlayController.I.ResetHitState();

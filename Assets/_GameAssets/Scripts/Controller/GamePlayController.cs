@@ -27,7 +27,7 @@ public class GamePlayController : Singleton<GamePlayController>
     public void OnEnemyTargetHit(CharacterController enemy)
     {
         if (currentTargetIndex >= _characterTarget.Length) return;
-
+        HapticManager.I.PlayHaptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
         var currentTarget = _characterTarget[currentTargetIndex];
         if (currentTarget.EnemyTarget.Any(e => e.characterID == enemy.characterID))
         {

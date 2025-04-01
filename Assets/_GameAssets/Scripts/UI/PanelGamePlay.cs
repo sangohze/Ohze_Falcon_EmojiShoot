@@ -15,15 +15,17 @@ public class PanelGamePlay : PanelBase
     {
         GamePlayManager.I.GoToGamePlayFW();
         LevelManager.I.NextLevel();
+        SoundManager.I.PlaySFX(TypeSound.SFX_Click);
     }
 
     public void PlayAgianOnClick()
     {
         GamePlayManager.I.GoToGamePlayFW();
-        //LevelManager.I.NextLevel();
+        SoundManager.I.PlaySFX(TypeSound.SFX_Click);
     }
     public void ShowPanelSetting()
     {
+        SoundManager.I.PlaySFX(TypeSound.SFX_Click);
         UIManager.I.Show<PanelSetting>();
     }
 

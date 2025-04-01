@@ -7,9 +7,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2234746698072560338, guid: 62654899e79da0f449148de5a0d60004, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2234746698072560340, guid: 62654899e79da0f449148de5a0d60004, type: 3}
       propertyPath: m_Name
-      value: HeadArrow
+      value: HeadArrow Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2234746698072560341, guid: 62654899e79da0f449148de5a0d60004, type: 3}
       propertyPath: m_RootOrder

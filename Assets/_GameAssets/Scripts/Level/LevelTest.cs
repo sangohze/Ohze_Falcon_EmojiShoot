@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using RootMotion.FinalIK;
 using Sirenix.OdinInspector;
+using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class LevelTest : Singleton<LevelTest>
 {
@@ -13,6 +16,7 @@ public class LevelTest : Singleton<LevelTest>
     public List<CharacterController> CurrentListEnemy;
     public List<CharacterController> currentEnemyTargets = new List<CharacterController>();
     public EmojiType currentEmojiTypeTarget;
+    public NavMeshSurface groud;
     public CharacterTarget[] _characterTarget;
 
 
@@ -52,19 +56,27 @@ public class LevelTest : Singleton<LevelTest>
         Vector3 forward = cameraTransform.forward.normalized;
 
         // Khoảng cách ngẫu nhiên trước mặt camera
-        float randomDistance = Random.Range(6f, 9f);  // Enemy cách camera từ 6 đến 9 đơn vị
+        float randomDistance = Random.Range(6f, 9f);
 
-        // Tạo vị trí spawn trước mặt camera
+        // Tạo vị trí spawn dự kiến
         Vector3 spawnPosition = cameraTransform.position + forward * randomDistance;
 
-        // Điều chỉnh Y để enemy thấp hơn camera một chút
-        spawnPosition.y = cameraTransform.position.y  ;
-
-        // Thêm random sang hai bên (trái/phải)
+        // Thêm ngẫu nhiên sang trái/phải
         spawnPosition += cameraTransform.right * Random.Range(-5f, 5f);
 
-        return spawnPosition;
+        // Tìm vị trí hợp lệ trên NavMesh
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(spawnPosition, out hit, 25f, NavMesh.AllAreas))
+        {
+            return hit.position;  // Trả về vị trí hợp lệ trên NavMesh
+        }
+        else
+        {
+            Debug.LogWarning("Không tìm thấy vị trí hợp lệ trên NavMesh!");
+            return spawnPosition;  // Trả về vị trí gốc nếu không tìm thấy
+        }
     }
+
 
     [Button]
     public void SaveLevelData()

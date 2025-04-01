@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using Sirenix.OdinInspector;
 
 
 public class PanelBase : MonoBehaviour, IActive
 {
     [SerializeField] private UIElementAnim[] m_elementAnims=default;
 
+    [Button]
     public virtual void ActiveMe(System.Action callBack)
     {
         if (!gameObject.activeSelf)
@@ -19,6 +21,7 @@ public class PanelBase : MonoBehaviour, IActive
             });
     }
 
+    [Button]
     public virtual void DeActiveMe(System.Action callBack)
     {
         Hide(() =>
@@ -59,4 +62,14 @@ public class PanelBase : MonoBehaviour, IActive
 
         DOTween.To((t) => { }, 0, maxDuration, maxDuration).OnComplete(() => { callBack(); });
     }
+
+  
+#if UNITY_EDITOR
+    [Button]
+    public void CacheUIElementAnim()
+    {
+        m_elementAnims = GetComponentsInChildren<UIElementAnim>();
+    }
+#endif
+
 }

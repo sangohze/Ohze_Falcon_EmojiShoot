@@ -13,7 +13,7 @@ public class HapticManager : Singleton<HapticManager>
         if (DataManager.I.SaveData.IsHapic)
         {
             MMVibrationManager.Haptic(type);
-            Debug.Log("rung rung");
+            Debug.Log("rung rung" + type);
         }
     }
 #endif

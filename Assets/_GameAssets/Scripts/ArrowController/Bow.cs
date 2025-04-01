@@ -16,8 +16,7 @@ public class Bow : MonoBehaviour
     [SerializeField] float ReturnTime;
     [SerializeField] Arrow CurrentArrow = null;
     [SerializeField] float ArrowSpeed;
-    [SerializeField] AudioSource ArrowAudio;
-    [SerializeField] AudioSource BowAudio;
+    
 
     [SerializeField] GameObject ar;
 
@@ -33,7 +32,7 @@ public class Bow : MonoBehaviour
     [SerializeField] private float FixedArrowSpeed = 20f;
     [SerializeField] private float ShootingAngle = 30f;
     private bool isShotting = true;
-
+    private AudioCueKey _keysoundbow;
     void Start()
     {
         RopeNearLocalPosition = RopeTransform.localPosition;
@@ -75,8 +74,9 @@ public class Bow : MonoBehaviour
                     if (CurrentArrow != null && isShotting)
                     {
                         CurrentArrow.SetToRope(RopeTransform, transform);
-                        BowAudio.pitch = Random.Range(0.8f, 1.2f);
-                        BowAudio.Play();
+                        //BowAudio.pitch = Random.Range(0.8f, 1.2f);
+                        _keysoundbow = SoundManager.I.PlaySFX(TypeSound.SFX_Bow);
+                        HapticManager.I.PlayHaptic(MoreMountains.NiceVibrations.HapticTypes.LightImpact);
                     }
                     break;
 
@@ -89,9 +89,10 @@ public class Bow : MonoBehaviour
                         //CurrentArrow.Shot(ArrowSpeed * Tension);
                         //Tension = 0;
                         CurrentArrow.Shot(FixedArrowSpeed);
-                        BowAudio.Stop();
-                        ArrowAudio.pitch = Random.Range(0.8f, 1.2f);
-                        ArrowAudio.Play();
+                        SoundManager.I.StopSFX(_keysoundbow);
+                        //ArrowAudio.pitch = Random.Range(0.8f, 1.2f);
+                        SoundManager.I.PlaySFX(TypeSound.SFX_Arrow);
+                        HapticManager.I.PlayHaptic(MoreMountains.NiceVibrations.HapticTypes.LightImpact);
                         CurrentArrow = null;
                         StartCoroutine(SpawnArrowAfterDelay(timeshot));
                     }
@@ -106,7 +107,6 @@ public class Bow : MonoBehaviour
                 Tension += Time.deltaTime;
             }
             RopeTransform.localPosition = Vector3.Lerp(RopeNearLocalPosition, RopeFarLocalPosition, Tension);
-            //BowAudio.Play();
             mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, zoomOutFOV, Time.deltaTime * zoomSpeed);
         }
         else
@@ -148,8 +148,9 @@ public class Bow : MonoBehaviour
         Tension = 0;
         if (_pressed)
         {
-            BowAudio.pitch = Random.Range(0.8f, 1.2f);
-            BowAudio.Play();
+            //BowAudio.pitch = Random.Range(0.8f, 1.2f);
+            SoundManager.I.PlaySFX(TypeSound.SFX_Bow);
+            HapticManager.I.PlayHaptic(MoreMountains.NiceVibrations.HapticTypes.LightImpact);
         }
     }
 
