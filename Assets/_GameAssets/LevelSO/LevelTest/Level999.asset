@@ -21,8 +21,8 @@ MonoBehaviour:
   - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
   map: {fileID: 0}
   playerWeapon: {fileID: 0}
-  cameraPosition: {x: -390, y: -4, z: -1.5}
-  cameraRotation: {x: 0, y: -1, z: 0, w: 0}
+  cameraPosition: {x: 418.6, y: 13.45, z: 870.65}
+  cameraRotation: {x: 0, y: -0.6410478, z: 0, w: 0.767501}
   _characterTarget:
   - EmojiTypeTarget: 2
     _enemyTarget:
@@ -31,4 +31,6 @@ MonoBehaviour:
     PreviewCharaterTarget: {fileID: 21300000, guid: e7bcd10a46baf7044813ed7bca447b99, type: 3}
     PreviewEmojiTarget: {fileID: 21300000, guid: cbca078370274c84eb3c3019fba7d595, type: 3}
     PreviewCharaterTarget2: {fileID: 21300000, guid: 692ec6fb1daeaed41866a3948435afed, type: 3}
-  groud: {fileID: 0}
+  ground:
+  - {fileID: 0}
+  - {fileID: 0}

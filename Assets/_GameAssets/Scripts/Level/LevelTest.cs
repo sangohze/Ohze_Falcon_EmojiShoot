@@ -16,7 +16,7 @@ public class LevelTest : Singleton<LevelTest>
     public List<CharacterController> CurrentListEnemy;
     public List<CharacterController> currentEnemyTargets = new List<CharacterController>();
     public EmojiType currentEmojiTypeTarget;
-    public NavMeshSurface groud;
+    public List<NavMeshSurface> ground;
     public CharacterTarget[] _characterTarget;
 
 
@@ -52,30 +52,36 @@ public class LevelTest : Singleton<LevelTest>
 
     private Vector3 GetRandomSpawnPosition()
     {
-        // Hướng camera đang nhìn
         Vector3 forward = cameraTransform.forward.normalized;
-
-        // Khoảng cách ngẫu nhiên trước mặt camera
         float randomDistance = Random.Range(6f, 9f);
-
-        // Tạo vị trí spawn dự kiến
         Vector3 spawnPosition = cameraTransform.position + forward * randomDistance;
-
-        // Thêm ngẫu nhiên sang trái/phải
         spawnPosition += cameraTransform.right * Random.Range(-5f, 5f);
 
-        // Tìm vị trí hợp lệ trên NavMesh
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(spawnPosition, out hit, 25f, NavMesh.AllAreas))
+        // Danh sách offset kiểm tra
+        Vector3[] offsets = {
+        Vector3.zero, Vector3.right * 2.5f, Vector3.left * 2.5f,
+        Vector3.forward * 1.5f, Vector3.back * 1.5f
+    };
+
+        RaycastHit[] hits = new RaycastHit[1]; // Dùng NonAlloc để tối ưu
+        foreach (var offset in offsets)
         {
-            return hit.position;  // Trả về vị trí hợp lệ trên NavMesh
+            Vector3 adjustedSpawn = spawnPosition + offset;
+            Vector3 topPosition = adjustedSpawn + Vector3.up * 10f;
+
+            if (Physics.RaycastNonAlloc(topPosition, Vector3.down, hits, 25f) > 0)
+            {
+                if (NavMesh.SamplePosition(hits[0].point, out NavMeshHit navMeshHit, 2f, NavMesh.AllAreas))
+                {
+                    return navMeshHit.position;  // Trả về vị trí hợp lệ trên NavMesh
+                }
+            }
         }
-        else
-        {
-            Debug.LogWarning("Không tìm thấy vị trí hợp lệ trên NavMesh!");
-            return spawnPosition;  // Trả về vị trí gốc nếu không tìm thấy
-        }
+
+        Debug.LogWarning("Không tìm thấy vị trí hợp lệ trên NavMesh!");
+        return spawnPosition; // Trả về vị trí gốc nếu không tìm thấy NavMesh
     }
+
 
 
     [Button]
@@ -88,7 +94,7 @@ public class LevelTest : Singleton<LevelTest>
         newLevelData.cameraRotation = cameraTransform.rotation;
         newLevelData.characters = new List<CharacterController>(CurrentListEnemy);
         newLevelData._characterTarget = _characterTarget;
-        newLevelData.groud = groud;
+        newLevelData.ground = ground;
 
         // Lưu scriptable object
 #if UNITY_EDITOR

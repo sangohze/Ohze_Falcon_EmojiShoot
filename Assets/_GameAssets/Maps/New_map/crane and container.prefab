@@ -1668,6 +1668,7 @@ GameObject:
   - component: {fileID: 1546066782184387120}
   - component: {fileID: 5528192770009438914}
   - component: {fileID: 2640785009096546544}
+  - component: {fileID: 4353333521616222898}
   m_Layer: 0
   m_Name: tile-plain (295)
   m_TagString: Terrain
@@ -1771,6 +1772,20 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: c4973790f7d98a6459ea39d2e435204b, type: 2}
   m_BuildHeightMesh: 0
+--- !u!64 &4353333521616222898
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4471333482079038670}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300002, guid: 5c134a65d70034177a59fa3c42be2596, type: 3}
 --- !u!1 &4626927415699745599
 GameObject:
   m_ObjectHideFlags: 0

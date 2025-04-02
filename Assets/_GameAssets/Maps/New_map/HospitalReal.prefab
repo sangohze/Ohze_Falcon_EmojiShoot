@@ -50330,6 +50330,7 @@ GameObject:
   - component: {fileID: 7612051050106289816}
   - component: {fileID: 1598180631152086853}
   - component: {fileID: 1270885781}
+  - component: {fileID: 3711842347247276676}
   m_Layer: 0
   m_Name: tile-mainroad-intersection (15)
   m_TagString: Terrain
@@ -50458,6 +50459,20 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 667d57386d4be5649b2f9e5cb4c3ebdc, type: 2}
   m_BuildHeightMesh: 0
+--- !u!64 &3711842347247276676
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5100205464404948288}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 791ca2962746748f89ba375ca6c08c45, type: 3}
 --- !u!1 &5106335582152499368
 GameObject:
   m_ObjectHideFlags: 0
@@ -52992,6 +53007,7 @@ GameObject:
   - component: {fileID: 2869476220124003433}
   - component: {fileID: 268231447697572748}
   - component: {fileID: 2997106387039249806}
+  - component: {fileID: 8500616349900418562}
   m_Layer: 0
   m_Name: tile-road-mainroad-intersection (14)
   m_TagString: Terrain
@@ -53118,6 +53134,20 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 3f1f4c4cde5f2b14e92808b33995677d, type: 2}
   m_BuildHeightMesh: 0
+--- !u!64 &8500616349900418562
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5350673979536862260}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: e3f4b0cba74ba4e14a3be01f9bb8ba5f, type: 3}
 --- !u!1 &5357656962505312147
 GameObject:
   m_ObjectHideFlags: 0
@@ -58574,6 +58604,7 @@ GameObject:
   - component: {fileID: 6286737188210960502}
   - component: {fileID: 1980794531975876000}
   - component: {fileID: 8338997788848954007}
+  - component: {fileID: 68199760749269242}
   m_Layer: 0
   m_Name: tile-road-mainroad-intersection (13)
   m_TagString: Terrain
@@ -58700,6 +58731,20 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 3f1f4c4cde5f2b14e92808b33995677d, type: 2}
   m_BuildHeightMesh: 0
+--- !u!64 &68199760749269242
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5841141380274802516}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: e3f4b0cba74ba4e14a3be01f9bb8ba5f, type: 3}
 --- !u!1 &5842505506030749992
 GameObject:
   m_ObjectHideFlags: 0
@@ -66348,6 +66393,7 @@ GameObject:
   - component: {fileID: 7368001638086331024}
   - component: {fileID: 1704612095435903421}
   - component: {fileID: 4133204645137985352}
+  - component: {fileID: 6278992614463167626}
   m_Layer: 0
   m_Name: tile-mainroad-straight (11)
   m_TagString: Terrain
@@ -66434,6 +66480,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6278992614463167626
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6612217220136409784}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 1352904537ca54351a00660c91827c19, type: 3}
 --- !u!1 &6615638779708029263
 GameObject:
   m_ObjectHideFlags: 0
@@ -80108,6 +80168,7 @@ GameObject:
   - component: {fileID: 7087465888057866823}
   - component: {fileID: 6131619670322443174}
   - component: {fileID: 2061740747}
+  - component: {fileID: 1372174588607051355}
   m_Layer: 0
   m_Name: tile-mainroad-intersection (16)
   m_TagString: Terrain
@@ -80236,6 +80297,20 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 1639fc1a9f0ec6c4cbb25ac0d74a2c42, type: 2}
   m_BuildHeightMesh: 0
+--- !u!64 &1372174588607051355
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7900231861806464999}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 791ca2962746748f89ba375ca6c08c45, type: 3}
 --- !u!1 &7907387274769519786
 GameObject:
   m_ObjectHideFlags: 0
@@ -84416,6 +84491,7 @@ GameObject:
   - component: {fileID: 5233368194795782542}
   - component: {fileID: 6073159315264011671}
   - component: {fileID: 311420466}
+  - component: {fileID: 6810170412339096308}
   m_Layer: 0
   m_Name: tile-road-mainroad-intersection (12)
   m_TagString: Terrain
@@ -84542,6 +84618,20 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 3f1f4c4cde5f2b14e92808b33995677d, type: 2}
   m_BuildHeightMesh: 0
+--- !u!64 &6810170412339096308
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8281196955483927763}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: e3f4b0cba74ba4e14a3be01f9bb8ba5f, type: 3}
 --- !u!1 &8285664655803442879
 GameObject:
   m_ObjectHideFlags: 0

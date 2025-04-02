@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 844190978342722120}
   - component: {fileID: 1676204233331668864}
   - component: {fileID: 5209125900256828580}
+  - component: {fileID: 8427614794073766035}
   m_Layer: 0
   m_Name: building-mall
   m_TagString: Untagged
@@ -121,3 +122,17 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: bb056538f06558a478ac88d18e3f0fdb, type: 2}
   m_BuildHeightMesh: 0
+--- !u!64 &8427614794073766035
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5466562681539185637}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 7df09f422b2381944b91e0a1abecc1dd, type: 3}
