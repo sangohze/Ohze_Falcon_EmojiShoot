@@ -176,8 +176,19 @@ public class LevelManager : Singleton<LevelManager>
         // Thêm random sang hai bên (trái/phải)
         spawnPosition += rotation * Vector3.right * Random.Range(-5f, 5f);
 
-        return spawnPosition;
+        // Tìm vị trí hợp lệ trên NavMesh
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(spawnPosition, out hit, 25f, NavMesh.AllAreas))
+        {
+            return hit.position;  // Trả về vị trí hợp lệ trên NavMesh
+        }
+        else
+        {
+            Debug.LogWarning("Không tìm thấy vị trí hợp lệ trên NavMesh!");
+            return spawnPosition;  // Trả về vị trí ban đầu nếu không tìm thấy
+        }
     }
+
 
 
     private void LoadLevelTest()
