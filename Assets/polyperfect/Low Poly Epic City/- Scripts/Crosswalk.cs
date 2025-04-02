@@ -12,22 +12,10 @@ public class Crosswalk : MonoBehaviour
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Human"))
-        {
-            numberOfPedestians++;
-            PedestriansAreCrossing = true;
-        }
+      
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Human"))
-        {
-            if (--numberOfPedestians == 0)
-            {
-                PedestriansAreCrossing = false;
-                if(stateChange != null)
-                    stateChange.Invoke(false);
-            }
-        }
+      
     }
 }

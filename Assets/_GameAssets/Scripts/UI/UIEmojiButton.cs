@@ -8,6 +8,7 @@ public class UIEmojiButton : MonoBehaviour
 
     public void OnClickEmoji()
     {
+        SoundManager.I.PlaySFX(TypeSound.SFX_ClickEmojiButton);
         EmojiController.I.ChangeEmoji(emojiType);
     }
 }

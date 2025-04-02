@@ -1,19 +1,21 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class CountdownTimer : MonoBehaviour
 {
     public float countdownTime = 30f; // Tổng thời gian đếm ngược
     private float currentTime;
     public TextMeshProUGUI timerText; // UI hiển thị thời gian
-
+    private static event Action OnRevive;
     private bool isGameOver = false;
 
     void Start()
     {
         currentTime = countdownTime;
         DisplayTime();
+        OnRevive += HandleRevive;
     }
 
     void Update()
@@ -45,5 +47,20 @@ public class CountdownTimer : MonoBehaviour
         Debug.Log("Game Over! Time's up.");
         UIManager.I.Hide<PanelGamePlay>();
         UIManager.I.Show<PanelGameLose>();
+    }
+    private void HandleRevive()
+    {
+        Debug.Log("Player Revived! Reset timer.");
+        isGameOver = false;
+        currentTime = countdownTime; // Reset thời gian
+    }
+    public static void InvokeRevive()
+    {
+        OnRevive?.Invoke();
+    }
+    void OnDestroy()
+    {
+        // Hủy đăng ký khi object bị hủy để tránh lỗi
+        OnRevive -= HandleRevive;
     }
 }

@@ -25,16 +25,15 @@ public class SoundManager : Singleton<SoundManager>
 
     public AudioCueKey PlaySFX(TypeSound typeSound)
     {
-        if (_audioConfig == null)
-        {
-            Debug.LogError("No mapping found for TypeSound: " + typeSound.ToString());
-          
-        }
-
         Debug.Log("Playing sound: " + typeSound.ToString());
         return _playSFXOn.RaisePlayEvent(_mapper[typeSound], _audioConfig);
     }
 
+    public AudioCueKey PlaySFX2(TypeSound typeSound)
+    {
+        Debug.Log("Playing sound2: " + typeSound.ToString());
+        return _playSFXOn.RaisePlayEvent(_mapper[typeSound], _audioConfig);
+    }
 
     public AudioCueKey PlaySFX(TypeSound typeSound, Vector3 position)
     {
@@ -50,6 +49,7 @@ public class SoundManager : Singleton<SoundManager>
 public enum TypeSound
 {
     SFX_Click,
+    SFX_ClickEmojiButton,
     SFX_Love_Man,
     SFX_Love_Girl,
     SFX_Sad_Man,

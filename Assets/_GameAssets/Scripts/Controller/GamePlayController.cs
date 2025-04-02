@@ -16,6 +16,8 @@ public class GamePlayController : Singleton<GamePlayController>
     public Coroutine resetHitCoroutine;
     public CharacterTarget[] _characterTarget;
     public int currentTargetIndex = 0;
+    [SerializeField] AnimatedObject groupPreview;
+
 
 
     private void OnGameWin()
@@ -59,6 +61,7 @@ public class GamePlayController : Singleton<GamePlayController>
         }
         else
         {
+            groupPreview.HideThenShow();
             LevelManager.I.currentTargetIndex = currentTargetIndex;
             LevelManager.I.SetUpLeveLGamePlay();
         }

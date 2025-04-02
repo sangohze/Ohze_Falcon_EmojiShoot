@@ -16,7 +16,7 @@ public class LevelTest : Singleton<LevelTest>
     public List<CharacterController> CurrentListEnemy;
     public List<CharacterController> currentEnemyTargets = new List<CharacterController>();
     public EmojiType currentEmojiTypeTarget;
-    public List<NavMeshSurface> ground;
+    
     public CharacterTarget[] _characterTarget;
 
 
@@ -56,14 +56,12 @@ public class LevelTest : Singleton<LevelTest>
         float randomDistance = Random.Range(6f, 9f);
         Vector3 spawnPosition = cameraTransform.position + forward * randomDistance;
         spawnPosition += cameraTransform.right * Random.Range(-5f, 5f);
-
-        // Danh sách offset kiểm tra
         Vector3[] offsets = {
         Vector3.zero, Vector3.right * 2.5f, Vector3.left * 2.5f,
-        Vector3.forward * 1.5f, Vector3.back * 1.5f
+        Vector3.forward * 2.5f, Vector3.back * 2.5f
     };
 
-        RaycastHit[] hits = new RaycastHit[1]; // Dùng NonAlloc để tối ưu
+        RaycastHit[] hits = new RaycastHit[1]; 
         foreach (var offset in offsets)
         {
             Vector3 adjustedSpawn = spawnPosition + offset;
@@ -73,13 +71,13 @@ public class LevelTest : Singleton<LevelTest>
             {
                 if (NavMesh.SamplePosition(hits[0].point, out NavMeshHit navMeshHit, 2f, NavMesh.AllAreas))
                 {
-                    return navMeshHit.position;  // Trả về vị trí hợp lệ trên NavMesh
+                    return navMeshHit.position;  
                 }
             }
         }
 
         Debug.LogWarning("Không tìm thấy vị trí hợp lệ trên NavMesh!");
-        return spawnPosition; // Trả về vị trí gốc nếu không tìm thấy NavMesh
+        return spawnPosition; 
     }
 
 
@@ -94,7 +92,7 @@ public class LevelTest : Singleton<LevelTest>
         newLevelData.cameraRotation = cameraTransform.rotation;
         newLevelData.characters = new List<CharacterController>(CurrentListEnemy);
         newLevelData._characterTarget = _characterTarget;
-        newLevelData.ground = ground;
+      
 
         // Lưu scriptable object
 #if UNITY_EDITOR

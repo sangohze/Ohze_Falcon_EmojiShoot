@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using DG.Tweening;
 using Lean.Pool;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
+
 
 public class CharacterController : MonoBehaviour
 {
@@ -23,6 +23,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private Transform parentPos;
     public int characterID;
     public Sprite Avatar;
+
     void Start()
     {
         InitializeEmojiEffects();
@@ -104,6 +105,7 @@ public class CharacterController : MonoBehaviour
         animator.CrossFade(animState, 0, 0);
         PlayEmojiEffectSingle(currentEmoji);
         PlayEffectCombo(this, currentEmoji);
+        PlaySoundFXSingle(currentEmoji, this);
         GamePlayController.I.firstHitEnemy = this;
         GamePlayController.I.firstHitEmoji = currentEmoji;
         resetMovementCoroutine = StartCoroutine(ResetCharacterState());
@@ -127,6 +129,7 @@ public class CharacterController : MonoBehaviour
                 GamePlayController.I.secondHitEnemy.characterMove.MoveTowardsEnemy(characterMove, () =>
                 {
                     animator.CrossFade(animState, 0, 0);
+                    PlaySoundFXCombo(currentEmoji, this);
                     PlayEmojiEffectSingle(currentEmoji);
                     GamePlayController.I.secondHitEnemy.animator.CrossFade(animState, 0, 0);
                     GamePlayController.I.secondHitEnemy.PlayEmojiEffectSingle(currentEmoji);
@@ -144,6 +147,7 @@ public class CharacterController : MonoBehaviour
             animator.CrossFade(animState, 0, 0);
             PlayEmojiEffectSingle(currentEmoji);
             StartCoroutine(ResetCharacterState());
+            PlaySoundFXSingle(currentEmoji, this);
         }
     }
 
@@ -309,6 +313,45 @@ public class CharacterController : MonoBehaviour
         eff.transform.localRotation = Quaternion.identity; // Giữ nguyên góc xoay
         eff.transform.localScale = Vector3.one;
         eff.GetComponent<ParticleSystem>().Play();
+    }
+
+    private void PlaySoundFXSingle(EmojiType emojiType, CharacterController enemy)
+    {
+       
+        var soundMap = new Dictionary<EmojiType, TypeSound>
+    {
+        { EmojiType.Love, enemy.isMan ? TypeSound.SFX_Love_Man : TypeSound.SFX_Love_Girl },
+        { EmojiType.Sad, enemy.isMan ? TypeSound.SFX_Sad_Man : TypeSound.SFX_Sad_Girl },
+        { EmojiType.Angry, enemy.isMan ? TypeSound.SFX_Angry_Man : TypeSound.SFX_Angry_Girl},
+        { EmojiType.Pray, TypeSound.SFX_Pray },
+        { EmojiType.Devil, TypeSound.SFX_Devil },
+        { EmojiType.Dance,  TypeSound.SFX_Dance},
+        { EmojiType.Vomit, TypeSound.SFX_Vomit }
+    };
+
+        if (soundMap.TryGetValue(emojiType, out TypeSound sound))
+        {
+            SoundManager.I.PlaySFX(sound);
+        }
+    }
+
+    private void PlaySoundFXCombo(EmojiType emojiType, CharacterController enemy)
+    {
+        var soundMap = new Dictionary<EmojiType, TypeSound>
+    {
+        { EmojiType.Love, TypeSound.SFX_Lovers },
+        { EmojiType.Sad, enemy.isMan ? TypeSound.SFX_Sad_Man : TypeSound.SFX_Sad_Girl },
+        { EmojiType.Angry, TypeSound.SFX_Fight},
+        { EmojiType.Pray, TypeSound.SFX_God },
+        { EmojiType.Devil, TypeSound.SFX_Summon },
+        { EmojiType.Dance,  TypeSound.SFX_Dance},
+        { EmojiType.Vomit, TypeSound.SFX_Stinky }
+    };
+
+        if (soundMap.TryGetValue(emojiType, out TypeSound sound))
+        {
+            SoundManager.I.PlaySFX(sound);
+        }
     }
 
 }

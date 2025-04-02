@@ -8,7 +8,7 @@ public class PanelGamePlay : PanelBase
     public Image PreviewAvatar;
     public Image PreviewEmoji;
     public Image PreviewAvatar2;
-
+  
 
    
     public void ButtonNextLevelOnClick()

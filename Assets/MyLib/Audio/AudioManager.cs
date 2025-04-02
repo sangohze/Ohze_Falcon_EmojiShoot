@@ -46,6 +46,7 @@ public class AudioManager : MonoBehaviour
     private void OnEnable()
     {
         _SFXEventChannel.OnAudioCuePlayRequested += PlayAudioCue;
+        _SFXEventChannel.OnAudioCuePlayRequested += PlayAudioCue2;
         _SFXEventChannel.OnAudioCueStopRequested += StopAudioCue;
         _SFXEventChannel.OnAudioCueFinishRequested += FinishAudioCue;
 
@@ -61,6 +62,7 @@ public class AudioManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        _SFXEventChannel.OnAudioCuePlayRequested -= PlayAudioCue2;
         _SFXEventChannel.OnAudioCuePlayRequested -= PlayAudioCue;
         _SFXEventChannel.OnAudioCueStopRequested -= StopAudioCue;
         _SFXEventChannel.OnAudioCueFinishRequested -= FinishAudioCue;
@@ -228,6 +230,26 @@ public class AudioManager : MonoBehaviour
             if (soundEmitterArray[i] != null)
             {
                 soundEmitterArray[i].PlayAudioClip(clipsToPlay[i], settings, audioCue.looping, position);
+                if (!audioCue.looping)
+                    soundEmitterArray[i].OnSoundFinishedPlaying += OnSoundEmitterFinishedPlaying;
+            }
+        }
+
+        return _soundEmitterVault.Add(audioCue, soundEmitterArray);
+    }
+
+    public AudioCueKey PlayAudioCue2(AudioCueSO audioCue, AudioConfigurationSO settings, Vector3 position = default)
+    {
+        AudioClip[] clipsToPlay = audioCue.GetClips();
+        SoundEmitter[] soundEmitterArray = new SoundEmitter[clipsToPlay.Length];
+
+        int nOfClips = clipsToPlay.Length;
+        for (int i = 0; i < nOfClips; i++)
+        {
+            soundEmitterArray[i] = _pool.Request();
+            if (soundEmitterArray[i] != null)
+            {
+                soundEmitterArray[i].PlayAudioClip2(clipsToPlay[i], settings, audioCue.looping, position);
                 if (!audioCue.looping)
                     soundEmitterArray[i].OnSoundFinishedPlaying += OnSoundEmitterFinishedPlaying;
             }

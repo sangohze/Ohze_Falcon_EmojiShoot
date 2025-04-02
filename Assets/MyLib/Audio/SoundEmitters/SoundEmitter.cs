@@ -8,14 +8,17 @@ using UnityEngine.Events;
 public class SoundEmitter : MonoBehaviour
 {
 	private AudioSource _audioSource;
+    private AudioSource _audioSource2;
 
-	public event UnityAction<SoundEmitter> OnSoundFinishedPlaying;
+    public event UnityAction<SoundEmitter> OnSoundFinishedPlaying;
 
 	private void Awake()
 	{
 		_audioSource = this.GetComponent<AudioSource>();
 		_audioSource.playOnAwake = false;
-	}
+        _audioSource2 = this.GetComponent<AudioSource>();
+        _audioSource2.playOnAwake = false;
+    }
 
 	/// <summary>
 	/// Instructs the AudioSource to play a single clip, with optional looping, in a position in 3D space.
@@ -39,7 +42,25 @@ public class SoundEmitter : MonoBehaviour
 		}
 	}
 
-	public void FadeMusicIn(AudioClip musicClip, AudioConfigurationSO settings, float duration, float startTime = 0f)
+    /// <summary>
+	/// Instructs the AudioSource to play double clip, with optional looping, in a position
+	/// /// </summary>
+	/// 
+	public void PlayAudioClip2(AudioClip clip, AudioConfigurationSO settings, bool hasToLoop, Vector3 position = default)
+    {
+        _audioSource2.clip = clip;
+        settings.ApplyTo(_audioSource);
+        _audioSource2.transform.position = position;
+        _audioSource2.loop = hasToLoop;
+        _audioSource2.time = 0f; //Reset in case this AudioSource is being reused for a short SFX after being used for a long music track
+        _audioSource2.Play();
+
+        if (!hasToLoop)
+        {
+            StartCoroutine(FinishedPlaying(clip.length));
+        }
+    }
+    public void FadeMusicIn(AudioClip musicClip, AudioConfigurationSO settings, float duration, float startTime = 0f)
 	{
 		PlayAudioClip(musicClip, settings, true);
 		_audioSource.volume = 0f;

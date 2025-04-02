@@ -22,6 +22,13 @@ public class PanelGameLose : PanelBase
         LevelManager.I.NextLevel();
         SoundManager.I.PlaySFX(TypeSound.SFX_Click);
     }
+
+    public void ButtonRevive()
+    {
+        CountdownTimer.InvokeRevive();
+        DeActiveMe(null);
+        SoundManager.I.PlaySFX(TypeSound.SFX_Click);
+    }
     private void OnDisable()
     {
      

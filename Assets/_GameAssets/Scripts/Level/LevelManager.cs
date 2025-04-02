@@ -166,14 +166,12 @@ public class LevelManager : Singleton<LevelManager>
         Vector3 spawnPosition = lv.cameraPosition + (rotation * Vector3.forward * randomDistance);
         spawnPosition.y = lv.cameraPosition.y;
         spawnPosition += rotation * Vector3.right * Random.Range(-5f, 5f);
-
-        // Danh sách offset kiểm tra
         Vector3[] offsets = {
         Vector3.zero, Vector3.right * 2.5f, Vector3.left * 2.5f,
-        Vector3.forward * 1.5f, Vector3.back * 1.5f
+        Vector3.forward * 2.5f, Vector3.back * 2.5f
     };
 
-        RaycastHit[] hits = new RaycastHit[1]; // Tối ưu với RaycastNonAlloc
+        RaycastHit[] hits = new RaycastHit[1]; 
         foreach (var offset in offsets)
         {
             Vector3 adjustedSpawn = spawnPosition + offset;
@@ -183,13 +181,13 @@ public class LevelManager : Singleton<LevelManager>
             {
                 if (NavMesh.SamplePosition(hits[0].point, out NavMeshHit navMeshHit, 2f, NavMesh.AllAreas))
                 {
-                    return navMeshHit.position;  // Trả về vị trí hợp lệ trên NavMesh
+                    return navMeshHit.position;  
                 }
             }
         }
 
         Debug.LogWarning("Không tìm thấy vị trí hợp lệ trên bất kỳ NavMesh nào!");
-        return spawnPosition; // Trả về vị trí gốc nếu không tìm thấy
+        return spawnPosition; 
     }
 
 

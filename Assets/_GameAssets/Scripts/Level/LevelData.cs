@@ -13,6 +13,6 @@ public class LevelData : ScriptableObject
     public Vector3 cameraPosition;
     public Quaternion cameraRotation;
     public CharacterTarget[] _characterTarget;
-    public List<NavMeshSurface> ground;
+   
 
 }
