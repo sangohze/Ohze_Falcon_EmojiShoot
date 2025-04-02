@@ -88,7 +88,7 @@ public class LevelTest : Singleton<LevelTest>
         newLevelData.cameraRotation = cameraTransform.rotation;
         newLevelData.characters = new List<CharacterController>(CurrentListEnemy);
         newLevelData._characterTarget = _characterTarget;
-
+        newLevelData.groud = groud;
 
         // Lưu scriptable object
 #if UNITY_EDITOR
