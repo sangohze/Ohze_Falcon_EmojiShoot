@@ -32,7 +32,7 @@ public class GamePlayController : Singleton<GamePlayController>
         HapticManager.I.PlayHaptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
         var currentTarget = _characterTarget[currentTargetIndex];
         if (currentTarget.EnemyTarget.Any(e => e.characterID == enemy.characterID))
-        {
+        {      
             hitCount++;
             if (currentTarget.EnemyTarget.Count == 1)
             {

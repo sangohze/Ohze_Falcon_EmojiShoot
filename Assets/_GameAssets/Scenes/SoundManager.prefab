@@ -44,11 +44,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d503e7d081ffdc4384b7ee809c9a829, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isPersistent: 0
+  _isPersistent: 1
   _playSFXOn: {fileID: 11400000, guid: 1d040eb41ac56a34ba1b6831adf72dc8, type: 2}
   _audioConfig: {fileID: 11400000, guid: 85c3b07dd23ee4946b09de9a1084986a, type: 2}
   _audioConfig_3D: {fileID: 11400000, guid: b34acd36f37f97b40914ca671c9ca9d6, type: 2}
   _mapper:
-    keyData: 00000000
+    keyData: 000000001000000011000000010000001200000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000
     valueData:
+    - {fileID: 11400000, guid: 688a6f3b6f1ff8846b3c446aacab6719, type: 2}
+    - {fileID: 11400000, guid: c7bebb1d772b1d347a04bdb60dfe1c01, type: 2}
+    - {fileID: 11400000, guid: 13ddfc84dcbe85d4092b5bc1395f738a, type: 2}
     - {fileID: 11400000, guid: b0e24a3c32842494597f3c43219d4834, type: 2}
+    - {fileID: 11400000, guid: 189b7a75732fe1b4bb51f323a84c4f7c, type: 2}
+    - {fileID: 11400000, guid: 9e08fbfc44795de4199a9617b256a6d5, type: 2}
+    - {fileID: 11400000, guid: 70c98d50a0ebe2b46ad1d707ef49c861, type: 2}
+    - {fileID: 11400000, guid: 586378230faccc94d85930d140b420bf, type: 2}
+    - {fileID: 11400000, guid: 39922b4d627c2ba43adfa122af431ea8, type: 2}
+    - {fileID: 11400000, guid: 2316b76da023c074aa90e806d006d83c, type: 2}
+    - {fileID: 11400000, guid: 79ac8e133f821a1458be231739778b3d, type: 2}
+    - {fileID: 11400000, guid: b78d8776fa50d1d45a2bdd6e1445820a, type: 2}
+    - {fileID: 11400000, guid: 4c5cfb9715a6957499800953f8c29602, type: 2}
+    - {fileID: 11400000, guid: 783ddc8fc3848734d9e418e232a212ef, type: 2}
+    - {fileID: 11400000, guid: 00d7600e93a48dd4e948ff7ad624efa6, type: 2}
+    - {fileID: 11400000, guid: 05a746bcd57d8114cb00eceae6619c12, type: 2}
+    - {fileID: 11400000, guid: 21016d4e5e8e9464fbd4953ec9c0ffb6, type: 2}
+    - {fileID: 11400000, guid: 03fec45e4796da44093a5b2f2d66a1cc, type: 2}
+    - {fileID: 11400000, guid: 9b891950597d9454e8e011ca9591a833, type: 2}
