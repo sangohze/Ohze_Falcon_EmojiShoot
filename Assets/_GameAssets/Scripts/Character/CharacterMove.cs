@@ -159,7 +159,7 @@ public class CharacterMove : MonoBehaviour
         animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
         otherEnemy.animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
 
-        while (Vector3.Distance(transform.position, otherEnemy.transform.position) > navMeshAgent.stoppingDistance * 1.3)
+        while (Vector3.Distance(transform.position, otherEnemy.transform.position) > navMeshAgent.stoppingDistance * 3.5)
         {
             yield return null;
         }
