@@ -14,10 +14,13 @@ public class GamePlayController : Singleton<GamePlayController>
     public CharacterController secondHitEnemy = null;
     private float hitResetTime = 5f;
     public Coroutine resetHitCoroutine;
+    private Coroutine WaitForSecondHit;
     public CharacterTarget[] _characterTarget;
     public int currentTargetIndex = 0;
     [SerializeField] AnimatedObject groupPreview;
     public int currentLevelIndexText;
+    [SerializeField] GameObject tickPreview1;
+    [SerializeField] GameObject tickPreview2;
 
 
 
@@ -32,28 +35,41 @@ public class GamePlayController : Singleton<GamePlayController>
         if (currentTargetIndex >= _characterTarget.Length) return;
         HapticManager.I.PlayHaptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
         var currentTarget = _characterTarget[currentTargetIndex];
+        int enemyIndex = currentTarget.EnemyTarget.FindIndex(e => e.characterID == enemy.characterID);
         if (currentTarget.EnemyTarget.Any(e => e.characterID == enemy.characterID))
-        {      
+        {
             hitCount++;
             if (currentTarget.EnemyTarget.Count == 1)
             {
+                tickPreview1.SetActive(true);
                 StartCoroutine(WaitGameWin());
                 return;
             }
             if (hitCount == 1)
             {
-                StartCoroutine(WaitForSecondHit());
+                WaitForSecondHit = StartCoroutine(IEWaitForSecondHit(enemyIndex));
             }
             else if (hitCount == 2)
             {
+                if (enemyIndex == 0)
+                {
+                    tickPreview1.SetActive(true);
+                    
+                }
+                else if (enemyIndex == 1)
+                {
+                    tickPreview2.SetActive(true);
+                   
+                }
                 StartCoroutine(WaitGameWin());
             }
         }
     }
     private IEnumerator WaitGameWin()
     {
+        if (WaitForSecondHit != null) StopCoroutine(WaitForSecondHit);
+        CountdownTimer.InvokeStop();
         yield return new WaitForSeconds(6.5f);
-
         currentTargetIndex++;
         hitCount = 0;
         if (currentTargetIndex >= _characterTarget.Length)
@@ -68,10 +84,23 @@ public class GamePlayController : Singleton<GamePlayController>
         }
     }
 
-    private IEnumerator WaitForSecondHit()
+    private IEnumerator IEWaitForSecondHit(int enemyIndex)
     {
+        GameObject go = null;
+        if (enemyIndex == 0)
+        {
+            tickPreview1.SetActive(true);
+            go = tickPreview1;
+        }
+        else if (enemyIndex == 1)
+        {
+            tickPreview2.SetActive(true);
+            go = tickPreview2;
+        }
         isWaitingForSecondHit = true;
         yield return new WaitForSeconds(5f);
+        go.SetActive(false);
+       
         isWaitingForSecondHit = false;
         if (hitCount < 2)
         {

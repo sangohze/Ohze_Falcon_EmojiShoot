@@ -5,8 +5,19 @@ public class SoundEmitterVault
 	private int _nextUniqueKey = 0;
 	private List<AudioCueKey> _emittersKey;
 	private List<SoundEmitter[]> _emittersList;
+    public SoundEmitter[] GetAllEmitters()
+    {
+        // Kết hợp tất cả các mảng SoundEmitter[] thành một mảng duy nhất
+        List<SoundEmitter> allEmitters = new List<SoundEmitter>();
 
-	public SoundEmitterVault()
+        foreach (var emitters in _emittersList)
+        {
+            allEmitters.AddRange(emitters); // Thêm tất cả các emitter từ mảng vào list
+        }
+
+        return allEmitters.ToArray(); // Chuyển danh sách thành mảng và trả về
+    }
+    public SoundEmitterVault()
 	{
 		_emittersKey = new List<AudioCueKey>();
 		_emittersList = new List<SoundEmitter[]>();
@@ -23,7 +34,8 @@ public class SoundEmitterVault
 		_emittersList.Add(emitter);
 	}
 
-	public AudioCueKey Add(AudioCueSO cue, SoundEmitter[] emitter)
+    
+    public AudioCueKey Add(AudioCueSO cue, SoundEmitter[] emitter)
 	{
 		AudioCueKey emitterKey = GetKey(cue);
 

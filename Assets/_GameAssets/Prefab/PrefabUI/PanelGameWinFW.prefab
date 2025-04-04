@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 7106011283836479301}
   - component: {fileID: 7106011283836479300}
   - component: {fileID: 7106011283836479303}
-  - component: {fileID: 4835598818945818551}
+  - component: {fileID: 1364016982}
   m_Layer: 5
   m_Name: ButtonNextLevel
   m_TagString: Untagged
@@ -483,7 +483,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &4835598818945818551
+--- !u!114 &1364016982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -492,12 +492,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7106011283836479305}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b25c7a8246eb042870e88fc0472b8b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b29072cdcfd63940ba5e14c9e1a376f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_duration: 0.3
-  _hidePos: {x: 0.2, y: 0.2, z: 0.2}
-  _showPos: {x: 1, y: 1, z: 1}
+  _hidePos: {x: 115, y: 0, z: 0}
+  _showPos: {x: 115, y: 162, z: 0}
   _ease: 1
 --- !u!1 &7106011284359540129
 GameObject:
@@ -921,9 +921,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_elementAnims:
-  - {fileID: 143250603}
-  - {fileID: 713014025544417527}
-  - {fileID: 4835598818945818551}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _onStartShow:
     m_PersistentCalls:
       m_Calls: []
@@ -964,7 +964,7 @@ GameObject:
   - component: {fileID: 7106011285791303147}
   - component: {fileID: 7106011285791303146}
   - component: {fileID: 7106011285791303149}
-  - component: {fileID: 713014025544417527}
+  - component: {fileID: 418152632}
   m_Layer: 5
   m_Name: ButtonPlayAgian
   m_TagString: Untagged
@@ -1087,7 +1087,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &713014025544417527
+--- !u!114 &418152632
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1096,12 +1096,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7106011285791303151}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b25c7a8246eb042870e88fc0472b8b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b29072cdcfd63940ba5e14c9e1a376f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_duration: 0.3
-  _hidePos: {x: 0.2, y: 0.2, z: 0.2}
-  _showPos: {x: 1, y: 1, z: 1}
+  _hidePos: {x: -115, y: 0, z: 0}
+  _showPos: {x: -115, y: 162, z: 0}
   _ease: 1
 --- !u!1 &7106011285841612001
 GameObject:
@@ -1249,7 +1249,7 @@ GameObject:
   - component: {fileID: 7106011285855978423}
   - component: {fileID: 7106011285855978421}
   - component: {fileID: 7106011285855978420}
-  - component: {fileID: 143250603}
+  - component: {fileID: 1819168616}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -1277,7 +1277,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.0000076293945, y: -40.273468}
+  m_AnchoredPosition: {x: -7.629395, y: -55.72645}
   m_SizeDelta: {x: 396.0169, y: 111.4529}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7106011285855978421
@@ -1318,7 +1318,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &143250603
+--- !u!114 &1819168616
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1327,12 +1327,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7106011285855978422}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b25c7a8246eb042870e88fc0472b8b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b29072cdcfd63940ba5e14c9e1a376f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_duration: 0.3
-  _hidePos: {x: 0.2, y: 0.2, z: 0.2}
-  _showPos: {x: 1, y: 1, z: 1}
+  _hidePos: {x: -7.629395, y: 0, z: 0}
+  _showPos: {x: -7.629395, y: -55.72645, z: 0}
   _ease: 1
 --- !u!1 &7258556861990765343
 GameObject:
@@ -1345,6 +1345,7 @@ GameObject:
   - component: {fileID: 5802296052576534303}
   - component: {fileID: 3450335045569545321}
   - component: {fileID: 330846623792669066}
+  - component: {fileID: 1545931386}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -1410,6 +1411,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1545931386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7258556861990765343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b25c7a8246eb042870e88fc0472b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_duration: 0.3
+  _hidePos: {x: 0.2, y: 0.2, z: 0.2}
+  _showPos: {x: 1, y: 1, z: 1}
+  _ease: 1
 --- !u!1 &9211972996780585863
 GameObject:
   m_ObjectHideFlags: 0

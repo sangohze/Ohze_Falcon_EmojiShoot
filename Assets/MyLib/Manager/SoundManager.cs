@@ -25,13 +25,11 @@ public class SoundManager : Singleton<SoundManager>
 
     public AudioCueKey PlaySFX(TypeSound typeSound)
     {
-        Debug.Log("Playing sound: " + typeSound.ToString());
         return _playSFXOn.RaisePlayEvent(_mapper[typeSound], _audioConfig);
     }
 
     public AudioCueKey PlaySFX2(TypeSound typeSound)
     {
-        Debug.Log("Playing sound2: " + typeSound.ToString());
         return _playSFXOn.RaisePlayEvent(_mapper[typeSound], _audioConfig);
     }
 
@@ -44,6 +42,11 @@ public class SoundManager : Singleton<SoundManager>
     {
         _playSFXOn.RaiseStopEvent(key);
     }
+
+    public void StopAllSFX()
+    {
+        _playSFXOn.RaiseStopAllEvent();
+    }    
 }
 
 public enum TypeSound

@@ -14,6 +14,7 @@ public class AudioCueEventChannelSO : EventChannelBaseSO
     public AudioCueFinishAction OnAudioCueFinishRequested;
     public AudioCuePauseAction OnAudioCuePauseRequested;
     public AudioCueResumeAction OnAudioCueResumeRequested;
+    public  AudioCueStopAllAction OnAudioCueStopAllRequested ;
 
     public AudioCueKey RaisePlayEvent(AudioCueSO audioCue, AudioConfigurationSO audioConfiguration, Vector3 positionInSpace = default)
     {
@@ -69,6 +70,25 @@ public class AudioCueEventChannelSO : EventChannelBaseSO
         }
 
         return requestSucceed;
+    }
+
+    public bool RaiseStopAllEvent()
+    {
+        
+        bool requestSucceed = false;
+        if (OnAudioCueStopAllRequested != null)
+        {
+             OnAudioCueStopAllRequested.Invoke();
+        }
+        else
+        {
+            Debug.LogWarning("An AudioCue stop event was requested, but nobody picked it up. " +
+                "Check why there is no AudioManager already loaded, " +
+                "and make sure it's listening on this AudioCue Event channel.");
+        }
+        return requestSucceed;
+
+
     }
 
     public bool RaiseFinishEvent(AudioCueKey audioCueKey)
@@ -131,3 +151,4 @@ public delegate bool AudioCueStopAction(AudioCueKey emitterKey);
 public delegate bool AudioCueFinishAction(AudioCueKey emitterKey);
 public delegate bool AudioCuePauseAction(AudioCueKey emitterKey);
 public delegate bool AudioCueResumeAction(AudioCueKey emitterKey);
+public delegate bool AudioCueStopAllAction() ;

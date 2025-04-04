@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using System;
 using DG.Tweening;
+using Sirenix.Utilities;
 
 public class AudioManager : MonoBehaviour
 {
@@ -32,13 +33,14 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private float _sfxVolume = 1f;
 
     private SoundEmitterVault _soundEmitterVault;
+    private SoundEmitterVault _soundEmitterVault2;
     private SoundEmitter _musicSoundEmitter;
 
     private void Awake()
     {
         //TODO: GetCandel the initial volume levels from the settings
         _soundEmitterVault = new SoundEmitterVault();
-
+        _soundEmitterVault2 = new SoundEmitterVault();
         _pool.Prewarm(_initialSize);
         _pool.SetParent(this.transform);
     }
@@ -58,6 +60,8 @@ public class AudioManager : MonoBehaviour
         _soundSettingEventChannel.OnEventRaised += SettingSound;
         _musicSettingEventChannel.OnEventRaised += SettingMusic;
         _masterSoundSettingEventChannel.OnEventRaised += SettingMasterSound;
+        _SFXEventChannel.OnAudioCueStopAllRequested += StopAllSFX;
+
     }
 
     private void OnDestroy()
@@ -75,6 +79,7 @@ public class AudioManager : MonoBehaviour
         _soundSettingEventChannel.OnEventRaised -= SettingSound;
         _musicSettingEventChannel.OnEventRaised -= SettingMusic;
         _masterSoundSettingEventChannel.OnEventRaised += SettingMasterSound;
+        _SFXEventChannel.OnAudioCueStopAllRequested -= StopAllSFX;
     }
 
     /// <summary>
@@ -192,6 +197,7 @@ public class AudioManager : MonoBehaviour
             return false;
     }
 
+
     private bool PauseMusic(AudioCueKey key)
     {
         if (_musicSoundEmitter != null)
@@ -255,7 +261,7 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        return _soundEmitterVault.Add(audioCue, soundEmitterArray);
+        return _soundEmitterVault2.Add(audioCue, soundEmitterArray);
     }
 
     public bool FinishAudioCue(AudioCueKey audioCueKey)
@@ -291,8 +297,36 @@ public class AudioManager : MonoBehaviour
 
             _soundEmitterVault.Remove(audioCueKey);
         }
+        else
+        {
+            Debug.LogWarning("No emitters found for AudioCueKey: " + audioCueKey);
+        }
 
         return isFound;
+    }
+    public bool StopAllSFX()
+    {
+        // Lấy tất cả các emitter từ SoundEmitterVault
+        SoundEmitter[] allEmitters = _soundEmitterVault.GetAllEmitters();
+
+        if (allEmitters.Length > 0)
+        {
+            foreach (var emitter in allEmitters)
+            {
+                if (emitter != null && emitter.gameObject != null)
+                {
+                    StopAndCleanEmitter(emitter);
+                }
+            }
+
+            Debug.Log($"Stopped all SFX. Total stopped: {allEmitters.Length}");
+            return true; // Có ít nhất một emitter được dừng
+        }
+        else
+        {
+            Debug.LogWarning("No SFX found to stop.");
+            return false; // Không có emitter nào để dừng
+        }
     }
 
     private void OnSoundEmitterFinishedPlaying(SoundEmitter soundEmitter)

@@ -9,13 +9,17 @@ public class CountdownTimer : MonoBehaviour
     private float currentTime;
     public TextMeshProUGUI timerText; // UI hiển thị thời gian
     private static event Action OnRevive;
+    private static event Action OnStop;
     private bool isGameOver = false;
+    [SerializeField] BlinkEffect blinkEffect;
 
     void Start()
     {
         currentTime = countdownTime;
         DisplayTime();
         OnRevive += HandleRevive;
+        OnStop += HandleStopTime;
+        blinkEffect.enabled = false;
     }
 
     void Update()
@@ -24,7 +28,14 @@ public class CountdownTimer : MonoBehaviour
 
         currentTime -= Time.deltaTime;
         DisplayTime();
-
+        if(currentTime <= 10f)
+        {
+            blinkEffect.enabled = true;
+        }
+        else
+        {
+            blinkEffect.enabled = false;
+        }
         if (currentTime <= 0)
         {
             OnTimeUp();
@@ -51,16 +62,27 @@ public class CountdownTimer : MonoBehaviour
     private void HandleRevive()
     {
         Debug.Log("Player Revived! Reset timer.");
-        isGameOver = false;
+        isGameOver = true;
         currentTime = countdownTime; // Reset thời gian
+    }
+
+    private void HandleStopTime()
+    {
+        isGameOver = true;      
     }
     public static void InvokeRevive()
     {
         OnRevive?.Invoke();
     }
+    public static void InvokeStop()
+    {
+        OnStop?.Invoke();
+    }
+
     void OnDestroy()
     {
         // Hủy đăng ký khi object bị hủy để tránh lỗi
         OnRevive -= HandleRevive;
+        OnStop -= HandleStopTime;
     }
 }

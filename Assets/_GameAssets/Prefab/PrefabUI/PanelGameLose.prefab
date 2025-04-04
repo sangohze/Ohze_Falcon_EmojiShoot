@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2123955912}
   - component: {fileID: 2123955914}
   - component: {fileID: 2123955913}
+  - component: {fileID: 117105402}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -76,6 +77,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &117105402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123955911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b25c7a8246eb042870e88fc0472b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_duration: 0.4
+  _hidePos: {x: 0.2, y: 0.2, z: 0.2}
+  _showPos: {x: 1, y: 1, z: 1}
+  _ease: 1
 --- !u!1 &506828257783810229
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,7 +875,7 @@ GameObject:
   - component: {fileID: 8767856954670048234}
   - component: {fileID: 8767856954670048235}
   - component: {fileID: 8767856954670048232}
-  - component: {fileID: 1938958348}
+  - component: {fileID: 1263268063}
   m_Layer: 5
   m_Name: ButtonREVIVE
   m_TagString: Untagged
@@ -983,7 +1000,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1938958348
+--- !u!114 &1263268063
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -992,12 +1009,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8767856954670048230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b25c7a8246eb042870e88fc0472b8b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b29072cdcfd63940ba5e14c9e1a376f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_duration: 0.3
-  _hidePos: {x: 0.2, y: 0.2, z: 0.2}
-  _showPos: {x: 1, y: 1, z: 1}
+  m_duration: 0.4
+  _hidePos: {x: 115, y: 0, z: 0}
+  _showPos: {x: 115, y: 162, z: 0}
   _ease: 1
 --- !u!1 &8767856954811336782
 GameObject:
@@ -1145,7 +1162,7 @@ GameObject:
   - component: {fileID: 8767856954814662424}
   - component: {fileID: 8767856954814662426}
   - component: {fileID: 8767856954814662427}
-  - component: {fileID: 1856268132}
+  - component: {fileID: 2146138691}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -1212,7 +1229,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1856268132
+--- !u!114 &2146138691
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1221,12 +1238,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8767856954814662425}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b25c7a8246eb042870e88fc0472b8b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b29072cdcfd63940ba5e14c9e1a376f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_duration: 0.3
-  _hidePos: {x: 0.2, y: 0.2, z: 0.2}
-  _showPos: {x: 1, y: 1, z: 1}
+  m_duration: 0.4
+  _hidePos: {x: -7.629395, y: 0, z: 0}
+  _showPos: {x: -7.629395, y: -55.72645, z: 0}
   _ease: 1
 --- !u!1 &8767856954895212864
 GameObject:
@@ -1240,7 +1257,7 @@ GameObject:
   - component: {fileID: 8767856954895212868}
   - component: {fileID: 8767856954895212869}
   - component: {fileID: 8767856954895212866}
-  - component: {fileID: 651189043}
+  - component: {fileID: 343885626}
   m_Layer: 5
   m_Name: ButtonPlayAgian
   m_TagString: Untagged
@@ -1363,7 +1380,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &651189043
+--- !u!114 &343885626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1372,12 +1389,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8767856954895212864}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b25c7a8246eb042870e88fc0472b8b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b29072cdcfd63940ba5e14c9e1a376f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_duration: 0.3
-  _hidePos: {x: 0.2, y: 0.2, z: 0.2}
-  _showPos: {x: 1, y: 1, z: 1}
+  m_duration: 0.4
+  _hidePos: {x: -115, y: 0, z: 0}
+  _showPos: {x: -115, y: 162, z: 0}
   _ease: 1
 --- !u!1 &8767856955026884350
 GameObject:
@@ -1395,7 +1412,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8767856955026884321
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1435,9 +1452,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_elementAnims:
-  - {fileID: 1856268132}
-  - {fileID: 651189043}
-  - {fileID: 1938958348}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _onStartShow:
     m_PersistentCalls:
       m_Calls: []

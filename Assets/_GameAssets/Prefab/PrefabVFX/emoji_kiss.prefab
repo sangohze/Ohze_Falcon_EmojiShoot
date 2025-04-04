@@ -48,7 +48,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
@@ -4891,6 +4891,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7197921472671940184}
+  - {fileID: 8373867726496620929}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
@@ -4909,7 +4910,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
@@ -9806,3 +9807,65 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1001 &8815264088462684770
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7197921472671930150}
+    m_Modifications:
+    - target: {fileID: 1036935874457310179, guid: 0f29c427dc5d47f45be89901d7b06b68, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036935874457310179, guid: 0f29c427dc5d47f45be89901d7b06b68, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036935874457310179, guid: 0f29c427dc5d47f45be89901d7b06b68, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036935874457310179, guid: 0f29c427dc5d47f45be89901d7b06b68, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036935874457310179, guid: 0f29c427dc5d47f45be89901d7b06b68, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036935874457310179, guid: 0f29c427dc5d47f45be89901d7b06b68, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036935874457310179, guid: 0f29c427dc5d47f45be89901d7b06b68, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036935874457310179, guid: 0f29c427dc5d47f45be89901d7b06b68, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036935874457310179, guid: 0f29c427dc5d47f45be89901d7b06b68, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036935874457310179, guid: 0f29c427dc5d47f45be89901d7b06b68, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036935874457310179, guid: 0f29c427dc5d47f45be89901d7b06b68, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036935874457610765, guid: 0f29c427dc5d47f45be89901d7b06b68, type: 3}
+      propertyPath: m_Name
+      value: emoji_heart_explode
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0f29c427dc5d47f45be89901d7b06b68, type: 3}
+--- !u!4 &8373867726496620929 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1036935874457310179, guid: 0f29c427dc5d47f45be89901d7b06b68, type: 3}
+  m_PrefabInstance: {fileID: 8815264088462684770}
+  m_PrefabAsset: {fileID: 0}

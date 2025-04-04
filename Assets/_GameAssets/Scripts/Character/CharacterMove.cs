@@ -139,12 +139,12 @@ public class CharacterMove : MonoBehaviour
         }
         return false;
     }
-    public void MoveTowardsEnemy(CharacterMove otherEnemy, System.Action onComplete = null)
+    public void MoveTowardsEnemy(CharacterMove otherEnemy, EmojiType emojitype, System.Action onComplete = null)
     {
-        StartCoroutine(MoveTowardsEachOther(otherEnemy, onComplete));
+        StartCoroutine(MoveTowardsEachOther(otherEnemy, emojitype, onComplete));
     }
 
-    private IEnumerator MoveTowardsEachOther(CharacterMove otherEnemy, System.Action onComplete)
+    private IEnumerator MoveTowardsEachOther(CharacterMove otherEnemy,EmojiType emojitype, System.Action onComplete)
     {
         Vector3 midpoint = (transform.position + otherEnemy.transform.position) / 2;
         navMeshAgent.isStopped = false;
@@ -155,11 +155,23 @@ public class CharacterMove : MonoBehaviour
 
         navMeshAgent.SetDestination(midpoint);
         otherEnemy.navMeshAgent.SetDestination(midpoint);
+
         // Bắt đầu animation đi ngay lập tức
         animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
         otherEnemy.animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
 
-        while (Vector3.Distance(transform.position, otherEnemy.transform.position) > navMeshAgent.stoppingDistance * 3.5)
+        var distance = new Dictionary<EmojiType, float>
+    {
+        { EmojiType.Love, 2 },
+        { EmojiType.Sad,  3 },
+        { EmojiType.Angry,3},
+        { EmojiType.Pray, 3 },
+        { EmojiType.Devil, 3 },
+        { EmojiType.Dance, 6},
+        { EmojiType.Vomit, 5 },
+    };
+        float multiplier = distance[emojitype];
+        while (Vector3.Distance(transform.position, otherEnemy.transform.position) > navMeshAgent.stoppingDistance * multiplier) 
         {
             yield return null;
         }
@@ -191,6 +203,26 @@ public class CharacterMove : MonoBehaviour
                 return;
         }     
         eff.GetComponent<ParticleSystem>().Play();
+        StartCoroutine(StopEffectAfterTime(emojiType, 5f));
+    }
+
+    private IEnumerator StopEffectAfterTime(EmojiType emojiType, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        switch (emojiType)
+        {
+            case EmojiType.Devil:
+                EffectManager.I.HideEffectOne(TypeEffect.Eff_Devil);
+                break;
+            case EmojiType.Angry:
+
+                EffectManager.I.HideEffectOne(TypeEffect.Eff_Smoke);
+                break;
+            case EmojiType.Dance:
+                EffectManager.I.HideEffectOne(TypeEffect.Eff_Dance);
+                break;
+
+        }
     }
 
 }

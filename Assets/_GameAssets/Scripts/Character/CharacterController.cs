@@ -13,7 +13,7 @@ public class CharacterController : MonoBehaviour
     public Animator animator;
     public CharacterMove characterMove;
     public bool isEnemyTarget;
-    private Quaternion characterRotationDefault = Quaternion.Euler(0, 90, 0);
+    private Quaternion characterRotationDefault;
     private Dictionary<EmojiType, ParticleSystem> emojiToEffectMap = new Dictionary<EmojiType, ParticleSystem>();
     private Coroutine resetMovementCoroutine;
     public bool isMan;
@@ -23,11 +23,31 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private Transform parentPos;
     public int characterID;
     public Sprite Avatar;
+    private AudioCueKey _currentSFXKey;
+    private ParticleSystem currentEffectInstance;
+
 
     void Start()
     {
         InitializeEmojiEffects();
         SetUpPostionEffect();
+        SetUpRotationLookAtCamera();
+    }
+
+    private void SetUpRotationLookAtCamera()
+    {
+        Vector3 directionToCamera = Camera.main.transform.position - transform.position;
+        directionToCamera.y = 0; // Giữ nhân vật nhìn theo mặt phẳng ngang
+
+        if (directionToCamera != Vector3.zero)
+        {
+            characterRotationDefault = Quaternion.LookRotation(directionToCamera);
+        }
+        else
+        {
+            characterRotationDefault = Quaternion.identity;
+        }
+
     }
 
     void SetUpPostionEffect()
@@ -37,7 +57,7 @@ public class CharacterController : MonoBehaviour
         mouthPosition = new GameObject("Mouth").GetComponent<Transform>();
 
         headPosition.transform.SetParent(parentPos, worldPositionStays: false);
-        headPosition.transform.localPosition = new Vector3(0.00015f, -0.00192f, 0.005f);
+        headPosition.transform.localPosition = new Vector3(0.00045f, -0.0002f, 0.0059f);
         headPosition.transform.localRotation = Quaternion.Euler(0, 0, 0);
         headPosition.transform.localScale = new Vector3(0.002f, 0.002f, 0.002f);
 
@@ -126,7 +146,7 @@ public class CharacterController : MonoBehaviour
             }
             if (GamePlayController.I.secondHitEnemy != null)
             {
-                GamePlayController.I.secondHitEnemy.characterMove.MoveTowardsEnemy(characterMove, () =>
+                GamePlayController.I.secondHitEnemy.characterMove.MoveTowardsEnemy(characterMove, currentEmoji, () =>
                 {
                     animator.CrossFade(animState, 0, 0);
                     PlaySoundFXCombo(currentEmoji, this);
@@ -182,7 +202,7 @@ public class CharacterController : MonoBehaviour
             if (EmojiController.I.emojiEffects.Count > 0)
             {
                 SpawnEmojiEffect(EmojiController.I.emojiEffects[0], EmojiController.I.effectPositions[0]);
-                SpawnEmojiEffect(EmojiController.I.emojiEffects[1], EmojiController.I.effectPositions[1]);
+               // SpawnEmojiEffect(EmojiController.I.emojiEffects[1], EmojiController.I.effectPositions[1]);
             }
         }
         else
@@ -195,12 +215,21 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    private void SpawnEmojiEffect(ParticleSystem effectPrefab, Vector3 position)
+   private void SpawnEmojiEffect(ParticleSystem effectPrefab, Vector3 position)
+{
+    // Nếu có effect đang chạy thì stop và despawn
+    if (currentEffectInstance != null && currentEffectInstance.isPlaying)
     {
-        ParticleSystem effectInstance = LeanPool.Spawn(effectPrefab, transform);
-        effectInstance.transform.localPosition = position;
-        effectInstance.Play();
+        currentEffectInstance.Stop();
+        LeanPool.Despawn(currentEffectInstance);
+        currentEffectInstance = null;
     }
+
+    // Spawn effect mới
+    currentEffectInstance = LeanPool.Spawn(effectPrefab, transform);
+    currentEffectInstance.transform.localPosition = position;
+    currentEffectInstance.Play();
+}
 
 
 
@@ -308,7 +337,6 @@ public class CharacterController : MonoBehaviour
 
 
         eff.transform.SetParent(parentTransform, worldPositionStays: false);
-        // Set Parent nhưng giữ nguyên thông số Prefab
         eff.transform.localPosition = Vector3.zero;  // Đặt về đúng vị trí gốc của parent
         eff.transform.localRotation = Quaternion.identity; // Giữ nguyên góc xoay
         eff.transform.localScale = Vector3.one;
@@ -317,7 +345,12 @@ public class CharacterController : MonoBehaviour
 
     private void PlaySoundFXSingle(EmojiType emojiType, CharacterController enemy)
     {
-       
+        Debug.Log("crkey" + _currentSFXKey.Value);
+        
+        SoundManager.I.StopAllSFX();
+
+            
+        
         var soundMap = new Dictionary<EmojiType, TypeSound>
     {
         { EmojiType.Love, enemy.isMan ? TypeSound.SFX_Love_Man : TypeSound.SFX_Love_Girl },
@@ -331,12 +364,15 @@ public class CharacterController : MonoBehaviour
 
         if (soundMap.TryGetValue(emojiType, out TypeSound sound))
         {
-            SoundManager.I.PlaySFX(sound);
+            _currentSFXKey = SoundManager.I.PlaySFX(sound);
         }
     }
 
     private void PlaySoundFXCombo(EmojiType emojiType, CharacterController enemy)
     {
+        Debug.Log("crkey" + _currentSFXKey);
+        SoundManager.I.StopAllSFX();
+
         var soundMap = new Dictionary<EmojiType, TypeSound>
     {
         { EmojiType.Love, TypeSound.SFX_Lovers },
@@ -350,7 +386,7 @@ public class CharacterController : MonoBehaviour
 
         if (soundMap.TryGetValue(emojiType, out TypeSound sound))
         {
-            SoundManager.I.PlaySFX(sound);
+            _currentSFXKey = SoundManager.I.PlaySFX(sound);
         }
     }
 
