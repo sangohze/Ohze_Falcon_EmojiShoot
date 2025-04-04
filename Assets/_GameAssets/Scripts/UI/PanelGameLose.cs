@@ -26,6 +26,7 @@ public class PanelGameLose : PanelBase
     public void ButtonRevive()
     {
         CountdownTimer.InvokeRevive();
+        UIManager.I.Show<PanelGamePlay>();
         DeActiveMe(null);
         SoundManager.I.PlaySFX(TypeSound.SFX_Click);
     }

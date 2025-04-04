@@ -39,7 +39,11 @@ namespace UOP1.Pool
 		public override T Request()
 		{
 			T member = base.Request();
-			member.gameObject.SetActive(true);
+			if(member == null)
+            {
+                member = Create();
+            }
+            member.gameObject.SetActive(true);
 			return member;
 		}
 

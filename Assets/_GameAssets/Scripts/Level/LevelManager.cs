@@ -19,6 +19,8 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private bool _isTest;
     [SerializeField] private LevelTest _LevelTest;
     [SerializeField] private CharacterTarget[] _characterTarget;
+    private int currentlevelIndexText;
+   
 
 
     void OnEnable()
@@ -34,12 +36,12 @@ public class LevelManager : Singleton<LevelManager>
             LoadLevel(currentLevelIndex);
             GamePlayController.I._characterTarget = _characterTarget;
         }
+        SetUpLeveLGamePlay();
     }
 
     private void Start()
     {
-        currentTargetIndex = 0;
-        SetUpLeveLGamePlay();
+        currentTargetIndex = 0;   
     }
     public void SetUpLeveLGamePlay()
     {
@@ -48,17 +50,18 @@ public class LevelManager : Singleton<LevelManager>
             //GamePlayController.I.enemyTargets = _LevelTest.currentEnemyTargets;
             GamePlayController.I.EmojiTypeTarget = _LevelTest.currentEmojiTypeTarget;
             GamePlayController.I.CurrentListEnemy = _LevelTest.CurrentListEnemy;
-            foreach (var enemy in GamePlayController.I._characterTarget[currentTargetIndex].EnemyTarget)
+            //GamePlayController.I.CurrentListEnemy = currentlevelIndexText;
+            foreach (var enemy in currentEnemyTargets)
             {
                 enemy.SetAsEnemyTarget();
             }
         }
         else
         {
-            //GamePlayController.I.enemyTargets = currentEnemyTargets;
+            GamePlayController.I.currentLevelIndexText = currentlevelIndexText;
             GamePlayController.I.EmojiTypeTarget = currentEmojiTypeTarget;
             GamePlayController.I.CurrentListEnemy = CurrentListEnemy;
-            foreach (var enemy in GamePlayController.I._characterTarget[currentTargetIndex].EnemyTarget)
+            foreach (var enemy in currentEnemyTargets)
             {
                 enemy.SetAsEnemyTarget();
             }
@@ -101,13 +104,14 @@ public class LevelManager : Singleton<LevelManager>
 
     public void LoadLevel(int index)
     {
+        Debug.LogError("SangLevel" + (index+1) );
         if (index < 0 || index >= levels.Length) return;
         currentEnemyTargets.Clear();
         CurrentListEnemy.Clear();
 
         LevelData level = levels[index];
 
-        
+        currentlevelIndexText = levels[index].level;
         currentMap = Instantiate(level.map, level.map.transform.position, Quaternion.identity);
 
         _characterTarget = level._characterTarget;
@@ -133,13 +137,11 @@ public class LevelManager : Singleton<LevelManager>
                     currentEnemyTargets.Add(enemy);
                 }
             }
-
         }
         else
         {
             Debug.LogError("Không tìm thấy vị trí hợp lệ trên NavMesh!");
         }
-
     }
 
     
@@ -164,7 +166,7 @@ public class LevelManager : Singleton<LevelManager>
         Quaternion rotation = lv.cameraRotation;
         float randomDistance = Random.Range(6f, 9f);
         Vector3 spawnPosition = lv.cameraPosition + (rotation * Vector3.forward * randomDistance);
-        spawnPosition.y = lv.cameraPosition.y;
+        spawnPosition.y = lv.cameraPosition.y +10f;
         spawnPosition += rotation * Vector3.right * Random.Range(-5f, 5f);
         Vector3[] offsets = {
         Vector3.zero, Vector3.right * 2.5f, Vector3.left * 2.5f,

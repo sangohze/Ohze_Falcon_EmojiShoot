@@ -17,6 +17,12 @@ public class PanelSetting : PanelBase
         DeActiveMe(null);
         //        
     }
+    public void Home_OnClick()
+    {
+        SoundManager.I.PlaySFX(TypeSound.SFX_Click);
+        DeActiveMe(null);
+        UIManager.I.Get<PanelGamePlay>().ShowPanelGameHome(true);
+    }    
 
     
 }

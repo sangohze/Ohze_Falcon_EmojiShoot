@@ -132,7 +132,10 @@ public class SoundEmitter : MonoBehaviour
 
 	public bool IsLooping()
 	{
-		return _audioSource.loop;
+		
+        if (_audioSource == null)
+            _audioSource = gameObject.AddComponent<AudioSource>();
+        return _audioSource.loop;
 	}
 
 	IEnumerator FinishedPlaying(float clipLength)

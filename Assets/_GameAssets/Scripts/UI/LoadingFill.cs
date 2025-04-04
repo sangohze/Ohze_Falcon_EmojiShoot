@@ -14,14 +14,13 @@ public class LoadingFill : MonoBehaviour
 
     private void Awake()
     {
+        LoadingBarFill.fillAmount = 0f;
         IsOn = false;
         Load();
-        IsOn = true;
-
     }
     public void Load()
     {
-        float timeload = 1f;
+        float timeload = 3f;
         //Debug.Log("CountOpenGame " + AdsManager.Instance.CountOpenGame);
         //if (AdsManager.Instance.CountOpenGame >= 2 && AdsManager.Instance.IsCanShowAOA())
         //{

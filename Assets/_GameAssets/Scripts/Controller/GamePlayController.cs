@@ -17,6 +17,7 @@ public class GamePlayController : Singleton<GamePlayController>
     public CharacterTarget[] _characterTarget;
     public int currentTargetIndex = 0;
     [SerializeField] AnimatedObject groupPreview;
+    public int currentLevelIndexText;
 
 
 
