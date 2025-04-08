@@ -2286,10 +2286,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveRadius: 3
   moveInterval: 2
-  waitTime: 2.5
+  waitTime: 2.55
   avoidDistance: 2
   animator: {fileID: 2034848414891950741}
-  moveSpeed: 2
+  moveSpeed: 1.5
 --- !u!1 &7000300419754721423
 GameObject:
   m_ObjectHideFlags: 0

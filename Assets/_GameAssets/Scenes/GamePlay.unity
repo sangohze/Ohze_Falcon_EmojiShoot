@@ -2889,24 +2889,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 82f37832ffe3bb644827cd097842416f, type: 2}
   - {fileID: 2100000, guid: 6b76fa667de588b42b3ec09f2af7dc13, type: 2}
   - {fileID: 2100000, guid: 5ece7c80dc365db46b17e80bb2e77c73, type: 2}
-  emojiEffects:
-  - {fileID: 7197921472657780854, guid: 7e228510fca70d240bf7a2de515cdfd7, type: 3}
-  - {fileID: 1036935874438961145, guid: 0f29c427dc5d47f45be89901d7b06b68, type: 3}
-  - {fileID: 719336122945075508, guid: 56f7b492304334c4da853088ef7ed34f, type: 3}
-  - {fileID: 5195182387376653162, guid: 058717d7c0484ff408898d4cf6f947f2, type: 3}
-  - {fileID: 4391010206677343289, guid: c0d055914c4afb4419199f63c22fa032, type: 3}
-  - {fileID: 1596721909283363565, guid: 1004a68021b093746bbc9f739e746ab2, type: 3}
-  - {fileID: 516156505125980235, guid: b3a180c254ab6384298e4451bb8cc3c4, type: 3}
-  - {fileID: 4189847583190173032, guid: 041bb25e6e96d4846b457f9fef967fe3, type: 3}
-  effectPositions:
-  - {x: 0, y: 2.4, z: 0}
-  - {x: 0, y: 1, z: 0.5}
-  - {x: 0, y: 2.4, z: 0}
-  - {x: 0, y: 2.4, z: 0}
-  - {x: 0, y: 2.4, z: 0}
-  - {x: 0, y: 2.4, z: 0}
-  - {x: 0, y: 2.4, z: 0}
-  - {x: 0, y: 2.4, z: 0}
   currentEmoji: 0
   spritesEmojiSingle:
   - {fileID: 21300000, guid: ab1816a305f6e5b45b223a8bbc685640, type: 3}
@@ -3652,15 +3634,43 @@ MonoBehaviour:
   - Name: Eff_Smoke
     Type: 2
     Obj: {fileID: 153256, guid: fe394d041df1a0547990f49cf653249f, type: 3}
-    CountInit: 2
+    CountInit: 3
   - Name: Eff_Dance
     Type: 3
     Obj: {fileID: 100002, guid: 0e1e5f858acbc4dda9c4270c58096e0b, type: 3}
-    CountInit: 2
+    CountInit: 3
   - Name: Eff_Devil
     Type: 5
     Obj: {fileID: 3781233119514960236, guid: e23350cfe79e69f41a84663df7e871d0, type: 3}
-    CountInit: 2
+    CountInit: 3
+  - Name: Eff_LoveSingle
+    Type: 6
+    Obj: {fileID: 7197921472671812776, guid: 7e228510fca70d240bf7a2de515cdfd7, type: 3}
+    CountInit: 3
+  - Name: Eff_SadSingle
+    Type: 7
+    Obj: {fileID: 719336122958901052, guid: 56f7b492304334c4da853088ef7ed34f, type: 3}
+    CountInit: 3
+  - Name: Eff_AngrySingle
+    Type: 8
+    Obj: {fileID: 5195182387392126236, guid: 058717d7c0484ff408898d4cf6f947f2, type: 3}
+    CountInit: 3
+  - Name: Eff_PrayerSingle
+    Type: 9
+    Obj: {fileID: 4482314362685527393, guid: c0d055914c4afb4419199f63c22fa032, type: 3}
+    CountInit: 3
+  - Name: Eff_DanceSingle
+    Type: 10
+    Obj: {fileID: 516156505144647051, guid: b3a180c254ab6384298e4451bb8cc3c4, type: 3}
+    CountInit: 3
+  - Name: Eff_VomitSingle
+    Type: 11
+    Obj: {fileID: 4189847583175744088, guid: 041bb25e6e96d4846b457f9fef967fe3, type: 3}
+    CountInit: 3
+  - Name: Eff_DevilSingle
+    Type: 12
+    Obj: {fileID: 1507840444054777689, guid: 1004a68021b093746bbc9f739e746ab2, type: 3}
+    CountInit: 3
 --- !u!4 &1483675925
 Transform:
   m_ObjectHideFlags: 0

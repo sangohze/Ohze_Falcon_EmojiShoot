@@ -61,14 +61,13 @@ public class CharacterMove : MonoBehaviour
         while (isCharacterMove)
         {
             Vector3 randomPosition = GetValidRandomPosition();
-            animator.CrossFade(Characteranimationkey.Walking, 0.1f, 0);
+            animator.CrossFade(Characteranimationkey.Walking, 0.5f, 0);
+
             if (randomPosition != Vector3.zero)
             {
                 while (!navMeshAgent.isOnNavMesh)
-                {
-                    // Nếu không có NavMesh, đợi một chút và thử lại
                     yield return null;
-                }
+
                 navMeshAgent.isStopped = false;
                 navMeshAgent.SetDestination(randomPosition);
 
@@ -76,11 +75,15 @@ public class CharacterMove : MonoBehaviour
 
                 while (navMeshAgent.pathPending || navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
                 {
-                    if (!navMeshAgent.isOnNavMesh)
+                    // Xoay nhân vật thủ công
+                    Vector3 direction = navMeshAgent.desiredVelocity;
+                    if (direction.sqrMagnitude > 0.01f)
                     {
-                        yield break;
+                        Quaternion lookRotation = Quaternion.LookRotation(direction.normalized);
+                        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
                     }
-                    if (!hasStartedMoving && navMeshAgent.velocity.magnitude > 0.1f &&  !navMeshAgent.isStopped)
+
+                    if (!hasStartedMoving && navMeshAgent.velocity.magnitude > 0.1f && !navMeshAgent.isStopped)
                     {
                         animator.CrossFade(Characteranimationkey.Walking, 0.1f, 0);
                         hasStartedMoving = true;
@@ -95,6 +98,7 @@ public class CharacterMove : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
         }
     }
+
 
 
     Vector3 GetValidRandomPosition()

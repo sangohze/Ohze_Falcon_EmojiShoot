@@ -10,6 +10,14 @@ public enum TypeEffect
     Eff_Dance,
     Eff_Vomit,
     Eff_Devil,
+    //Single
+    Eff_LoveSingle,
+    Eff_SadSingle,
+    Eff_AngrySingle,
+    Eff_PrayerSingle,
+    Eff_DanceSingle,
+    Eff_VomitSingle,
+    Eff_DevilSingle,
 }
 public class EffectManager : Singleton<EffectManager>
 {
