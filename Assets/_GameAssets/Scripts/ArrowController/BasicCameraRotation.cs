@@ -5,8 +5,8 @@ using UnityEngine;
 public class BasicCameraRotation : MonoBehaviour
 {
     private float verticalRotation = 0f; // Lưu trữ góc xoay dọc hiện tại
-    private const float MIN_VERTICAL_ANGLE = -30f; // góc trên
-    private const float MAX_VERTICAL_ANGLE = 30f;  // góc dưới
+    public const float MIN_VERTICAL_ANGLE = -35f; // góc trên
+    public const float MAX_VERTICAL_ANGLE = 15f;  // góc dưới
 
     public void RotateUpDown(float axis)
     {

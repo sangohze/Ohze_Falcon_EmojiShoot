@@ -4,10 +4,12 @@ using System.Collections.Generic;
 
 public enum TypeEffect
 {
-    Eff_TearCry,
+    
     Eff_FireAngry,
     Eff_Smoke,
     Eff_Dance,
+    Eff_Pray,
+    Eff_Sad,
     Eff_Vomit,
     Eff_Devil,
     //Single
@@ -18,6 +20,7 @@ public enum TypeEffect
     Eff_DanceSingle,
     Eff_VomitSingle,
     Eff_DevilSingle,
+    Eff_SadClould,
 }
 public class EffectManager : Singleton<EffectManager>
 {

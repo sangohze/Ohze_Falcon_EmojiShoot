@@ -83,7 +83,8 @@ public class CharacterController : MonoBehaviour
         eyesPosition.transform.localScale = new Vector3(0.002f, 0.002f, 0.002f);
 
         mouthPosition.transform.SetParent(parentPos, worldPositionStays: false);
-        mouthPosition.transform.localPosition = new Vector3(0.0001f, -0.0003f, 0.001f);
+        mouthPosition.transform.localPosition = new Vector3(-0.00284f, -0.00043f, -0.00564f);
+        mouthPosition.transform.localRotation = Quaternion.Euler(0, -90, -90);
         mouthPosition.transform.localScale = new Vector3(0.002f, 0.002f, 0.002f);
 
     }
@@ -305,27 +306,30 @@ public class CharacterController : MonoBehaviour
         Transform parentTransform = null;
         switch (emojiType)
         {
-            case EmojiType.Sad:
-                parentTransform = enemy.eyesPosition.transform;
-                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_TearCry, transform.position);
-                break;
             case EmojiType.Angry:
                 parentTransform = enemy.headPosition.transform;
                 eff = EffectManager.I.PlayEffect(TypeEffect.Eff_FireAngry, transform.position);
+                eff.transform.SetParent(parentTransform, worldPositionStays: false);
+                eff.transform.localPosition = Vector3.zero;  
+                eff.transform.localRotation = Quaternion.identity; 
+                eff.transform.localScale = Vector3.one;
                 break;
             case EmojiType.Vomit:
                 parentTransform = enemy.mouthPosition.transform;
                 eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Vomit, transform.position);
+                eff.transform.SetParent(parentTransform, worldPositionStays: false);
+                eff.transform.localPosition = Vector3.zero;
+                eff.transform.localRotation = Quaternion.identity;
+                eff.transform.localScale = Vector3.one;
+                break;
+            case EmojiType.Sad:
+                parentTransform = enemy.eyesPosition.transform;
+                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_SadClould, transform.position);
                 break;
             default:
                 return;
         }
-
-        eff.transform.SetParent(parentTransform, worldPositionStays: false);
-        eff.transform.localPosition = Vector3.zero;  // Đặt về đúng vị trí gốc của parent
-        eff.transform.localRotation = Quaternion.identity; // Giữ nguyên góc xoay
-        eff.transform.localScale = Vector3.one;
-        eff.GetComponent<ParticleSystem>().Play();
+       
     }
 
     private void PlaySoundFXSingle(EmojiType emojiType, CharacterController enemy)

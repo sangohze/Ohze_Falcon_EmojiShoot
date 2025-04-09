@@ -32,16 +32,24 @@ public class Bow : MonoBehaviour
     [SerializeField] private float FixedArrowSpeed = 20f;
     [SerializeField] private float ShootingAngle = 30f;
     private bool isShotting = true;
-    private AudioCueKey _keysoundbow;
+
+    public float compressAmount = 0.02f;   
+    public float compressSpeed = 8f;       
+
+    private Vector3 initialScale;
+
+
     void Start()
     {
+        initialScale = transform.localScale;
         RopeNearLocalPosition = RopeTransform.localPosition;
-        mainCamera = Camera.main; // Lấy camera chính
+        mainCamera = Camera.main; 
         SpawnArrow();
     }
 
     void Update()
     {
+
         float screenPosition_x = Input.mousePosition.x;
         float screenPosition_y = Input.mousePosition.y;
 
@@ -53,11 +61,21 @@ public class Bow : MonoBehaviour
 
         // Check if the pointer is over a UI element
         if (IsPointerOverUIElement())
+        {
+            BowShake();
             return;
+        }
+
+        
 
         HandleTouchInput();
     }
 
+    private void BowShake()
+    {
+        float scaleY = 1f - Mathf.Abs(Mathf.Sin(Time.time * compressSpeed)) * compressAmount;
+        transform.localScale = new Vector3(initialScale.x, initialScale.y * scaleY, initialScale.z);
+    }
     private void HandleTouchInput()
     {
         if (Input.touchCount > 0)
@@ -65,8 +83,9 @@ public class Bow : MonoBehaviour
             Touch touch = Input.GetTouch(0);
 
             if (IsPointerOverUIElement(touch.position))
+            {
                 return;
-
+            }    
             switch (touch.phase )
             {
                 case TouchPhase.Began:
@@ -98,6 +117,10 @@ public class Bow : MonoBehaviour
                     }
                     break;
             }
+        }
+        else
+        {
+            BowShake();
         }
 
         if (_pressed && isShotting)

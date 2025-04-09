@@ -23,6 +23,7 @@ public class PanelGamePlay : PanelBase
     {
         _textLevel.text = "Level " + GamePlayController.I.currentLevelIndexText.ToString();
         ShowPanelGameHome(false);
+        UIManager.I.Show<PanelGamePlay>();
     }
     public void ShowPanelGameHome(bool isHome)
     {

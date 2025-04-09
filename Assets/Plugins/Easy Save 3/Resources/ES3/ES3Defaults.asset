@@ -52,6 +52,7 @@ MonoBehaviour:
     - MoreMountains.Feedbacks.Cinemachine
     - Lofelt.NiceVibrations
     - Hierarchy4.Runtime
+    - Coffee.UIParticle
     - MoreMountains.Tools.Editor
     - RootMotionEditor
     - MoreMountains.Feedbacks.Editor
@@ -60,6 +61,7 @@ MonoBehaviour:
     - MoreMountains.NiceVibrations.Editor
     - Lofelt.NiceVibrations.Editor
     - Sirenix.OdinInspector.Modules.UnityMathematics
+    - Coffee.UIParticle.Editor
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

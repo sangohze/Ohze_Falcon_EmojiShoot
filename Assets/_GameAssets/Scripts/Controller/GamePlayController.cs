@@ -21,6 +21,7 @@ public class GamePlayController : Singleton<GamePlayController>
     public int currentLevelIndexText;
     [SerializeField] GameObject tickPreview1;
     [SerializeField] GameObject tickPreview2;
+    private float timeToTarget = 10f;
 
 
 
@@ -98,7 +99,7 @@ public class GamePlayController : Singleton<GamePlayController>
             go = tickPreview2;
         }
         isWaitingForSecondHit = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(timeToTarget);
         go.SetActive(false);
        
         isWaitingForSecondHit = false;

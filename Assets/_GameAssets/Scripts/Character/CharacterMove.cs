@@ -203,10 +203,16 @@ public class CharacterMove : MonoBehaviour
             case EmojiType.Dance:
                 eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Dance, pos);
                 break;
+            case EmojiType.Pray:
+                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Pray, pos);
+                break;
+            case EmojiType.Sad:
+                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Sad, pos);
+                break;
             default:
                 return;
         }     
-        eff.GetComponent<ParticleSystem>().Play();
+        //eff.GetComponent<ParticleSystem>().Play();
         StartCoroutine(StopEffectAfterTime(emojiType, 5f));
     }
 
