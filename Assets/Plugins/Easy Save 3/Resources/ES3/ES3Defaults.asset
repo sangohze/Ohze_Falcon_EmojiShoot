@@ -47,14 +47,14 @@ MonoBehaviour:
     - LeanPool
     - LeanTouchPlus
     - UOP1.StateMachine
+    - com.homemade.modules.audio
     - LeanCommon
+    - com.homemade.pattern.singleton
     - MoreMountains.NiceVibrations
     - MoreMountains.Feedbacks.Cinemachine
     - Lofelt.NiceVibrations
     - Hierarchy4.Runtime
     - Coffee.UIParticle
-    - com.homemade.modules.audio
-    - com.homemade.pattern.singleton
     - MoreMountains.Tools.Editor
     - RootMotionEditor
     - MoreMountains.Feedbacks.Editor
@@ -62,9 +62,9 @@ MonoBehaviour:
     - Coffee.UIParticle.Editor
     - Hierarchy4.Editor
     - MoreMountains.NiceVibrations.Editor
+    - com.homemade.modules.audio.editor
     - Lofelt.NiceVibrations.Editor
     - Sirenix.OdinInspector.Modules.UnityMathematics
-    - com.homemade.modules.audio.editor
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

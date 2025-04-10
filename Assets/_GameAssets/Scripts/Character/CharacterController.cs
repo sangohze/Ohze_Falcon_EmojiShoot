@@ -105,10 +105,7 @@ public class CharacterController : MonoBehaviour
     private void HandleCollision()
     {
         characterMove.StopMoving();
-        if (resetMovementCoroutine != null)
-        {
-            StopCoroutine(resetMovementCoroutine);
-        }
+        StopCourtineResetMovemont();
         if (EmojiController.I == null) return;
         EmojiType currentEmoji = EmojiController.I.currentEmoji;
         string animStateSingle = currentEmoji.ToString();
@@ -190,15 +187,16 @@ public class CharacterController : MonoBehaviour
     {
         foreach (var enemy in GamePlayController.I.CurrentListEnemy)
         {
-            enemy.resetMovementCoroutine = enemy.StartCoroutine(ResetCharacterState(enemy.characterMove));
+            enemy.resetMovementCoroutine = enemy.StartCoroutine(ResetCharacterState(enemy));           
         }
     }
 
-    private IEnumerator ResetCharacterState(CharacterMove character)
+    private IEnumerator ResetCharacterState(CharacterController character)
     {
         yield return new WaitForSeconds(timeEndAnim);
-        EffectManager.I.HideEffectAll();
-        character.RestartMovement();
+        character.HideEffOne();
+        character.characterMove.RestartMovement();
+        Debug.Log("Sangdev_CharacterReset " + character.name);   
     }
 
     private void StopAllCharaterMoving()
@@ -207,7 +205,7 @@ public class CharacterController : MonoBehaviour
         {
             if (enemy != (GamePlayController.I.secondHitEnemy || GamePlayController.I.firstHitEnemy) && enemy.resetMovementCoroutine != null)
             {
-                enemy.characterMove.StopCoroutine(resetMovementCoroutine);
+                enemy.StopCourtineResetMovemont();
             }
         }
     }
@@ -220,11 +218,10 @@ public class CharacterController : MonoBehaviour
             effect.transform.SetParent(this.transform, worldPositionStays: false);
             effect.transform.localPosition = effectPositions;
             _currentEffectSingle = eff;
-            Debug.Log("Sangdev_currentEffect1 " + this.name+ _currentEffectSingle);
         }
     }
 
-    private void HideEffOne()
+    public void HideEffOne()
     {
         if (_currentEffectSingle != null)
         {
@@ -278,7 +275,7 @@ public class CharacterController : MonoBehaviour
                     { "Vomit", EmojiType.Vomit },
                     { "Cherring", EmojiType.Dance }
                 };
-
+                enemy.StopCourtineResetMovemont();
                 enemy.HideEffOne();
                 if (emojiMap.TryGetValue(animationKey, out var emojiTypeRemaining))
                 {
@@ -382,7 +379,15 @@ public class CharacterController : MonoBehaviour
             _currentSFXKey = SoundManager.I.PlaySFX(sound);
         }
     }
-
+    public void StopCourtineResetMovemont()
+    {
+        if (resetMovementCoroutine != null)
+        {
+            StopCoroutine(resetMovementCoroutine);
+            Debug.Log("Sangdev_resetMovementCoroutine1 " + this.name + resetMovementCoroutine);
+            resetMovementCoroutine = null;
+        }
+    }    
 }
 
 
