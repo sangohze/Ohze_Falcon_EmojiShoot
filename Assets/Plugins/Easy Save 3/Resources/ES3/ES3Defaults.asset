@@ -53,15 +53,18 @@ MonoBehaviour:
     - Lofelt.NiceVibrations
     - Hierarchy4.Runtime
     - Coffee.UIParticle
+    - com.homemade.modules.audio
+    - com.homemade.pattern.singleton
     - MoreMountains.Tools.Editor
     - RootMotionEditor
     - MoreMountains.Feedbacks.Editor
     - UOP1.StateMachine.Editor
+    - Coffee.UIParticle.Editor
     - Hierarchy4.Editor
     - MoreMountains.NiceVibrations.Editor
     - Lofelt.NiceVibrations.Editor
     - Sirenix.OdinInspector.Modules.UnityMathematics
-    - Coffee.UIParticle.Editor
+    - com.homemade.modules.audio.editor
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

@@ -110,7 +110,7 @@ public class Bow : MonoBehaviour
                         CurrentArrow.Shot(FixedArrowSpeed);
                         //SoundManager.I.StopSFX(_keysoundbow);
                         //ArrowAudio.pitch = Random.Range(0.8f, 1.2f);
-                        SoundManager.I.PlaySFX2(TypeSound.SFX_Arrow);
+                        SoundManager.I.PlaySFX(TypeSound.SFX_Arrow);
                         HapticManager.I.PlayHaptic(MoreMountains.NiceVibrations.HapticTypes.LightImpact);
                         CurrentArrow = null;
                         StartCoroutine(SpawnArrowAfterDelay(timeshot));

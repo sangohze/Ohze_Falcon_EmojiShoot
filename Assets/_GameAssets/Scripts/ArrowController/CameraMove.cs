@@ -22,7 +22,7 @@ public class CameraMove : MonoBehaviour {
     }
 
     void Update() {
-        Move();
+        //Move();
 
     }
 
@@ -42,16 +42,7 @@ public class CameraMove : MonoBehaviour {
             transform.position = Vector3.Lerp(transform.position, transform.position - rightProjection.normalized * speed, 0.1f);
         if (Move_Right.clickRight)
             transform.position = Vector3.Lerp(transform.position, transform.position + rightProjection.normalized * speed, 0.1f);
-
-
-        //if (Input.GetKeyDown(KeyCode.LeftControl)) {
-        //    Debug.Log("Sitting");
-        //    _isSitting = !_isSitting;
-        //    _yPosTarget = _isSitting ? SittingHeight : StandingHeight;
-        //}
-        
-        //_yPosCurrent = Mathf.SmoothDamp(_yPosCurrent, _yPosTarget, ref _yPosRef, SittingTime);
-        //transform.position = new Vector3(transform.position.x, _yPosCurrent, transform.position.z);
+       
     }
 
   

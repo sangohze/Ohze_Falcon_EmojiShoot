@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace UOP1.Pool
 {
@@ -39,9 +39,13 @@ namespace UOP1.Pool
 		public override T Request()
 		{
 			T member = base.Request();
-			if(member == null)
+            // Nếu có emitter và nó đang phát thì không dùng → tạo mới
+            if (member is SoundEmitter emitter)
             {
-                member = Create();
+                if (emitter == null || emitter.IsPlaying())
+                {
+                    member = Create();
+                }
             }
             member.gameObject.SetActive(true);
 			return member;

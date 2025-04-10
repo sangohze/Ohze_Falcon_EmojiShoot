@@ -27,7 +27,8 @@ public class CharacterController : MonoBehaviour
     private AudioCueKey _currentSFXKey;
     private float timeEndAnim = 10f;
     private Dictionary<EmojiType, TypeEffect > emojiEffectMap;
-    private TypeEffect? _currentEffect;
+    private TypeEffect? _currentEffectSingle;
+    private TypeEffect? _currentEffectCombo;
     private Vector3 effectPositions = new Vector3(0, 2.4f, 0);
     private void InitEffectMap()
     {
@@ -93,6 +94,8 @@ public class CharacterController : MonoBehaviour
     {
         if (other.transform.tag == "EmojiProjectile")
         {
+            Vector3 pos = other.contacts[0].point;
+            EffectManager.I.PlayEffect(TypeEffect.Eff_Hit, pos);
             HandleCollision();
         }
     }
@@ -131,8 +134,8 @@ public class CharacterController : MonoBehaviour
 
         transform.DORotateQuaternion(characterRotationDefault, 0.5f);
         animator.CrossFade(animState, 0, 0);
-        PlayEffectCombo(this, currentEmoji);
         HideEffOne();
+        PlayEffectCombo(this, currentEmoji);
         SpawnEmojiEffect(currentEmoji);
         PlaySoundFXSingle(currentEmoji, this);
         GamePlayController.I.firstHitEnemy = this;
@@ -155,9 +158,10 @@ public class CharacterController : MonoBehaviour
             }
             if (GamePlayController.I.secondHitEnemy != null)
             {
-                EffectManager.I.HideEffectAll();
                 GamePlayController.I.secondHitEnemy.characterMove.MoveTowardsEnemy(characterMove, currentEmoji, () =>
                 {
+                    HideEffOne();
+                    GamePlayController.I.secondHitEnemy.HideEffOne();
                     animator.CrossFade(animState, 0, 0);
                     PlaySoundFXCombo(currentEmoji, this);
                     SpawnEmojiEffect(currentEmoji);
@@ -215,18 +219,22 @@ public class CharacterController : MonoBehaviour
             GameObject effect = EffectManager.I.PlayEffect(eff, Vector3.zero);
             effect.transform.SetParent(this.transform, worldPositionStays: false);
             effect.transform.localPosition = effectPositions;
-            _currentEffect = eff;
-            Debug.Log("Sangdev_currentEffect1 " + this.name+ _currentEffect);
+            _currentEffectSingle = eff;
+            Debug.Log("Sangdev_currentEffect1 " + this.name+ _currentEffectSingle);
         }
     }
 
     private void HideEffOne()
     {
-        if (_currentEffect != null)
+        if (_currentEffectSingle != null)
         {
-            EffectManager.I.HideEffectOne(_currentEffect.Value);
-            _currentEffect = null;
-            Debug.Log("Sangdev_currentEffect0 " + this.name + _currentEffect.ToString());
+            EffectManager.I.HideEffectOne(_currentEffectSingle.Value);
+            _currentEffectSingle = null;
+        }
+        if (_currentEffectCombo != null)
+        {
+            EffectManager.I.HideEffectOne(_currentEffectCombo.Value);
+            _currentEffectCombo = null;
         }
     }    
 
@@ -271,6 +279,7 @@ public class CharacterController : MonoBehaviour
                     { "Cherring", EmojiType.Dance }
                 };
 
+                enemy.HideEffOne();
                 if (emojiMap.TryGetValue(animationKey, out var emojiTypeRemaining))
                 {
                     enemy.SpawnEmojiEffect(emojiTypeRemaining);
@@ -281,7 +290,6 @@ public class CharacterController : MonoBehaviour
                 //}
                 enemy.characterMove.StopMoving();
                 enemy.animator.CrossFade(animationKey, 0, 0);
-
                 StartCoroutine(WaitForAnimation(enemy, () =>
                 {
                     completedAnimations++;
@@ -313,6 +321,7 @@ public class CharacterController : MonoBehaviour
                 eff.transform.localPosition = Vector3.zero;  
                 eff.transform.localRotation = Quaternion.identity; 
                 eff.transform.localScale = Vector3.one;
+                _currentEffectCombo = TypeEffect.Eff_FireAngry;
                 break;
             case EmojiType.Vomit:
                 parentTransform = enemy.mouthPosition.transform;
@@ -321,15 +330,16 @@ public class CharacterController : MonoBehaviour
                 eff.transform.localPosition = Vector3.zero;
                 eff.transform.localRotation = Quaternion.identity;
                 eff.transform.localScale = Vector3.one;
+                _currentEffectCombo = TypeEffect.Eff_Vomit;
                 break;
             case EmojiType.Sad:
                 parentTransform = enemy.eyesPosition.transform;
                 eff = EffectManager.I.PlayEffect(TypeEffect.Eff_SadClould, transform.position);
+                _currentEffectCombo = TypeEffect.Eff_SadClould;
                 break;
             default:
                 return;
         }
-       
     }
 
     private void PlaySoundFXSingle(EmojiType emojiType, CharacterController enemy)

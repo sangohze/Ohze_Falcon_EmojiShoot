@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using Lean.Pool;
 public enum TypeEffect
 {
     
@@ -21,6 +21,8 @@ public enum TypeEffect
     Eff_VomitSingle,
     Eff_DevilSingle,
     Eff_SadClould,
+    //
+    Eff_Hit,
 }
 public class EffectManager : Singleton<EffectManager>
 {
@@ -51,7 +53,7 @@ public class EffectManager : Singleton<EffectManager>
             }
             for (int i = 0; i < item.CountInit; i++)
             {
-                GameObject effectObject = Instantiate(item.Obj, transform) as GameObject;
+                GameObject effectObject = LeanPool.Spawn(item.Obj, transform) as GameObject;
                 _mapper[item.Type].Add(effectObject);
                 effectObject.SetActive(false);
             }
@@ -79,7 +81,7 @@ public class EffectManager : Singleton<EffectManager>
         if (isPool == false)
         {
             Debug.LogWarning("PLEASE ADD MORE POOL: " + type.ToString());
-            GameObject effectObject = Instantiate(_mapper[type][0], transform) as GameObject;
+            GameObject effectObject = LeanPool.Spawn(_mapper[type][0], transform) as GameObject;
             effectObject.transform.position = pos;
             if (time != 0)
             {

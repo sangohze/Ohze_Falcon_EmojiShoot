@@ -9209,6 +9209,7 @@ GameObject:
   - component: {fileID: 4318666454129385}
   - component: {fileID: 198000617707247729}
   - component: {fileID: 199022611035467405}
+  - component: {fileID: 3954306570484657207}
   m_Layer: 0
   m_Name: Emo_8_Puke_1
   m_TagString: Untagged
@@ -9225,8 +9226,8 @@ Transform:
   m_GameObject: {fileID: 1503916040144884}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4095691438904480}
   - {fileID: 4002127995902104}
@@ -9415,8 +9416,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.5
-      minScalar: 1.5
+      scalar: 1
+      minScalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve: []
@@ -11508,6 +11509,20 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &3954306570484657207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503916040144884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc37b0f666e8a544fb729f67ad0e6837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ps: {fileID: 198059188335811239}
+  duration: 0.5
 --- !u!1 &1574939070464336
 GameObject:
   m_ObjectHideFlags: 0
@@ -13794,7 +13809,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4958531632468766}
-  - component: {fileID: 135229460727498601}
   m_Layer: 0
   m_Name: Puke
   m_TagString: Untagged
@@ -13820,19 +13834,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
---- !u!135 &135229460727498601
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1591693160420829}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1697468352660963
 GameObject:
   m_ObjectHideFlags: 0
@@ -18389,6 +18390,7 @@ GameObject:
   - component: {fileID: 4364580611557503}
   - component: {fileID: 198059188335811239}
   - component: {fileID: 199186794955742153}
+  - component: {fileID: 5522004380718567882}
   m_Layer: 0
   m_Name: Emo_8_Puke_0
   m_TagString: Untagged
@@ -20690,6 +20692,20 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &5522004380718567882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785779263749711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc37b0f666e8a544fb729f67ad0e6837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ps: {fileID: 198059188335811239}
+  duration: 2
 --- !u!1 &1964296294272627
 GameObject:
   m_ObjectHideFlags: 0
@@ -23011,13 +23027,14 @@ GameObject:
   - component: {fileID: 4887375667424663}
   - component: {fileID: 198674297903631287}
   - component: {fileID: 199990975131704502}
+  - component: {fileID: 4967418067334414297}
   m_Layer: 0
   m_Name: Emo_8_Puke_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4887375667424663
 Transform:
   m_ObjectHideFlags: 0
@@ -25312,3 +25329,17 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &4967418067334414297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995628978656810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc37b0f666e8a544fb729f67ad0e6837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ps: {fileID: 198059188335811239}
+  duration: 3

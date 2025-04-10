@@ -16,6 +16,7 @@ public class PanelGamePlay : PanelBase
     [SerializeField] private GameObject _textLevelContainer;
     [SerializeField] private TextMeshProUGUI _textLevel;
     [SerializeField] private GameObject _tutHand;
+    [SerializeField] private GameObject _progressBar;
 
     public bool _IsHome;
 
@@ -33,6 +34,7 @@ public class PanelGamePlay : PanelBase
         _objTimer.SetActive(false);
         _textLevelContainer.SetActive(true);
         _tutHand.SetActive(true);
+        _progressBar.SetActive(true);
     }
 
     public void ShowPanelGamePlay(bool isHome)
@@ -43,6 +45,7 @@ public class PanelGamePlay : PanelBase
         _objTimer.SetActive(true);
         _textLevelContainer.SetActive(false);
         _tutHand.SetActive(false);
+        _progressBar.SetActive(false);
     }
     public void ButtonNextLevelOnClick()
     {

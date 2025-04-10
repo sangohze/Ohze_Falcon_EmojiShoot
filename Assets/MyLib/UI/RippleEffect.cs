@@ -17,7 +17,7 @@ public class RippleEffect : MonoBehaviour
 
     private Sequence rippleSequence;
 
-    void Start()
+    void OnEnable()
     {
         if (loopForever)
         {
