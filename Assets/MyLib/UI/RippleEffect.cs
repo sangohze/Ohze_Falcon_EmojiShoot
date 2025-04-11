@@ -7,7 +7,7 @@ public class RippleEffect : MonoBehaviour
     public CanvasGroup canvasGroup;
 
     [Header("Effect Settings")]
-    public float scaleUpSize = 1.2f;
+    public float scaleUpSize = 1.5f;
     public float scaleUpDuration = 0.3f;
     public float fadeOutDuration = 0.5f;
 

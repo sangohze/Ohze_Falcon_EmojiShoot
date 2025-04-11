@@ -22,7 +22,9 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-   public void click_arrow()
+
+    
+    public void click_arrow()
    {
        clickArrow = !clickArrow;
        if(clickArrow)

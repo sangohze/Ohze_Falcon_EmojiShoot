@@ -56,7 +56,7 @@ public class CountdownTimer : MonoBehaviour
     {
         isGameOver = true;
         Debug.Log("Game Over! Time's up.");
-        UIManager.I.Hide<PanelGamePlay>();
+        UIManager.I.Get<PanelGamePlay>().gameObject.SetActive(false);
         UIManager.I.Show<PanelGameLose>();
     }
     private void HandleRevive()

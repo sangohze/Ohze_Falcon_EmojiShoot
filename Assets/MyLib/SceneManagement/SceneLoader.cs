@@ -165,6 +165,7 @@ public class SceneLoader : MonoBehaviour
             yield return new WaitUntil(() => LoadingFill.IsOn);
         _currentLoadingScene = SceneManager.GetSceneByName(_sceneToLoad.sceneReference.SceneName);
         _currentlyLoadedScene = _sceneToLoad;
+       
 
         if (_isFirstLoad == false && Static.IsUseNewLoading == false)
         {
@@ -173,12 +174,13 @@ public class SceneLoader : MonoBehaviour
             //if (isShowAppOpen)
             //    AdsManager.Instance.ShowAOA(true);
         }
-        _fadeChannelSO.FadeOut(0.5f);
         if (_showLoadingScreen)
             _toggleLoadingScreen.RaiseEvent(false);
+        //yield return new WaitForSecondsRealtime(0.5f);
 
         SetActiveScene();
-
+        _fadeChannelSO.FadeIn(2.5f);
+        _fadeChannelSO.FadeOut(1f);
     }
 
     /// <summary>

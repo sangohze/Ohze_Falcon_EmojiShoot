@@ -104,31 +104,34 @@ public class CharacterController : MonoBehaviour
 
     private void HandleCollision()
     {
-        characterMove.StopMoving();
-        StopCourtineResetMovemont();
         if (EmojiController.I == null) return;
         EmojiType currentEmoji = EmojiController.I.currentEmoji;
         string animStateSingle = currentEmoji.ToString();
         string animStateDouble = $"{currentEmoji}2";
         if (GamePlayController.I.firstHitEnemy == null || GamePlayController.I.firstHitEnemy == this || GamePlayController.I.firstHitEmoji != currentEmoji)
         {
+            if (currentEmoji == GamePlayController.I.firstHitEmoji)
+                return;
+            characterMove.StopMoving();
+            StopCourtineResetMovemont();
             HandleFirstHit(animStateSingle, currentEmoji);
+            if (isEnemyTarget && currentEmoji == GamePlayController.I.EmojiTypeTarget)
+            {
+                HapticManager.I.PlayHaptic(MoreMountains.NiceVibrations.HapticTypes.LightImpact);
+                GamePlayController.I.OnEnemyTargetHit(this);
+            }
+            GamePlayController.I.ResetHitState();
         }
         else if (GamePlayController.I.firstHitEmoji == currentEmoji)
         {
+            characterMove.StopMoving();
+            StopCourtineResetMovemont();
             HandleSecondHit(animStateDouble, currentEmoji);
         }
-        if (isEnemyTarget && currentEmoji == GamePlayController.I.EmojiTypeTarget)
-        {
-            HapticManager.I.PlayHaptic(MoreMountains.NiceVibrations.HapticTypes.LightImpact);
-            GamePlayController.I.OnEnemyTargetHit(this);
-        }
-        GamePlayController.I.ResetHitState();
     }
 
     private void HandleFirstHit(string animState, EmojiType currentEmoji)
     {
-
         transform.DORotateQuaternion(characterRotationDefault, 0.5f);
         animator.CrossFade(animState, 0, 0);
         HideEffOne();
@@ -165,10 +168,16 @@ public class CharacterController : MonoBehaviour
                     GamePlayController.I.secondHitEnemy.animator.CrossFade(animState, 0, 0);
                     GamePlayController.I.secondHitEnemy.SpawnEmojiEffect(currentEmoji);          
                     StopAllCharaterMoving();
-                    ResetAllCharacters();
                     PlayAnimationForRemainingEnemies(currentEmoji, () =>
                         {
                         });
+                    ResetAllCharacters();
+                    if (isEnemyTarget && currentEmoji == GamePlayController.I.EmojiTypeTarget)
+                    {
+                        HapticManager.I.PlayHaptic(MoreMountains.NiceVibrations.HapticTypes.LightImpact);
+                        GamePlayController.I.OnEnemyTargetHit(this);
+                    }
+                    GamePlayController.I.ResetHitState();
                 });
             }
         }
@@ -185,18 +194,19 @@ public class CharacterController : MonoBehaviour
 
     private void ResetAllCharacters()
     {
+        GamePlayController.I.firstHitEmoji = null;
         foreach (var enemy in GamePlayController.I.CurrentListEnemy)
         {
-            enemy.resetMovementCoroutine = enemy.StartCoroutine(ResetCharacterState(enemy));           
+            Debug.LogError("sangchade" + enemy.name);
+            enemy.resetMovementCoroutine = enemy.StartCoroutine(ResetCharacterStateAll(enemy));
         }
     }
 
-    private IEnumerator ResetCharacterState(CharacterController character)
+    private IEnumerator ResetCharacterStateAll(CharacterController character)
     {
         yield return new WaitForSeconds(timeEndAnim);
         character.HideEffOne();
-        character.characterMove.RestartMovement();
-        Debug.Log("Sangdev_CharacterReset " + character.name);   
+        character.characterMove.RestartMovement(Characteranimationkey.Walking);  
     }
 
     private void StopAllCharaterMoving()
@@ -240,7 +250,8 @@ public class CharacterController : MonoBehaviour
     {
         yield return new WaitForSeconds(timeEndAnim);
         EffectManager.I.HideEffectAll();
-        characterMove.RestartMovement();
+        characterMove.RestartMovement(Characteranimationkey.Walking);
+        GamePlayController.I.firstHitEmoji = null;
     }
 
     public void SetAsEnemyTarget()
@@ -281,12 +292,12 @@ public class CharacterController : MonoBehaviour
                 {
                     enemy.SpawnEmojiEffect(emojiTypeRemaining);
                 }
-                //if (emojitype != EmojiType.Devil)
-                //{
-                //    enemy.characterMove.StopMoving();
-                //}
                 enemy.characterMove.StopMoving();
                 enemy.animator.CrossFade(animationKey, 0, 0);
+                if (emojitype == EmojiType.Devil)
+                {
+                    enemy.characterMove.RestartMovement(animationKey);
+                }
                 StartCoroutine(WaitForAnimation(enemy, () =>
                 {
                     completedAnimations++;

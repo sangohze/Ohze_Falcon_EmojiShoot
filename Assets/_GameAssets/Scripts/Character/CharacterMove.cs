@@ -28,18 +28,18 @@ public class CharacterMove : MonoBehaviour
         navMeshAgent.speed = moveSpeed;
         startPosition = transform.position;
         mainCamera = Camera.main;
-        moveCoroutine = StartCoroutine(MoveRandomly());
+        moveCoroutine = StartCoroutine(MoveRandomly(Characteranimationkey.Walking));
         
     }
 
-    public void RestartMovement()
+    public void RestartMovement(string animwalking)
     {
         isCharacterMove = true;
         if (moveCoroutine != null)
         {
             StopCoroutine(moveCoroutine);
         }
-        moveCoroutine = StartCoroutine(MoveRandomly());
+        moveCoroutine = StartCoroutine(MoveRandomly(animwalking));
     }
 
     public void StopMoving()
@@ -56,12 +56,12 @@ public class CharacterMove : MonoBehaviour
         //animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
     }
 
-    IEnumerator MoveRandomly()
+    IEnumerator MoveRandomly(string animwalking)
     {
         while (isCharacterMove)
         {
             Vector3 randomPosition = GetValidRandomPosition();
-            animator.CrossFade(Characteranimationkey.Walking, 0.5f, 0);
+            animator.CrossFade(animwalking, 0.5f, 0);
 
             if (randomPosition != Vector3.zero)
             {
@@ -85,7 +85,7 @@ public class CharacterMove : MonoBehaviour
 
                     if (!hasStartedMoving && navMeshAgent.velocity.magnitude > 0.1f && !navMeshAgent.isStopped)
                     {
-                        animator.CrossFade(Characteranimationkey.Walking, 0.1f, 0);
+                        animator.CrossFade(animwalking, 0.1f, 0);
                         hasStartedMoving = true;
                     }
 
@@ -94,7 +94,10 @@ public class CharacterMove : MonoBehaviour
 
                 animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
             }
-
+            if(animwalking == Characteranimationkey.DevilRemaining)
+            {
+                waitTime = 0;
+            }
             yield return new WaitForSeconds(waitTime);
         }
     }
@@ -166,7 +169,7 @@ public class CharacterMove : MonoBehaviour
 
         var distance = new Dictionary<EmojiType, float>
     {
-        { EmojiType.Love, 2 },
+        { EmojiType.Love, 2.2f },
         { EmojiType.Sad,  3 },
         { EmojiType.Angry,3},
         { EmojiType.Pray, 3 },

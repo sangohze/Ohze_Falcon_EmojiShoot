@@ -9,7 +9,7 @@ public class GamePlayController : Singleton<GamePlayController>
     private int hitCount = 0;
     private bool isWaitingForSecondHit = false;
     public EmojiType EmojiTypeTarget;
-    public EmojiType firstHitEmoji;
+    public EmojiType? firstHitEmoji = null;
     public CharacterController firstHitEnemy = null;
     public CharacterController secondHitEnemy = null;
     private float hitResetTime = 5f;
@@ -27,7 +27,6 @@ public class GamePlayController : Singleton<GamePlayController>
 
     private void OnGameWin()
     {
-        UIManager.I.Hide<PanelGamePlay>();
         UIManager.I.Show<PanelGameWin>();
     }
 
@@ -50,8 +49,9 @@ public class GamePlayController : Singleton<GamePlayController>
             {
                 WaitForSecondHit = StartCoroutine(IEWaitForSecondHit(enemyIndex));
             }
-            else if (hitCount == 2)
+            else if (hitCount == 2 )
             {
+               
                 if (enemyIndex == 0)
                 {
                     tickPreview1.SetActive(true);
@@ -62,6 +62,14 @@ public class GamePlayController : Singleton<GamePlayController>
                     tickPreview2.SetActive(true);
                    
                 }
+                if (secondHitEnemy == null)
+                {
+                    if (WaitForSecondHit != null) StopCoroutine(WaitForSecondHit);
+                    WaitForSecondHit = StartCoroutine(IEWaitForSecondHit(enemyIndex));
+                    hitCount = 1;
+                    return;
+                }
+                Debug.Log("Sangdev_CharacterReset " + secondHitEnemy + firstHitEnemy);
                 StartCoroutine(WaitGameWin());
             }
         }
@@ -70,8 +78,14 @@ public class GamePlayController : Singleton<GamePlayController>
     {
         if (WaitForSecondHit != null) StopCoroutine(WaitForSecondHit);
         CountdownTimer.InvokeStop();
-        yield return new WaitForSeconds(6.5f);
         currentTargetIndex++;
+        yield return new WaitForSeconds(1.5f);
+        if (currentTargetIndex >= _characterTarget.Length)
+        {
+             GameManager.Instance.clickArrow = false;
+            UIManager.I.Get<PanelGamePlay>().gameObject.SetActive(false);
+        }
+        yield return new WaitForSeconds(1.5f);
         hitCount = 0;
         if (currentTargetIndex >= _characterTarget.Length)
         {
@@ -79,6 +93,7 @@ public class GamePlayController : Singleton<GamePlayController>
         }
         else
         {
+            GameManager.Instance.clickArrow = true;
             groupPreview.HideThenShow();
             LevelManager.I.currentTargetIndex = currentTargetIndex;
             LevelManager.I.SetUpLeveLGamePlay();

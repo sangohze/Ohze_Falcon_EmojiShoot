@@ -8,7 +8,7 @@ public class PanelGameWin : PanelBase
     void OnEnable()
     {
         
-        //SoundManager.I.PlaySFX(TypeSound.SFX_PhaoGiay);
+        SoundManager.I.PlaySFX(TypeSound.SFX_Win);
     }
 
     public void ButtonRePlayOnClick()

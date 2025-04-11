@@ -97,12 +97,12 @@ public class LevelProgress : MonoBehaviour
         }
 
         // Optional: animation
-        foreach (var img in levelImages)
-        {
-            img.transform.DOScale(Vector3.one * 1.05f, 0.2f)
-                .SetLoops(2, LoopType.Yoyo)
-                .SetEase(Ease.InOutQuad);
-        }
+        //foreach (var img in levelImages)
+        //{
+        //    img.transform.DOScale(Vector3.one * 1.05f, 0.2f)
+        //        .SetLoops(2, LoopType.Yoyo)
+        //        .SetEase(Ease.InOutQuad);
+        //}
     }
 
 

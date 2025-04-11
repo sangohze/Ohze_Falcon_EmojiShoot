@@ -90,9 +90,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_duration: 0.4
-  _hidePos: {x: 0.2, y: 0.2, z: 0.2}
-  _showPos: {x: 1, y: 1, z: 1}
+  _hidePos: {x: 0, y: 0, z: 0}
+  _showPos: {x: 0.2, y: 0.2, z: 0.2}
   _ease: 1
+  loop: 0
 --- !u!1 &506828257783810229
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,6 +876,7 @@ GameObject:
   - component: {fileID: 8767856954670048234}
   - component: {fileID: 8767856954670048235}
   - component: {fileID: 8767856954670048232}
+  - component: {fileID: 1263268068}
   - component: {fileID: 1263268063}
   m_Layer: 5
   m_Name: ButtonREVIVE
@@ -1000,6 +1002,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1263268068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8767856954670048230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b25c7a8246eb042870e88fc0472b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_duration: 0.4
+  _hidePos: {x: 1, y: 1, z: 1}
+  _showPos: {x: 1.75, y: 1.75, z: 1.75}
+  _ease: 1
+  loop: 1
 --- !u!114 &1263268063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1452,9 +1471,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_elementAnims:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2146138691}
+  - {fileID: 343885626}
+  - {fileID: 1263268063}
+  - {fileID: 117105402}
   _onStartShow:
     m_PersistentCalls:
       m_Calls: []
@@ -1656,7 +1676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.8392157}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.9607843}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

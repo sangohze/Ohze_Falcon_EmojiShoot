@@ -70,6 +70,8 @@ public enum TypeSound
     SFX_Stinky,
     SFX_Bow,
     SFX_Arrow,
+    SFX_Win,
+    SFX_Lose,
 }
 
 [System.Serializable] public class SoundDataDictionary : UnitySerializedDictionary<TypeSound, AudioCueSO> { }

@@ -6,8 +6,8 @@ public class PanelGameLose : PanelBase
 {
    
     void OnEnable()
-    {        
-        //SoundManager.I.PlaySFX(TypeSound.SFX_PhaoGiay);
+    {
+        SoundManager.I.PlaySFX(TypeSound.SFX_Lose);
     }
 
     public void ButtonRePlayOnClick()

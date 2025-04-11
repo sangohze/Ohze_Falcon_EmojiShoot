@@ -8,6 +8,7 @@ public class UIScale : UIElementAnim
     [SerializeField] private Vector3 _hidePos = default;
     [SerializeField] private Vector3 _showPos = default;
     [SerializeField] private Ease _ease = Ease.Linear;
+    [SerializeField] private bool loop = false; // Thêm boolean loop để kiểm soát lặp lại
 
     private RectTransform m_curTrf;
 
@@ -21,26 +22,35 @@ public class UIScale : UIElementAnim
 
     public override void Hide()
     {
-        if (gameObject.activeSelf == false || gameObject.gameObject.activeInHierarchy == false) return;
+        if (!gameObject.activeSelf || !gameObject.gameObject.activeInHierarchy) return;
 
-        Tweener = m_curTrf.DOScale(_HidePos, Duration);
-        Tweener.SetEase(_ease);
-        Tweener.ChangeValues(_ShowPos, _HidePos);
-        Tweener.Play();
+        Tweener = m_curTrf.DOScale(_HidePos, Duration)
+            .SetEase(_ease)
+            .OnComplete(() =>
+            {
+                if (loop) Show(); // Nếu loop bật, gọi lại Show sau khi Hide hoàn tất
+            });
     }
 
     public override void Show()
     {
-        if (gameObject.activeSelf == false || gameObject.gameObject.activeInHierarchy == false) return;
+        if (!gameObject.activeSelf || !gameObject.gameObject.activeInHierarchy) return;
 
-        Tweener = m_curTrf.DOScale(_ShowPos, Duration);
-        Tweener.SetEase(_ease);
-        Tweener.ChangeValues(_HidePos, _ShowPos);
-        Tweener.Play();
+        Tweener = m_curTrf.DOScale(_ShowPos, Duration)
+            .SetEase(_ease)
+            .OnComplete(() =>
+            {
+                if (loop) Hide(); // Nếu loop bật, gọi lại Hide sau khi Show hoàn tất
+            });
     }
 
     private void OnDisable()
     {
         Tweener.Kill();
+    }
+
+    public void SetLoop(bool value)
+    {
+        loop = value; // Cho phép bật/tắt loop từ bên ngoài
     }
 }
