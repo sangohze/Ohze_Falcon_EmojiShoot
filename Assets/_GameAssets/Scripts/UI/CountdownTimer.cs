@@ -13,7 +13,7 @@ public class CountdownTimer : MonoBehaviour
     private bool isGameOver = false;
     [SerializeField] BlinkEffect blinkEffect;
 
-    void Start()
+    void OnEnable()
     {
         currentTime = countdownTime;
         DisplayTime();
@@ -61,8 +61,8 @@ public class CountdownTimer : MonoBehaviour
     }
     private void HandleRevive()
     {
-        Debug.Log("Player Revived! Reset timer.");
-        isGameOver = true;
+        Debug.Log("Player Revived! Reset timer." + countdownTime);
+        isGameOver = false;
         currentTime = countdownTime; // Reset thời gian
     }
 

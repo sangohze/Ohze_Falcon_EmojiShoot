@@ -27,7 +27,7 @@ public class PanelGameLose : PanelBase
     {
         CountdownTimer.InvokeRevive();
         UIManager.I.Show<PanelGamePlay>();
-        DeActiveMe(null);
+        gameObject.SetActive(false); 
         SoundManager.I.PlaySFX(TypeSound.SFX_Click);
     }
     private void OnDisable()
