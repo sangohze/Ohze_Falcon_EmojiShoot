@@ -5,6 +5,7 @@ using System.Linq;
 using DG.Tweening;
 using Lean.Pool;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 
 public class CharacterController : MonoBehaviour
@@ -27,6 +28,10 @@ public class CharacterController : MonoBehaviour
     private Dictionary<EmojiType, TypeEffect> emojiEffectMap;
     private TypeEffect? _currentEffectSingle;
     private TypeEffect? _currentEffectCombo;
+    private GameObject _currentEffectSingleObj;
+    private GameObject? _currentEffectComboObj;
+    private TypeEffect? _currentEffectComboMidpoint;
+    private GameObject? _currentEffectComboObjMidpoint;
     private Vector3 effectPositions = new Vector3(0, 2.4f, 0);
     private void InitEffectMap()
     {
@@ -118,7 +123,6 @@ public class CharacterController : MonoBehaviour
                 HapticManager.I.PlayHaptic(MoreMountains.NiceVibrations.HapticTypes.LightImpact);
                 GamePlayController.I.OnEnemyTargetHit(this);
             }
-            GamePlayController.I.ResetHitState();
         }
         else if (GamePlayController.I.firstHitEmoji == currentEmoji)
         {
@@ -134,11 +138,11 @@ public class CharacterController : MonoBehaviour
         animator.CrossFade(animState, 0, 0);
         HideEffOne();
         PlayEffectCombo(this, currentEmoji);
-        SpawnEmojiEffect(currentEmoji);
+        SpawnEmojiEffectSingle(currentEmoji);
         PlaySoundFXSingle(currentEmoji, this);
         GamePlayController.I.firstHitEnemy = this;
         GamePlayController.I.firstHitEmoji = currentEmoji;
-        resetMovementCoroutine = StartCoroutine(ResetCharacterState());
+        this.resetMovementCoroutine = this.StartCoroutine(ResetCharacterStateAll(this));
     }
 
     private void HandleSecondHit(string animState, EmojiType currentEmoji)
@@ -156,17 +160,18 @@ public class CharacterController : MonoBehaviour
             }
             if (GamePlayController.I.secondHitEnemy != null)
             {
-                GamePlayController.I.secondHitEnemy.characterMove.MoveTowardsEnemy(characterMove, currentEmoji, () =>
+                GamePlayController.I.secondHitEnemy.characterMove.MoveTowardsEnemy(characterMove, currentEmoji, (midpoint) =>
                 {
-
+                    
                     HideEffOne();
-                    Debug.LogError("GamePlayController.I.secondHitEnemy" + GamePlayController.I.secondHitEnemy);
                     GamePlayController.I.secondHitEnemy.HideEffOne();
-                    animator.CrossFade(animState, 0, 0);
+                    PlayEffectComboMidPoint(midpoint, currentEmoji);
+                    Debug.LogError("sangdevug" +  this.name);
+                    this.animator.CrossFade(animState, 0, 0);
                     PlaySoundFXCombo(currentEmoji, this);
-                    SpawnEmojiEffect(currentEmoji);
+                    SpawnEmojiEffectSingle(currentEmoji);
                     GamePlayController.I.secondHitEnemy.animator.CrossFade(animState, 0, 0);
-                    GamePlayController.I.secondHitEnemy.SpawnEmojiEffect(currentEmoji);
+                    GamePlayController.I.secondHitEnemy.SpawnEmojiEffectSingle(currentEmoji);
                     StopAllCharaterMoving();
                     PlayAnimationForRemainingEnemies(currentEmoji, () =>
                         {
@@ -177,37 +182,12 @@ public class CharacterController : MonoBehaviour
                         HapticManager.I.PlayHaptic(MoreMountains.NiceVibrations.HapticTypes.LightImpact);
                         GamePlayController.I.OnEnemyTargetHit(this);
                     }
-                    GamePlayController.I.ResetHitState();
                 });
             }
         }
-        else
-        {
-            transform.DORotateQuaternion(characterRotationDefault, 0.5f);
-            animator.CrossFade(animState, 0, 0);
-            HideEffOne();
-            SpawnEmojiEffect(currentEmoji);
-            PlaySoundFXSingle(currentEmoji, this);
-            StartCoroutine(ResetCharacterState());
-        }
     }
 
-    private void ResetAllCharacters()
-    {
-        GamePlayController.I.firstHitEmoji = null;
-        foreach (var enemy in GamePlayController.I.CurrentListEnemy)
-        {
-            Debug.LogError("sangchade" + enemy.name);
-            enemy.resetMovementCoroutine = enemy.StartCoroutine(ResetCharacterStateAll(enemy));
-        }
-    }
-
-    private IEnumerator ResetCharacterStateAll(CharacterController character)
-    {
-        yield return new WaitForSeconds(timeEndAnim);
-        character.HideEffOne();
-        character.characterMove.RestartMovement(Characteranimationkey.Walking);
-    }
+  
 
     private void StopAllCharaterMoving()
     {
@@ -222,7 +202,7 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    private void SpawnEmojiEffect(EmojiType emoji)
+    private void SpawnEmojiEffectSingle(EmojiType emoji)
     {
         if (emojiEffectMap.TryGetValue(emoji, out var eff))
         {
@@ -230,31 +210,46 @@ public class CharacterController : MonoBehaviour
             effect.transform.SetParent(this.transform, worldPositionStays: false);
             effect.transform.localPosition = effectPositions;
             _currentEffectSingle = eff;
+            _currentEffectSingleObj = effect;
         }
     }
 
     public void HideEffOne()
     {
+        Debug.LogError("charactersang" + this.name + _currentEffectSingle);
         if (_currentEffectSingle != null)
         {
-            EffectManager.I.HideEffectOne(_currentEffectSingle.Value);
+            EffectManager.I.HideEffectOne(_currentEffectSingle.Value, _currentEffectSingleObj);
             _currentEffectSingle = null;
         }
         if (_currentEffectCombo != null)
         {
-            EffectManager.I.HideEffectOne(_currentEffectCombo.Value);
+            EffectManager.I.HideEffectOne(_currentEffectCombo.Value, _currentEffectComboObj);
             _currentEffectCombo = null;
+        }
+        HideEffMidpoint();
+    }
+
+    
+    private void ResetAllCharacters()
+    {
+       
+        foreach (var enemy in GamePlayController.I.CurrentListEnemy)
+        {
+            Debug.LogError("sangchade" + enemy.name);
+            enemy.resetMovementCoroutine = enemy.StartCoroutine(ResetCharacterStateAll(enemy));
         }
     }
 
-
-    private IEnumerator ResetCharacterState()
+    private IEnumerator ResetCharacterStateAll(CharacterController character)
     {
         yield return new WaitForSeconds(timeEndAnim);
-        EffectManager.I.HideEffectAll();
-        characterMove.RestartMovement(Characteranimationkey.Walking);
         GamePlayController.I.firstHitEmoji = null;
+        character.HideEffOne();
+        character.characterMove.RestartMovement(Characteranimationkey.Walking);
     }
+
+  
 
     public void SetAsEnemyTarget()
     {
@@ -270,10 +265,12 @@ public class CharacterController : MonoBehaviour
         {
             if (enemy == GamePlayController.I.secondHitEnemy || enemy == GamePlayController.I.firstHitEnemy)
             {
-                PlayEffectCombo(enemy, emojitype);
+            Debug.LogError("sangenemy" + enemy.name);
+
             }
             else
             {
+                Debug.LogError("sangenemyremaing" + enemy.name);
                 string animationKey = emojitype == EmojiType.Pray ? Characteranimationkey.PrayRemaining :
                                       emojitype == EmojiType.Devil ? Characteranimationkey.DevilRemaining :
                                        (emojitype == EmojiType.Love && GamePlayController.I.firstHitEnemy != null
@@ -292,7 +289,7 @@ public class CharacterController : MonoBehaviour
                 enemy.HideEffOne();
                 if (emojiMap.TryGetValue(animationKey, out var emojiTypeRemaining))
                 {
-                    enemy.SpawnEmojiEffect(emojiTypeRemaining);
+                    enemy.SpawnEmojiEffectSingle(emojiTypeRemaining);
                 }
                 enemy.characterMove.StopMoving();
                 enemy.animator.CrossFade(animationKey, 0, 0);
@@ -350,8 +347,49 @@ public class CharacterController : MonoBehaviour
             default:
                 return;
         }
+        _currentEffectComboObj = eff;
     }
 
+    private void PlayEffectComboMidPoint(Vector3 pos, EmojiType emojiType)
+    {
+        GameObject eff;
+        switch (emojiType)
+        {
+            case EmojiType.Devil:
+                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Devil, pos);
+                _currentEffectComboMidpoint = TypeEffect.Eff_Devil;
+                break;
+            case EmojiType.Angry:
+                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Smoke, pos);
+                _currentEffectComboMidpoint = TypeEffect.Eff_Smoke;
+                break;
+            case EmojiType.Dance:
+                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Dance, pos);
+                _currentEffectComboMidpoint = TypeEffect.Eff_Dance;
+                break;
+            case EmojiType.Pray:
+                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Pray, pos);
+                _currentEffectComboMidpoint = TypeEffect.Eff_Pray;
+                break;
+            case EmojiType.Sad:
+                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Sad, pos);
+                _currentEffectComboMidpoint = TypeEffect.Eff_Sad;
+                break;
+            default:
+                return;
+        }
+        _currentEffectComboObjMidpoint = eff;
+
+    }
+
+    public void HideEffMidpoint()
+    {
+        if (_currentEffectComboMidpoint != null)
+        {
+            EffectManager.I.HideEffectOne(_currentEffectComboMidpoint.Value, _currentEffectComboObjMidpoint);
+            _currentEffectComboObjMidpoint = null;
+        }
+    }
     private void PlaySoundFXSingle(EmojiType emojiType, CharacterController enemy)
     {
         SoundManager.I.StopAllSFX();
@@ -397,8 +435,12 @@ public class CharacterController : MonoBehaviour
         if (resetMovementCoroutine != null)
         {
             StopCoroutine(resetMovementCoroutine);
-            Debug.Log("Sangdev_resetMovementCoroutine1 " + this.name + resetMovementCoroutine);
+            Debug.Log($"Stopped reset coroutine for: {this.name}");
             resetMovementCoroutine = null;
+        }
+        else
+        {
+            Debug.LogWarning($"No reset coroutine found for: {this.name}");
         }
     }
 }

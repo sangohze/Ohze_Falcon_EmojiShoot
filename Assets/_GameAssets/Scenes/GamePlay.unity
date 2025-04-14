@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.064512864, g: 0.6009245, b: 0.9712256, a: 1}
+  m_IndirectSpecularColor: {r: 0.06427473, g: 0.60081154, b: 0.9712025, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -26496,7 +26496,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &740350895
 RectTransform:
   m_ObjectHideFlags: 0
@@ -42475,7 +42475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3e326ae903c37e458b4f4582c584062, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countdownTime: 750
+  countdownTime: 75
   timerText: {fileID: 1297525059}
   blinkEffect: {fileID: 1297525061}
 --- !u!114 &1217683954
@@ -43862,7 +43862,7 @@ MonoBehaviour:
   prefab: {fileID: 7947395800383535090, guid: 23a00179027706c4e97ae865eaac3ab4, type: 3}
   notification: 3
   strategy: 0
-  preload: 0
+  preload: 1
   capacity: 0
   recycle: 0
   persist: 0
@@ -43949,7 +43949,7 @@ MonoBehaviour:
   - Name: Eff_LoveSingle
     Type: 7
     Obj: {fileID: 7197921472671812776, guid: 7e228510fca70d240bf7a2de515cdfd7, type: 3}
-    CountInit: 3
+    CountInit: 5
   - Name: Eff_SadSingle
     Type: 8
     Obj: {fileID: 719336122958901052, guid: 56f7b492304334c4da853088ef7ed34f, type: 3}

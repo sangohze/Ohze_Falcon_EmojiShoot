@@ -60,7 +60,7 @@ public class EffectManager : Singleton<EffectManager>
         }
     }
 
-    public GameObject PlayEffect(TypeEffect type, Vector3 pos, float time = 10f)
+    public GameObject PlayEffect(TypeEffect type, Vector3 pos)
     {
         bool isPool = false;
         for (int j = 0; j < _mapper[type].Count; j++)
@@ -71,10 +71,10 @@ public class EffectManager : Singleton<EffectManager>
                 efobj2.transform.position = pos;
                 efobj2.gameObject.SetActive(true);
                 isPool = true;
-                if (time != 0)
-                {
-                    StartCoroutine(WatingHideEffect(efobj2, time));
-                }
+                //if (time != 0)
+                //{
+                //    StartCoroutine(WatingHideEffect(efobj2, time));
+                //}
                 return efobj2.gameObject;
             }
         }
@@ -83,10 +83,10 @@ public class EffectManager : Singleton<EffectManager>
             Debug.LogWarning("PLEASE ADD MORE POOL: " + type.ToString());
             GameObject effectObject = LeanPool.Spawn(_mapper[type][0], transform) as GameObject;
             effectObject.transform.position = pos;
-            if (time != 0)
-            {
-                StartCoroutine(WatingHideEffect(effectObject, time));
-            }
+            //if (time != 0)
+            //{
+            //    StartCoroutine(WatingHideEffect(effectObject, time));
+            //}
             _mapper[type].Add(effectObject);
             return effectObject.gameObject;
         }
@@ -94,14 +94,21 @@ public class EffectManager : Singleton<EffectManager>
         return null;
     }
 
-    public void HideEffectOne(TypeEffect type)
+    public void HideEffectOne(TypeEffect type, GameObject effectToHide)
     {
-        for (int i = 0; i < _mapper[type].Count; i++)
+        if (_mapper.ContainsKey(type) && _mapper[type].Contains(effectToHide))
         {
-            if (_mapper[type][i].activeSelf)
-                _mapper[type][i].SetActive(false);
+            if (effectToHide.activeSelf)
+            {
+                effectToHide.SetActive(false);
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"Effect not found in pool of type {type}");
         }
     }
+
 
     public void HideEffectAll()
     {

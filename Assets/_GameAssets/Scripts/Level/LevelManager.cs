@@ -55,6 +55,7 @@ public class LevelManager : Singleton<LevelManager>
             foreach (var enemy in currentEnemyTargets)
             {
                 enemy.SetAsEnemyTarget();
+              
             }
         }
         else

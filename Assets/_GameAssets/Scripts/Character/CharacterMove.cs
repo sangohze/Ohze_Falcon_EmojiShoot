@@ -16,7 +16,7 @@ public class CharacterMove : MonoBehaviour
     private Camera mainCamera;
     public Coroutine moveCoroutine;
 
-
+  
     [SerializeField] float moveSpeed = 2f;
     private NavMeshAgent navMeshAgent;
 
@@ -146,26 +146,14 @@ public class CharacterMove : MonoBehaviour
         }
         return false;
     }
-    public void MoveTowardsEnemy(CharacterMove otherEnemy, EmojiType emojitype, System.Action onComplete = null)
+    public void MoveTowardsEnemy(CharacterMove otherEnemy, EmojiType emojitype, System.Action<Vector3> onComplete = null)
     {
         StartCoroutine(MoveTowardsEachOther(otherEnemy, emojitype, onComplete));
     }
 
-    private IEnumerator MoveTowardsEachOther(CharacterMove otherEnemy,EmojiType emojitype, System.Action onComplete)
+    private IEnumerator MoveTowardsEachOther(CharacterMove otherEnemy, EmojiType emojitype, System.Action<Vector3> onComplete)
     {
         Vector3 midpoint = (transform.position + otherEnemy.transform.position) / 2;
-        navMeshAgent.isStopped = false;
-        otherEnemy.navMeshAgent.isStopped = false;
-        StopMoving();
-        //otherEnemy.StopMoving();
-        otherEnemy.StopCoroutine(moveCoroutine);
-
-        navMeshAgent.SetDestination(midpoint);
-        otherEnemy.navMeshAgent.SetDestination(midpoint);
-
-        // Bắt đầu animation đi ngay lập tức
-        animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
-        otherEnemy.animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
 
         var distance = new Dictionary<EmojiType, float>
     {
@@ -178,66 +166,52 @@ public class CharacterMove : MonoBehaviour
         { EmojiType.Vomit, 5 },
     };
         float multiplier = distance[emojitype];
-        while (Vector3.Distance(transform.position, otherEnemy.transform.position) > navMeshAgent.stoppingDistance * multiplier) 
+        float stoppingRange = navMeshAgent.stoppingDistance * multiplier;
+
+        float selfToMid = Vector3.Distance(transform.position, midpoint);
+        float otherToMid = Vector3.Distance(otherEnemy.transform.position, midpoint);
+
+        // Nếu cả 2 đã đủ gần midpoint thì skip di chuyển
+        if (selfToMid <= stoppingRange && otherToMid <= stoppingRange)
+        {
+            navMeshAgent.isStopped = true;
+            otherEnemy.navMeshAgent.isStopped = true;
+
+            transform.LookAt(otherEnemy.transform);
+            otherEnemy.transform.LookAt(transform);
+            
+            onComplete?.Invoke(midpoint);
+            yield break;
+        }
+
+        // Nếu chưa gần thì mới tiếp tục di chuyển
+        navMeshAgent.isStopped = false;
+        otherEnemy.navMeshAgent.isStopped = false;
+
+        StopMoving();
+        // otherEnemy.StopMoving(); // Nếu muốn dùng lại
+        otherEnemy.StopCoroutine(moveCoroutine);
+
+        navMeshAgent.SetDestination(midpoint);
+        otherEnemy.navMeshAgent.SetDestination(midpoint);
+
+        animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
+        otherEnemy.animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
+
+        // Chờ đến khi khoảng cách giữa 2 nhân vật đủ gần nhau
+        while (Vector3.Distance(transform.position, otherEnemy.transform.position) > stoppingRange)
         {
             yield return null;
         }
-        // Khi đến nơi, spawn effect midpoint
+
         navMeshAgent.isStopped = true;
         otherEnemy.navMeshAgent.isStopped = true;
+
         transform.LookAt(otherEnemy.transform);
         otherEnemy.transform.LookAt(transform);
-        PlayEffectComboMidPoint(midpoint, EmojiController.I.currentEmoji);
-        onComplete?.Invoke();
+
+        onComplete?.Invoke(midpoint);
     }
-
-    private void PlayEffectComboMidPoint(Vector3 pos, EmojiType emojiType)
-    {
-        GameObject eff;
-        switch (emojiType)
-        {
-            case EmojiType.Devil:               
-                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Devil, pos);
-                break;
-            case EmojiType.Angry:
-               
-                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Smoke, pos);
-                break;
-            case EmojiType.Dance:
-                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Dance, pos);
-                break;
-            case EmojiType.Pray:
-                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Pray, pos);
-                break;
-            case EmojiType.Sad:
-                eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Sad, pos);
-                break;
-            default:
-                return;
-        }     
-        //eff.GetComponent<ParticleSystem>().Play();
-        StartCoroutine(StopEffectAfterTime(emojiType, 5f));
-    }
-
-    private IEnumerator StopEffectAfterTime(EmojiType emojiType, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        switch (emojiType)
-        {
-            case EmojiType.Devil:
-                EffectManager.I.HideEffectOne(TypeEffect.Eff_Devil);
-                break;
-            case EmojiType.Angry:
-
-                EffectManager.I.HideEffectOne(TypeEffect.Eff_Smoke);
-                break;
-            case EmojiType.Dance:
-                EffectManager.I.HideEffectOne(TypeEffect.Eff_Dance);
-                break;
-
-        }
-    }
-
 }
 
 

@@ -33,47 +33,61 @@ public class GamePlayController : Singleton<GamePlayController>
     public void OnEnemyTargetHit(CharacterController enemy)
     {
         if (currentTargetIndex >= _characterTarget.Length) return;
-        HapticManager.I.PlayHaptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
+
         var currentTarget = _characterTarget[currentTargetIndex];
         int enemyIndex = currentTarget.EnemyTarget.FindIndex(e => e.characterID == enemy.characterID);
-        if (currentTarget.EnemyTarget.Any(e => e.characterID == enemy.characterID))
+
+        if (enemyIndex < 0) return; // Không phải enemy trong danh sách target
+
+        HapticManager.I.PlayHaptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
+        hitCount++;
+
+        if (currentTarget.EnemyTarget.Count == 1)
         {
-            hitCount++;
-            if (currentTarget.EnemyTarget.Count == 1)
-            {
-                tickPreview1.SetActive(true);
-                StartCoroutine(WaitGameWin());
-                return;
-            }
-            if (hitCount == 1)
-            {
-                WaitForSecondHit = StartCoroutine(IEWaitForSecondHit(enemyIndex));
-            }
-            else if (hitCount == 2 )
-            {
-               
-                if (enemyIndex == 0)
-                {
-                    tickPreview1.SetActive(true);
-                    
-                }
-                else if (enemyIndex == 1)
-                {
-                    tickPreview2.SetActive(true);
-                   
-                }
-                if (secondHitEnemy == null)
-                {
-                    if (WaitForSecondHit != null) StopCoroutine(WaitForSecondHit);
-                    WaitForSecondHit = StartCoroutine(IEWaitForSecondHit(enemyIndex));
-                    hitCount = 1;
-                    return;
-                }
-                Debug.Log("Sangdev_CharacterReset " + secondHitEnemy + firstHitEnemy);
-                StartCoroutine(WaitGameWin());
-            }
+            tickPreview1.SetActive(true);
+            tickPreview2.SetActive(false);
+            StartCoroutine(WaitGameWin());
+            return;
+        }
+
+        if (hitCount == 1)
+        {
+            firstHitEnemy = enemy;
+            WaitForSecondHit = StartCoroutine(IEWaitForSecondHit(enemyIndex));
+        }
+        else if (hitCount == 2)
+        {
+            secondHitEnemy = enemy;
+
+            // So sánh object với EnemyTarget[0] và [1]
+            var ids = new HashSet<int>
+{
+    currentTarget.EnemyTarget[0].characterID,
+    currentTarget.EnemyTarget[1].characterID
+};
+
+            tickPreview1.SetActive(ids.Contains(firstHitEnemy.characterID));
+            tickPreview2.SetActive(ids.Contains(secondHitEnemy.characterID));
+
+            CheckEnemyTargetGameWin(enemyIndex);
         }
     }
+
+    private void CheckEnemyTargetGameWin(int enemyIndex)
+    {
+        hitCount = 1;
+
+        if (WaitForSecondHit != null)
+            StopCoroutine(WaitForSecondHit);
+
+        WaitForSecondHit = StartCoroutine(IEWaitForSecondHit(enemyIndex));
+
+        if (!firstHitEnemy.isEnemyTarget || !secondHitEnemy.isEnemyTarget)
+            return;
+
+        StartCoroutine(WaitGameWin());
+    }
+
     private IEnumerator WaitGameWin()
     {
         if (WaitForSecondHit != null) StopCoroutine(WaitForSecondHit);
@@ -115,25 +129,16 @@ public class GamePlayController : Singleton<GamePlayController>
         }
         isWaitingForSecondHit = true;
         yield return new WaitForSeconds(timeToTarget);
-        go.SetActive(false);
-       
+        tickPreview1.SetActive(false);
+        tickPreview2.SetActive(false);
+
         isWaitingForSecondHit = false;
         if (hitCount < 2)
         {
             hitCount = 0;
         }
     }
-    public void ResetHitState()
-    {
-        if (resetHitCoroutine != null) StopCoroutine(resetHitCoroutine);
-        resetHitCoroutine = StartCoroutine(IEResetHitState());
-    }
-    private IEnumerator IEResetHitState()
-    {
-        yield return new WaitForSeconds(3f);
-        firstHitEnemy = null;
-        secondHitEnemy = null;
-    }
+  
 }
 
 
