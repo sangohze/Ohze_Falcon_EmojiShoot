@@ -165,7 +165,7 @@ public class LevelManager : Singleton<LevelManager>
     private Vector3 GetRandomSpawnPosition(LevelData lv)
     {
         Quaternion rotation = lv.cameraRotation;
-        float randomDistance = Random.Range(7.5f, 11f);
+        float randomDistance = Random.Range(7.5f, 10f);
         Vector3 spawnPosition = lv.cameraPosition + (rotation * Vector3.forward * randomDistance);
         spawnPosition.y = lv.cameraPosition.y +10f;
         spawnPosition += rotation * Vector3.right * Random.Range(-5f, 5f);

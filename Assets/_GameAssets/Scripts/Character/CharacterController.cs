@@ -5,8 +5,6 @@ using System.Linq;
 using DG.Tweening;
 using Lean.Pool;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEngine.EventSystems.EventTrigger;
 
 
 public class CharacterController : MonoBehaviour
@@ -26,7 +24,7 @@ public class CharacterController : MonoBehaviour
     public Sprite Avatar;
     private AudioCueKey _currentSFXKey;
     private float timeEndAnim = 10f;
-    private Dictionary<EmojiType, TypeEffect > emojiEffectMap;
+    private Dictionary<EmojiType, TypeEffect> emojiEffectMap;
     private TypeEffect? _currentEffectSingle;
     private TypeEffect? _currentEffectCombo;
     private Vector3 effectPositions = new Vector3(0, 2.4f, 0);
@@ -113,7 +111,7 @@ public class CharacterController : MonoBehaviour
             if (currentEmoji == GamePlayController.I.firstHitEmoji)
                 return;
             characterMove.StopMoving();
-            StopCourtineResetMovemont();
+            StopCoroutineResetMovement();
             HandleFirstHit(animStateSingle, currentEmoji);
             if (isEnemyTarget && currentEmoji == GamePlayController.I.EmojiTypeTarget)
             {
@@ -125,7 +123,7 @@ public class CharacterController : MonoBehaviour
         else if (GamePlayController.I.firstHitEmoji == currentEmoji)
         {
             characterMove.StopMoving();
-            StopCourtineResetMovemont();
+            StopCoroutineResetMovement();
             HandleSecondHit(animStateDouble, currentEmoji);
         }
     }
@@ -160,13 +158,15 @@ public class CharacterController : MonoBehaviour
             {
                 GamePlayController.I.secondHitEnemy.characterMove.MoveTowardsEnemy(characterMove, currentEmoji, () =>
                 {
+
                     HideEffOne();
+                    Debug.LogError("GamePlayController.I.secondHitEnemy" + GamePlayController.I.secondHitEnemy);
                     GamePlayController.I.secondHitEnemy.HideEffOne();
                     animator.CrossFade(animState, 0, 0);
                     PlaySoundFXCombo(currentEmoji, this);
                     SpawnEmojiEffect(currentEmoji);
                     GamePlayController.I.secondHitEnemy.animator.CrossFade(animState, 0, 0);
-                    GamePlayController.I.secondHitEnemy.SpawnEmojiEffect(currentEmoji);          
+                    GamePlayController.I.secondHitEnemy.SpawnEmojiEffect(currentEmoji);
                     StopAllCharaterMoving();
                     PlayAnimationForRemainingEnemies(currentEmoji, () =>
                         {
@@ -206,16 +206,18 @@ public class CharacterController : MonoBehaviour
     {
         yield return new WaitForSeconds(timeEndAnim);
         character.HideEffOne();
-        character.characterMove.RestartMovement(Characteranimationkey.Walking);  
+        character.characterMove.RestartMovement(Characteranimationkey.Walking);
     }
 
     private void StopAllCharaterMoving()
     {
         foreach (var enemy in GamePlayController.I.CurrentListEnemy)
         {
-            if (enemy != (GamePlayController.I.secondHitEnemy || GamePlayController.I.firstHitEnemy) && enemy.resetMovementCoroutine != null)
+            if (enemy != GamePlayController.I.secondHitEnemy && 
+                enemy != GamePlayController.I.firstHitEnemy
+                && enemy.resetMovementCoroutine != null)
             {
-                enemy.StopCourtineResetMovemont();
+                enemy.StopCoroutineResetMovement();
             }
         }
     }
@@ -243,7 +245,7 @@ public class CharacterController : MonoBehaviour
             EffectManager.I.HideEffectOne(_currentEffectCombo.Value);
             _currentEffectCombo = null;
         }
-    }    
+    }
 
 
     private IEnumerator ResetCharacterState()
@@ -286,7 +288,7 @@ public class CharacterController : MonoBehaviour
                     { "Vomit", EmojiType.Vomit },
                     { "Cherring", EmojiType.Dance }
                 };
-                enemy.StopCourtineResetMovemont();
+                enemy.StopCoroutineResetMovement();
                 enemy.HideEffOne();
                 if (emojiMap.TryGetValue(animationKey, out var emojiTypeRemaining))
                 {
@@ -326,8 +328,8 @@ public class CharacterController : MonoBehaviour
                 parentTransform = enemy.headPosition.transform;
                 eff = EffectManager.I.PlayEffect(TypeEffect.Eff_FireAngry, transform.position);
                 eff.transform.SetParent(parentTransform, worldPositionStays: false);
-                eff.transform.localPosition = Vector3.zero;  
-                eff.transform.localRotation = Quaternion.identity; 
+                eff.transform.localPosition = Vector3.zero;
+                eff.transform.localRotation = Quaternion.identity;
                 eff.transform.localScale = Vector3.one;
                 _currentEffectCombo = TypeEffect.Eff_FireAngry;
                 break;
@@ -390,7 +392,7 @@ public class CharacterController : MonoBehaviour
             _currentSFXKey = SoundManager.I.PlaySFX(sound);
         }
     }
-    public void StopCourtineResetMovemont()
+    public void StopCoroutineResetMovement()
     {
         if (resetMovementCoroutine != null)
         {
@@ -398,7 +400,7 @@ public class CharacterController : MonoBehaviour
             Debug.Log("Sangdev_resetMovementCoroutine1 " + this.name + resetMovementCoroutine);
             resetMovementCoroutine = null;
         }
-    }    
+    }
 }
 
 

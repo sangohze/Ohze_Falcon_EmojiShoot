@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PanelGameLose : PanelBase
 {
-   
+    private bool _isClick;
+
     void OnEnable()
     {
         SoundManager.I.PlaySFX(TypeSound.SFX_Lose);
@@ -12,13 +13,15 @@ public class PanelGameLose : PanelBase
 
     public void ButtonRePlayOnClick()
     {
-        GamePlayManager.I.GoToGamePlayFW();
+        if (_isClick) return;
+        _isClick = true;
+        GamePlayManager.I.GoToGamePlayScreen();
         SoundManager.I.PlaySFX(TypeSound.SFX_Click);
     }
 
     public void ButtonNextLevelOnClick()
     {
-        GamePlayManager.I.GoToGamePlayFW();
+        GamePlayManager.I.GoToGamePlayScreen();
         LevelManager.I.NextLevel();
         SoundManager.I.PlaySFX(TypeSound.SFX_Click);
     }

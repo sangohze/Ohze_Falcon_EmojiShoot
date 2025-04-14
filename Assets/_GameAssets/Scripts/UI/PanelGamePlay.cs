@@ -18,7 +18,8 @@ public class PanelGamePlay : PanelBase
     [SerializeField] private GameObject _tutHand;
     [SerializeField] private GameObject _progressBar;
 
-    public bool _IsHome;
+    public bool _isHome;
+    private bool _isClick;
 
     private void Start()
     {
@@ -28,7 +29,7 @@ public class PanelGamePlay : PanelBase
     }
     public void ShowPanelGameHome(bool isHome)
     {
-        _IsHome = isHome;
+        _isHome = isHome;
         _groupEmoji.SetActive(false);
         _groupMission.SetActive(false);
         _objTimer.SetActive(false);
@@ -39,7 +40,7 @@ public class PanelGamePlay : PanelBase
 
     public void ShowPanelGamePlay(bool isHome)
     {
-        _IsHome = isHome;
+        _isHome = isHome;
         _groupEmoji.SetActive(true);
         _groupMission.SetActive(true);
         _objTimer.SetActive(true);
@@ -49,14 +50,16 @@ public class PanelGamePlay : PanelBase
     }
     public void ButtonNextLevelOnClick()
     {
-        GamePlayManager.I.GoToGamePlayFW();
+        GamePlayManager.I.GoToGamePlayScreen();
         LevelManager.I.NextLevel();
         SoundManager.I.PlaySFX(TypeSound.SFX_Click);
     }
 
     public void PlayAgianOnClick()
     {
-        GamePlayManager.I.GoToGamePlayFW();
+        if (_isClick) return;
+        _isClick = true;
+        GamePlayManager.I.GoToGamePlayScreen();
         SoundManager.I.PlaySFX(TypeSound.SFX_Click);
     }
     public void ShowPanelSetting()

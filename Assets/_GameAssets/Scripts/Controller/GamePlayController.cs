@@ -130,7 +130,7 @@ public class GamePlayController : Singleton<GamePlayController>
     }
     private IEnumerator IEResetHitState()
     {
-        yield return new WaitForSeconds(hitResetTime);
+        yield return new WaitForSeconds(3f);
         firstHitEnemy = null;
         secondHitEnemy = null;
     }

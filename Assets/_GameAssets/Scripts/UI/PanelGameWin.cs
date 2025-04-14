@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PanelGameWin : PanelBase
 {
-   
+    private bool _isClick = false;
+
     void OnEnable()
     {
         
@@ -13,13 +14,17 @@ public class PanelGameWin : PanelBase
 
     public void ButtonRePlayOnClick()
     {
-        GamePlayManager.I.GoToGamePlayFW();
+        if (_isClick) return;
+        _isClick = true;
+        GamePlayManager.I.GoToGamePlayScreen();
         SoundManager.I.PlaySFX(TypeSound.SFX_Click);
     }
 
     public void ButtonNextLevelOnClick()
     {
-        GamePlayManager.I.GoToGamePlayFW();
+        if (_isClick) return;
+        _isClick = true;
+        GamePlayManager.I.GoToGamePlayScreen();
         LevelManager.I.NextLevel();
         SoundManager.I.PlaySFX(TypeSound.SFX_Click);
     }

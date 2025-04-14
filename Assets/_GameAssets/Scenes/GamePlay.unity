@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.06454437, g: 0.6013186, b: 0.9720999, a: 1}
+  m_IndirectSpecularColor: {r: 0.064512864, g: 0.6009245, b: 0.9712256, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -499,7 +499,7 @@ MonoBehaviour:
   _textLevel: {fileID: 1753237430}
   _tutHand: {fileID: 7533358317348238517}
   _progressBar: {fileID: 1548691460}
-  _IsHome: 0
+  _isHome: 0
 --- !u!224 &146065824
 RectTransform:
   m_ObjectHideFlags: 0
@@ -42475,7 +42475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3e326ae903c37e458b4f4582c584062, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countdownTime: 5
+  countdownTime: 750
   timerText: {fileID: 1297525059}
   blinkEffect: {fileID: 1297525061}
 --- !u!114 &1217683954

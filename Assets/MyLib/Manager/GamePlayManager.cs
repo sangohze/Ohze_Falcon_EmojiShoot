@@ -12,7 +12,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
     public bool m_isTutModeFWShow = false;
     public bool m_isTutModeBomb = false;
     
-    [SerializeField] private GameSceneSO _gamePlayDIY;
+    [SerializeField] private GameSceneSO _gamePlay;
    
 
     [SerializeField] private LoadEventChannelSO _loadGamePlayEvent;
@@ -52,11 +52,9 @@ public class GamePlayManager : Singleton<GamePlayManager>
         //    isCallADS = ES3.Load<bool>("isCallADS");
         //}      
       
-        m_isTutModeDIY = ES3.Load<bool>("m_isTutModeDIY",true);
-        m_isTutModeFWShow = ES3.Load<bool>("m_isTutModeFWShow", true);
-        //m_isTutFWIdel = ES3.Load<bool>("m_isTutModeDIY", true);
-        m_isTutModeBomb = ES3.Load<bool>("m_isTutModeBomb", true);
-        //m_isTutASRM = ES3.Load<bool>("m_isTutModeDIY", true);
+        //m_isTutModeDIY = ES3.Load<bool>("m_isTutModeDIY",true);
+        //m_isTutModeFWShow = ES3.Load<bool>("m_isTutModeFWShow", true);
+        //m_isTutModeBomb = ES3.Load<bool>("m_isTutModeBomb", true);
 
     }
 
@@ -121,33 +119,24 @@ public class GamePlayManager : Singleton<GamePlayManager>
         QualitySettings.vSyncCount = 0;
         SecondPlay = true;
        
-        _loadGamePlayEvent.RaiseEvent(_gamePlayDIY, false);
+        _loadGamePlayEvent.RaiseEvent(_gamePlay, false);
     }
     public void GoToGamePlayDIYHome()
     {
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
         SecondPlay = false;
-      
-        _loadGamePlayEvent.RaiseEvent(_gamePlayDIY, false);
+        _loadGamePlayEvent.RaiseEvent(_gamePlay, false);
     }    
     [Button]
-    public void GoToGamePlayFW()
+    public void GoToGamePlayScreen()
     {
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
-         _loadGamePlayEvent.RaiseEvent(_gamePlayDIY, false);
+         _loadGamePlayEvent.RaiseEvent(_gamePlay, false);
 
     }
-    //bomb
-    [Button]
-    public void GoToGamePlayBomb()
-    {
-        Application.targetFrameRate = 60;
-        QualitySettings.vSyncCount = 0;
-        _onGoToTestFW.RaiseEvent();
-        
-    }
+    
     //Main
     [Button]
     public void GoToGamePlayMain()

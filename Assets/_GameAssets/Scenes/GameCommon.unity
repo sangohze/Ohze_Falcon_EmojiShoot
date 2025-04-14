@@ -171,7 +171,7 @@ MonoBehaviour:
   m_isTutModeDIY: 0
   m_isTutModeFWShow: 0
   m_isTutModeBomb: 0
-  _gamePlayDIY: {fileID: 11400000, guid: 1739eb3afc403c04f9159a75aa87673e, type: 2}
+  _gamePlay: {fileID: 11400000, guid: 1739eb3afc403c04f9159a75aa87673e, type: 2}
   _loadGamePlayEvent: {fileID: 11400000, guid: 87c5e1288eb20e142b5404e704c3503b, type: 2}
   _onGameReady: {fileID: 11400000, guid: 8993b524371a91549ad10dbcddee34c5, type: 2}
   _onGameInit: {fileID: 11400000, guid: cc238b9bf07caaa4090e06d61389289c, type: 2}
