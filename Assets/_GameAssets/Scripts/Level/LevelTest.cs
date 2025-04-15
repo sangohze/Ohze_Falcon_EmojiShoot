@@ -53,7 +53,31 @@ public class LevelTest : Singleton<LevelTest>
         CurrentListEnemy = TempCurrentListEnemy;
         currentEmojiTypeTarget = _characterTarget[currentTargetIndex].EmojiTypeTarget;
     }
+    public void SetUpEnemyTarget()
+    {
+        currentEmojiTypeTarget = _characterTarget[currentTargetIndex].EmojiTypeTarget;
+        currentEnemyTargets.Clear();
 
+        if (currentTargetIndex < 0 || currentTargetIndex >= _characterTarget.Length)
+        {
+            Debug.LogWarning("currentTargetIndex out of range!");
+            return;
+        }
+        foreach (var enemy in CurrentListEnemy)
+        {
+            enemy.isEnemyTarget = false;
+        }
+        List<CharacterController> enemyTargetList = _characterTarget[currentTargetIndex].EnemyTarget;
+
+        foreach (CharacterController enemy in CurrentListEnemy)
+        {
+            // So sánh dựa trên prefab gốc
+            if (enemyTargetList.Any(prefab => prefab.name == enemy.name.Replace("(Clone)", "").Trim()))
+            {
+                currentEnemyTargets.Add(enemy);
+            }
+        }
+    }
 
     private Vector3 GetRandomSpawnPosition()
     {

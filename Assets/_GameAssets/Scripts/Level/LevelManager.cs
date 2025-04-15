@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
@@ -49,9 +51,9 @@ public class LevelManager : Singleton<LevelManager>
         if (_isTest)
         {
             _LevelTest.currentTargetIndex = GamePlayController.I.currentTargetIndex;
-            GamePlayController.I.EmojiTypeTarget = _LevelTest.currentEmojiTypeTarget;
             GamePlayController.I.CurrentListEnemy = _LevelTest.CurrentListEnemy;
-            //GamePlayController.I.CurrentListEnemy = currentlevelIndexText;
+            _LevelTest.SetUpEnemyTarget();
+            GamePlayController.I.EmojiTypeTarget = _LevelTest.currentEmojiTypeTarget;
             foreach (var enemy in _LevelTest.currentEnemyTargets)
             {
                 enemy.SetAsEnemyTarget();
@@ -62,8 +64,9 @@ public class LevelManager : Singleton<LevelManager>
         {
             currentTargetIndex = GamePlayController.I.currentTargetIndex;
             GamePlayController.I.currentLevelIndexText = currentlevelIndexText;
-            GamePlayController.I.EmojiTypeTarget = currentEmojiTypeTarget;
             GamePlayController.I.CurrentListEnemy = CurrentListEnemy;
+            SetUpEnemyTarget();
+            GamePlayController.I.EmojiTypeTarget = currentEmojiTypeTarget;
             foreach (var enemy in currentEnemyTargets)
             {
                 enemy.SetAsEnemyTarget();
@@ -137,10 +140,6 @@ public class LevelManager : Singleton<LevelManager>
                 Quaternion spawnRot = Quaternion.Euler(0, 90, 0);
                 CharacterController enemy = Instantiate(charactersPrefab, GetRandomSpawnPosition(level), spawnRot);
                 CurrentListEnemy.Add(enemy);
-                if (level._characterTarget[0].EnemyTarget.Contains(charactersPrefab))
-                {
-                    currentEnemyTargets.Add(enemy);
-                }
             }
         }
         else
@@ -149,7 +148,33 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
-    
+
+    public void SetUpEnemyTarget()
+    {
+        currentEmojiTypeTarget = _characterTarget[currentTargetIndex].EmojiTypeTarget;
+        currentEnemyTargets.Clear();
+
+        if (currentTargetIndex < 0 || currentTargetIndex >= _characterTarget.Length)
+        {
+            Debug.LogWarning("currentTargetIndex out of range!");
+            return;
+        }
+        foreach (var enemy in CurrentListEnemy)
+        {
+            enemy.isEnemyTarget = false; 
+        }
+        List<CharacterController> enemyTargetList = _characterTarget[currentTargetIndex].EnemyTarget;
+
+        foreach (CharacterController enemy in CurrentListEnemy)
+        {
+            // So sánh dựa trên prefab gốc
+            if (enemyTargetList.Any(prefab => prefab.name == enemy.name.Replace("(Clone)", "").Trim()))
+            {
+                currentEnemyTargets.Add(enemy);
+            }
+        }
+    }
+
 
     public void NextLevel()
     {
@@ -169,10 +194,10 @@ public class LevelManager : Singleton<LevelManager>
     private Vector3 GetRandomSpawnPosition(LevelData lv)
     {
         Quaternion rotation = lv.cameraRotation;
-        float randomDistance = Random.Range(7.5f, 10f);
+        float randomDistance = UnityEngine.Random.Range(7.5f, 10f);
         Vector3 spawnPosition = lv.cameraPosition + (rotation * Vector3.forward * randomDistance);
         spawnPosition.y = lv.cameraPosition.y +10f;
-        spawnPosition += rotation * Vector3.right * Random.Range(-5f, 5f);
+        spawnPosition += rotation * Vector3.right * UnityEngine.Random.Range(-5f, 5f);
         Vector3[] offsets = {
         Vector3.zero, Vector3.right * 2.5f, Vector3.left * 2.5f,
         Vector3.forward * 2.5f, Vector3.back * 2.5f
