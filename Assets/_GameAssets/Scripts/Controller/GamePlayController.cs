@@ -73,27 +73,61 @@ public class GamePlayController : Singleton<GamePlayController>
 
         StartCoroutine(WaitGameWin());
     }
-    public void SetTickPreviewByEnemy()
+    public void SetTickPreviewByEnemy(EmojiType emojiType)
     {
         var currentTarget = _characterTarget[currentTargetIndex];
 
-        if (currentTarget.EnemyTarget.Count < 2)
+        // Nếu emoji truyền vào không đúng -> tắt hết tick
+        if (emojiType != currentTarget.EmojiTypeTarget)
         {
-            tickPreview1.SetActive(currentTarget.EnemyTarget[0].characterID == firstHitEnemy.characterID);
+            tickPreview1.SetActive(false);
             tickPreview2.SetActive(false);
             return;
         }
-        if (firstHitEnemy == null || secondHitEnemy == null) return;
-        tickPreview1.SetActive(
-            currentTarget.EnemyTarget[0].characterID == firstHitEnemy.characterID ||
-            currentTarget.EnemyTarget[0].characterID == secondHitEnemy.characterID
-        );
 
-        tickPreview2.SetActive(
-            currentTarget.EnemyTarget[1].characterID == firstHitEnemy.characterID ||
-            currentTarget.EnemyTarget[1].characterID == secondHitEnemy.characterID
-        );
+        if (currentTarget.EnemyTarget == null || currentTarget.EnemyTarget.Count < 1)
+        {
+            tickPreview1.SetActive(false);
+            tickPreview2.SetActive(false);
+            return;
+        }
+
+        // Chỉ có 1 enemy target
+        if (currentTarget.EnemyTarget.Count < 2)
+        {
+            bool isValid =
+                firstHitEnemy != null &&
+                currentTarget.EnemyTarget[0] != null &&
+                firstHitEnemy.characterID == currentTarget.EnemyTarget[0].characterID;
+
+            tickPreview1.SetActive(isValid);
+            tickPreview2.SetActive(false);
+            return;
+        }
+
+        if (firstHitEnemy == null && secondHitEnemy == null)
+        {
+            tickPreview1.SetActive(false);
+            tickPreview2.SetActive(false);
+            return;
+        }
+
+        bool match1 =
+            (firstHitEnemy != null &&
+             currentTarget.EnemyTarget[0].characterID == firstHitEnemy.characterID) ||
+            (secondHitEnemy != null &&
+             currentTarget.EnemyTarget[0].characterID == secondHitEnemy.characterID);
+
+        bool match2 =
+            (firstHitEnemy != null &&
+             currentTarget.EnemyTarget[1].characterID == firstHitEnemy.characterID) ||
+            (secondHitEnemy != null &&
+             currentTarget.EnemyTarget[1].characterID == secondHitEnemy.characterID);
+
+        tickPreview1.SetActive(match1);
+        tickPreview2.SetActive(match2);
     }
+
 
 
     private IEnumerator WaitGameWin()
@@ -117,10 +151,11 @@ public class GamePlayController : Singleton<GamePlayController>
         {
             tickPreview1.SetActive(false);
             tickPreview2.SetActive(false);
+            groupPreview.HideThenShow();
+            yield return new WaitForSeconds(0.2f);
             GameManager.Instance.clickArrow = true;
 
             //LevelManager.I.currentTargetIndex = currentTargetIndex;
-            groupPreview.HideThenShow();
             LevelManager.I.SetUpLeveLGamePlay();
         }
     }

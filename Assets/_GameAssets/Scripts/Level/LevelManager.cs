@@ -63,9 +63,9 @@ public class LevelManager : Singleton<LevelManager>
         else
         {
             currentTargetIndex = GamePlayController.I.currentTargetIndex;
-            GamePlayController.I.currentLevelIndexText = currentlevelIndexText;
             GamePlayController.I.CurrentListEnemy = CurrentListEnemy;
             SetUpEnemyTarget();
+            GamePlayController.I.currentLevelIndexText = currentlevelIndexText;
             GamePlayController.I.EmojiTypeTarget = currentEmojiTypeTarget;
             foreach (var enemy in currentEnemyTargets)
             {
