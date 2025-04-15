@@ -130,6 +130,7 @@ public class CharacterController : MonoBehaviour
             StopCoroutineResetMovement();
             HandleSecondHit(animStateDouble, currentEmoji);
         }
+            GamePlayController.I.SetTickPreviewByEnemy();
     }
 
     private void HandleFirstHit(string animState, EmojiType currentEmoji)
@@ -166,7 +167,6 @@ public class CharacterController : MonoBehaviour
                     HideEffOne();
                     GamePlayController.I.secondHitEnemy.HideEffOne();
                     PlayEffectComboMidPoint(midpoint, currentEmoji);
-                    Debug.LogError("sangdevug" +  this.name);
                     this.animator.CrossFade(animState, 0, 0);
                     PlaySoundFXCombo(currentEmoji, this);
                     SpawnEmojiEffectSingle(currentEmoji);

@@ -44,31 +44,16 @@ public class GamePlayController : Singleton<GamePlayController>
 
         if (currentTarget.EnemyTarget.Count == 1)
         {
-            tickPreview1.SetActive(true);
-            tickPreview2.SetActive(false);
             StartCoroutine(WaitGameWin());
             return;
         }
 
         if (hitCount == 1)
         {
-            firstHitEnemy = enemy;
             WaitForSecondHit = StartCoroutine(IEWaitForSecondHit(enemyIndex));
         }
         else if (hitCount == 2)
         {
-            secondHitEnemy = enemy;
-
-            // So sánh object với EnemyTarget[0] và [1]
-            var ids = new HashSet<int>
-{
-    currentTarget.EnemyTarget[0].characterID,
-    currentTarget.EnemyTarget[1].characterID
-};
-
-            tickPreview1.SetActive(ids.Contains(firstHitEnemy.characterID));
-            tickPreview2.SetActive(ids.Contains(secondHitEnemy.characterID));
-
             CheckEnemyTargetGameWin(enemyIndex);
         }
     }
@@ -87,6 +72,29 @@ public class GamePlayController : Singleton<GamePlayController>
 
         StartCoroutine(WaitGameWin());
     }
+    public void SetTickPreviewByEnemy()
+    {
+        var currentTarget = _characterTarget[currentTargetIndex];
+
+        if (currentTarget.EnemyTarget.Count < 2)
+        {
+            // Nếu chỉ có 1 target, chỉ cần xét tickPreview1
+            tickPreview1.SetActive(currentTarget.EnemyTarget[0].characterID == firstHitEnemy.characterID);
+            tickPreview2.SetActive(false);
+            return;
+        }
+
+        tickPreview1.SetActive(
+            currentTarget.EnemyTarget[0].characterID == firstHitEnemy.characterID ||
+            currentTarget.EnemyTarget[0].characterID == secondHitEnemy.characterID
+        );
+
+        tickPreview2.SetActive(
+            currentTarget.EnemyTarget[1].characterID == firstHitEnemy.characterID ||
+            currentTarget.EnemyTarget[1].characterID == secondHitEnemy.characterID
+        );
+    }
+
 
     private IEnumerator WaitGameWin()
     {
