@@ -90,7 +90,6 @@ public class EffectManager : Singleton<EffectManager>
             _mapper[type].Add(effectObject);
             return effectObject.gameObject;
         }
-        Debug.LogError("Not find this effect");
         return null;
     }
 
@@ -102,10 +101,6 @@ public class EffectManager : Singleton<EffectManager>
             {
                 effectToHide.SetActive(false);
             }
-        }
-        else
-        {
-            Debug.LogWarning($"Effect not found in pool of type {type}");
         }
     }
 

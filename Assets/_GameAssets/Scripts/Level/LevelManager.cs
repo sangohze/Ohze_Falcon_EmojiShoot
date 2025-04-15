@@ -18,7 +18,7 @@ public class LevelManager : Singleton<LevelManager>
     public EmojiType currentEmojiTypeTarget;
     public List<CharacterController> CurrentListEnemy;
   
-    [SerializeField] private bool _isTest;
+    public bool _isTest;
     [SerializeField] private LevelTest _LevelTest;
     [SerializeField] private CharacterTarget[] _characterTarget;
     private int currentlevelIndexText;

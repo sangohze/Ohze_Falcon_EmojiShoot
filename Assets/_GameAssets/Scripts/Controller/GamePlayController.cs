@@ -56,6 +56,7 @@ public class GamePlayController : Singleton<GamePlayController>
         {
             CheckEnemyTargetGameWin(enemyIndex);
         }
+
     }
 
     private void CheckEnemyTargetGameWin(int enemyIndex)
@@ -82,7 +83,7 @@ public class GamePlayController : Singleton<GamePlayController>
             tickPreview2.SetActive(false);
             return;
         }
-
+        if (firstHitEnemy == null || secondHitEnemy == null) return;
         tickPreview1.SetActive(
             currentTarget.EnemyTarget[0].characterID == firstHitEnemy.characterID ||
             currentTarget.EnemyTarget[0].characterID == secondHitEnemy.characterID
@@ -98,12 +99,12 @@ public class GamePlayController : Singleton<GamePlayController>
     private IEnumerator WaitGameWin()
     {
         if (WaitForSecondHit != null) StopCoroutine(WaitForSecondHit);
-        CountdownTimer.InvokeStop();
         currentTargetIndex++;
         yield return new WaitForSeconds(1.5f);
         if (currentTargetIndex >= _characterTarget.Length)
         {
-             GameManager.Instance.clickArrow = false;
+            CountdownTimer.InvokeStop();
+            GameManager.Instance.clickArrow = false;
             UIManager.I.Get<PanelGamePlay>().gameObject.SetActive(false);
         }
         yield return new WaitForSeconds(1.5f);
@@ -148,7 +149,7 @@ public class GamePlayController : Singleton<GamePlayController>
             hitCount = 0;
         }
     }
-  
+
 }
 
 

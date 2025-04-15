@@ -130,7 +130,7 @@ public class CharacterController : MonoBehaviour
             StopCoroutineResetMovement();
             HandleSecondHit(animStateDouble, currentEmoji);
         }
-        //GamePlayController.I.SetTickPreviewByEnemy();
+        GamePlayController.I.SetTickPreviewByEnemy();
     }
 
     private void HandleFirstHit(string animState, EmojiType currentEmoji)
@@ -259,9 +259,10 @@ public class CharacterController : MonoBehaviour
     private void PlayAnimationForRemainingEnemies(EmojiType emojitype, System.Action onComplete)
     {
         int completedAnimations = 0;
-        int totalEnemies = LevelManager.I.CurrentListEnemy.Count(enemy => enemy != this && enemy != GamePlayController.I.firstHitEnemy);
+        var level = LevelManager.I._isTest ? LevelTest.I.CurrentListEnemy : LevelManager.I.CurrentListEnemy;
+        int totalEnemies = level.Count(enemy => enemy != this && enemy != GamePlayController.I.firstHitEnemy);
 
-        foreach (var enemy in LevelManager.I.CurrentListEnemy)
+        foreach (var enemy in level)
         {
             if (enemy == GamePlayController.I.secondHitEnemy || enemy == GamePlayController.I.firstHitEnemy)
             {
