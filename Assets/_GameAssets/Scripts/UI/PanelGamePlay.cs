@@ -17,7 +17,8 @@ public class PanelGamePlay : PanelBase
     [SerializeField] private TextMeshProUGUI _textLevel;
     [SerializeField] private GameObject _tutHand;
     [SerializeField] private GameObject _progressBar;
-
+    public List<UIEmojiButton> allEmojiButtons; // 🎯 Each button mapped to an EmojiType
+    public List<EmojiType> emojiShowRandom;
     public bool _isHome;
     private bool _isClick;
 
@@ -26,7 +27,9 @@ public class PanelGamePlay : PanelBase
         _textLevel.text = "Level " + GamePlayController.I.currentLevelIndexText.ToString();
         ShowPanelGameHome(false);
         UIManager.I.Show<PanelGamePlay>();
+        SetupEmojiButtons(emojiShowRandom);
     }
+
     public void ShowPanelGameHome(bool isHome)
     {
         _isHome = isHome;
@@ -48,6 +51,16 @@ public class PanelGamePlay : PanelBase
         _tutHand.SetActive(false);
         _progressBar.SetActive(false);
     }
+
+
+    public void SetupEmojiButtons(List<EmojiType> emojiTypesToEnable)
+    {
+        foreach (var btn in allEmojiButtons)
+        {
+            btn.gameObject.SetActive(emojiTypesToEnable.Contains(btn.emojiType));
+        }
+    }
+
     public void ButtonNextLevelOnClick()
     {
         GamePlayManager.I.GoToGamePlayScreen();

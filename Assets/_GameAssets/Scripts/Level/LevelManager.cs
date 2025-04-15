@@ -20,7 +20,7 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private LevelTest _LevelTest;
     [SerializeField] private CharacterTarget[] _characterTarget;
     private int currentlevelIndexText;
-   
+    public List<EmojiType> selectedEmojiTypesPerCharacter = new List<EmojiType>();
 
 
     void OnEnable()
@@ -48,11 +48,11 @@ public class LevelManager : Singleton<LevelManager>
     {
         if (_isTest)
         {
-            //GamePlayController.I.enemyTargets = _LevelTest.currentEnemyTargets;
+            _LevelTest.currentTargetIndex = GamePlayController.I.currentTargetIndex;
             GamePlayController.I.EmojiTypeTarget = _LevelTest.currentEmojiTypeTarget;
             GamePlayController.I.CurrentListEnemy = _LevelTest.CurrentListEnemy;
             //GamePlayController.I.CurrentListEnemy = currentlevelIndexText;
-            foreach (var enemy in currentEnemyTargets)
+            foreach (var enemy in _LevelTest.currentEnemyTargets)
             {
                 enemy.SetAsEnemyTarget();
               
@@ -60,6 +60,7 @@ public class LevelManager : Singleton<LevelManager>
         }
         else
         {
+            currentTargetIndex = GamePlayController.I.currentTargetIndex;
             GamePlayController.I.currentLevelIndexText = currentlevelIndexText;
             GamePlayController.I.EmojiTypeTarget = currentEmojiTypeTarget;
             GamePlayController.I.CurrentListEnemy = CurrentListEnemy;
@@ -75,12 +76,13 @@ public class LevelManager : Singleton<LevelManager>
 
         if (_isTest)
         {
-            UIManager.I.Get<PanelGamePlay>().PreviewAvatar.sprite = _LevelTest._characterTarget[currentTargetIndex].PreviewCharaterTarget;
-            UIManager.I.Get<PanelGamePlay>().PreviewEmoji.sprite = _LevelTest._characterTarget[currentTargetIndex].PreviewEmojiTarget;
-            if (_LevelTest._characterTarget[currentTargetIndex].PreviewCharaterTarget2 != null)
+            UIManager.I.Get<PanelGamePlay>().PreviewAvatar.sprite = _LevelTest._characterTarget[_LevelTest.currentTargetIndex].PreviewCharaterTarget;
+            UIManager.I.Get<PanelGamePlay>().PreviewEmoji.sprite = _LevelTest._characterTarget[_LevelTest.currentTargetIndex].PreviewEmojiTarget;
+            UIManager.I.Get<PanelGamePlay>().emojiShowRandom = _LevelTest.selectedEmojiTypesPerCharacter;
+            if (_LevelTest._characterTarget[_LevelTest.currentTargetIndex].PreviewCharaterTarget2 != null)
             {
                 UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.gameObject.SetActive(true);
-                UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.sprite = _LevelTest._characterTarget[currentTargetIndex].PreviewCharaterTarget2;
+                UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.sprite = _LevelTest._characterTarget[_LevelTest.currentTargetIndex].PreviewCharaterTarget2;
             }
             else
             {
@@ -92,6 +94,7 @@ public class LevelManager : Singleton<LevelManager>
 
             UIManager.I.Get<PanelGamePlay>().PreviewAvatar.sprite = levels[currentLevelIndex]._characterTarget[currentTargetIndex].PreviewCharaterTarget;
             UIManager.I.Get<PanelGamePlay>().PreviewEmoji.sprite = levels[currentLevelIndex]._characterTarget[currentTargetIndex].PreviewEmojiTarget;
+            UIManager.I.Get<PanelGamePlay>().emojiShowRandom = levels[currentLevelIndex].selectedEmojiTypesPerCharacter;
             if (levels[currentLevelIndex]._characterTarget[currentTargetIndex].PreviewCharaterTarget2 != null)
             {
                 UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.gameObject.SetActive(true);
@@ -118,13 +121,13 @@ public class LevelManager : Singleton<LevelManager>
 
         _characterTarget = level._characterTarget;
 
-        currentEmojiTypeTarget = _characterTarget[0].EmojiTypeTarget;
+        currentEmojiTypeTarget = _characterTarget[currentTargetIndex].EmojiTypeTarget;
 
+        selectedEmojiTypesPerCharacter = level.selectedEmojiTypesPerCharacter;
         // Đặt vũ khí vào camera
         // Set vị trí camera
         Camera.main.transform.position = level.cameraPosition;
         Camera.main.transform.rotation = level.cameraRotation;
-
         Vector3 spawnPosition = new Vector3(0, 1, 0); // Chỉnh vị trí spawn phù hợp
         NavMeshHit hit;
         if (NavMesh.SamplePosition(spawnPosition, out hit, 2f, NavMesh.AllAreas))

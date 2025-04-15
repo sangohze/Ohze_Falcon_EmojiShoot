@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIEmojiButton : MonoBehaviour
 {
-    [SerializeField] private EmojiType emojiType;
+    public EmojiType emojiType;
    
     
     public void OnClickEmoji()

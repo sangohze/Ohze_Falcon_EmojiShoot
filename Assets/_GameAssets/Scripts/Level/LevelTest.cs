@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using RootMotion.FinalIK;
@@ -11,16 +12,19 @@ public class LevelTest : Singleton<LevelTest>
 {
     [Header("For Test")]
     public int currentLevelIndex;
-    public Transform cameraTransform; 
+    public Transform cameraTransform;
+    //[HideInInspector]
     public GameObject currentMap;
     public List<CharacterController> CurrentListEnemy;
+    //[HideInInspector]
     public List<CharacterController> currentEnemyTargets = new List<CharacterController>();
+    //[HideInInspector]
     public EmojiType currentEmojiTypeTarget;
     
     public CharacterTarget[] _characterTarget;
-
-
-
+    public int currentTargetIndex;
+    public int quantityEmojiRandom;
+    public List<EmojiType> selectedEmojiTypesPerCharacter = new List<EmojiType>();
 
     public void LoadLevelTest()
     {
@@ -47,15 +51,16 @@ public class LevelTest : Singleton<LevelTest>
         CurrentListEnemy.Clear();
         currentEnemyTargets = TempEnemyTarget;
         CurrentListEnemy = TempCurrentListEnemy;
+        currentEmojiTypeTarget = _characterTarget[currentTargetIndex].EmojiTypeTarget;
     }
 
 
     private Vector3 GetRandomSpawnPosition()
     {
         Vector3 forward = cameraTransform.forward.normalized;
-        float randomDistance = Random.Range(6f, 9f);
+        float randomDistance = UnityEngine.Random.Range(6f, 9f);
         Vector3 spawnPosition = cameraTransform.position + forward * randomDistance;
-        spawnPosition += cameraTransform.right * Random.Range(-5f, 5f);
+        spawnPosition += cameraTransform.right * UnityEngine.Random.Range(-5f, 5f);
         Vector3[] offsets = {
         Vector3.zero, Vector3.right * 2.5f, Vector3.left * 2.5f,
         Vector3.forward * 2.5f, Vector3.back * 2.5f
@@ -80,7 +85,43 @@ public class LevelTest : Singleton<LevelTest>
         return spawnPosition; 
     }
 
+    [Button]
+    public void GenerateEmojiTypeList()
+    {
+        selectedEmojiTypesPerCharacter = new List<EmojiType>();
+        HashSet<EmojiType> usedEmojiTypes = new HashSet<EmojiType>();
 
+        // B1: Add emoji chính từ từng character
+        foreach (var character in _characterTarget)
+        {
+            if (usedEmojiTypes.Add(character.EmojiTypeTarget))
+            {
+                selectedEmojiTypesPerCharacter.Add(character.EmojiTypeTarget);
+            }
+        }
+
+        // B2: Tính số emoji cần random thêm
+        int totalTarget = _characterTarget.Length;
+        int totalNeeded = totalTarget + quantityEmojiRandom;
+        int toAdd = totalNeeded - selectedEmojiTypesPerCharacter.Count;
+
+        // B3: Lấy danh sách emoji chưa dùng
+        List<EmojiType> availableTypes = Enum.GetValues(typeof(EmojiType))
+                                             .Cast<EmojiType>()
+                                             .Where(e => !usedEmojiTypes.Contains(e))
+                                             .ToList();
+
+        // B4: Random đúng số lượng cần thiết
+        for (int i = 0; i < toAdd && availableTypes.Count > 0; i++)
+        {
+            int randIndex = UnityEngine.Random.Range(0, availableTypes.Count);
+            EmojiType randomEmoji = availableTypes[randIndex];
+
+            selectedEmojiTypesPerCharacter.Add(randomEmoji);
+            usedEmojiTypes.Add(randomEmoji);
+            availableTypes.RemoveAt(randIndex);
+        }
+    }
 
     [Button]
     public void SaveLevelData()
@@ -92,8 +133,10 @@ public class LevelTest : Singleton<LevelTest>
         newLevelData.cameraRotation = cameraTransform.rotation;
         newLevelData.characters = new List<CharacterController>(CurrentListEnemy);
         newLevelData._characterTarget = _characterTarget;
-      
 
+      
+        newLevelData.selectedEmojiTypesPerCharacter = selectedEmojiTypesPerCharacter;
+        newLevelData.quantityEmojiRandom = quantityEmojiRandom;
         // Lưu scriptable object
 #if UNITY_EDITOR
         string path = "Assets/_GameAssets/LevelSO/LevelTest/Level" + currentLevelIndex + ".asset";

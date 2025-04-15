@@ -19,7 +19,7 @@ MonoBehaviour:
   - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
   - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
   - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
-  map: {fileID: 919132149155446097, guid: 6b36538129a86734781ad025c17c1ba3, type: 3}
+  map: {fileID: 1010007371309662939, guid: 92a13a74bddc0c548817d9ebd2838c8a, type: 3}
   playerWeapon: {fileID: 0}
   cameraPosition: {x: 181.8, y: 50, z: -550.6}
   cameraRotation: {x: -0, y: -0.2562893, z: 0, w: -0.9666002}
@@ -31,3 +31,5 @@ MonoBehaviour:
     PreviewCharaterTarget: {fileID: 21300000, guid: e7bcd10a46baf7044813ed7bca447b99, type: 3}
     PreviewEmojiTarget: {fileID: 21300000, guid: cbca078370274c84eb3c3019fba7d595, type: 3}
     PreviewCharaterTarget2: {fileID: 21300000, guid: 692ec6fb1daeaed41866a3948435afed, type: 3}
+  selectedEmojiTypesPerCharacter: 02000000010000000400000003000000
+  quantityEmojiRandom: 3

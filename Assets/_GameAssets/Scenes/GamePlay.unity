@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.06427473, g: 0.60081154, b: 0.9712025, a: 1}
+  m_IndirectSpecularColor: {r: 0.064144425, g: 0.60076976, b: 0.9711963, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -499,6 +499,15 @@ MonoBehaviour:
   _textLevel: {fileID: 1753237430}
   _tutHand: {fileID: 7533358317348238517}
   _progressBar: {fileID: 1548691460}
+  allEmojiButtons:
+  - {fileID: 1569376920}
+  - {fileID: 1348433271}
+  - {fileID: 1405261402}
+  - {fileID: 950627126}
+  - {fileID: 1812351144}
+  - {fileID: 971096085}
+  - {fileID: 1581929046}
+  emojiShowRandom: 
   _isHome: 0
 --- !u!224 &146065824
 RectTransform:
@@ -16129,8 +16138,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_LocalRotation: {x: 0.087122165, y: 0.08524903, z: -0.0074830796, w: 0.99251515}
-  m_LocalPosition: {x: -492.4, y: -2.74, z: 38}
+  m_LocalRotation: {x: -0, y: -0.9440892, z: 0, w: -0.32969046}
+  m_LocalPosition: {x: -56.2, y: 132.51831, z: 86.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16322,7 +16331,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &566964001
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26958,10 +26967,10 @@ RectTransform:
   m_Father: {fileID: 2008469165}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 344.40546, y: -61.42485}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &950627123
 MonoBehaviour:
@@ -27146,10 +27155,10 @@ RectTransform:
   m_Father: {fileID: 2008469165}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 470.60547, y: -61.42485}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &971096082
 MonoBehaviour:
@@ -43079,10 +43088,10 @@ RectTransform:
   m_Father: {fileID: 2008469165}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 218.20547, y: -61.42485}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1348433268
 MonoBehaviour:
@@ -43494,10 +43503,10 @@ RectTransform:
   m_Father: {fileID: 2008469165}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 281.30548, y: -61.42485}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1405261399
 MonoBehaviour:
@@ -44219,10 +44228,10 @@ RectTransform:
   m_Father: {fileID: 2008469165}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 155.10547, y: -61.42485}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1569376917
 MonoBehaviour:
@@ -44419,10 +44428,10 @@ RectTransform:
   m_Father: {fileID: 2008469165}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 533.70544, y: -61.42485}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1581929043
 MonoBehaviour:
@@ -54959,10 +54968,10 @@ RectTransform:
   m_Father: {fileID: 2008469165}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 407.50546, y: -61.42485}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1812351141
 MonoBehaviour:
@@ -60131,7 +60140,7 @@ MonoBehaviour:
   _isPersistent: 0
   currentLevelIndex: 3000
   cameraTransform: {fileID: 534669905}
-  currentMap: {fileID: 2541357118248142963, guid: c14ae7e6480fcf3458f2fe0eca1031b1, type: 3}
+  currentMap: {fileID: 355144773906350180, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
   CurrentListEnemy:
   - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
   - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
@@ -60141,13 +60150,23 @@ MonoBehaviour:
   currentEnemyTargets: []
   currentEmojiTypeTarget: 0
   _characterTarget:
-  - EmojiTypeTarget: 2
+  - EmojiTypeTarget: 3
     _enemyTarget:
     - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
     - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
     PreviewCharaterTarget: {fileID: 21300000, guid: e7bcd10a46baf7044813ed7bca447b99, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: cbca078370274c84eb3c3019fba7d595, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 1c6da66b7e6965f4ea36366bf0ddbbd8, type: 3}
     PreviewCharaterTarget2: {fileID: 21300000, guid: 692ec6fb1daeaed41866a3948435afed, type: 3}
+  - EmojiTypeTarget: 2
+    _enemyTarget:
+    - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
+    - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 692ec6fb1daeaed41866a3948435afed, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: cbca078370274c84eb3c3019fba7d595, type: 3}
+    PreviewCharaterTarget2: {fileID: 21300000, guid: befdb7ae1a0390245a9e62deebde4ab9, type: 3}
+  currentTargetIndex: 0
+  quantityEmojiRandom: 1
+  selectedEmojiTypesPerCharacter: 030000000200000000000000
 --- !u!114 &1917349973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60699,6 +60718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isPersistent: 0
   levels:
+  - {fileID: 11400000, guid: d11db029f3e4fc248bb09d6f896f3313, type: 2}
   - {fileID: 11400000, guid: 58902e91c8986a64999bda7ca38818c2, type: 2}
   - {fileID: 11400000, guid: 72a38a4d7001f9e47b94d9cc9cce9f32, type: 2}
   - {fileID: 11400000, guid: 904ab525b86db934aabfd9f3aaa49aa0, type: 2}
@@ -60721,6 +60741,7 @@ MonoBehaviour:
   _isTest: 0
   _LevelTest: {fileID: 1904175973}
   _characterTarget: []
+  selectedEmojiTypesPerCharacter: 
 --- !u!4 &2091643277
 Transform:
   m_ObjectHideFlags: 0

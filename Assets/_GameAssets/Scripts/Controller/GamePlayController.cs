@@ -78,7 +78,6 @@ public class GamePlayController : Singleton<GamePlayController>
 
         if (currentTarget.EnemyTarget.Count < 2)
         {
-            // Nếu chỉ có 1 target, chỉ cần xét tickPreview1
             tickPreview1.SetActive(currentTarget.EnemyTarget[0].characterID == firstHitEnemy.characterID);
             tickPreview2.SetActive(false);
             return;
@@ -115,9 +114,12 @@ public class GamePlayController : Singleton<GamePlayController>
         }
         else
         {
+            tickPreview1.SetActive(false);
+            tickPreview2.SetActive(false);
             GameManager.Instance.clickArrow = true;
+
+            //LevelManager.I.currentTargetIndex = currentTargetIndex;
             groupPreview.HideThenShow();
-            LevelManager.I.currentTargetIndex = currentTargetIndex;
             LevelManager.I.SetUpLeveLGamePlay();
         }
     }

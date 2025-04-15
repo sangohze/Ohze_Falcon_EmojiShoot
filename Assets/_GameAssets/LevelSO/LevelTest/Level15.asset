@@ -30,5 +30,5 @@ MonoBehaviour:
     PreviewCharaterTarget: {fileID: 21300000, guid: e0c0d78da820bbd45803e4676668a4cb, type: 3}
     PreviewEmojiTarget: {fileID: 21300000, guid: 21c5b6044184d4b46b4751448a06ea17, type: 3}
     PreviewCharaterTarget2: {fileID: 0}
-  ground:
-  - {fileID: 0}
+  selectedEmojiTypesPerCharacter: 03000000020000000600000000000000
+  quantityEmojiRandom: 3

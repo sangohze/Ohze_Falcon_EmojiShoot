@@ -130,7 +130,7 @@ public class CharacterController : MonoBehaviour
             StopCoroutineResetMovement();
             HandleSecondHit(animStateDouble, currentEmoji);
         }
-            GamePlayController.I.SetTickPreviewByEnemy();
+        //GamePlayController.I.SetTickPreviewByEnemy();
     }
 
     private void HandleFirstHit(string animState, EmojiType currentEmoji)
