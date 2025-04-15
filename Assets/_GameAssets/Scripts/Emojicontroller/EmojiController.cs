@@ -7,7 +7,7 @@ public class EmojiController : Singleton<EmojiController>
 {
 
     public List<Material> materialsEmoji = new List<Material>();
-    public EmojiType currentEmoji = EmojiType.Love; // Mặc định là Love
+    public EmojiType currentEmoji = EmojiType.Angry; // Mặc định là Love
     public delegate void EmojiChangedHandler(EmojiType newEmoji);
     public event EmojiChangedHandler OnEmojiChanged;
     public List<Sprite> spritesEmojiSingle = new List<Sprite>();

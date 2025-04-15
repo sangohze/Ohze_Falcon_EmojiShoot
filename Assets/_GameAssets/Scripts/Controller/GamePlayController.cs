@@ -75,6 +75,7 @@ public class GamePlayController : Singleton<GamePlayController>
     }
     public void SetTickPreviewByEnemy(EmojiType emojiType)
     {
+        Debug.Log("sangdev" + currentTargetIndex);
         var currentTarget = _characterTarget[currentTargetIndex];
 
         // Nếu emoji truyền vào không đúng -> tắt hết tick
@@ -85,7 +86,7 @@ public class GamePlayController : Singleton<GamePlayController>
             return;
         }
 
-        if (currentTarget.EnemyTarget == null || currentTarget.EnemyTarget.Count < 1)
+        if (currentTarget.EnemyTarget == null )
         {
             tickPreview1.SetActive(false);
             tickPreview2.SetActive(false);
@@ -133,8 +134,8 @@ public class GamePlayController : Singleton<GamePlayController>
     private IEnumerator WaitGameWin()
     {
         if (WaitForSecondHit != null) StopCoroutine(WaitForSecondHit);
-        currentTargetIndex++;
         yield return new WaitForSeconds(1.5f);
+        currentTargetIndex++;
         if (currentTargetIndex >= _characterTarget.Length)
         {
             CountdownTimer.InvokeStop();

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.06401254, g: 0.6007164, b: 0.9711823, a: 1}
+  m_IndirectSpecularColor: {r: 0.06426171, g: 0.6008266, b: 0.9711963, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -60718,7 +60718,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isPersistent: 0
   levels:
-  - {fileID: 11400000, guid: d11db029f3e4fc248bb09d6f896f3313, type: 2}
   - {fileID: 11400000, guid: 58902e91c8986a64999bda7ca38818c2, type: 2}
   - {fileID: 11400000, guid: 72a38a4d7001f9e47b94d9cc9cce9f32, type: 2}
   - {fileID: 11400000, guid: 904ab525b86db934aabfd9f3aaa49aa0, type: 2}
@@ -60738,7 +60737,7 @@ MonoBehaviour:
   currentTargetIndex: 0
   currentEmojiTypeTarget: 0
   CurrentListEnemy: []
-  _isTest: 1
+  _isTest: 0
   _LevelTest: {fileID: 1904175973}
   _characterTarget: []
   selectedEmojiTypesPerCharacter: 
