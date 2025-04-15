@@ -16,12 +16,13 @@ public class LevelTest : Singleton<LevelTest>
     //[HideInInspector]
     public GameObject currentMap;
     public List<CharacterController> CurrentListEnemy;
-    //[HideInInspector]
+    [HideInInspector]
     public List<CharacterController> currentEnemyTargets = new List<CharacterController>();
-    //[HideInInspector]
+    [HideInInspector]
     public EmojiType currentEmojiTypeTarget;
     
     public CharacterTarget[] _characterTarget;
+    [HideInInspector]
     public int currentTargetIndex;
     public int quantityEmojiRandom;
     public List<EmojiType> selectedEmojiTypesPerCharacter = new List<EmojiType>();
