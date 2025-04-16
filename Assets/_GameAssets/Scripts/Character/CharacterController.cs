@@ -111,7 +111,8 @@ public class CharacterController : MonoBehaviour
         EmojiType currentEmoji = EmojiController.I.currentEmoji;
         string animStateSingle = currentEmoji.ToString();
         string animStateDouble = $"{currentEmoji}2";
-        if (GamePlayController.I.firstHitEnemy == null || GamePlayController.I.firstHitEnemy == this || GamePlayController.I.firstHitEmoji != currentEmoji)
+            Debug.LogError("sangcurrent" + currentEmoji + GamePlayController.I.firstHitEmoji);
+        if (GamePlayController.I.firstHitEnemy == null || GamePlayController.I.firstHitEnemy == this || GamePlayController.I.firstHitEmoji != currentEmoji || GamePlayController.I.firstHitEmoji == null)
         {
             if (currentEmoji == GamePlayController.I.firstHitEmoji)
                 return;
