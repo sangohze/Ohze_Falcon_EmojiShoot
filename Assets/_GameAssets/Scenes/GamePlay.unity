@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.06426171, g: 0.6008266, b: 0.9711963, a: 1}
+  m_IndirectSpecularColor: {r: 0.06407258, g: 0.6007467, b: 0.9712175, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -482,6 +482,7 @@ MonoBehaviour:
   - {fileID: 1806440828}
   - {fileID: 1291223581}
   - {fileID: 381901488}
+  - {fileID: 1366613928}
   _onStartShow:
     m_PersistentCalls:
       m_Calls: []
@@ -16297,7 +16298,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 692ec6fb1daeaed41866a3948435afed, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 77e44203c4c9ad743987804937b5fa16, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -26469,7 +26470,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9bde78dc022809a46a8dab0383de03d8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 606971c464a22844282b601b3e6ad992, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -42499,7 +42500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b29072cdcfd63940ba5e14c9e1a376f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_duration: 0.2
+  m_duration: 0.5
   _hidePos: {x: 4.768372, y: 0, z: 0}
   _showPos: {x: 4.768372, y: -63, z: 0}
   _ease: 1
@@ -42848,13 +42849,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297525057}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 447891c9923a50249bbab712af3c5711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1297525057}
-  blinkInterval: 0.3
+  blinkInterval: 0.5
+  blinkColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!850595691 &1312981704
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -43005,6 +43007,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a4113e4885ae0d6459a6f5e026f5a91a, type: 3}
   - {fileID: 21300000, guid: a2b7000baaff96a468c0347249bef300, type: 3}
   - {fileID: 21300000, guid: 3f0e5704b437c1b4b9289dd9fadd7b56, type: 3}
+  selectedEmojiTypesPerCharacter: 
 --- !u!4 &1322541728
 Transform:
   m_ObjectHideFlags: 0
@@ -43376,40 +43379,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1366613922}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25b0dfb4c0302ce47ad605394a59f4cc, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b29072cdcfd63940ba5e14c9e1a376f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onStartShow:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1366613927}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: Play
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: GroupPreviewOpen
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onStartHide:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1366613927}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: Play
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: GroupPreviewClose
-          m_BoolArgument: 0
-        m_CallState: 2
-  _timeAnim: 0.5
+  m_duration: 0.5
+  _hidePos: {x: -458, y: -142, z: 0}
+  _showPos: {x: -0.00001525879, y: -142, z: 0}
+  _ease: 1
 --- !u!1 &1399659064
 GameObject:
   m_ObjectHideFlags: 0
@@ -43446,10 +43422,10 @@ MonoBehaviour:
   secondHitEnemy: {fileID: 0}
   _characterTarget: []
   currentTargetIndex: 0
-  groupPreview: {fileID: 1366613928}
   currentLevelIndexText: 0
   tickPreview1: {fileID: 1803033898}
   tickPreview2: {fileID: 1749950268}
+  groupMission: {fileID: 1366613928}
 --- !u!4 &1399659066
 Transform:
   m_ObjectHideFlags: 0
@@ -43953,7 +43929,7 @@ MonoBehaviour:
     CountInit: 3
   - Name: Eff_Devil
     Type: 6
-    Obj: {fileID: 3781233119514960236, guid: e23350cfe79e69f41a84663df7e871d0, type: 3}
+    Obj: {fileID: 6777932572600773440, guid: 47f46edf5b4392c48ad75011d064daed, type: 3}
     CountInit: 3
   - Name: Eff_LoveSingle
     Type: 7
@@ -60494,7 +60470,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: -36.9, y: 0}
+  m_Spacing: {x: -30, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1
 --- !u!114 &2008469167
@@ -60718,6 +60694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isPersistent: 0
   levels:
+  - {fileID: 11400000, guid: d11db029f3e4fc248bb09d6f896f3313, type: 2}
   - {fileID: 11400000, guid: 58902e91c8986a64999bda7ca38818c2, type: 2}
   - {fileID: 11400000, guid: 72a38a4d7001f9e47b94d9cc9cce9f32, type: 2}
   - {fileID: 11400000, guid: 904ab525b86db934aabfd9f3aaa49aa0, type: 2}

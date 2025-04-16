@@ -17,12 +17,11 @@ public class GamePlayController : Singleton<GamePlayController>
     private Coroutine WaitForSecondHit;
     public CharacterTarget[] _characterTarget;
     public int currentTargetIndex = 0;
-    [SerializeField] AnimatedObject groupPreview;
     public int currentLevelIndexText;
     [SerializeField] GameObject tickPreview1;
     [SerializeField] GameObject tickPreview2;
     private float timeToTarget = 10f;
-
+    [SerializeField] UIMove groupMission;
 
 
     private void OnGameWin()
@@ -152,8 +151,8 @@ public class GamePlayController : Singleton<GamePlayController>
         {
             tickPreview1.SetActive(false);
             tickPreview2.SetActive(false);
-            groupPreview.HideThenShow();
-            yield return new WaitForSeconds(0.2f);
+            groupMission.Show();
+             yield return new WaitForSeconds(0.2f);
             GameManager.Instance.clickArrow = true;
 
             //LevelManager.I.currentTargetIndex = currentTargetIndex;

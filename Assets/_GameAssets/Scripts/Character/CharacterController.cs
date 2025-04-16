@@ -27,7 +27,7 @@ public class CharacterController : MonoBehaviour
     private float timeEndAnim = 10f;
     private Dictionary<EmojiType, TypeEffect> emojiEffectMap;
     private TypeEffect? _currentEffectSingle;
-    private TypeEffect? _currentEffectCombo;
+    [SerializeField] private TypeEffect? _currentEffectCombo;
     private GameObject _currentEffectSingleObj;
     private GameObject? _currentEffectComboObj;
     private TypeEffect? _currentEffectComboMidpoint;
@@ -170,12 +170,15 @@ public class CharacterController : MonoBehaviour
                     this.animator.CrossFade(animState, 0, 0);
                     PlaySoundFXCombo(currentEmoji, this);
                     SpawnEmojiEffectSingle(currentEmoji);
+                    PlayEffectCombo(this, currentEmoji);
                     GamePlayController.I.secondHitEnemy.animator.CrossFade(animState, 0, 0);
                     GamePlayController.I.secondHitEnemy.SpawnEmojiEffectSingle(currentEmoji);
+                    GamePlayController.I.secondHitEnemy.PlayEffectCombo(GamePlayController.I.secondHitEnemy, currentEmoji);
                     StopAllCharaterMoving();
                     PlayAnimationForRemainingEnemies(currentEmoji, () =>
                         {
                         });
+
                     ResetAllCharacters();
                     if (isEnemyTarget && currentEmoji == GamePlayController.I.EmojiTypeTarget)
                     {
@@ -216,7 +219,6 @@ public class CharacterController : MonoBehaviour
 
     public void HideEffOne()
     {
-        Debug.LogError("charactersang" + this.name + _currentEffectSingle);
         if (_currentEffectSingle != null)
         {
             EffectManager.I.HideEffectOne(_currentEffectSingle.Value, _currentEffectSingleObj);
@@ -236,7 +238,7 @@ public class CharacterController : MonoBehaviour
        
         foreach (var enemy in GamePlayController.I.CurrentListEnemy)
         {
-            Debug.LogError("sangchade" + enemy.name);
+          
             enemy.resetMovementCoroutine = enemy.StartCoroutine(ResetCharacterStateAll(enemy));
         }
     }
@@ -266,12 +268,10 @@ public class CharacterController : MonoBehaviour
         {
             if (enemy == GamePlayController.I.secondHitEnemy || enemy == GamePlayController.I.firstHitEnemy)
             {
-            Debug.LogError("sangenemy" + enemy.name);
 
             }
             else
             {
-                Debug.LogError("sangenemyremaing" + enemy.name);
                 string animationKey = emojitype == EmojiType.Pray ? Characteranimationkey.PrayRemaining :
                                       emojitype == EmojiType.Devil ? Characteranimationkey.DevilRemaining :
                                        (emojitype == EmojiType.Love && GamePlayController.I.firstHitEnemy != null
@@ -291,7 +291,8 @@ public class CharacterController : MonoBehaviour
                 if (emojiMap.TryGetValue(animationKey, out var emojiTypeRemaining))
                 {
                     enemy.SpawnEmojiEffectSingle(emojiTypeRemaining);
-                }
+                    enemy.PlayEffectCombo(enemy, emojiTypeRemaining);
+                    Debug.LogError("emojiTypeRemaining" + emojiTypeRemaining)       ;         }
                 enemy.characterMove.StopMoving();
                 enemy.animator.CrossFade(animationKey, 0, 0);
                 if (emojitype == EmojiType.Devil)
@@ -316,7 +317,7 @@ public class CharacterController : MonoBehaviour
         onComplete?.Invoke();
     }
 
-    private void PlayEffectCombo(CharacterController enemy, EmojiType emojiType) //postiton special
+    public void PlayEffectCombo(CharacterController enemy, EmojiType emojiType) //postiton special
     {
         GameObject eff;
         Transform parentTransform = null;

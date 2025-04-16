@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Collections;
 
 public class CountdownTimer : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class CountdownTimer : MonoBehaviour
     private static event Action OnStop;
     private bool isGameOver = false;
     [SerializeField] BlinkEffect blinkEffect;
-
+    private bool blinkAt30Triggered = false;
+    private bool blinkAt10Triggered = false;
     void OnEnable()
     {
         currentTime = countdownTime;
@@ -28,20 +30,31 @@ public class CountdownTimer : MonoBehaviour
 
         currentTime -= Time.deltaTime;
         DisplayTime();
-        if(currentTime <= 10f)
+
+        if (!blinkAt30Triggered && currentTime <= 31f)
         {
-            blinkEffect.enabled = true;
+            blinkAt30Triggered = true;
+            StartCoroutine(BlinkForOneSecond());
         }
-        else
+
+        // Blink ở 10s
+        if (!blinkAt10Triggered && currentTime <= 11f)
         {
-            blinkEffect.enabled = false;
+            blinkAt10Triggered = true;
+            StartCoroutine(BlinkForOneSecond());
         }
+
         if (currentTime <= 0)
         {
             OnTimeUp();
         }
     }
-
+    private IEnumerator BlinkForOneSecond()
+    {
+        blinkEffect.enabled = true;
+        yield return new WaitForSeconds(1f); 
+        blinkEffect.enabled = false;
+    }
     void DisplayTime()
     {
         if (timerText != null)

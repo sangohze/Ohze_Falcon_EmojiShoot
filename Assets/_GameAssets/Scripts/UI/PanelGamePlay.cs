@@ -50,6 +50,7 @@ public class PanelGamePlay : PanelBase
         _textLevelContainer.SetActive(false);
         _tutHand.SetActive(false);
         _progressBar.SetActive(false);
+        UIManager.I.Show<PanelGamePlay>();
     }
 
 

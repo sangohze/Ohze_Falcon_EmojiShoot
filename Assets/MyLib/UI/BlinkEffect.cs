@@ -1,14 +1,18 @@
-﻿using DG.Tweening;
-using UnityEngine;
+﻿using UnityEngine;
+using DG.Tweening;
+using TMPro;
 
 public class BlinkEffect : MonoBehaviour
 {
     [SerializeField] GameObject target;
     [SerializeField] float blinkInterval = 0.2f;
+    [SerializeField] Color blinkColor = Color.red;
 
     private Tween blinkTween;
+    private Color originalColor = Color.white;
+    private TMP_Text tmpText;
 
-    void Start()
+    void OnEnable()
     {
         StartBlink();
     }
@@ -17,14 +21,31 @@ public class BlinkEffect : MonoBehaviour
     {
         if (blinkTween != null && blinkTween.IsActive()) return;
 
-        blinkTween = DOVirtual.DelayedCall(blinkInterval, () => {
-            target.SetActive(!target.activeSelf);
-        }).SetLoops(-1, LoopType.Restart);
+        tmpText = target.GetComponent<TMP_Text>();
+        if (tmpText != null)
+        {
+            originalColor = tmpText.color;
+            tmpText.color = blinkColor;
+
+
+            blinkTween = DOTween
+    .ToAlpha(() => tmpText.color, c => tmpText.color = c, 0f, blinkInterval / 2f)
+    .SetLoops(-1, LoopType.Yoyo);
+        }
     }
 
     public void StopBlink()
     {
         if (blinkTween != null) blinkTween.Kill();
-        target.SetActive(true); 
+
+        if (tmpText != null)
+        {
+            tmpText.color = originalColor;
+        }
+    }
+
+    private void OnDisable()
+    {
+        StopBlink();
     }
 }

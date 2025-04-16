@@ -7,7 +7,7 @@ public class EmojiController : Singleton<EmojiController>
 {
 
     public List<Material> materialsEmoji = new List<Material>();
-    public EmojiType currentEmoji = EmojiType.Angry; // Mặc định là Love
+    public EmojiType currentEmoji = EmojiType.Dance;
     public delegate void EmojiChangedHandler(EmojiType newEmoji);
     public event EmojiChangedHandler OnEmojiChanged;
     public List<Sprite> spritesEmojiSingle = new List<Sprite>();
@@ -18,8 +18,14 @@ public class EmojiController : Singleton<EmojiController>
     private Vector3 localscaleHide = new Vector3(0.5f, 0.5f, 0.5f);
     [SerializeField] List<Sprite> spriteHide = new List<Sprite>();
     [SerializeField] List<Sprite> spriteShow = new List<Sprite>();
-   
 
+    public List<EmojiType> selectedEmojiTypesPerCharacter = new List<EmojiType>();
+
+    private void Start()
+    {
+        RandomEmojiType();
+        ChangeEmoji(currentEmoji);
+    }
     public void ChangeEmoji(EmojiType newEmoji)
     {
         currentEmoji = newEmoji;
@@ -47,9 +53,17 @@ public class EmojiController : Singleton<EmojiController>
             canvas.sortingOrder = (i == emojiIndex) ? 2 : 1;
         }
     }
+    public void RandomEmojiType()
+    {
+        if (selectedEmojiTypesPerCharacter != null && selectedEmojiTypesPerCharacter.Count > 0)
+        {
+            int index = Random.Range(0, selectedEmojiTypesPerCharacter.Count);
+            currentEmoji = selectedEmojiTypesPerCharacter[index];
+        }
 
-
+    }
 }
+
 
 public enum EmojiType
 {

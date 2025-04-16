@@ -27,7 +27,7 @@ MonoBehaviour:
   - EmojiTypeTarget: 5
     _enemyTarget:
     - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: e761c461a70f65b4488f6a898f6274d1, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 9cd1baff5f0bfaf438411d1b8200e43e, type: 3}
     PreviewEmojiTarget: {fileID: 21300000, guid: 3a3aa41165211a344a2c9dae7cba95ca, type: 3}
     PreviewCharaterTarget2: {fileID: 0}
   selectedEmojiTypesPerCharacter: 05000000030000000600000002000000

@@ -67,6 +67,7 @@ public class LevelManager : Singleton<LevelManager>
             SetUpEnemyTarget();
             GamePlayController.I.currentLevelIndexText = currentlevelIndexText;
             GamePlayController.I.EmojiTypeTarget = currentEmojiTypeTarget;
+            EmojiController.I.selectedEmojiTypesPerCharacter = selectedEmojiTypesPerCharacter;
             foreach (var enemy in currentEnemyTargets)
             {
                 enemy.SetAsEnemyTarget();
