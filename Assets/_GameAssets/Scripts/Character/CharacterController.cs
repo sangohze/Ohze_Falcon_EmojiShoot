@@ -247,7 +247,10 @@ public class CharacterController : MonoBehaviour
     private IEnumerator ResetCharacterStateAll(CharacterController character)
     {
         yield return new WaitForSeconds(timeEndAnim);
-        GamePlayController.I.firstHitEmoji = null;
+        if (GamePlayController.I.firstHitEnemy == character)
+        {
+            GamePlayController.I.firstHitEmoji = null;
+        }
         character.HideEffOne();
         character.characterMove.RestartMovement(Characteranimationkey.Walking);
     }

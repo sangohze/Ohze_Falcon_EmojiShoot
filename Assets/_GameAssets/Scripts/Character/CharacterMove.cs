@@ -19,6 +19,7 @@ public class CharacterMove : MonoBehaviour
   
     [SerializeField] float moveSpeed = 2f;
     private NavMeshAgent navMeshAgent;
+    private float originalWaitime;
 
     void Start()
     {
@@ -29,7 +30,7 @@ public class CharacterMove : MonoBehaviour
         startPosition = transform.position;
         mainCamera = Camera.main;
         moveCoroutine = StartCoroutine(MoveRandomly(Characteranimationkey.Walking));
-        
+        originalWaitime = waitTime;
     }
 
     public void RestartMovement(string animwalking)
@@ -97,6 +98,10 @@ public class CharacterMove : MonoBehaviour
             if(animwalking == Characteranimationkey.DevilRemaining)
             {
                 waitTime = 0;
+            }
+            else
+            {
+                waitTime = originalWaitime;
             }
             yield return new WaitForSeconds(waitTime);
         }
