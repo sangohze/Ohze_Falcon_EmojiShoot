@@ -25,12 +25,18 @@ MonoBehaviour:
   cameraPosition: {x: -390.88, y: -4.67, z: 6.02}
   cameraRotation: {x: 0, y: 0.04013158, z: 0, w: 0.9991944}
   _characterTarget:
-  - EmojiTypeTarget: 2
+  - EmojiTypeTarget: 0
     _enemyTarget:
-    - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
     - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: e7bcd10a46baf7044813ed7bca447b99, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: cbca078370274c84eb3c3019fba7d595, type: 3}
-    PreviewCharaterTarget2: {fileID: 21300000, guid: 0f3fea16766a2064ca7f65b5ab5c3022, type: 3}
-  selectedEmojiTypesPerCharacter: 02000000040000000500000001000000
-  quantityEmojiRandom: 3
+    PreviewCharaterTarget: {fileID: 21300000, guid: 0f3fea16766a2064ca7f65b5ab5c3022, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: ab1816a305f6e5b45b223a8bbc685640, type: 3}
+    PreviewCharaterTarget2: {fileID: 0}
+  - EmojiTypeTarget: 1
+    _enemyTarget:
+    - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
+    - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 8f4e5f47969c1cf419bc23c9e276fcaf, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: b10fdab46eaf10b46b62e1559c6dc3cf, type: 3}
+    PreviewCharaterTarget2: {fileID: 21300000, guid: e761c461a70f65b4488f6a898f6274d1, type: 3}
+  selectedEmojiTypesPerCharacter: 030000000100000005000000000000000400000002000000
+  quantityEmojiRandom: 4

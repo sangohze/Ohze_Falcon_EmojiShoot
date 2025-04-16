@@ -23,11 +23,11 @@ MonoBehaviour:
   cameraPosition: {x: -499.1, y: 3.7, z: 34.2}
   cameraRotation: {x: 0, y: 0, z: 0, w: 1}
   _characterTarget:
-  - EmojiTypeTarget: 2
+  - EmojiTypeTarget: 0
     _enemyTarget:
     - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
     PreviewCharaterTarget: {fileID: 21300000, guid: 692ec6fb1daeaed41866a3948435afed, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: dcbf26ca32670e94bb6e2319741caaf5, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: ab1816a305f6e5b45b223a8bbc685640, type: 3}
     PreviewCharaterTarget2: {fileID: 0}
-  selectedEmojiTypesPerCharacter: 02000000060000000300000005000000
-  quantityEmojiRandom: 3
+  selectedEmojiTypesPerCharacter: 0000000005000000
+  quantityEmojiRandom: 1

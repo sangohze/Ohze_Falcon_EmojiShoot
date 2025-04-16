@@ -25,12 +25,12 @@ MonoBehaviour:
   cameraPosition: {x: -499.1, y: 3.7, z: 40}
   cameraRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   _characterTarget:
-  - EmojiTypeTarget: 5
+  - EmojiTypeTarget: 3
     _enemyTarget:
     - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
     - {fileID: 1869493647, guid: 65704417072f21441a2d139595e887a5, type: 3}
     PreviewCharaterTarget: {fileID: 21300000, guid: 692ec6fb1daeaed41866a3948435afed, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: 496626521269ed640a04336d1be07168, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 1c6da66b7e6965f4ea36366bf0ddbbd8, type: 3}
     PreviewCharaterTarget2: {fileID: 21300000, guid: 3e6388fc730aaf1499de0bd151a8e993, type: 3}
-  selectedEmojiTypesPerCharacter: 05000000030000000000000006000000
+  selectedEmojiTypesPerCharacter: 06000000030000000000000005000000
   quantityEmojiRandom: 3
