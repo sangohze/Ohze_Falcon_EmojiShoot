@@ -21,8 +21,8 @@ MonoBehaviour:
   - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
   map: {fileID: 1010007371309662939, guid: 92a13a74bddc0c548817d9ebd2838c8a, type: 3}
   playerWeapon: {fileID: 0}
-  cameraPosition: {x: 271.3, y: 50, z: -146.2}
-  cameraRotation: {x: 0, y: 0.9568135, z: 0, w: 0.29070252}
+  cameraPosition: {x: 7.6, y: 0, z: -49}
+  cameraRotation: {x: 0, y: 0.7564245, z: 0, w: -0.65408105}
   _characterTarget:
   - EmojiTypeTarget: 2
     _enemyTarget:
