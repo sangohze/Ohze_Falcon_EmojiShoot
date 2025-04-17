@@ -28,8 +28,8 @@ MonoBehaviour:
     _enemyTarget:
     - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
     - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: b186eadf81f45e541ae94fc84ef423a2, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 82ae95b38ba64bd489092ca7b82895a3, type: 3}
     PreviewEmojiTarget: {fileID: 21300000, guid: 496626521269ed640a04336d1be07168, type: 3}
-    PreviewCharaterTarget2: {fileID: 21300000, guid: 9cbb637082f3ead4c9266e66509148d8, type: 3}
+    PreviewCharaterTarget2: {fileID: 21300000, guid: 5fadde877f47fea49bff686a810afe40, type: 3}
   selectedEmojiTypesPerCharacter: 0600000002000000010000000300000005000000
   quantityEmojiRandom: 4

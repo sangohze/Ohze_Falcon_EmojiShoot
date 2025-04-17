@@ -27,19 +27,19 @@ MonoBehaviour:
   - EmojiTypeTarget: 0
     _enemyTarget:
     - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: ab01cf68ee6a3e545b79aba2a1412090, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 692ec6fb1daeaed41866a3948435afed, type: 3}
     PreviewEmojiTarget: {fileID: 21300000, guid: ab1816a305f6e5b45b223a8bbc685640, type: 3}
     PreviewCharaterTarget2: {fileID: 0}
   - EmojiTypeTarget: 2
     _enemyTarget:
     - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: 9cd1baff5f0bfaf438411d1b8200e43e, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: e761c461a70f65b4488f6a898f6274d1, type: 3}
     PreviewEmojiTarget: {fileID: 21300000, guid: dcbf26ca32670e94bb6e2319741caaf5, type: 3}
     PreviewCharaterTarget2: {fileID: 0}
   - EmojiTypeTarget: 0
     _enemyTarget:
     - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: c605bdb80ff52b644931e543766b734c, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 8f4e5f47969c1cf419bc23c9e276fcaf, type: 3}
     PreviewEmojiTarget: {fileID: 21300000, guid: ab1816a305f6e5b45b223a8bbc685640, type: 3}
     PreviewCharaterTarget2: {fileID: 0}
   selectedEmojiTypesPerCharacter: 0500000002000000000000000300000004000000

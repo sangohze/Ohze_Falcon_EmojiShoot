@@ -506,7 +506,7 @@ MonoBehaviour:
   isMan: 0
   parentPos: {fileID: 7741898789326587212}
   characterID: 14
-  Avatar: {fileID: 21300000, guid: afeb760a40571244aa5229f02e465415, type: 3}
+  Avatar: {fileID: 21300000, guid: e0c0d78da820bbd45803e4676668a4cb, type: 3}
 --- !u!114 &1392860939
 MonoBehaviour:
   m_ObjectHideFlags: 0
