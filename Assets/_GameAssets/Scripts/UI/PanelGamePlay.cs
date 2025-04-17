@@ -21,6 +21,7 @@ public class PanelGamePlay : PanelBase
     public List<EmojiType> emojiShowRandom;
     public bool _isHome;
     private bool _isClick;
+   
 
     private void Start()
     {
@@ -79,7 +80,14 @@ public class PanelGamePlay : PanelBase
     public void ShowPanelSetting()
     {
         SoundManager.I.PlaySFX(TypeSound.SFX_Click);
-        UIManager.I.Show<PanelSetting>();
+        if (_isHome)
+        {
+            UIManager.I.Show<PanelSettingHome>();
+        }
+        else
+        {
+            UIManager.I.Show<PanelSetting>();
+        }
     }
 
 }

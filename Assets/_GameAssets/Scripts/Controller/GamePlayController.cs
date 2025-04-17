@@ -21,9 +21,10 @@ public class GamePlayController : Singleton<GamePlayController>
     [SerializeField] GameObject tickPreview1;
     [SerializeField] GameObject tickPreview2;
     private float timeToTarget = 10f;
-    [SerializeField] UIMove groupMission;
+    [SerializeField] UIMoveLeftRight groupMission;
+    [SerializeField] DotGroupController groupDOT;
 
-
+    [SerializeField] GameObject _Effects;
     private void OnGameWin()
     {
         UIManager.I.Show<PanelGameWin>();
@@ -132,9 +133,13 @@ public class GamePlayController : Singleton<GamePlayController>
 
     private IEnumerator WaitGameWin()
     {
-        if (WaitForSecondHit != null) StopCoroutine(WaitForSecondHit);
-        yield return new WaitForSeconds(1.5f);
         currentTargetIndex++;
+        if (currentTargetIndex >= _characterTarget.Length)
+        {
+            _Effects.SetActive(true);
+        }
+            if (WaitForSecondHit != null) StopCoroutine(WaitForSecondHit);
+        yield return new WaitForSeconds(1.5f);
         if (currentTargetIndex >= _characterTarget.Length)
         {
             CountdownTimer.InvokeStop();
@@ -151,13 +156,12 @@ public class GamePlayController : Singleton<GamePlayController>
         {
             tickPreview1.SetActive(false);
             tickPreview2.SetActive(false);
+            LevelManager.I.SetUpLeveLGamePlay();
             groupMission.Show();
              yield return new WaitForSeconds(0.2f);
             GameManager.Instance.clickArrow = true;
-
-            //LevelManager.I.currentTargetIndex = currentTargetIndex;
-            LevelManager.I.SetUpLeveLGamePlay();
         }
+        groupDOT.SetCurrentTargetIndex(currentTargetIndex);
     }
 
     private IEnumerator IEWaitForSecondHit(int enemyIndex)

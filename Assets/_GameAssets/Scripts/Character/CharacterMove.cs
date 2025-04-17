@@ -23,6 +23,7 @@ public class CharacterMove : MonoBehaviour
 
     void Start()
     {
+        originalWaitime = waitTime;
         animator.applyRootMotion = false;
         isCharacterMove = true;
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -30,7 +31,6 @@ public class CharacterMove : MonoBehaviour
         startPosition = transform.position;
         mainCamera = Camera.main;
         moveCoroutine = StartCoroutine(MoveRandomly(Characteranimationkey.Walking));
-        originalWaitime = waitTime;
     }
 
     public void RestartMovement(string animwalking)

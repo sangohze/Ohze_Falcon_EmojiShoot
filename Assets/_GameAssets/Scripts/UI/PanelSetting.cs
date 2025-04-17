@@ -8,9 +8,6 @@ using static RootMotion.Demos.CharacterThirdPerson;
 public class PanelSetting : PanelBase
 {
     
-    private void OnEnable()
-    {
-    }
     public void Close_OnClick()
     {
         SoundManager.I.PlaySFX(TypeSound.SFX_Click);
