@@ -46,6 +46,7 @@ public class GamePlayController : Singleton<GamePlayController>
 
         if (currentTarget.EnemyTarget.Count == 1)
         {
+            SetTickPreviewByEnemy(EmojiController.I.currentEmoji); 
             StartCoroutine(WaitGameWin());
             return;
         }
@@ -106,8 +107,8 @@ public class GamePlayController : Singleton<GamePlayController>
 
     private void SetTickActive(bool tick1, bool tick2)
     {
-        tickPreview1.SetActive(tick1);
-        tickPreview2.SetActive(tick2);
+        if (tickPreview1) tickPreview1.SetActive(tick1);
+        if (tickPreview2) tickPreview2.SetActive(tick2);
     }
 
     private bool IsMatchedEnemy(List<CharacterController> enemyList, int index, CharacterController first, CharacterController second)
@@ -130,7 +131,12 @@ public class GamePlayController : Singleton<GamePlayController>
         {
             _Effects.SetActive(true);
         }
-            if (WaitForSecondHit != null) StopCoroutine(WaitForSecondHit);
+        else
+        {
+            firstHitEmoji = null;
+            secondHitEnemy = null;
+        }
+        if (WaitForSecondHit != null) StopCoroutine(WaitForSecondHit);
         yield return new WaitForSeconds(1.5f);
         if (currentTargetIndex >= _characterTarget.Length)
         {
@@ -152,6 +158,8 @@ public class GamePlayController : Singleton<GamePlayController>
             yield return new WaitForSeconds(0.2f);
             LevelManager.I.SetUpLeveLGamePlay();
             GameManager.Instance.clickArrow = true;
+            if (WaitForSecondHit != null)
+                StopCoroutine(WaitForSecondHit);
         }
         groupDOT.SetCurrentTargetIndex(currentTargetIndex);
         isTransitioningMission = false;
@@ -172,7 +180,7 @@ public class GamePlayController : Singleton<GamePlayController>
         }
         isWaitingForSecondHit = true;
         yield return new WaitForSeconds(timeToTarget);
-        tickPreview1.SetActive(false);
+       tickPreview1.SetActive(false);
         tickPreview2.SetActive(false);
 
         isWaitingForSecondHit = false;

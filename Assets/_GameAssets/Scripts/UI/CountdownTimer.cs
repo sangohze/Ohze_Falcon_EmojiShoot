@@ -17,13 +17,20 @@ public class CountdownTimer : MonoBehaviour
     private bool blinkAt10Triggered = false;
     void OnEnable()
     {
-        currentTime = countdownTime;
+        RandomCountdownTime();
         DisplayTime();
         OnRevive += HandleRevive;
         OnStop += HandleStopTime;
         blinkEffect.enabled = false;
     }
 
+
+    private void RandomCountdownTime()
+    {
+        countdownTime = UnityEngine.Random.Range(10, 15) * 5f;
+        currentTime = countdownTime;
+    }
+       
     void Update()
     {
         if (isGameOver) return;

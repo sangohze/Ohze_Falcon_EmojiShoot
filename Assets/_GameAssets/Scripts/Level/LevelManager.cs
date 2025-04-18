@@ -23,6 +23,7 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private CharacterTarget[] _characterTarget;
     private int currentlevelIndexText;
     public List<EmojiType> selectedEmojiTypesPerCharacter = new List<EmojiType>();
+    private int  randomlevel;
 
 
     void OnEnable()
@@ -36,8 +37,17 @@ public class LevelManager : Singleton<LevelManager>
         else
         {
             currentLevelIndex = ES3.Load<int>("currentLevelIndex", 0);
-            LoadLevel(currentLevelIndex);
+            if (currentLevelIndex < levels.Length)
+            {
+                LoadLevel(currentLevelIndex);
+                
+            }
+            else {
+                 randomlevel = UnityEngine.Random.Range(0, levels.Length);
+                LoadLevel(randomlevel); ;
+            }
             GamePlayController.I._characterTarget = _characterTarget;
+         
         }
         SetUpLeveLGamePlay();
     }
@@ -65,21 +75,37 @@ public class LevelManager : Singleton<LevelManager>
             currentTargetIndex = GamePlayController.I.currentTargetIndex;
             GamePlayController.I.CurrentListEnemy = CurrentListEnemy;
             SetUpEnemyTarget();
+            if(currentLevelIndex < levels.Length)
+            {
             GamePlayController.I.currentLevelIndexText = currentlevelIndexText;
-            GamePlayController.I.EmojiTypeTarget = currentEmojiTypeTarget;
+
+            }
+            else { GamePlayController.I.currentLevelIndexText = ES3.Load<int>("GamePlayController.I.currentLevelIndexText", 0); }
+                GamePlayController.I.EmojiTypeTarget = currentEmojiTypeTarget;
             EmojiController.I.selectedEmojiTypesPerCharacter = selectedEmojiTypesPerCharacter;
             foreach (var enemy in currentEnemyTargets)
             {
                 enemy.SetAsEnemyTarget();
             }
         }
-        SetUpUI();
+        if (currentLevelIndex < levels.Length)
+        {
+            SetUpUI(currentLevelIndex);
+
+        }
+        else
+        {
+           
+            SetUpUI(randomlevel); ;
+        }
+
+     
         if (EmojiController.I != null)
         {
             GamePlayController.I.SetTickPreviewByEnemy(EmojiController.I.currentEmoji);
         }
     }
-    private void SetUpUI()
+    private void SetUpUI(int currentLevelIndex)
     {
 
         if (_isTest)
@@ -191,15 +217,18 @@ public class LevelManager : Singleton<LevelManager>
         }
         else
         {
-            currentLevelIndex = 0;
+            //currentLevelIndex = 0;
+            //currentLevelIndex = UnityEngine.Random.Range(0, levels.Length);
+            GamePlayController.I.currentLevelIndexText++;
             ES3.Save("currentLevelIndex", currentLevelIndex);
+            ES3.Save("GamePlayController.I.currentLevelIndexText", GamePlayController.I.currentLevelIndexText);
         }
     }
 
     private Vector3 GetRandomSpawnPosition(LevelData lv)
     {
         Quaternion rotation = lv.cameraRotation;
-        float randomDistance = UnityEngine.Random.Range(7.5f, 10f);
+        float randomDistance = UnityEngine.Random.Range(8.2f, 10f);
         Vector3 spawnPosition = lv.cameraPosition + (rotation * Vector3.forward * randomDistance);
         spawnPosition.y = lv.cameraPosition.y +10f;
         spawnPosition += rotation * Vector3.right * UnityEngine.Random.Range(-5f, 5f);

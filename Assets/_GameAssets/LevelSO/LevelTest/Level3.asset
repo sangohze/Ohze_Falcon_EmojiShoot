@@ -18,7 +18,6 @@ MonoBehaviour:
   - {fileID: 1869493647, guid: 65704417072f21441a2d139595e887a5, type: 3}
   - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
   - {fileID: 1392860938, guid: cbe875f83232da2439ee0dc71ff5a64a, type: 3}
-  - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
   map: {fileID: 283628267868528337, guid: c8a7e9e6c40eb9749b69cf42a9d88cbf, type: 3}
   playerWeapon: {fileID: 0}
   cameraPosition: {x: -390.88, y: -4.67, z: 6.02}

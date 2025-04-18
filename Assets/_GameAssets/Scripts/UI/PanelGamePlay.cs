@@ -28,7 +28,9 @@ public class PanelGamePlay : PanelBase
 
     private void Start()
     {
+       
         _textLevel.text = "Level " + GamePlayController.I.currentLevelIndexText.ToString();
+       
         ShowPanelGameHome(false);
         UIManager.I.Show<PanelGamePlay>();
         SetupEmojiButtons(emojiShowRandom);
@@ -44,6 +46,8 @@ public class PanelGamePlay : PanelBase
         _textLevelContainer.gameObject.SetActive(true);
         _tutHand.SetActive(true);
         _progressBar.SetActive(true);
+        _textLevelContainer.Show();
+        _btnSetting.Show();
 
     }
 

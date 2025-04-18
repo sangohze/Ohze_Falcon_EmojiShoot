@@ -16,18 +16,18 @@ MonoBehaviour:
   characters:
   - {fileID: 1392860938, guid: cbe875f83232da2439ee0dc71ff5a64a, type: 3}
   - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
-  - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
+  - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
   - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
-  - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
-  map: {fileID: 7405886855072202806, guid: 604002ed37c7b1a448bc64da8fa3385c, type: 3}
+  - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
+  map: {fileID: 355144773906350180, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
   playerWeapon: {fileID: 0}
-  cameraPosition: {x: 277.3, y: 15, z: -106.3}
-  cameraRotation: {x: 0, y: -0.95881975, z: 0, w: -0.2840153}
+  cameraPosition: {x: -56.2, y: 132.51831, z: 86.8}
+  cameraRotation: {x: -0, y: -0.9440892, z: 0, w: -0.32969046}
   _characterTarget:
   - EmojiTypeTarget: 0
     _enemyTarget:
-    - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: 692ec6fb1daeaed41866a3948435afed, type: 3}
+    - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: e7bcd10a46baf7044813ed7bca447b99, type: 3}
     PreviewEmojiTarget: {fileID: 21300000, guid: ab1816a305f6e5b45b223a8bbc685640, type: 3}
     PreviewCharaterTarget2: {fileID: 0}
   - EmojiTypeTarget: 2
@@ -37,5 +37,5 @@ MonoBehaviour:
     PreviewCharaterTarget: {fileID: 21300000, guid: 82ae95b38ba64bd489092ca7b82895a3, type: 3}
     PreviewEmojiTarget: {fileID: 21300000, guid: cbca078370274c84eb3c3019fba7d595, type: 3}
     PreviewCharaterTarget2: {fileID: 21300000, guid: 0f3fea16766a2064ca7f65b5ab5c3022, type: 3}
-  selectedEmojiTypesPerCharacter: 03000000040000000200000001000000
+  selectedEmojiTypesPerCharacter: 00000000020000000300000004000000
   quantityEmojiRandom: 2

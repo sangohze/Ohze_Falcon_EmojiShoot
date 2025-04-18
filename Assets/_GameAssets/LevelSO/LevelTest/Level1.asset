@@ -15,8 +15,6 @@ MonoBehaviour:
   level: 1
   characters:
   - {fileID: 1339324416, guid: edb07d12f793e654eb331e176c1935ee, type: 3}
-  - {fileID: 1687073297, guid: 4e08f0009cd891145bc70e47c987f2e2, type: 3}
-  - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
   - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
   map: {fileID: 355144773906350180, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
   playerWeapon: {fileID: 0}

@@ -42,7 +42,7 @@ public class UIMoveNew : UIElementAnim
 
                               if (_queuedShow)
                               {
-                                  _queuedShow = false;
+                                  //_queuedShow = false;
                                   Show();
                               }
                           });

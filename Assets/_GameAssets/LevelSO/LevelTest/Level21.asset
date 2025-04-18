@@ -19,10 +19,11 @@ MonoBehaviour:
   - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
   - {fileID: 341427779, guid: 64d9012f6f795ef439c08bf0ca92fcde, type: 3}
   - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
-  map: {fileID: 7405886855072202806, guid: 604002ed37c7b1a448bc64da8fa3385c, type: 3}
+  - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
+  map: {fileID: 1677278121890170233, guid: 9f7771a89fae93d4dba6b17042efc77a, type: 3}
   playerWeapon: {fileID: 0}
-  cameraPosition: {x: 277.3, y: 15, z: -106.3}
-  cameraRotation: {x: 0, y: -0.95881975, z: 0, w: -0.2840153}
+  cameraPosition: {x: -704.1, y: 20.15, z: -270.2}
+  cameraRotation: {x: 0, y: -0.38026357, z: 0, w: -0.9248782}
   _characterTarget:
   - EmojiTypeTarget: 0
     _enemyTarget:

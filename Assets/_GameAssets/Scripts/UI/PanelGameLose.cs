@@ -8,6 +8,8 @@ public class PanelGameLose : PanelBase
 
     void OnEnable()
     {
+        UIManager.I.Hide<PanelSetting>();
+        UIManager.I.Hide<PanelSettingHome>();
         SoundManager.I.PlaySFX(TypeSound.SFX_Lose);
     }
 

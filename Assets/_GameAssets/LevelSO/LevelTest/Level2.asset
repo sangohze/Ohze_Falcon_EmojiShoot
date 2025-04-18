@@ -15,7 +15,6 @@ MonoBehaviour:
   level: 2
   characters:
   - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
-  - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
   - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
   - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
   map: {fileID: 2541357118248142963, guid: c14ae7e6480fcf3458f2fe0eca1031b1, type: 3}
