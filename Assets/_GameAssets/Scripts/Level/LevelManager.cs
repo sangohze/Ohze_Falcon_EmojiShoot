@@ -74,6 +74,10 @@ public class LevelManager : Singleton<LevelManager>
             }
         }
         SetUpUI();
+        if (EmojiController.I != null)
+        {
+            GamePlayController.I.SetTickPreviewByEnemy(EmojiController.I.currentEmoji);
+        }
     }
     private void SetUpUI()
     {
@@ -209,7 +213,8 @@ public class LevelManager : Singleton<LevelManager>
         {
             Vector3 adjustedSpawn = spawnPosition + offset;
             Vector3 topPosition = adjustedSpawn + Vector3.up * 10f;
-
+       
+         
             if (Physics.RaycastNonAlloc(topPosition, Vector3.down, hits, 25f) > 0)
             {
                 if (NavMesh.SamplePosition(hits[0].point, out NavMeshHit navMeshHit, 2f, NavMesh.AllAreas))

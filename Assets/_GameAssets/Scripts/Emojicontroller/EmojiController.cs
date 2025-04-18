@@ -49,8 +49,8 @@ public class EmojiController : Singleton<EmojiController>
 
             emojiButtons[i].transform.localScale = (i == emojiIndex) ? localscaleShow : localscaleHide;
             emojiButtons[i].sprite = (i == emojiIndex) ? spriteShow[i] : spriteHide[i];
-            canvas.overrideSorting = (i == emojiIndex) ? true : false;
-            canvas.sortingOrder = (i == emojiIndex) ? 2 : 1;
+            canvas.overrideSorting = (i == emojiIndex ) ? true : false;               
+            canvas.sortingOrder = (i == emojiIndex) ? 2 : 1;              
         }
     }
     public void RandomEmojiType()

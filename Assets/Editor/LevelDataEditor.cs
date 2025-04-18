@@ -55,14 +55,14 @@ public class LevelDataEditor : OdinEditor // ✅ Kế thừa từ OdinEditor tha
 
     private void ApplySelectedLevelData(int index)
     {
-        var levelTest = (LevelTest)target;
+        var levelTest = (LevelData)target;
         var data = allLevelData[index];
 
-        bool isSameMap = levelTest.currentMap == data.map;
+        bool isSameMap = levelTest.map == data.map;
         bool isSameCam =
-            levelTest.cameraTransform != null &&
-            levelTest.cameraTransform.position == data.cameraPosition &&
-            levelTest.cameraTransform.rotation == data.cameraRotation;
+            levelTest.cameraPosition != null &&
+            levelTest.cameraPosition == data.cameraPosition &&
+            levelTest.cameraRotation == data.cameraRotation;
 
         if (isSameMap && isSameCam)
         {
@@ -70,12 +70,12 @@ public class LevelDataEditor : OdinEditor // ✅ Kế thừa từ OdinEditor tha
             return;
         }
 
-        levelTest.currentMap = data.map;
+        levelTest.map = data.map;
 
-        if (levelTest.cameraTransform != null)
+        if (levelTest.cameraPosition != null)
         {
-            levelTest.cameraTransform.position = data.cameraPosition;
-            levelTest.cameraTransform.rotation = data.cameraRotation;
+            levelTest.cameraPosition = data.cameraPosition;
+            levelTest.cameraRotation = data.cameraRotation;
         }
         else
         {

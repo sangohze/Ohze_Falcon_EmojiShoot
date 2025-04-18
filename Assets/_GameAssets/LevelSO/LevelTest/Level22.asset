@@ -19,9 +19,9 @@ MonoBehaviour:
   - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
   - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
   - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
-  map: {fileID: 919132149155446097, guid: 9a831bcf96691414697365e51f1760d8, type: 3}
+  map: {fileID: 7405886855072202806, guid: 604002ed37c7b1a448bc64da8fa3385c, type: 3}
   playerWeapon: {fileID: 0}
-  cameraPosition: {x: 10.9, y: 51.48, z: -314.4}
+  cameraPosition: {x: 10.9, y: 15, z: -314.4}
   cameraRotation: {x: 0, y: -0.7095708, z: 0, w: -0.70463413}
   _characterTarget:
   - EmojiTypeTarget: 0

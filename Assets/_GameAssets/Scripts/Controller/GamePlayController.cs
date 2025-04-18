@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 public class GamePlayController : Singleton<GamePlayController>
@@ -21,10 +22,11 @@ public class GamePlayController : Singleton<GamePlayController>
     [SerializeField] GameObject tickPreview1;
     [SerializeField] GameObject tickPreview2;
     private float timeToTarget = 10f;
-    [SerializeField] UIMoveLeftRight groupMission;
+    [SerializeField] UIMoveNew groupMissionShow;
     [SerializeField] DotGroupController groupDOT;
 
     [SerializeField] GameObject _Effects;
+    public bool isTransitioningMission = false;
     private void OnGameWin()
     {
         UIManager.I.Show<PanelGameWin>();
@@ -75,64 +77,54 @@ public class GamePlayController : Singleton<GamePlayController>
     }
     public void SetTickPreviewByEnemy(EmojiType emojiType)
     {
-        Debug.Log("sangdev" + currentTargetIndex);
+        if (isTransitioningMission) return;
+
+        if (currentTargetIndex >= _characterTarget.Length) return;
+
         var currentTarget = _characterTarget[currentTargetIndex];
 
-        // Nếu emoji truyền vào không đúng -> tắt hết tick
+        // 1. Emoji không khớp -> tắt tick
         if (emojiType != currentTarget.EmojiTypeTarget)
         {
-            tickPreview1.SetActive(false);
-            tickPreview2.SetActive(false);
+            SetTickActive(false, false);
             return;
         }
 
-        if (currentTarget.EnemyTarget == null )
+        // 2. Không có target enemy -> tắt tick
+        if (currentTarget.EnemyTarget == null || currentTarget.EnemyTarget.Count == 0)
         {
-            tickPreview1.SetActive(false);
-            tickPreview2.SetActive(false);
+            SetTickActive(false, false);
             return;
         }
 
-        // Chỉ có 1 enemy target
-        if (currentTarget.EnemyTarget.Count < 2)
-        {
-            bool isValid =
-                firstHitEnemy != null &&
-                currentTarget.EnemyTarget[0] != null &&
-                firstHitEnemy.characterID == currentTarget.EnemyTarget[0].characterID;
+        // 3. Kiểm tra match
+        bool match1 = IsMatchedEnemy(currentTarget.EnemyTarget, 0, firstHitEnemy, secondHitEnemy);
+        bool match2 = IsMatchedEnemy(currentTarget.EnemyTarget, 1, firstHitEnemy, secondHitEnemy);
 
-            tickPreview1.SetActive(isValid);
-            tickPreview2.SetActive(false);
-            return;
-        }
+        SetTickActive(match1, match2);
+    }
 
-        if (firstHitEnemy == null && secondHitEnemy == null)
-        {
-            tickPreview1.SetActive(false);
-            tickPreview2.SetActive(false);
-            return;
-        }
+    private void SetTickActive(bool tick1, bool tick2)
+    {
+        tickPreview1.SetActive(tick1);
+        tickPreview2.SetActive(tick2);
+    }
 
-        bool match1 =
-            (firstHitEnemy != null &&
-             currentTarget.EnemyTarget[0].characterID == firstHitEnemy.characterID) ||
-            (secondHitEnemy != null &&
-             currentTarget.EnemyTarget[0].characterID == secondHitEnemy.characterID);
+    private bool IsMatchedEnemy(List<CharacterController> enemyList, int index, CharacterController first, CharacterController second)
+    {
+        if (enemyList.Count <= index) return false;
+        var target = enemyList[index];
+        if (target == null) return false;
 
-        bool match2 =
-            (firstHitEnemy != null &&
-             currentTarget.EnemyTarget[1].characterID == firstHitEnemy.characterID) ||
-            (secondHitEnemy != null &&
-             currentTarget.EnemyTarget[1].characterID == secondHitEnemy.characterID);
-
-        tickPreview1.SetActive(match1);
-        tickPreview2.SetActive(match2);
+        return (first != null && first.characterID == target.characterID) ||
+               (second != null && second.characterID == target.characterID);
     }
 
 
 
     private IEnumerator WaitGameWin()
     {
+        isTransitioningMission = true;
         currentTargetIndex++;
         if (currentTargetIndex >= _characterTarget.Length)
         {
@@ -146,7 +138,7 @@ public class GamePlayController : Singleton<GamePlayController>
             GameManager.Instance.clickArrow = false;
             UIManager.I.Get<PanelGamePlay>().gameObject.SetActive(false);
         }
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2f);
         hitCount = 0;
         if (currentTargetIndex >= _characterTarget.Length)
         {
@@ -156,12 +148,13 @@ public class GamePlayController : Singleton<GamePlayController>
         {
             tickPreview1.SetActive(false);
             tickPreview2.SetActive(false);
+            groupMissionShow.Hide();
+            yield return new WaitForSeconds(0.2f);
             LevelManager.I.SetUpLeveLGamePlay();
-            groupMission.Show();
-             yield return new WaitForSeconds(0.2f);
             GameManager.Instance.clickArrow = true;
         }
         groupDOT.SetCurrentTargetIndex(currentTargetIndex);
+        isTransitioningMission = false;
     }
 
     private IEnumerator IEWaitForSecondHit(int enemyIndex)
