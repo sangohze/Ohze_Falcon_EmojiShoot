@@ -12,6 +12,7 @@ TagManager:
   - TrafficLight
   - Crosswalk
   - TrafficLightCrosswalk
+  - EmojiProjectileBullet
   layers:
   - Default
   - TransparentFX

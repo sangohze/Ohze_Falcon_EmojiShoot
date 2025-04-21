@@ -101,6 +101,12 @@ public class CharacterController : MonoBehaviour
             EffectManager.I.PlayEffect(TypeEffect.Eff_Hit, pos);
             HandleCollision();
         }
+        if (other.transform.tag == "EmojiProjectileBullet")
+        {
+            Vector3 pos = other.contacts[0].point;
+            EffectManager.I.PlayEffect(TypeEffect.Eff_Hit, pos);
+            HandleCollision();
+        }
     }
 
 
