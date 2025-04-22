@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -113,7 +114,7 @@ public class CharacterMove : MonoBehaviour
     {
         for (int i = 0; i < 10; i++)
         {
-            Vector3 randomDirection = Random.insideUnitSphere * moveRadius;
+            Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * moveRadius;
             randomDirection += startPosition;
 
             NavMeshHit hit;
@@ -217,6 +218,56 @@ public class CharacterMove : MonoBehaviour
 
         onComplete?.Invoke(midpoint);
     }
+
+    //
+    public void MoveTowardsPosition(Vector3 targetPosition, EmojiType emojiType, Action<CharacterMove> onComplete = null)
+    {
+        StartCoroutine(MoveToPositionCoroutine(targetPosition, emojiType, onComplete));
+    }
+
+    private IEnumerator MoveToPositionCoroutine(Vector3 targetPosition, EmojiType emojiType, Action<CharacterMove> onComplete)
+    {
+        var distance = new Dictionary<EmojiType, float>
+    {
+        { EmojiType.Love, 2.2f },
+        { EmojiType.Sad,  3 },
+        { EmojiType.Angry,3 },
+        { EmojiType.Pray, 3 },
+        { EmojiType.Devil, 3 },
+        { EmojiType.Dance, 6 },
+        { EmojiType.Vomit, 5 },
+    };
+
+        float multiplier = distance.ContainsKey(emojiType) ? distance[emojiType] : 3f;
+        float stoppingRange = navMeshAgent.stoppingDistance * multiplier;
+
+        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+
+        if (distanceToTarget <= stoppingRange)
+        {
+            navMeshAgent.isStopped = true;
+            transform.LookAt(targetPosition);
+            onComplete?.Invoke(this);
+            yield break;
+        }
+
+        StopMoving();
+        navMeshAgent.isStopped = false;
+        navMeshAgent.SetDestination(targetPosition);
+        animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
+
+        while (Vector3.Distance(transform.position, targetPosition) > stoppingRange)
+        {
+            yield return null;
+        }
+
+        navMeshAgent.isStopped = true;
+        transform.LookAt(targetPosition);
+
+        onComplete?.Invoke(this);
+    }
+
+
 }
 
 

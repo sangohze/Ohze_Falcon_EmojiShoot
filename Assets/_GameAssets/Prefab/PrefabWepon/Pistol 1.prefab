@@ -23,14 +23,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 50276363713953178}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.095, y: 0.937, z: -0.223}
+  m_LocalRotation: {x: -0.7044482, y: 0.061997265, z: -0.061259657, w: 0.70438373}
+  m_LocalPosition: {x: -0.001, y: 0.877, z: -0.216}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4607370235848186307}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -80, y: 90.06, z: -90}
 --- !u!1 &4607370235848672739
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,18 +92,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 174d8c2e0a60b414a8c5ef35294acfb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rifleGun: {fileID: 8101877527502606311}
-  shootPosition: {fileID: 490842284473463853}
-  shootingFX: {fileID: 0}
-  emojiBulletPrefab: {fileID: 4915293498069013819, guid: df5e011cb11fa1b4aa92a83fb87f2a19, type: 3}
-  shootRotation: {x: -30, y: 0, z: 0}
-  recoilSpeed: 0.05
+  shootBulletPostation: {fileID: 8101877527502606311}
+  pistolPostation: {fileID: 6169486238394319468}
+  shootFXPosition: {fileID: 8101877527502606311}
+  shootingFX: {fileID: 6132395745456407517, guid: 3399f2df730b9284dacebab4bcce0c25, type: 3}
+  emojiBulletPrefab: {fileID: 4862547276105243923, guid: 1d3b8783410d0964a892929daa0adc8f, type: 3}
+  shootRotation: {x: -3, y: 0, z: 0}
+  recoilSpeed: 0.03
   recoilAngle: 3
   magazineRotationSpeed: 400
   emojiSpawnRate: 0.1
   graphicRaycaster: {fileID: 0}
   eventSystem: {fileID: 0}
   magazineGunTransform: {fileID: 490842284473463853}
+  fixedBulletSpeed: 20
+  bulletDirection: {x: 90, y: 0, z: 1}
 --- !u!1 &4607370235848672743
 GameObject:
   m_ObjectHideFlags: 0

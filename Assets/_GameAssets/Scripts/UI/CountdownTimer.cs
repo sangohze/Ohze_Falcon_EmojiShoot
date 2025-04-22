@@ -44,11 +44,14 @@ public class CountdownTimer : MonoBehaviour
             StartCoroutine(BlinkForOneSecond());
         }
 
-        // Blink ở 10s
         if (!blinkAt10Triggered && currentTime <= 11f)
         {
             blinkAt10Triggered = true;
             StartCoroutine(BlinkForOneSecond());
+        }
+        if(currentTime <= 15f)
+        {
+
         }
 
         if (currentTime <= 0)

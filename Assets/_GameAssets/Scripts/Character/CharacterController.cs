@@ -16,6 +16,7 @@ public class CharacterController : MonoBehaviour
     private Quaternion characterRotationDefault;
     private Dictionary<EmojiType, ParticleSystem> emojiToEffectMap = new Dictionary<EmojiType, ParticleSystem>();
     private Coroutine resetMovementCoroutine;
+    public Coroutine ResetAfterDelayPistol;
     public bool isMan;
     private Transform headPosition;
     private Transform eyesPosition;
@@ -24,7 +25,7 @@ public class CharacterController : MonoBehaviour
     public int characterID;
     public Sprite Avatar;
     private AudioCueKey _currentSFXKey;
-    private float timeEndAnim = 10f;
+    public float timeEndAnim = 10f;
     private Dictionary<EmojiType, TypeEffect> emojiEffectMap;
     private TypeEffect? _currentEffectSingle;
     [SerializeField] private TypeEffect? _currentEffectCombo;
@@ -33,6 +34,7 @@ public class CharacterController : MonoBehaviour
     private TypeEffect? _currentEffectComboMidpoint;
     private GameObject? _currentEffectComboObjMidpoint;
     private Vector3 effectPositions = new Vector3(0, 2.4f, 0);
+    private BulletCollisionHandler bulletHandler;
     private void InitEffectMap()
     {
         emojiEffectMap = new Dictionary<EmojiType, TypeEffect>
@@ -52,6 +54,7 @@ public class CharacterController : MonoBehaviour
         InitEffectMap();
         SetUpPostionEffect();
         SetUpRotationLookAtCamera();
+        bulletHandler = new BulletCollisionHandler(this);
     }
 
     private void SetUpRotationLookAtCamera()
@@ -105,7 +108,7 @@ public class CharacterController : MonoBehaviour
         {
             Vector3 pos = other.contacts[0].point;
             EffectManager.I.PlayEffect(TypeEffect.Eff_Hit, pos);
-            HandleCollision();
+            bulletHandler.HandleCollision();
         }
     }
 
@@ -117,7 +120,6 @@ public class CharacterController : MonoBehaviour
         EmojiType currentEmoji = EmojiController.I.currentEmoji;
         string animStateSingle = currentEmoji.ToString();
         string animStateDouble = $"{currentEmoji}2";
-            Debug.LogError("sangcurrent" + currentEmoji + GamePlayController.I.firstHitEmoji);
         if (GamePlayController.I.firstHitEnemy == null || GamePlayController.I.firstHitEnemy == this || GamePlayController.I.firstHitEmoji != currentEmoji || GamePlayController.I.firstHitEmoji == null)
         {
             if (currentEmoji == GamePlayController.I.firstHitEmoji)
@@ -140,7 +142,7 @@ public class CharacterController : MonoBehaviour
         GamePlayController.I.SetTickPreviewByEnemy(currentEmoji);
     }
 
-    private void HandleFirstHit(string animState, EmojiType currentEmoji)
+    public void HandleFirstHit(string animState, EmojiType currentEmoji)
     {
         transform.DORotateQuaternion(characterRotationDefault, 0.5f);
         animator.CrossFade(animState, 0, 0);
@@ -153,7 +155,7 @@ public class CharacterController : MonoBehaviour
         this.resetMovementCoroutine = this.StartCoroutine(ResetCharacterStateAll(this));
     }
 
-    private void HandleSecondHit(string animState, EmojiType currentEmoji)
+    public void HandleSecondHit(string animState, EmojiType currentEmoji)
     {
         if (GamePlayController.I.firstHitEnemy != this)
         {
@@ -199,7 +201,7 @@ public class CharacterController : MonoBehaviour
 
   
 
-    private void StopAllCharaterMoving()
+    public void StopAllCharaterMoving()
     {
         foreach (var enemy in GamePlayController.I.CurrentListEnemy)
         {
@@ -212,7 +214,7 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    private void SpawnEmojiEffectSingle(EmojiType emoji)
+    public void SpawnEmojiEffectSingle(EmojiType emoji)
     {
         if (emojiEffectMap.TryGetValue(emoji, out var eff))
         {
@@ -240,7 +242,7 @@ public class CharacterController : MonoBehaviour
     }
 
     
-    private void ResetAllCharacters()
+    public void ResetAllCharacters()
     {
        
         foreach (var enemy in GamePlayController.I.CurrentListEnemy)
@@ -362,7 +364,7 @@ public class CharacterController : MonoBehaviour
         _currentEffectComboObj = eff;
     }
 
-    private void PlayEffectComboMidPoint(Vector3 pos, EmojiType emojiType)
+    public void PlayEffectComboMidPoint(Vector3 pos, EmojiType emojiType)
     {
         GameObject eff;
         switch (emojiType)
@@ -422,7 +424,7 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    private void PlaySoundFXCombo(EmojiType emojiType, CharacterController enemy)
+    public void PlaySoundFXCombo(EmojiType emojiType, CharacterController enemy)
     {
         SoundManager.I.StopAllSFX();
 
@@ -450,10 +452,16 @@ public class CharacterController : MonoBehaviour
             Debug.Log($"Stopped reset coroutine for: {this.name}");
             resetMovementCoroutine = null;
         }
-        else
+        
+    }
+    public void StopCoroutineResetAfterDelayPistol()
+    {
+        if (ResetAfterDelayPistol != null)
         {
-            Debug.LogWarning($"No reset coroutine found for: {this.name}");
-        }
+            StopCoroutine(ResetAfterDelayPistol);
+            Debug.Log($"Stopped reset coroutine for: {this.name}");
+            ResetAfterDelayPistol = null;
+        }       
     }
 }
 

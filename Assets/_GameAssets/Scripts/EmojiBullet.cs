@@ -15,7 +15,7 @@ public class EmojiBullet : MonoBehaviour
     {
         if (EmojiController.I != null)
         {
-            EmojiController.I.OnEmojiChanged += UpdateArrowMaterial;
+            //EmojiController.I.OnEmojiChanged += UpdateArrowMaterial;
             UpdateArrowMaterial(EmojiController.I.currentEmoji);
         }
       

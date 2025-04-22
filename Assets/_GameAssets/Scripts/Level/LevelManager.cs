@@ -158,8 +158,9 @@ public class LevelManager : Singleton<LevelManager>
         currentEmojiTypeTarget = _characterTarget[currentTargetIndex].EmojiTypeTarget;
 
         selectedEmojiTypesPerCharacter = level.selectedEmojiTypesPerCharacter;
-        // Đặt vũ khí vào camera
-        // Set vị trí camera
+        PlayerController.I._playerWeapon = level.playerWeapon;
+        PlayerController.I.CheckWeaponInLevel();
+     
         Camera.main.transform.position = level.cameraPosition;
         Camera.main.transform.rotation = level.cameraRotation;
         Vector3 spawnPosition = new Vector3(0, 1, 0); // Chỉnh vị trí spawn phù hợp

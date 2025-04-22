@@ -12,12 +12,13 @@ public class LevelData : ScriptableObject
     public int level;
     public List<CharacterController> characters;
     public GameObject map;
-    public GameObject playerWeapon;  
+    public WeaponType playerWeapon;  
     public Vector3 cameraPosition;
     public Quaternion cameraRotation;
     public CharacterTarget[] _characterTarget;
     public List<EmojiType> selectedEmojiTypesPerCharacter;
     public int quantityEmojiRandom;
+
 
     [Button]
 
@@ -56,6 +57,13 @@ public class LevelData : ScriptableObject
             usedEmojiTypes.Add(randomEmoji);
             availableTypes.RemoveAt(randIndex);
         }
+    }
+
+    public enum WeaponType
+    {
+        Bow,
+        Pistol,
+        Sniper,
     }
 }
 

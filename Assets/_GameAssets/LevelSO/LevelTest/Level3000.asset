@@ -20,7 +20,7 @@ MonoBehaviour:
   - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
   - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
   map: {fileID: 355144773906350180, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
-  playerWeapon: {fileID: 0}
+  playerWeapon: 1
   cameraPosition: {x: -56.2, y: 132.51831, z: 86.8}
   cameraRotation: {x: -0, y: -0.9440892, z: 0, w: -0.32969046}
   _characterTarget:

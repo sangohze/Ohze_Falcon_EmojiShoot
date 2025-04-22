@@ -47,7 +47,7 @@ public class GamePlayController : Singleton<GamePlayController>
         if (currentTarget.EnemyTarget.Count == 1)
         {
             SetTickPreviewByEnemy(EmojiController.I.currentEmoji); 
-            StartCoroutine(WaitGameWin());
+            StartCoroutine(IEWaitGameWin());
             return;
         }
 
@@ -74,7 +74,7 @@ public class GamePlayController : Singleton<GamePlayController>
         if (!firstHitEnemy.isEnemyTarget || !secondHitEnemy.isEnemyTarget)
             return;
 
-        StartCoroutine(WaitGameWin());
+        StartCoroutine(IEWaitGameWin());
     }
     public void SetTickPreviewByEnemy(EmojiType emojiType)
     {
@@ -121,9 +121,12 @@ public class GamePlayController : Singleton<GamePlayController>
                (second != null && second.characterID == target.characterID);
     }
 
+    public void WaitGameWin()
+    {
+        StartCoroutine(IEWaitGameWin());
+    }    
 
-
-    private IEnumerator WaitGameWin()
+    private IEnumerator IEWaitGameWin()
     {
         isTransitioningMission = true;
         currentTargetIndex++;
