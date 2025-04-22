@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class SpecialPistolLevelManager : Singleton<SpecialPistolLevelManager>
+public class SpecialPistolLevelManager : Singleton<SpecialPistolLevelManager> , IWeaponGameWinHandler
 {
     
     public List<CharacterController> hitCharacters = new List<CharacterController>();
@@ -115,8 +115,6 @@ public class SpecialPistolLevelManager : Singleton<SpecialPistolLevelManager>
                 character.PlayEffectCombo(character, emoji);
             });
         }
-
-        // Win check có thể để lại sau vài giây nếu muốn
         CheckWinCondition();
     }
 

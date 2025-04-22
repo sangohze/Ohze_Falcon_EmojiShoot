@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
+using static LevelData;
 
 public class GamePlayController : Singleton<GamePlayController>
 {
@@ -27,6 +28,20 @@ public class GamePlayController : Singleton<GamePlayController>
 
     [SerializeField] GameObject _Effects;
     public bool isTransitioningMission = false;
+
+    private IWeaponGameWinHandler weaponGameWinHandler;
+    public void InitWeaponLogic(WeaponType weaponType)
+    {
+        switch (weaponType)
+        {
+            case WeaponType.Bow:
+                weaponGameWinHandler = new BowGameWinHandler(this);
+                break;
+            case WeaponType.Pistol:
+                weaponGameWinHandler = new SpecialPistolLevelManager(this);
+                break;
+        }
+    }
     private void OnGameWin()
     {
         UIManager.I.Show<PanelGameWin>();
@@ -62,20 +77,7 @@ public class GamePlayController : Singleton<GamePlayController>
 
     }
 
-    private void CheckEnemyTargetGameWin(int enemyIndex)
-    {
-        hitCount = 1;
 
-        if (WaitForSecondHit != null)
-            StopCoroutine(WaitForSecondHit);
-
-        WaitForSecondHit = StartCoroutine(IEWaitForSecondHit(enemyIndex));
-
-        if (!firstHitEnemy.isEnemyTarget || !secondHitEnemy.isEnemyTarget)
-            return;
-
-        StartCoroutine(IEWaitGameWin());
-    }
     public void SetTickPreviewByEnemy(EmojiType emojiType)
     {
         if (isTransitioningMission) return;
@@ -109,6 +111,21 @@ public class GamePlayController : Singleton<GamePlayController>
     {
         if (tickPreview1) tickPreview1.SetActive(tick1);
         if (tickPreview2) tickPreview2.SetActive(tick2);
+    }
+
+    private void CheckEnemyTargetGameWin(int enemyIndex)
+    {
+        hitCount = 1;
+
+        if (WaitForSecondHit != null)
+            StopCoroutine(WaitForSecondHit);
+
+        WaitForSecondHit = StartCoroutine(IEWaitForSecondHit(enemyIndex));
+
+        if (!firstHitEnemy.isEnemyTarget || !secondHitEnemy.isEnemyTarget)
+            return;
+
+        StartCoroutine(IEWaitGameWin());
     }
 
     private bool IsMatchedEnemy(List<CharacterController> enemyList, int index, CharacterController first, CharacterController second)

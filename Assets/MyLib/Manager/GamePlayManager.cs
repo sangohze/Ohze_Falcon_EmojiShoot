@@ -51,7 +51,6 @@ public class GamePlayManager : Singleton<GamePlayManager>
         //{
         //    isCallADS = ES3.Load<bool>("isCallADS");
         //}      
-      
         //m_isTutModeDIY = ES3.Load<bool>("m_isTutModeDIY",true);
         //m_isTutModeFWShow = ES3.Load<bool>("m_isTutModeFWShow", true);
         //m_isTutModeBomb = ES3.Load<bool>("m_isTutModeBomb", true);

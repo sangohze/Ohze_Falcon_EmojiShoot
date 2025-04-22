@@ -14,7 +14,7 @@ public class Arrow : MonoBehaviour
     {
         if (EmojiController.I != null)
         {
-            //EmojiController.I.OnEmojiChanged += UpdateArrowMaterial;
+            EmojiController.I.OnEmojiChanged += UpdateArrowMaterial;
             UpdateArrowMaterial(EmojiController.I.currentEmoji);
         }
         headArrow.GetComponent<SphereCollider>().enabled = true;

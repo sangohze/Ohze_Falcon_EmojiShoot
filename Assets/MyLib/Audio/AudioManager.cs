@@ -7,7 +7,7 @@ using System;
 using DG.Tweening;
 using Sirenix.Utilities;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : Singleton<AudioManager>
 {
     [Header("SoundEmitters pool")]
     [SerializeField] private SoundEmitterPoolSO _pool = default;

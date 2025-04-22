@@ -19,7 +19,5 @@ public class BulletCollisionHandler
 
         // Giao toàn bộ xử lý cho SpecialPistolLevelManager
         SpecialPistolLevelManager.I.AddCharacter(characterController, currentEmoji);
-
-        GamePlayController.I.SetTickPreviewByEnemy(currentEmoji);
     }
 }

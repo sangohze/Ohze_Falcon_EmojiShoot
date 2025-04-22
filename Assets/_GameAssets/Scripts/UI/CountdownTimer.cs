@@ -44,15 +44,13 @@ public class CountdownTimer : MonoBehaviour
             StartCoroutine(BlinkForOneSecond());
         }
 
-        if (!blinkAt10Triggered && currentTime <= 11f)
+        if (!blinkAt10Triggered && currentTime <= 16f)
         {
             blinkAt10Triggered = true;
             StartCoroutine(BlinkForOneSecond());
+            SoundManager.I.PlaySFX(TypeSound.SFX_ClockWarning);
         }
-        if(currentTime <= 15f)
-        {
-
-        }
+        
 
         if (currentTime <= 0)
         {

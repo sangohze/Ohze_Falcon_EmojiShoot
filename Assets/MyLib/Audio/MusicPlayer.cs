@@ -18,19 +18,23 @@ public class MusicPlayer : Singleton<MusicPlayer>
 
     private void OnEnable()
     {
-        //_onSceneReady.OnEventRaised += PlayMusic;
+        _onSceneReady.OnEventRaised += PlayMusic;
+     
     }
 
     private void OnDisable()
     {
-        //_onSceneReady.OnEventRaised -= PlayMusic;
+       //_onSceneReady.OnEventRaised -= PlayMusic;
 
-        //_playMusicOn.RaiseStopEvent(_keyBG);
+       // _playMusicOn.RaiseStopEvent(_keyBG);
     }
 
     public void PlayMusic()
     {
-        _keyBG = _playMusicOn.RaisePlayEventMusic(_musicTrack, _audioConfig);
+       
+            _keyBG = _playMusicOn.RaisePlayEventMusic(_musicTrack, _audioConfig);
+        
+       
     }
 
     public void PauseMusic()
