@@ -21,6 +21,7 @@ public class PlayerController : Singleton<PlayerController>
                 _listWeapon[i].SetActive(false);
             }
         }
+        GamePlayController.I.InitWeaponLogic(_playerWeapon);
     }
 
     private void CheckSkinWeapon()

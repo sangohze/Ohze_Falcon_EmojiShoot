@@ -9,7 +9,7 @@ public class RifleGun : MonoBehaviour
     public Transform shootBulletPostation;
     public Transform pistolPostation;
     public Transform shootFXPosition;
-    public GameObject shootingFX;
+    public ParticleSystem shootingFX;
     public GameObject emojiBulletPrefab;
     public Vector3 shootRotation;
     public float recoilSpeed = 0.05f;
@@ -112,13 +112,7 @@ public class RifleGun : MonoBehaviour
     {
         if (shootingFX != null)
         {
-            GameObject fx = LeanPool.Spawn(shootingFX, shootFXPosition.position, shootFXPosition.rotation);
-
-            // Gắn FX vào đầu súng để di chuyển theo súng (nếu cần)
-            fx.transform.SetParent(shootFXPosition);
-
-            // Tự động despawn FX sau 1 giây (hoặc tuỳ thời gian FX của bạn)
-            LeanPool.Despawn(fx, 1f);
+            shootingFX.Play();
         }
     }
 

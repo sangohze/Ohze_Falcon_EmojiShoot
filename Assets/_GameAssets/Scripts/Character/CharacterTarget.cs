@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using static LevelData;
 
 [System.Serializable]
 public class CharacterTarget
@@ -22,12 +23,30 @@ public class CharacterTarget
     [PreviewField] public Sprite PreviewCharaterTarget2; // Sprite của EnemyTarget[1]
     private Dictionary<EmojiType, Sprite> emojiSpriteMapSingle = new Dictionary<EmojiType, Sprite>();
     private Dictionary<EmojiType, Sprite> emojiSpriteMapCombo = new Dictionary<EmojiType, Sprite>();
+    private Sprite PistolPreviewAva;
 
-    [Button("Cập Nhật Sprite")]
-    
-    public void UpdatePreviewSprites()
+  
+    public void UpdatePreviewSprites(WeaponType weaponType)
     {
         InitializeEmojiMap();
+        Dictionary<EmojiType, Sprite> selectedEmojiMap = (EnemyTarget.Count > 1) ? emojiSpriteMapCombo : emojiSpriteMapSingle;
+        if (selectedEmojiMap.TryGetValue(EmojiTypeTarget, out Sprite sprite))
+        {
+            PreviewEmojiTarget = sprite;
+        }
+        if (weaponType == WeaponType.Pistol)
+        {
+            _enemyTarget = null;
+
+            // Gán sprite đặc biệt
+            PreviewCharaterTarget = PistolPreviewAva;
+            PreviewCharaterTarget2 = PistolPreviewAva;
+
+            // Emoji vẫn có thể được cập nhật nếu muốn
+           
+
+            return;
+        }
         if (EnemyTarget.Count > 0 && EnemyTarget[0] != null)
         {
             PreviewCharaterTarget = EnemyTarget[0].Avatar;
@@ -36,11 +55,6 @@ public class CharacterTarget
         if (EnemyTarget.Count > 1 && EnemyTarget[1] != null)
         {
             PreviewCharaterTarget2 = EnemyTarget[1].Avatar;
-        }
-        Dictionary<EmojiType, Sprite> selectedEmojiMap = (EnemyTarget.Count > 1) ? emojiSpriteMapCombo : emojiSpriteMapSingle;
-        if (selectedEmojiMap.TryGetValue(EmojiTypeTarget, out Sprite sprite))
-        {
-            PreviewEmojiTarget = sprite;
         }
 
     }
@@ -65,4 +79,6 @@ public class CharacterTarget
             emojiSpriteMapCombo[types[i]] = comboSprites[i];
         }
     }
+
+   
 }

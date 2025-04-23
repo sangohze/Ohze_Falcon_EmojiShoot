@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
+using static LevelData;
 using static RootMotion.FinalIK.InteractionTrigger;
 
 public class LevelManager : Singleton<LevelManager>
@@ -25,9 +26,15 @@ public class LevelManager : Singleton<LevelManager>
     public List<EmojiType> selectedEmojiTypesPerCharacter = new List<EmojiType>();
     private int  randomlevel;
 
-
+    private Dictionary<WeaponType, Func<LevelData, Vector3>> spawnPositionFuncs;
     void OnEnable()
     {
+        spawnPositionFuncs = new Dictionary<WeaponType, Func<LevelData, Vector3>>
+    {
+        { WeaponType.Bow, GetRandomSpawnPositionLevelBow },
+        { WeaponType.Pistol, GetRandomSpawnPositionLevelPistol },
+        // Thêm weapon khác nếu cần
+    };
         GameManager.Instance.clickArrow = true;
         if (_isTest)
         {
@@ -54,7 +61,8 @@ public class LevelManager : Singleton<LevelManager>
 
     private void Start()
     {
-        currentTargetIndex = 0;   
+        currentTargetIndex = 0;
+     
     }
     public void SetUpLeveLGamePlay()
     {
@@ -170,7 +178,9 @@ public class LevelManager : Singleton<LevelManager>
             foreach (CharacterController charactersPrefab in level.characters)
             {
                 Quaternion spawnRot = Quaternion.Euler(0, 90, 0);
-                CharacterController enemy = Instantiate(charactersPrefab, GetRandomSpawnPosition(level), spawnRot);
+                Vector3 spawnPos = spawnPositionFuncs[level.playerWeapon].Invoke(level);
+                CharacterController enemy = Instantiate(charactersPrefab, spawnPos, spawnRot);
+
                 CurrentListEnemy.Add(enemy);
             }
         }
@@ -226,7 +236,7 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
-    private Vector3 GetRandomSpawnPosition(LevelData lv)
+    private Vector3 GetRandomSpawnPositionLevelBow(LevelData lv)
     {
         Quaternion rotation = lv.cameraRotation;
         float randomDistance = UnityEngine.Random.Range(8.2f, 10f);
@@ -259,7 +269,42 @@ public class LevelManager : Singleton<LevelManager>
     }
 
 
+    private Vector3 GetRandomSpawnPositionLevelPistol(LevelData lv)
+    {
+        Quaternion rotation = lv.cameraRotation;
+        float forwardDistance = UnityEngine.Random.Range(5f, 6f);
+        float sideOffset = UnityEngine.Random.Range(-1f, 1f);
+        float heightOffset = 10f;
 
+        // Vị trí cơ bản phía trước camera
+        Vector3 spawnBase = lv.cameraPosition + (rotation * Vector3.forward * forwardDistance);
+        spawnBase += rotation * Vector3.right * sideOffset;
+        spawnBase.y += heightOffset;
+
+        // Các offset phụ để tìm vị trí gần nhất có thể đứng được
+        Vector3[] offsets = {
+        Vector3.zero, Vector3.right * 2f, Vector3.left * 2f,
+        Vector3.forward * 2f, Vector3.back * 2f
+    };
+
+        RaycastHit[] hits = new RaycastHit[1];
+        foreach (var offset in offsets)
+        {
+            Vector3 adjusted = spawnBase + offset;
+            Vector3 topPosition = adjusted + Vector3.up * 10f;
+
+            if (Physics.RaycastNonAlloc(topPosition, Vector3.down, hits, 25f) > 0)
+            {
+                if (NavMesh.SamplePosition(hits[0].point, out NavMeshHit navHit, 2f, NavMesh.AllAreas))
+                {
+                    return navHit.position;
+                }
+            }
+        }
+
+        Debug.LogWarning("Không tìm thấy vị trí hợp lệ cho Pistol! Trả về vị trí cơ bản.");
+        return spawnBase;
+    }
 
 
     private void LoadLevelTest()

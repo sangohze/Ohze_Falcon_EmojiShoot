@@ -5,6 +5,7 @@ using System.Linq;
 using DG.Tweening;
 using Lean.Pool;
 using UnityEngine;
+using static LevelData;
 using static UnityEngine.EventSystems.EventTrigger;
 
 
@@ -26,7 +27,7 @@ public class CharacterController : MonoBehaviour
     public Sprite Avatar;
     private AudioCueKey _currentSFXKey;
     public float timeEndAnim = 10f;
-    private Dictionary<EmojiType, TypeEffect> emojiEffectMap;
+    public Dictionary<EmojiType, TypeEffect> emojiEffectMap;
     private TypeEffect? _currentEffectSingle;
     [SerializeField] private TypeEffect? _currentEffectCombo;
     private GameObject _currentEffectSingleObj;
@@ -35,6 +36,7 @@ public class CharacterController : MonoBehaviour
     private GameObject? _currentEffectComboObjMidpoint;
     private Vector3 effectPositions = new Vector3(0, 2.4f, 0);
     private BulletCollisionHandler bulletHandler;
+    private PistolInitAnimHandler pistolInitHandler;
     private void InitEffectMap()
     {
         emojiEffectMap = new Dictionary<EmojiType, TypeEffect>
@@ -55,6 +57,9 @@ public class CharacterController : MonoBehaviour
         SetUpPostionEffect();
         SetUpRotationLookAtCamera();
         bulletHandler = new BulletCollisionHandler(this);
+        pistolInitHandler = gameObject.AddComponent<PistolInitAnimHandler>();
+        pistolInitHandler.Initialize(this);
+        SetUpInitAnimStartLevel(PlayerController.I._playerWeapon);
     }
 
     private void SetUpRotationLookAtCamera()
@@ -96,6 +101,18 @@ public class CharacterController : MonoBehaviour
 
     }
 
+    void SetUpInitAnimStartLevel(WeaponType weaponType)
+    {
+        switch (weaponType)
+        {
+            case WeaponType.Bow:
+                characterMove.InitBowLevel();
+                break;
+            case WeaponType.Pistol:
+                pistolInitHandler.InitCharacterHandler();
+                break;
+        }
+    }    
     void OnCollisionEnter(Collision other)
     {
         if (other.transform.tag == "EmojiProjectile")

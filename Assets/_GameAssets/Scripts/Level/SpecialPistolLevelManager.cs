@@ -1,14 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+
 using UnityEngine;
 
-public class SpecialPistolLevelManager : Singleton<SpecialPistolLevelManager> , IWeaponGameWinHandler
+public class SpecialPistolLevelManager : WeaponGameWinHandlerBase
 {
-    
+    private GamePlayController controller;
+    public static SpecialPistolLevelManager I;
+    public void Init(GamePlayController controller)
+    {
+        this.controller = controller;
+        I = this;
+    }
+
+
+
     public List<CharacterController> hitCharacters = new List<CharacterController>();
     private Vector3 lastMidpoint;
     private EmojiType? groupEmoji = null;
+    private bool hasTriggeredWin = false;
     public void AddCharacter(CharacterController character, EmojiType currentEmoji)
     {
         if (groupEmoji != null && groupEmoji != currentEmoji)
@@ -92,7 +103,7 @@ public class SpecialPistolLevelManager : Singleton<SpecialPistolLevelManager> , 
             if (newCharacter.isEnemyTarget && emoji == GamePlayController.I.EmojiTypeTarget)
             {
                 HapticManager.I.PlayHaptic(MoreMountains.NiceVibrations.HapticTypes.LightImpact);
-                GamePlayController.I.OnEnemyTargetHit(newCharacter);
+            
             }
         });
     }
@@ -102,23 +113,23 @@ public class SpecialPistolLevelManager : Singleton<SpecialPistolLevelManager> , 
     {
         foreach (var c in hitCharacters)
         {
-            c.HideEffOne();
 
             c.characterMove.MoveTowardsPosition(lastMidpoint, emoji, (move) =>
             {
+            c.HideEffOne();
                 var character = move.GetComponent<CharacterController>();
                 if (character == null) return;
 
                 character.animator.CrossFade($"{emoji}2", 0, 0);
                 character.SpawnEmojiEffectSingle(emoji);
                 character.PlayEffectComboMidPoint(lastMidpoint, emoji);
+                character.PlaySoundFXCombo(emoji, character);
                 character.PlayEffectCombo(character, emoji);
             });
         }
         CheckWinCondition();
     }
 
-    private bool hasTriggeredWin = false;
 
     private void CheckWinCondition()
     {
@@ -130,10 +141,50 @@ public class SpecialPistolLevelManager : Singleton<SpecialPistolLevelManager> , 
         EmojiType currentEmoji = EmojiController.I != null ? EmojiController.I.currentEmoji : EmojiType.Love;
         bool correctEmoji = currentEmoji == GamePlayController.I.EmojiTypeTarget;
 
+        SetTickPreviewByEnemy(currentEmoji);
         if (allMatched && correctEmoji)
         {
             hasTriggeredWin = true;
-            GamePlayController.I.WaitGameWin();
+
+            Invoke(nameof(TriggerGameWin), 3f);
         }
+    }
+    private void TriggerGameWin()
+{
+    GamePlayController.I.WaitGameWin();
+        hasTriggeredWin = false;
+    }
+    public override void OnEnemyTargetHit(CharacterController enemy)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void SetTickPreviewByEnemy(EmojiType emoji)
+    {
+        var currentTarget = controller._characterTarget[controller.currentTargetIndex];
+        if (emoji != currentTarget.EmojiTypeTarget)
+        {
+            SetTickActive(false, false);
+            return;
+        }
+        bool allHit = true;
+
+        foreach (var enemy in controller.CurrentListEnemy)
+        {
+            if (!hitCharacters.Contains(enemy))
+            {
+                allHit = false;
+                break;
+            }
+        }
+
+        SetTickActive(allHit, allHit);
+
+        Debug.Log($"SetTickPreviewByEnemy {emoji} - All Hit: {allHit}");
+    }
+    private void SetTickActive(bool tick1, bool tick2)
+    {
+        if (controller.tickPreview1) controller.tickPreview1.SetActive(tick1);
+        if (controller.tickPreview2) controller.tickPreview2.SetActive(tick2);
     }
 }

@@ -23,6 +23,7 @@ public enum TypeEffect
     Eff_SadClould,
     //
     Eff_Hit,
+    Eff_GunPistol
 }
 public class EffectManager : Singleton<EffectManager>
 {

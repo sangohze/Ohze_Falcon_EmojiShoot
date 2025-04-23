@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using static RootMotion.Demos.CharacterThirdPerson;
+
 
 public class CharacterMove : MonoBehaviour
 {
@@ -22,7 +22,7 @@ public class CharacterMove : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private float originalWaitime;
 
-    void Start()
+    void Awake()
     {
         originalWaitime = waitTime;
         animator.applyRootMotion = false;
@@ -31,6 +31,10 @@ public class CharacterMove : MonoBehaviour
         navMeshAgent.speed = moveSpeed;
         startPosition = transform.position;
         mainCamera = Camera.main;
+        //moveCoroutine = StartCoroutine(MoveRandomly(Characteranimationkey.Walking));
+    }
+    public void InitBowLevel()
+    {
         moveCoroutine = StartCoroutine(MoveRandomly(Characteranimationkey.Walking));
     }
 

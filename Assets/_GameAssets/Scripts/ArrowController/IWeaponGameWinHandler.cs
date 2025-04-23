@@ -1,5 +1,5 @@
 public interface IWeaponGameWinHandler
 {
-    void CheckEnemyTargetGameWin(CharacterController enemy);
+    void OnEnemyTargetHit(CharacterController enemy);
     void SetTickPreviewByEnemy(EmojiType emoji);
 }
