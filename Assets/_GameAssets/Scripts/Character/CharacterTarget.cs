@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UI;
 using static LevelData;
 
 [System.Serializable]
@@ -16,7 +17,7 @@ public class CharacterTarget
         get => _enemyTarget;
         set => _enemyTarget = value;
     }
-   
+
 
     [PreviewField] public Sprite PreviewCharaterTarget;  // Sprite của EnemyTarget[0]
     [PreviewField] public Sprite PreviewEmojiTarget;     // Sprite của EmojiTypeTarget
@@ -24,15 +25,30 @@ public class CharacterTarget
     private Dictionary<EmojiType, Sprite> emojiSpriteMapSingle = new Dictionary<EmojiType, Sprite>();
     private Dictionary<EmojiType, Sprite> emojiSpriteMapCombo = new Dictionary<EmojiType, Sprite>();
     private Sprite PistolPreviewAva;
+    public string PistolLevelTextMission;
 
-  
+    private Dictionary<EmojiType, string> emojiTypeToMissionText = new Dictionary<EmojiType, string>()
+{
+    { EmojiType.Love, "Make love, not war." },
+    { EmojiType.Angry, "Make war, not love." },
+    { EmojiType.Sad, "Fire...! Help!" },
+    { EmojiType.Pray, "No more heaven." },
+    { EmojiType.Devil, "In god, we trust" },
+    { EmojiType.Dance, "More passion, more footwork, more energy." },
+
+    // Thêm các emoji khác tương ứng
+};
     public void UpdatePreviewSprites(WeaponType weaponType)
     {
         InitializeEmojiMap();
-        Dictionary<EmojiType, Sprite> selectedEmojiMap = (EnemyTarget.Count > 1) ? emojiSpriteMapCombo : emojiSpriteMapSingle;
+        Dictionary<EmojiType, Sprite> selectedEmojiMap = (EnemyTarget.Count > 1 || EnemyTarget.Count == 0) ? emojiSpriteMapCombo : emojiSpriteMapSingle;
         if (selectedEmojiMap.TryGetValue(EmojiTypeTarget, out Sprite sprite))
         {
             PreviewEmojiTarget = sprite;
+        }
+        if (emojiTypeToMissionText.TryGetValue(EmojiTypeTarget, out string missionText))
+        {
+            PistolLevelTextMission = missionText;
         }
         if (weaponType == WeaponType.Pistol)
         {
@@ -43,7 +59,7 @@ public class CharacterTarget
             PreviewCharaterTarget2 = PistolPreviewAva;
 
             // Emoji vẫn có thể được cập nhật nếu muốn
-           
+
 
             return;
         }
@@ -80,5 +96,5 @@ public class CharacterTarget
         }
     }
 
-   
+
 }

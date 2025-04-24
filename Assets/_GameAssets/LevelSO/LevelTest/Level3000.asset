@@ -24,10 +24,11 @@ MonoBehaviour:
   cameraPosition: {x: -56.2, y: 132.51831, z: 86.8}
   cameraRotation: {x: -0, y: -0.9440892, z: 0, w: -0.32969046}
   _characterTarget:
-  - EmojiTypeTarget: 4
+  - EmojiTypeTarget: 1
     _enemyTarget: []
     PreviewCharaterTarget: {fileID: 21300000, guid: 63416f2fb1422344b9f7b2e5ee9ec70a, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: ab1816a305f6e5b45b223a8bbc685640, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: b10fdab46eaf10b46b62e1559c6dc3cf, type: 3}
     PreviewCharaterTarget2: {fileID: 21300000, guid: 63416f2fb1422344b9f7b2e5ee9ec70a, type: 3}
-  selectedEmojiTypesPerCharacter: 0100000000000000030000000500000006000000
+    PistolLevelTextMission: Fire...! Help!
+  selectedEmojiTypesPerCharacter: 01000000000000000500000002000000
   quantityEmojiRandom: 3

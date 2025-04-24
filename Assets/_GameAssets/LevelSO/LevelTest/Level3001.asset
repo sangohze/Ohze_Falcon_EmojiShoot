@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80eb8161b1c30c94dbaff5b54a66a7f6, type: 3}
+  m_Name: Level3001
+  m_EditorClassIdentifier: 
+  level: 3001
+  characters:
+  - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
+  - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
+  - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
+  - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
+  - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
+  map: {fileID: 355144773906350180, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
+  playerWeapon: 1
+  cameraPosition: {x: -56.2, y: 132.51831, z: 86.8}
+  cameraRotation: {x: -0, y: -0.9440892, z: 0, w: -0.32969046}
+  _characterTarget:
+  - EmojiTypeTarget: 1
+    _enemyTarget: []
+    PreviewCharaterTarget: {fileID: 21300000, guid: 63416f2fb1422344b9f7b2e5ee9ec70a, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: b10fdab46eaf10b46b62e1559c6dc3cf, type: 3}
+    PreviewCharaterTarget2: {fileID: 21300000, guid: 63416f2fb1422344b9f7b2e5ee9ec70a, type: 3}
+    PistolLevelTextMission: Fire...! Help!
+  selectedEmojiTypesPerCharacter: 01000000050000000600000002000000
+  quantityEmojiRandom: 3

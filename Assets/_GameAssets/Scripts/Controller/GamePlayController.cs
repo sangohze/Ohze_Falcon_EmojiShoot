@@ -22,30 +22,40 @@ public class GamePlayController : Singleton<GamePlayController>
     public int currentLevelIndexText;
     public GameObject tickPreview1;
     public GameObject tickPreview2;
+    public GameObject tickTextPistolLevel;
     private float timeToTarget = 10f;
     [SerializeField] UIMoveNew groupMissionShow;
     [SerializeField] DotGroupController groupDOT;
     [SerializeField] GameObject _Effects;
     public bool isTransitioningMission = false;
-   
+  
 
     private IWeaponGameWinHandler weaponGameWinHandler;
+    private PistolInitAnimHandler pistolInitHandler;
 
+   
+ 
     public void InitWeaponLogic(WeaponType weaponType)
     {
         switch (weaponType)
         {
             case WeaponType.Bow:
                 weaponGameWinHandler = new BowGameWinHandler(this);
+
+                foreach (var enemy in CurrentListEnemy)
+                {
+                    enemy.characterMove.InitBowLevel();
+                }
                 break;
             case WeaponType.Pistol:
                 weaponGameWinHandler = gameObject.AddComponent<SpecialPistolLevelManager>();
                 ((SpecialPistolLevelManager)weaponGameWinHandler).Init(this);
+
+                pistolInitHandler = gameObject.AddComponent<PistolInitAnimHandler>();
+                pistolInitHandler.InitCharacterHandler();
                 break;
         }
     }
-
-  
 
     public void SetTickPreviewByEnemy(EmojiType emoji)
     {

@@ -23,8 +23,8 @@ public class EmojiBullet : MonoBehaviour
 
     public void LaunchInArc(float velocity)
     {
-        transform.parent = null;
         rb.isKinematic = false;
+        transform.parent = null;
         rb.freezeRotation = true;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;

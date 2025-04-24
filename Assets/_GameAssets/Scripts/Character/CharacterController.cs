@@ -14,7 +14,7 @@ public class CharacterController : MonoBehaviour
     public Animator animator;
     public CharacterMove characterMove;
     public bool isEnemyTarget;
-    private Quaternion characterRotationDefault;
+    public Quaternion characterRotationDefault;
     private Dictionary<EmojiType, ParticleSystem> emojiToEffectMap = new Dictionary<EmojiType, ParticleSystem>();
     private Coroutine resetMovementCoroutine;
     public Coroutine ResetAfterDelayPistol;
@@ -36,7 +36,7 @@ public class CharacterController : MonoBehaviour
     private GameObject? _currentEffectComboObjMidpoint;
     private Vector3 effectPositions = new Vector3(0, 2.4f, 0);
     private BulletCollisionHandler bulletHandler;
-    private PistolInitAnimHandler pistolInitHandler;
+   
     private void InitEffectMap()
     {
         emojiEffectMap = new Dictionary<EmojiType, TypeEffect>
@@ -57,9 +57,6 @@ public class CharacterController : MonoBehaviour
         SetUpPostionEffect();
         SetUpRotationLookAtCamera();
         bulletHandler = new BulletCollisionHandler(this);
-        pistolInitHandler = gameObject.AddComponent<PistolInitAnimHandler>();
-        pistolInitHandler.Initialize(this);
-        SetUpInitAnimStartLevel(PlayerController.I._playerWeapon);
     }
 
     private void SetUpRotationLookAtCamera()
@@ -100,19 +97,7 @@ public class CharacterController : MonoBehaviour
         mouthPosition.transform.localScale = new Vector3(0.002f, 0.002f, 0.002f);
 
     }
-
-    void SetUpInitAnimStartLevel(WeaponType weaponType)
-    {
-        switch (weaponType)
-        {
-            case WeaponType.Bow:
-                characterMove.InitBowLevel();
-                break;
-            case WeaponType.Pistol:
-                pistolInitHandler.InitCharacterHandler();
-                break;
-        }
-    }    
+   
     void OnCollisionEnter(Collision other)
     {
         if (other.transform.tag == "EmojiProjectile")
@@ -121,15 +106,19 @@ public class CharacterController : MonoBehaviour
             EffectManager.I.PlayEffect(TypeEffect.Eff_Hit, pos);
             HandleCollision();
         }
-        if (other.transform.tag == "EmojiProjectileBullet")
+      
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+     
+        if (other.CompareTag("EmojiProjectileBullet"))
         {
-            Vector3 pos = other.contacts[0].point;
+            Vector3 pos = other.ClosestPoint(transform.position);
             EffectManager.I.PlayEffect(TypeEffect.Eff_Hit, pos);
             bulletHandler.HandleCollision();
         }
     }
-
-
 
     private void HandleCollision()
     {
@@ -421,7 +410,7 @@ public class CharacterController : MonoBehaviour
             _currentEffectComboObjMidpoint = null;
         }
     }
-    private void PlaySoundFXSingle(EmojiType emojiType, CharacterController enemy)
+    public void PlaySoundFXSingle(EmojiType emojiType, CharacterController enemy)
     {
         SoundManager.I.StopAllSFX();
         var soundMap = new Dictionary<EmojiType, TypeSound>
@@ -480,6 +469,8 @@ public class CharacterController : MonoBehaviour
             ResetAfterDelayPistol = null;
         }       
     }
+
+  
 }
 
 

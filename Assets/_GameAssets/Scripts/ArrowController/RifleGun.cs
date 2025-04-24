@@ -102,8 +102,7 @@ public class RifleGun : MonoBehaviour
         float recoilAmount = Mathf.Sin(Time.time * (1f / recoilSpeed));
         Vector3 angle = shootRotation * recoilAmount;
 
-        pistolPostation.localRotation = initialRotation * Quaternion.Euler(angle);
-
+        pistolPostation.localRotation = initialRotation * Quaternion.Euler(angle);    
         // Quay băng đạn
         magazineGunTransform.Rotate(Vector3.forward * -magazineRotationSpeed * Time.deltaTime);
     }
@@ -139,6 +138,7 @@ public class RifleGun : MonoBehaviour
             }
 
             emojiSpawnTimer = 0;
+            SoundManager.I.PlaySFX(TypeSound.SFX_GunSound);
         }
     }
 }

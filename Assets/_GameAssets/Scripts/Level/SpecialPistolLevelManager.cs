@@ -1,25 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class SpecialPistolLevelManager : WeaponGameWinHandlerBase
 {
     private GamePlayController controller;
     public static SpecialPistolLevelManager I;
+    public GameObject _EffectFireSpecial;
     public void Init(GamePlayController controller)
     {
         this.controller = controller;
         I = this;
     }
-
+    private ComboEffectConfig config;
 
 
     public List<CharacterController> hitCharacters = new List<CharacterController>();
     private Vector3 lastMidpoint;
     private EmojiType? groupEmoji = null;
     private bool hasTriggeredWin = false;
+    public Dictionary<CharacterController, ComboEffectConfig> originalCombos = new();
     public void AddCharacter(CharacterController character, EmojiType currentEmoji)
     {
         if (groupEmoji != null && groupEmoji != currentEmoji)
@@ -52,7 +55,7 @@ public class SpecialPistolLevelManager : WeaponGameWinHandlerBase
         if (hitCharacters.Count == 1)
         {
 
-            character.HandleFirstHit(currentEmoji.ToString(), currentEmoji);
+            HandleFirstHit(currentEmoji.ToString(), currentEmoji);
         }
         else if (hitCharacters.Count == 2)
         {
@@ -72,13 +75,51 @@ public class SpecialPistolLevelManager : WeaponGameWinHandlerBase
     {
         if (hitCharacters.Contains(character))
         {
-        yield return new WaitForSeconds(character.timeEndAnim);
-            character.characterMove.RestartMovement(Characteranimationkey.Walking);
+            yield return new WaitForSeconds(character.timeEndAnim);
+
             character.HideEffOne();
-            hitCharacters.Remove(character);
+            // Lấy lại combo ban đầu nếu có
+            if (originalCombos.TryGetValue(character, out var originalConfig))
+            {
+                character.animator.CrossFade(originalConfig.animName, 0, 0);
+                Debug.LogError("sangcharacter" + character.name);
+                character.SpawnEmojiEffectSingle(originalConfig.emoji);
+
+                if (originalConfig.playMidPointEffect)
+                {
+                    character.PlayEffectComboMidPoint(character.transform.position, originalConfig.emoji);
+
+                }
+
+                character.PlaySoundFXCombo(originalConfig.emoji, character);
+
+                if (originalConfig.playEffectCombo)
+                    character.PlayEffectCombo(character, originalConfig.emoji);
+
+                if (originalConfig.isMove)
+                    character.characterMove.RestartMovement(Characteranimationkey.DevilRemaining);
+            }
+            else
+            {
+                // Nếu không có combo ban đầu, reset mặc định
+                character.characterMove.RestartMovement(Characteranimationkey.Walking);
+                character.HideEffOne();
+            }
+
+            //hitCharacters.Remove(character);
         }
     }
 
+    public void HandleFirstHit(string animState, EmojiType currentEmoji)
+    {
+        CharacterController c = hitCharacters[0];
+        c.transform.DORotateQuaternion(c.characterRotationDefault, 0.5f);
+        c.animator.CrossFade(animState, 0, 0);
+        c.HideEffOne();
+        c.PlayEffectCombo(c, currentEmoji);
+        c.SpawnEmojiEffectSingle(currentEmoji);
+        c.PlaySoundFXSingle(currentEmoji, c);
+    }
     private void HandleSecondHit(CharacterController newCharacter, EmojiType emoji)
     {
         CharacterController first = hitCharacters[0];
@@ -103,7 +144,7 @@ public class SpecialPistolLevelManager : WeaponGameWinHandlerBase
             if (newCharacter.isEnemyTarget && emoji == GamePlayController.I.EmojiTypeTarget)
             {
                 HapticManager.I.PlayHaptic(MoreMountains.NiceVibrations.HapticTypes.LightImpact);
-            
+
             }
         });
     }
@@ -114,9 +155,9 @@ public class SpecialPistolLevelManager : WeaponGameWinHandlerBase
         foreach (var c in hitCharacters)
         {
 
-            c.characterMove.MoveTowardsPosition(lastMidpoint, emoji, (move) =>
+            c.characterMove.MoveTowardsPositionSpecialLevel(lastMidpoint, emoji, (move) =>
             {
-            c.HideEffOne();
+                c.HideEffOne();
                 var character = move.GetComponent<CharacterController>();
                 if (character == null) return;
 
@@ -145,13 +186,40 @@ public class SpecialPistolLevelManager : WeaponGameWinHandlerBase
         if (allMatched && correctEmoji)
         {
             hasTriggeredWin = true;
-
+            RunSpecialEmojiAction(currentEmoji);
             Invoke(nameof(TriggerGameWin), 3f);
         }
     }
+
+    private void RunSpecialEmojiAction(EmojiType emoji)
+    {
+        switch (emoji)
+        {
+            case EmojiType.Sad:
+
+                ExtinguishFire();
+                break;
+            case EmojiType.Pray:
+                ResetLight();
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    private void ExtinguishFire()
+    {
+        EffectManager.I.HideEffectOne(TypeEffect.Eff_FireSpecial, _EffectFireSpecial);
+    }
+    private void ResetLight()
+    {
+        LightController.I.RestoreDefaultSkybox();
+    }
     private void TriggerGameWin()
-{
-    GamePlayController.I.WaitGameWin();
+    {
+        controller.tickTextPistolLevel.SetActive(true);
+        GamePlayController.I.WaitGameWin();
         hasTriggeredWin = false;
     }
     public override void OnEnemyTargetHit(CharacterController enemy)

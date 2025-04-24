@@ -25,6 +25,7 @@ public class PanelGamePlay : PanelBase
     public bool _isHome;
     private bool _isClick;
 
+    public TextMeshProUGUI _textPistolLevel ;
 
     private void Start()
     {

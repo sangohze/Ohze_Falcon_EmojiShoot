@@ -18,13 +18,13 @@ public class LevelManager : Singleton<LevelManager>
     private List<CharacterController> currentEnemyTargets = new List<CharacterController>();
     public EmojiType currentEmojiTypeTarget;
     public List<CharacterController> CurrentListEnemy;
-  
+
     public bool _isTest;
     [SerializeField] private LevelTest _LevelTest;
     [SerializeField] private CharacterTarget[] _characterTarget;
     private int currentlevelIndexText;
     public List<EmojiType> selectedEmojiTypesPerCharacter = new List<EmojiType>();
-    private int  randomlevel;
+    private int randomlevel;
 
     private Dictionary<WeaponType, Func<LevelData, Vector3>> spawnPositionFuncs;
     void OnEnable()
@@ -47,14 +47,15 @@ public class LevelManager : Singleton<LevelManager>
             if (currentLevelIndex < levels.Length)
             {
                 LoadLevel(currentLevelIndex);
-                
+
             }
-            else {
-                 randomlevel = UnityEngine.Random.Range(0, levels.Length);
+            else
+            {
+                randomlevel = UnityEngine.Random.Range(0, levels.Length);
                 LoadLevel(randomlevel); ;
             }
             GamePlayController.I._characterTarget = _characterTarget;
-         
+
         }
         SetUpLeveLGamePlay();
     }
@@ -62,7 +63,7 @@ public class LevelManager : Singleton<LevelManager>
     private void Start()
     {
         currentTargetIndex = 0;
-     
+
     }
     public void SetUpLeveLGamePlay()
     {
@@ -75,7 +76,7 @@ public class LevelManager : Singleton<LevelManager>
             foreach (var enemy in _LevelTest.currentEnemyTargets)
             {
                 enemy.SetAsEnemyTarget();
-              
+
             }
         }
         else
@@ -83,13 +84,13 @@ public class LevelManager : Singleton<LevelManager>
             currentTargetIndex = GamePlayController.I.currentTargetIndex;
             GamePlayController.I.CurrentListEnemy = CurrentListEnemy;
             SetUpEnemyTarget();
-            if(currentLevelIndex < levels.Length)
+            if (currentLevelIndex < levels.Length)
             {
-            GamePlayController.I.currentLevelIndexText = currentlevelIndexText;
+                GamePlayController.I.currentLevelIndexText = currentlevelIndexText;
 
             }
             else { GamePlayController.I.currentLevelIndexText = ES3.Load<int>("GamePlayController.I.currentLevelIndexText", 0); }
-                GamePlayController.I.EmojiTypeTarget = currentEmojiTypeTarget;
+            GamePlayController.I.EmojiTypeTarget = currentEmojiTypeTarget;
             EmojiController.I.selectedEmojiTypesPerCharacter = selectedEmojiTypesPerCharacter;
             foreach (var enemy in currentEnemyTargets)
             {
@@ -103,11 +104,11 @@ public class LevelManager : Singleton<LevelManager>
         }
         else
         {
-           
+
             SetUpUI(randomlevel); ;
         }
 
-     
+
         if (EmojiController.I != null)
         {
             GamePlayController.I.SetTickPreviewByEnemy(EmojiController.I.currentEmoji);
@@ -134,9 +135,29 @@ public class LevelManager : Singleton<LevelManager>
         else
         {
 
+            SetUpMissiopnBoard();
+            UIManager.I.Get<PanelGamePlay>().emojiShowRandom = levels[currentLevelIndex].selectedEmojiTypesPerCharacter;         
+        }
+    }
+
+    private void SetUpMissiopnBoard()
+    {
+        if (levels[currentLevelIndex].playerWeapon == WeaponType.Pistol)
+        {
+            UIManager.I.Get<PanelGamePlay>()._textPistolLevel.gameObject.SetActive(true);
+            UIManager.I.Get<PanelGamePlay>()._textPistolLevel.text = levels[currentLevelIndex]._characterTarget[currentTargetIndex].PistolLevelTextMission;
+            UIManager.I.Get<PanelGamePlay>().PreviewEmoji.gameObject.SetActive(false);
+            UIManager.I.Get<PanelGamePlay>().PreviewAvatar.gameObject.SetActive(false);
+            UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.gameObject.SetActive(false);
+        }
+        else
+        {
+            UIManager.I.Get<PanelGamePlay>()._textPistolLevel.gameObject.SetActive(false);
+            UIManager.I.Get<PanelGamePlay>().PreviewEmoji.gameObject.SetActive(true);
+            UIManager.I.Get<PanelGamePlay>().PreviewAvatar.gameObject.SetActive(true);
+            UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.gameObject.SetActive(true);
             UIManager.I.Get<PanelGamePlay>().PreviewAvatar.sprite = levels[currentLevelIndex]._characterTarget[currentTargetIndex].PreviewCharaterTarget;
             UIManager.I.Get<PanelGamePlay>().PreviewEmoji.sprite = levels[currentLevelIndex]._characterTarget[currentTargetIndex].PreviewEmojiTarget;
-            UIManager.I.Get<PanelGamePlay>().emojiShowRandom = levels[currentLevelIndex].selectedEmojiTypesPerCharacter;
             if (levels[currentLevelIndex]._characterTarget[currentTargetIndex].PreviewCharaterTarget2 != null)
             {
                 UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.gameObject.SetActive(true);
@@ -151,7 +172,7 @@ public class LevelManager : Singleton<LevelManager>
 
     public void LoadLevel(int index)
     {
-        Debug.LogError("SangLevel" + (index+1) );
+        Debug.LogError("SangLevel" + (index + 1));
         if (index < 0 || index >= levels.Length) return;
         currentEnemyTargets.Clear();
         CurrentListEnemy.Clear();
@@ -168,7 +189,7 @@ public class LevelManager : Singleton<LevelManager>
         selectedEmojiTypesPerCharacter = level.selectedEmojiTypesPerCharacter;
         PlayerController.I._playerWeapon = level.playerWeapon;
         PlayerController.I.CheckWeaponInLevel();
-     
+
         Camera.main.transform.position = level.cameraPosition;
         Camera.main.transform.rotation = level.cameraRotation;
         Vector3 spawnPosition = new Vector3(0, 1, 0); // Chỉnh vị trí spawn phù hợp
@@ -183,13 +204,18 @@ public class LevelManager : Singleton<LevelManager>
 
                 CurrentListEnemy.Add(enemy);
             }
+            //Invoke(nameof(InitWeaponDelayed), 0f);         
         }
         else
         {
             Debug.LogError("Không tìm thấy vị trí hợp lệ trên NavMesh!");
         }
+        Invoke(nameof(InitWeaponDelayed), 0f);
     }
-
+    void InitWeaponDelayed()
+    {
+        GamePlayController.I.InitWeaponLogic(PlayerController.I._playerWeapon);
+    }
 
     public void SetUpEnemyTarget()
     {
@@ -203,7 +229,7 @@ public class LevelManager : Singleton<LevelManager>
         }
         foreach (var enemy in CurrentListEnemy)
         {
-            enemy.isEnemyTarget = false; 
+            enemy.isEnemyTarget = false;
         }
         List<CharacterController> enemyTargetList = _characterTarget[currentTargetIndex].EnemyTarget;
 
@@ -241,39 +267,40 @@ public class LevelManager : Singleton<LevelManager>
         Quaternion rotation = lv.cameraRotation;
         float randomDistance = UnityEngine.Random.Range(8.2f, 10f);
         Vector3 spawnPosition = lv.cameraPosition + (rotation * Vector3.forward * randomDistance);
-        spawnPosition.y = lv.cameraPosition.y +10f;
+        spawnPosition.y = lv.cameraPosition.y + 10f;
         spawnPosition += rotation * Vector3.right * UnityEngine.Random.Range(-5f, 5f);
         Vector3[] offsets = {
         Vector3.zero, Vector3.right * 2.5f, Vector3.left * 2.5f,
         Vector3.forward * 2.5f, Vector3.back * 2.5f
     };
 
-        RaycastHit[] hits = new RaycastHit[1]; 
+        RaycastHit[] hits = new RaycastHit[1];
         foreach (var offset in offsets)
         {
             Vector3 adjustedSpawn = spawnPosition + offset;
             Vector3 topPosition = adjustedSpawn + Vector3.up * 10f;
-       
-         
+
+
             if (Physics.RaycastNonAlloc(topPosition, Vector3.down, hits, 25f) > 0)
             {
                 if (NavMesh.SamplePosition(hits[0].point, out NavMeshHit navMeshHit, 2f, NavMesh.AllAreas))
                 {
-                    return navMeshHit.position;  
+                    return navMeshHit.position;
                 }
             }
         }
 
         Debug.LogWarning("Không tìm thấy vị trí hợp lệ trên bất kỳ NavMesh nào!");
-        return spawnPosition; 
+        return spawnPosition;
     }
 
 
     private Vector3 GetRandomSpawnPositionLevelPistol(LevelData lv)
     {
         Quaternion rotation = lv.cameraRotation;
-        float forwardDistance = UnityEngine.Random.Range(5f, 6f);
-        float sideOffset = UnityEngine.Random.Range(-1f, 1f);
+        float forwardDistance = UnityEngine.Random.Range(8f, 9f);
+        //float forwardDistance = 8f;
+        float sideOffset = UnityEngine.Random.Range(-3f, 3f);
         float heightOffset = 10f;
 
         // Vị trí cơ bản phía trước camera

@@ -72,7 +72,8 @@ public enum TypeSound
     SFX_Arrow,
     SFX_Win,
     SFX_Lose,
-    SFX_ClockWarning
+    SFX_ClockWarning,
+    SFX_GunSound,
 }
 
 [System.Serializable] public class SoundDataDictionary : UnitySerializedDictionary<TypeSound, AudioCueSO> { }

@@ -224,7 +224,7 @@ public class CharacterMove : MonoBehaviour
     }
 
     //
-    public void MoveTowardsPosition(Vector3 targetPosition, EmojiType emojiType, Action<CharacterMove> onComplete = null)
+    public void MoveTowardsPositionSpecialLevel(Vector3 targetPosition, EmojiType emojiType, Action<CharacterMove> onComplete = null)
     {
         StartCoroutine(MoveToPositionCoroutine(targetPosition, emojiType, onComplete));
     }
@@ -244,10 +244,12 @@ public class CharacterMove : MonoBehaviour
 
         float multiplier = distance.ContainsKey(emojiType) ? distance[emojiType] : 3f;
         float stoppingRange = navMeshAgent.stoppingDistance * multiplier;
+        float safeDistance = 3f;
+        float adjustedStoppingRange = stoppingRange + safeDistance;
 
         float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
 
-        if (distanceToTarget <= stoppingRange)
+        if (distanceToTarget <= adjustedStoppingRange)
         {
             navMeshAgent.isStopped = true;
             transform.LookAt(targetPosition);
