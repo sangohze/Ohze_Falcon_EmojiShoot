@@ -4,8 +4,6 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using static RootMotion.FinalIK.GrounderQuadruped;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class LevelDataGeneratorEditor
 {
@@ -14,105 +12,128 @@ public class LevelDataGeneratorEditor
     public static void Generate100Levels()
     {
         // Tạo folder nếu chưa có
-        string folderPath = "Assets/_GameAssets/LevelSO/LevelAuto";
+        string rootFolder = "Assets/_GameAssets/LevelSO";
+        string folderPath = rootFolder + "/LevelAuto";
         if (!AssetDatabase.IsValidFolder(folderPath))
         {
-            AssetDatabase.CreateFolder("Assets", "GeneratedLevels");
+            AssetDatabase.CreateFolder(rootFolder, "LevelAuto");
         }
 
-        // Load các bản đồ có chứa camera preset
-        var allMaps = AssetDatabase.FindAssets("t:LevelData", new[] { "Assets/_GameAssets/LevelSO/LevelTest" })
-     .Select(guid => AssetDatabase.LoadAssetAtPath<LevelData>(AssetDatabase.GUIDToAssetPath(guid)))
-     .Where(ld => ld != null && ld.map != null)
-     .OrderBy(_ => Random.value)
-     .First()
-     .map;
+        // Load các LevelData mẫu có map
+        var allLevelDataWithMaps = AssetDatabase.FindAssets("t:LevelData", new[] { "Assets/_GameAssets/LevelSO/LevelTest" })
+            .Select(guid => AssetDatabase.LoadAssetAtPath<LevelData>(AssetDatabase.GUIDToAssetPath(guid)))
+            .Where(ld => ld != null && ld.map != null)
+            .ToList();
 
-        // Load các character từ Resources/Characters/
-        var allCharacters = AssetDatabase.FindAssets("t:CharacterController", new[] { "Assets/_GameAssets/Prefab/Prefab char" })
-    .Select(guid => AssetDatabase.LoadAssetAtPath<CharacterController>(AssetDatabase.GUIDToAssetPath(guid)))
-    .Where(c => c != null)
-    .ToList();
-    var batch = ScriptableObject.CreateInstance<LevelDataBatch>();
+        // Load tất cả CharacterController từ folder
+        var guids = AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/_GameAssets/Prefab/Prefabchar" });
+
+        var allCharacters = guids
+            .Select(guid => AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(guid)))
+            .Where(go => go != null && go.GetComponent<CharacterController>() != null)
+            .Select(go => go.GetComponent<CharacterController>())
+            .ToList();
+        Debug.Log($"Tìm thấy {allCharacters.Count} CharacterController trong folder Assets/_GameAssets/Prefab/Prefabchar");
+
+        var batch = ScriptableObject.CreateInstance<LevelDataBatch>();
         batch.generatedLevels = new List<LevelData>();
+        bool isLevel2Pistol = false;
 
-        for (int i = 1; i <= 10; i++)
+        for (int i = 1; i <= 100; i++)
         {
+            if ((i - 1) % 5 == 0)
+            {
+                // Đầu mỗi cụm 5 level → chọn random 1 trong 2 level là pistol
+                isLevel2Pistol = Random.value < 0.5f;
+            }
+
             LevelData level = ScriptableObject.CreateInstance<LevelData>();
             level.level = i;
 
-            // 1. Random map
-            GameObject map = allMaps;
-            level.map = map;
+            // 1. Random map + camera
+            var reference = allLevelDataWithMaps.OrderBy(_ => Random.value).First();
+            level.map = reference.map;
+            level.cameraPosition = reference.cameraPosition;
+            level.cameraRotation = reference.cameraRotation;
 
-            // 2. Lấy camera pos & rot từ map
-            Transform camTransform = map.transform.Find("CameraPoint");
-            if (camTransform != null)
+            // 2. Target count & Weapon logic
+            int targetCount;
+            bool isPistolLevel = false;
+
+            if (i % 5 == 2) // level 2
             {
-                level.cameraPosition = camTransform.position;
-                level.cameraRotation = camTransform.rotation;
+                if (isLevel2Pistol)
+                {
+                    isPistolLevel = true;
+                    targetCount = 1;
+                }
+                else
+                {
+                    isPistolLevel = false;
+                    targetCount = 2;
+                }
             }
-            // 3. WeaponType logic
+            else if (i % 5 == 4) // level 4
+            {
+                if (!isLevel2Pistol)
+                {
+                    isPistolLevel = true;
+                    targetCount = 1;
+                }
+                else
+                {
+                    isPistolLevel = false;
+                    targetCount = 2;
+                }
+            }
+            else
+            {
+                // Các level còn lại dùng công thức bình thường
+                int difficultyIndex = (i - 1) % 5;
+                targetCount = difficultyIndex switch
+                {
+                    0 => 1,
+                    2 => 2,
+                    4 => 3,
+                    _ => 1
+                };
 
-            bool isPistolLevel = (i % 5 == 1 || i % 5 == 3); // Level 2 và 4 trong nhóm 5 (index 1, 3)
+                isPistolLevel = (i % 5 == 2 || i % 5 == 4) && difficultyIndex != 1;
+            }
+
             level.playerWeapon = isPistolLevel ? LevelData.WeaponType.Pistol : LevelData.WeaponType.Bow;
 
-            // 4. CharacterTarget logic
-            int difficultyIndex = i % 5; // 0 -> Easy, 2 -> Medium, 4 -> Hard
-            int targetCount = 1;
-
-            if (difficultyIndex == 0) targetCount = 1;           // Easy
-            else if (difficultyIndex == 2) targetCount = 2;      // Medium
-            else if (difficultyIndex == 4) targetCount = 3;      // Hard
-
-            // Nếu là level Pistol thì hoán đổi Easy-Medium nếu cần
-            if (isPistolLevel)
+            // 3. Chọn character
+            int totalCharCount = targetCount switch
             {
-                if (targetCount == 1) targetCount = 2;
-                else if (targetCount == 2) targetCount = 1;
-            }
+                1 => Random.Range(3, 5),
+                2 => Random.Range(4, 6),
+                _ => Random.Range(5, 7),
+            };
+            var selectedChars = allCharacters.OrderBy(c => Random.value).Take(totalCharCount).ToList();
+            level.characters = selectedChars;
 
+            // 4. Gán CharacterTarget
             level._characterTarget = new CharacterTarget[targetCount];
-
             for (int j = 0; j < targetCount; j++)
             {
                 var ct = new CharacterTarget();
-
-                // Random emoji target
                 ct.EmojiTypeTarget = (EmojiType)Random.Range(0, System.Enum.GetValues(typeof(EmojiType)).Length);
-
-                // Random từ danh sách character
-                int charCount = targetCount switch
-                {
-                    1 => Random.Range(3, 5), // Easy
-                    2 => Random.Range(4, 6), // Medium
-                    _ => Random.Range(5, 7), // Hard
-                };
-
-                var selectedChars = allCharacters.OrderBy(c => Random.value).Take(charCount).ToList();
-                level.characters = selectedChars;
-
-                // EnemyTarget: random 1-2 char trong selected
-                int enemyCount = Random.Range(1, 3);
+                int enemyCount = Random.Range(1, Mathf.Min(3, selectedChars.Count + 1));
                 ct.EnemyTarget = selectedChars.OrderBy(c => Random.value).Take(enemyCount).ToList();
-
-                // Gán emoji preview + mission text
                 ct.UpdatePreviewSprites(level.playerWeapon);
-
                 level._characterTarget[j] = ct;
             }
 
-            // Emoji random thêm
             level.quantityEmojiRandom = Random.Range(1, 4);
             level.GenerateEmojiTypeList();
 
-            // Lưu asset riêng
             string path = $"{folderPath}/Level_{i}.asset";
             AssetDatabase.CreateAsset(level, path);
             batch.generatedLevels.Add(level);
         }
 
-        // Lưu batch chứa 100 level
+
         AssetDatabase.CreateAsset(batch, $"{folderPath}/LevelDataBatch.asset");
         AssetDatabase.SaveAssets();
         Debug.Log("✅ Tạo xong 100 level theo quy tắc!");

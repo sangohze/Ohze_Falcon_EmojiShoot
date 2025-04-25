@@ -10,7 +10,7 @@ using static RootMotion.FinalIK.InteractionTrigger;
 public class LevelManager : Singleton<LevelManager>
 {
     public LevelData[] levels;
-    private int currentLevelIndex;
+    public int currentLevelIndex;
     public int currentTargetIndex;
 
     private GameObject currentMap;
@@ -22,11 +22,11 @@ public class LevelManager : Singleton<LevelManager>
     public bool _isTest;
     [SerializeField] private LevelTest _LevelTest;
     [SerializeField] private CharacterTarget[] _characterTarget;
-    private int currentlevelIndexText;
     public List<EmojiType> selectedEmojiTypesPerCharacter = new List<EmojiType>();
-    private int randomlevel;
 
+    public LevelDataBatch _LevelDataBatch;
     private Dictionary<WeaponType, Func<LevelData, Vector3>> spawnPositionFuncs;
+    public LevelData currentLevelData { get; private set; }
     void OnEnable()
     {
         spawnPositionFuncs = new Dictionary<WeaponType, Func<LevelData, Vector3>>
@@ -46,18 +46,29 @@ public class LevelManager : Singleton<LevelManager>
             currentLevelIndex = ES3.Load<int>("currentLevelIndex", 0);
             if (currentLevelIndex < levels.Length)
             {
-                LoadLevel(currentLevelIndex);
-
+                LoadLevel(levels[currentLevelIndex]);             
+                SetUpLeveLGamePlay(levels[currentLevelIndex]);
             }
             else
             {
-                randomlevel = UnityEngine.Random.Range(0, levels.Length);
-                LoadLevel(randomlevel); ;
+                // Load từ danh sách generatedLevels
+                int autoIndex = currentLevelIndex - levels.Length;
+
+                if (_LevelDataBatch != null && _LevelDataBatch.generatedLevels != null && _LevelDataBatch.generatedLevels.Count > 0)
+                {
+                    // Lặp lại generatedLevels nếu autoIndex vượt quá
+                    autoIndex = autoIndex % _LevelDataBatch.generatedLevels.Count;
+                    LoadLevel(_LevelDataBatch.generatedLevels[autoIndex]);
+                    SetUpLeveLGamePlay(_LevelDataBatch.generatedLevels[autoIndex]);
+                }
+                else
+                {
+                    Debug.LogWarning("⚠️ LevelDataBatch trống hoặc null. Không thể load level.");
+                }
             }
             GamePlayController.I._characterTarget = _characterTarget;
 
         }
-        SetUpLeveLGamePlay();
     }
 
     private void Start()
@@ -65,7 +76,7 @@ public class LevelManager : Singleton<LevelManager>
         currentTargetIndex = 0;
 
     }
-    public void SetUpLeveLGamePlay()
+    public void SetUpLeveLGamePlay(LevelData level)
     {
         if (_isTest)
         {
@@ -84,12 +95,8 @@ public class LevelManager : Singleton<LevelManager>
             currentTargetIndex = GamePlayController.I.currentTargetIndex;
             GamePlayController.I.CurrentListEnemy = CurrentListEnemy;
             SetUpEnemyTarget();
-            if (currentLevelIndex < levels.Length)
-            {
-                GamePlayController.I.currentLevelIndexText = currentlevelIndexText;
 
-            }
-            else { GamePlayController.I.currentLevelIndexText = ES3.Load<int>("GamePlayController.I.currentLevelIndexText", 0); }
+
             GamePlayController.I.EmojiTypeTarget = currentEmojiTypeTarget;
             EmojiController.I.selectedEmojiTypesPerCharacter = selectedEmojiTypesPerCharacter;
             foreach (var enemy in currentEnemyTargets)
@@ -97,24 +104,15 @@ public class LevelManager : Singleton<LevelManager>
                 enemy.SetAsEnemyTarget();
             }
         }
-        if (currentLevelIndex < levels.Length)
-        {
-            SetUpUI(currentLevelIndex);
 
-        }
-        else
-        {
-
-            SetUpUI(randomlevel); ;
-        }
-
+        SetUpUI(level);
 
         if (EmojiController.I != null)
         {
             GamePlayController.I.SetTickPreviewByEnemy(EmojiController.I.currentEmoji);
         }
     }
-    private void SetUpUI(int currentLevelIndex)
+    private void SetUpUI(LevelData level)
     {
 
         if (_isTest)
@@ -135,17 +133,17 @@ public class LevelManager : Singleton<LevelManager>
         else
         {
 
-            SetUpMissiopnBoard();
-            UIManager.I.Get<PanelGamePlay>().emojiShowRandom = levels[currentLevelIndex].selectedEmojiTypesPerCharacter;         
+            SetUpMissiopnBoard(level);
+            UIManager.I.Get<PanelGamePlay>().emojiShowRandom = level.selectedEmojiTypesPerCharacter;
         }
     }
 
-    private void SetUpMissiopnBoard()
+    private void SetUpMissiopnBoard(LevelData level)
     {
-        if (levels[currentLevelIndex].playerWeapon == WeaponType.Pistol)
+        if (level.playerWeapon == WeaponType.Pistol)
         {
             UIManager.I.Get<PanelGamePlay>()._textPistolLevel.gameObject.SetActive(true);
-            UIManager.I.Get<PanelGamePlay>()._textPistolLevel.text = levels[currentLevelIndex]._characterTarget[currentTargetIndex].PistolLevelTextMission;
+            UIManager.I.Get<PanelGamePlay>()._textPistolLevel.text = level._characterTarget[currentTargetIndex].PistolLevelTextMission;
             UIManager.I.Get<PanelGamePlay>().PreviewEmoji.gameObject.SetActive(false);
             UIManager.I.Get<PanelGamePlay>().PreviewAvatar.gameObject.SetActive(false);
             UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.gameObject.SetActive(false);
@@ -156,12 +154,12 @@ public class LevelManager : Singleton<LevelManager>
             UIManager.I.Get<PanelGamePlay>().PreviewEmoji.gameObject.SetActive(true);
             UIManager.I.Get<PanelGamePlay>().PreviewAvatar.gameObject.SetActive(true);
             UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.gameObject.SetActive(true);
-            UIManager.I.Get<PanelGamePlay>().PreviewAvatar.sprite = levels[currentLevelIndex]._characterTarget[currentTargetIndex].PreviewCharaterTarget;
-            UIManager.I.Get<PanelGamePlay>().PreviewEmoji.sprite = levels[currentLevelIndex]._characterTarget[currentTargetIndex].PreviewEmojiTarget;
-            if (levels[currentLevelIndex]._characterTarget[currentTargetIndex].PreviewCharaterTarget2 != null)
+            UIManager.I.Get<PanelGamePlay>().PreviewAvatar.sprite = level._characterTarget[currentTargetIndex].PreviewCharaterTarget;
+            UIManager.I.Get<PanelGamePlay>().PreviewEmoji.sprite = level._characterTarget[currentTargetIndex].PreviewEmojiTarget;
+            if (level._characterTarget[currentTargetIndex].PreviewCharaterTarget2 != null)
             {
                 UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.gameObject.SetActive(true);
-                UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.sprite = levels[currentLevelIndex]._characterTarget[currentTargetIndex].PreviewCharaterTarget2;
+                UIManager.I.Get<PanelGamePlay>().PreviewAvatar2.sprite = level._characterTarget[currentTargetIndex].PreviewCharaterTarget2;
             }
             else
             {
@@ -170,16 +168,18 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
-    public void LoadLevel(int index)
+    public void LoadLevel(LevelData level)
     {
-        Debug.LogError("SangLevel" + (index + 1));
-        if (index < 0 || index >= levels.Length) return;
-        currentEnemyTargets.Clear();
-        CurrentListEnemy.Clear();
+        if (level == null)
+        {
+            Debug.LogError("❌ LevelData null, không thể load level.");
+            return;
+        }
 
-        LevelData level = levels[index];
+        Debug.LogError("🔁 Sang Level: " + currentLevelIndex);
 
-        currentlevelIndexText = levels[index].level;
+        currentLevelData = level;
+
         currentMap = Instantiate(level.map, level.map.transform.position, Quaternion.identity);
 
         _characterTarget = level._characterTarget;
@@ -248,18 +248,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         currentLevelIndex++;
         ES3.Save("currentLevelIndex", currentLevelIndex);
-        if (currentLevelIndex < levels.Length)
-        {
-
-        }
-        else
-        {
-            //currentLevelIndex = 0;
-            //currentLevelIndex = UnityEngine.Random.Range(0, levels.Length);
-            GamePlayController.I.currentLevelIndexText++;
-            ES3.Save("currentLevelIndex", currentLevelIndex);
-            ES3.Save("GamePlayController.I.currentLevelIndexText", GamePlayController.I.currentLevelIndexText);
-        }
+        ES3.Save("currentLevelIndex", currentLevelIndex);
     }
 
     private Vector3 GetRandomSpawnPositionLevelBow(LevelData lv)

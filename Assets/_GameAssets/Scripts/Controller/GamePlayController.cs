@@ -19,7 +19,6 @@ public class GamePlayController : Singleton<GamePlayController>
     public Coroutine WaitForSecondHit;
     public CharacterTarget[] _characterTarget;
     public int currentTargetIndex = 0;
-    public int currentLevelIndexText;
     public GameObject tickPreview1;
     public GameObject tickPreview2;
     public GameObject tickTextPistolLevel;
@@ -114,7 +113,7 @@ public class GamePlayController : Singleton<GamePlayController>
             tickPreview2.SetActive(false);
             groupMissionShow.Hide();
             yield return new WaitForSeconds(0.2f);
-            LevelManager.I.SetUpLeveLGamePlay();
+            LevelManager.I.SetUpLeveLGamePlay(LevelManager.I.currentLevelData);
             GameManager.Instance.clickArrow = true;
             if (WaitForSecondHit != null)
                 StopCoroutine(WaitForSecondHit);

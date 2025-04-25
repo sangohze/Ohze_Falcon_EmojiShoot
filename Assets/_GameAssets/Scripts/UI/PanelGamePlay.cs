@@ -30,7 +30,7 @@ public class PanelGamePlay : PanelBase
     private void Start()
     {
        
-        _textLevel.text = "Level " + GamePlayController.I.currentLevelIndexText.ToString();
+        _textLevel.text = "Level " + (LevelManager.I.currentLevelIndex +1).ToString() ;
        
         ShowPanelGameHome(false);
         UIManager.I.Show<PanelGamePlay>();

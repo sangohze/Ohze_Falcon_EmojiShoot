@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using static LevelData;
 
 public class LevelProgress : MonoBehaviour
 {
@@ -16,14 +17,18 @@ public class LevelProgress : MonoBehaviour
     [SerializeField] private Sprite inProgressSprite;
     [SerializeField] private Sprite notYetSprite;
 
-    
-     private int currentLevel ;
+    [Header("Special Weapon Sprite")]
+    [SerializeField] private Sprite specialSprite;
+    private int currentLevel ;
      private int totalLevels ;
 
     private void Start()
     {
-        totalLevels = LevelManager.I.levels.Length;
-        currentLevel = GamePlayController.I.currentLevelIndexText;
+
+
+        totalLevels = 3;
+
+        currentLevel = Mathf.Clamp(LevelManager.I.currentLevelIndex + 1, 1, totalLevels);
         SetCurrentLevel(currentLevel);
     }
 
@@ -45,65 +50,86 @@ public class LevelProgress : MonoBehaviour
         fillImage.DOFillAmount(fillAmount, fillDuration).SetEase(Ease.OutQuad);
     }
 
-    private float CalculateFillAmount(int level, int maxLevel)
+    private float CalculateFillAmount(int level, int _)
     {
         if (level <= 1) return 0f;
         if (level == 2) return 0.25f;
-        if (level >= 3 && level < maxLevel -1) return 0.5f;
-        if (level >= maxLevel -1 && level < maxLevel) return 0.75f;
-        return 1f;
+        return 0.5f; // từ level 3 trở đi là full
     }
 
     private void UpdateLevelImages()
     {
         int totalSlots = levelImages.Length;
 
+        // Reset tất cả về notYetSprite
         for (int i = 0; i < totalSlots; i++)
         {
-            // Gán mặc định là chưa chơi
             levelImages[i].sprite = notYetSprite;
         }
 
-        // Gán sprite theo currentLevel
-        if (currentLevel <= 1)
+        var levelData = LevelManager.I.currentLevelData;
+
+        // Cập nhật 3 hình đầu: done / inProgress / special
+        UpdateBaseLevelImages(levelData);
+
+        // Cập nhật hình 4 và 5 nếu các level kế tiếp là Pistol
+        UpdateUpcomingSpecialSprites();
+    }
+
+    private void UpdateBaseLevelImages(LevelData levelData)
+    {
+        int levelDisplay = Mathf.Clamp(currentLevel, 1, 3);
+
+        for (int i = 0; i < 3; i++)
         {
-            levelImages[0].sprite = inProgressSprite;
-        }
-        else if (currentLevel == 2)
-        {
-            levelImages[0].sprite = doneSprite;
-            levelImages[1].sprite = inProgressSprite;
-        }
-        else if (currentLevel >= 3 && currentLevel < totalLevels - 1)
-        {
-            levelImages[0].sprite = doneSprite;
-            levelImages[1].sprite = doneSprite;
-            levelImages[2].sprite = inProgressSprite;
-        }
-        else if (currentLevel == totalLevels - 1)
-        {
-            levelImages[0].sprite = doneSprite;
-            levelImages[1].sprite = doneSprite;
-            levelImages[2].sprite = doneSprite;
-            levelImages[3].sprite = inProgressSprite;
-        }
-        else if (currentLevel >= totalLevels)
-        {
-            for (int i = 0; i < totalSlots - 1; i++)
+            if (i < levelDisplay - 1)
             {
                 levelImages[i].sprite = doneSprite;
             }
-            levelImages[totalSlots - 1].sprite = inProgressSprite;
+            else if (i == levelDisplay - 1)
+            {
+                levelImages[i].sprite = IsPistol(levelData) ? specialSprite : inProgressSprite;
+            }
         }
-
-        // Optional: animation
-        //foreach (var img in levelImages)
-        //{
-        //    img.transform.DOScale(Vector3.one * 1.05f, 0.2f)
-        //        .SetLoops(2, LoopType.Yoyo)
-        //        .SetEase(Ease.InOutQuad);
-        //}
     }
 
+    private void UpdateUpcomingSpecialSprites()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            int checkIndex = LevelManager.I.currentLevelIndex + 1 + i;
 
+            if (IsPistolLevelAtIndex(checkIndex))
+            {
+                int imageIndex = i + 3;
+                if (imageIndex < levelImages.Length)
+                {
+                    levelImages[imageIndex].sprite = specialSprite;
+                }
+            }
+        }
+    }
+
+    private bool IsPistolLevelAtIndex(int index)
+    {
+        if (index < LevelManager.I.levels.Length)
+        {
+            return LevelManager.I.levels[index].playerWeapon == WeaponType.Pistol;
+        }
+
+        int autoIndex = index - LevelManager.I.levels.Length;
+
+        if (LevelManager.I._LevelDataBatch?.generatedLevels?.Count > 0)
+        {
+            autoIndex = autoIndex % LevelManager.I._LevelDataBatch.generatedLevels.Count;
+            return LevelManager.I._LevelDataBatch.generatedLevels[autoIndex].playerWeapon == WeaponType.Pistol;
+        }
+
+        return false;
+    }
+
+    private bool IsPistol(LevelData level)
+    {
+        return level != null && level.playerWeapon == WeaponType.Pistol;
+    }
 }

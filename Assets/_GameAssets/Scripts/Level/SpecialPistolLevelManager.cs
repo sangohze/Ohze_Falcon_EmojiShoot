@@ -19,10 +19,11 @@ public class SpecialPistolLevelManager : WeaponGameWinHandlerBase
 
 
     public List<CharacterController> hitCharacters = new List<CharacterController>();
-    private Vector3 lastMidpoint;
+    public Vector3 lastMidpoint;
     private EmojiType? groupEmoji = null;
     private bool hasTriggeredWin = false;
     public Dictionary<CharacterController, ComboEffectConfig> originalCombos = new();
+    private HashSet<EmojiType> playedCombos = new HashSet<EmojiType>();
     public void AddCharacter(CharacterController character, EmojiType currentEmoji)
     {
         if (groupEmoji != null && groupEmoji != currentEmoji)
@@ -125,7 +126,7 @@ public class SpecialPistolLevelManager : WeaponGameWinHandlerBase
         CharacterController first = hitCharacters[0];
         newCharacter.characterMove.MoveTowardsEnemy(first.characterMove, emoji, (midpoint) =>
         {
-            lastMidpoint = midpoint; // 👉 Lưu lại để dùng cho >= 3 người
+            
 
             first.HideEffOne();
             newCharacter.HideEffOne();
@@ -148,13 +149,13 @@ public class SpecialPistolLevelManager : WeaponGameWinHandlerBase
             }
         });
     }
-
+    
 
     private void PlayGroupCombo(EmojiType emoji)
     {
         foreach (var c in hitCharacters)
         {
-
+            
             c.characterMove.MoveTowardsPositionSpecialLevel(lastMidpoint, emoji, (move) =>
             {
                 c.HideEffOne();
@@ -164,7 +165,11 @@ public class SpecialPistolLevelManager : WeaponGameWinHandlerBase
                 character.animator.CrossFade($"{emoji}2", 0, 0);
                 character.SpawnEmojiEffectSingle(emoji);
                 character.PlayEffectComboMidPoint(lastMidpoint, emoji);
-                character.PlaySoundFXCombo(emoji, character);
+                if (!playedCombos.Contains(emoji))
+                {
+                    character.PlaySoundFXCombo(emoji, character);
+                    playedCombos.Add(emoji);
+                }
                 character.PlayEffectCombo(character, emoji);
             });
         }
@@ -187,7 +192,7 @@ public class SpecialPistolLevelManager : WeaponGameWinHandlerBase
         {
             hasTriggeredWin = true;
             RunSpecialEmojiAction(currentEmoji);
-            Invoke(nameof(TriggerGameWin), 3f);
+            Invoke(nameof(TriggerGameWin), 1.5f);
         }
     }
 

@@ -53,7 +53,9 @@ public class PistolInitAnimHandler : MonoBehaviour
         EmojiType currentEmoji = GamePlayController.I.EmojiTypeTarget;
         var config = GetComboConfig(currentEmoji);
         StartGroupCombo(config);
+
     }
+
 
     public void StartGroupCombo(ComboEffectConfig config)
     {
@@ -61,7 +63,9 @@ public class PistolInitAnimHandler : MonoBehaviour
         if (currentListEnemies == null || currentListEnemies.Count < 2) return;
 
         Vector3 midpoint = GetMidpointFromCamera(currentListEnemies[0].transform.position, currentListEnemies[1].transform.position);
+        SpecialPistolLevelManager.I.lastMidpoint = midpoint;
         StartCoroutine(PlayComboSequentially(currentListEnemies, midpoint, config));
+
     }
 
     private IEnumerator PlayComboSequentially(List<CharacterController> enemies, Vector3 midpoint, ComboEffectConfig config)
