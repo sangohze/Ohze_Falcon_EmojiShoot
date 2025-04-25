@@ -89,6 +89,14 @@ public class LevelProgress : MonoBehaviour
             else if (i == levelDisplay - 1)
             {
                 levelImages[i].sprite = IsPistol(levelData) ? specialSprite : inProgressSprite;
+                if (levelImages[i].GetComponentInParent<UIScale>() is UIScale scaleInParent)
+                {
+                    scaleInParent.Show();
+                }
+                else
+                {
+                    Debug.Log("Sangnon");
+                }    
             }
         }
     }

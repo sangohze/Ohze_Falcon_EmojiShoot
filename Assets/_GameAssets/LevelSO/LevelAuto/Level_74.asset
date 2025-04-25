@@ -14,28 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 74
   characters:
-  - {fileID: 1339324416, guid: edb07d12f793e654eb331e176c1935ee, type: 3}
-  - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
   - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
-  - {fileID: 1687073297, guid: 4e08f0009cd891145bc70e47c987f2e2, type: 3}
-  map: {fileID: 355144773906350180, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
-  playerWeapon: 0
-  cameraPosition: {x: -74.1, y: 132.51831, z: 75.1}
-  cameraRotation: {x: 0, y: -0.8438601, z: 0, w: -0.5365633}
+  - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
+  - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
+  - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
+  map: {fileID: 283628267868528337, guid: c8a7e9e6c40eb9749b69cf42a9d88cbf, type: 3}
+  playerWeapon: 1
+  cameraPosition: {x: -390.88, y: -4.67, z: 6.02}
+  cameraRotation: {x: 0, y: 0.04013158, z: 0, w: 0.9991944}
   _characterTarget:
-  - EmojiTypeTarget: 2
-    _enemyTarget:
-    - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: 82ae95b38ba64bd489092ca7b82895a3, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: dcbf26ca32670e94bb6e2319741caaf5, type: 3}
+  - EmojiTypeTarget: 3
+    _enemyTarget: []
+    PreviewCharaterTarget: {fileID: 0}
+    PreviewEmojiTarget: {fileID: 21300000, guid: bd1650d721eddca469c67beda714b6da, type: 3}
     PreviewCharaterTarget2: {fileID: 0}
-    PistolLevelTextMission: Make war, not love.
-  - EmojiTypeTarget: 5
-    _enemyTarget:
-    - {fileID: 1687073297, guid: 4e08f0009cd891145bc70e47c987f2e2, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: e34c53e2b1c87cf459ab11b86e172d44, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: 3a3aa41165211a344a2c9dae7cba95ca, type: 3}
-    PreviewCharaterTarget2: {fileID: 0}
-    PistolLevelTextMission: More passion, more footwork, more energy.
-  selectedEmojiTypesPerCharacter: 02000000050000000100000006000000
-  quantityEmojiRandom: 2
+    PistolLevelTextMission: In god, we trust
+  selectedEmojiTypesPerCharacter: 03000000010000000000000005000000
+  quantityEmojiRandom: 3

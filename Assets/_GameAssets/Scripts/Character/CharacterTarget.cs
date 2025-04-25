@@ -32,8 +32,8 @@ public class CharacterTarget
     { EmojiType.Love, "Make love, not war." },
     { EmojiType.Angry, "Make war, not love." },
     { EmojiType.Sad, "Fire...! Help!" },
-    { EmojiType.Pray, "No more heaven." },
-    { EmojiType.Devil, "In god, we trust" },
+    { EmojiType.Pray, "In god, we trust" },
+    { EmojiType.Devil, "No more heaven" },
     { EmojiType.Dance, "More passion, more footwork, more energy." },
 
     // Thêm các emoji khác tương ứng

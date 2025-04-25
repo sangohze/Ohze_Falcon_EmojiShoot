@@ -14,29 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 47
   characters:
+  - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
+  - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
   - {fileID: 1687073297, guid: 4e08f0009cd891145bc70e47c987f2e2, type: 3}
-  - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
-  - {fileID: 341427779, guid: 64d9012f6f795ef439c08bf0ca92fcde, type: 3}
-  - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
-  map: {fileID: 1677278121890170233, guid: 9f7771a89fae93d4dba6b17042efc77a, type: 3}
-  playerWeapon: 0
-  cameraPosition: {x: -690.7, y: 5, z: -240.98}
-  cameraRotation: {x: 0, y: 0.8923496, z: 0, w: 0.45134497}
+  map: {fileID: 2541357118248142963, guid: c14ae7e6480fcf3458f2fe0eca1031b1, type: 3}
+  playerWeapon: 1
+  cameraPosition: {x: -499.1, y: 3.7, z: 40}
+  cameraRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   _characterTarget:
-  - EmojiTypeTarget: 0
-    _enemyTarget:
-    - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
-    - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: 8f4e5f47969c1cf419bc23c9e276fcaf, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: 9ab54b4cd98c8ba468b05ef05b71f16a, type: 3}
-    PreviewCharaterTarget2: {fileID: 21300000, guid: 9bde78dc022809a46a8dab0383de03d8, type: 3}
-    PistolLevelTextMission: Make love, not war.
-  - EmojiTypeTarget: 4
-    _enemyTarget:
-    - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: 8f4e5f47969c1cf419bc23c9e276fcaf, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: 55312d3fdf51ef44c95e009a7872bc00, type: 3}
+  - EmojiTypeTarget: 5
+    _enemyTarget: []
+    PreviewCharaterTarget: {fileID: 0}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 496626521269ed640a04336d1be07168, type: 3}
     PreviewCharaterTarget2: {fileID: 0}
-    PistolLevelTextMission: In god, we trust
-  selectedEmojiTypesPerCharacter: 000000000400000005000000
+    PistolLevelTextMission: More passion, more footwork, more energy.
+  selectedEmojiTypesPerCharacter: 0500000004000000
   quantityEmojiRandom: 1

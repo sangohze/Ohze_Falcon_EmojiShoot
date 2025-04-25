@@ -14,39 +14,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 30
   characters:
-  - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
-  - {fileID: 1869493647, guid: 65704417072f21441a2d139595e887a5, type: 3}
-  - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
+  - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
+  - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
   - {fileID: 1392860938, guid: cbe875f83232da2439ee0dc71ff5a64a, type: 3}
-  - {fileID: 1339324416, guid: edb07d12f793e654eb331e176c1935ee, type: 3}
-  map: {fileID: 1677278121890170233, guid: 9f7771a89fae93d4dba6b17042efc77a, type: 3}
+  - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
+  - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
+  - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
+  map: {fileID: 1694664030495477767, guid: 6ad2e850b4bb2a247b2a216150f4755c, type: 3}
   playerWeapon: 0
-  cameraPosition: {x: -704.1, y: 20.15, z: -270.2}
-  cameraRotation: {x: 0, y: -0.38026357, z: 0, w: -0.9248782}
+  cameraPosition: {x: 29.98, y: 1.13, z: 37.6}
+  cameraRotation: {x: 0, y: 1, z: 0, w: 0}
   _characterTarget:
-  - EmojiTypeTarget: 4
+  - EmojiTypeTarget: 6
     _enemyTarget:
-    - {fileID: 1869493647, guid: 65704417072f21441a2d139595e887a5, type: 3}
+    - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 0f3fea16766a2064ca7f65b5ab5c3022, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 4c94fa207116d9d4ea98b730ea584cd4, type: 3}
+    PreviewCharaterTarget2: {fileID: 0}
+    PistolLevelTextMission: 
+  - EmojiTypeTarget: 0
+    _enemyTarget:
     - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: 3e6388fc730aaf1499de0bd151a8e993, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: 04d7a25f6d60216448a31069acb817cb, type: 3}
+    - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 8f4e5f47969c1cf419bc23c9e276fcaf, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 9ab54b4cd98c8ba468b05ef05b71f16a, type: 3}
+    PreviewCharaterTarget2: {fileID: 21300000, guid: 5fadde877f47fea49bff686a810afe40, type: 3}
+    PistolLevelTextMission: Make love, not war.
+  - EmojiTypeTarget: 6
+    _enemyTarget:
+    - {fileID: 1392860938, guid: cbe875f83232da2439ee0dc71ff5a64a, type: 3}
+    - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: e0c0d78da820bbd45803e4676668a4cb, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 7ac77cf155a7e5345a8bd003f00c875c, type: 3}
     PreviewCharaterTarget2: {fileID: 21300000, guid: 8f4e5f47969c1cf419bc23c9e276fcaf, type: 3}
-    PistolLevelTextMission: In god, we trust
-  - EmojiTypeTarget: 1
-    _enemyTarget:
-    - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
-    - {fileID: 1392860938, guid: cbe875f83232da2439ee0dc71ff5a64a, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: e761c461a70f65b4488f6a898f6274d1, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: b10fdab46eaf10b46b62e1559c6dc3cf, type: 3}
-    PreviewCharaterTarget2: {fileID: 21300000, guid: e0c0d78da820bbd45803e4676668a4cb, type: 3}
-    PistolLevelTextMission: Fire...! Help!
-  - EmojiTypeTarget: 4
-    _enemyTarget:
-    - {fileID: 1869493647, guid: 65704417072f21441a2d139595e887a5, type: 3}
-    - {fileID: 1392860938, guid: cbe875f83232da2439ee0dc71ff5a64a, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: 3e6388fc730aaf1499de0bd151a8e993, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: 04d7a25f6d60216448a31069acb817cb, type: 3}
-    PreviewCharaterTarget2: {fileID: 21300000, guid: e0c0d78da820bbd45803e4676668a4cb, type: 3}
-    PistolLevelTextMission: In god, we trust
-  selectedEmojiTypesPerCharacter: 04000000010000000200000000000000
+    PistolLevelTextMission: 
+  selectedEmojiTypesPerCharacter: 06000000000000000100000005000000
   quantityEmojiRandom: 1

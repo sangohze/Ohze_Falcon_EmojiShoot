@@ -14,20 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 99
   characters:
-  - {fileID: 1869493647, guid: 65704417072f21441a2d139595e887a5, type: 3}
-  - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
   - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
-  - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
-  map: {fileID: 1677278121890170233, guid: 9f7771a89fae93d4dba6b17042efc77a, type: 3}
-  playerWeapon: 1
-  cameraPosition: {x: -704.1, y: 20.15, z: -270.2}
-  cameraRotation: {x: 0, y: -0.38026357, z: 0, w: -0.9248782}
+  - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
+  - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
+  - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
+  - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
+  map: {fileID: 283628267868528337, guid: c8a7e9e6c40eb9749b69cf42a9d88cbf, type: 3}
+  playerWeapon: 0
+  cameraPosition: {x: -390.88, y: -4.67, z: 6.02}
+  cameraRotation: {x: 0, y: 0.04013158, z: 0, w: 0.9991944}
   _characterTarget:
-  - EmojiTypeTarget: 2
-    _enemyTarget: []
-    PreviewCharaterTarget: {fileID: 0}
-    PreviewEmojiTarget: {fileID: 21300000, guid: dcbf26ca32670e94bb6e2319741caaf5, type: 3}
-    PreviewCharaterTarget2: {fileID: 0}
-    PistolLevelTextMission: Make war, not love.
-  selectedEmojiTypesPerCharacter: 020000000000000004000000
-  quantityEmojiRandom: 2
+  - EmojiTypeTarget: 1
+    _enemyTarget:
+    - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
+    - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 0f3fea16766a2064ca7f65b5ab5c3022, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: b10fdab46eaf10b46b62e1559c6dc3cf, type: 3}
+    PreviewCharaterTarget2: {fileID: 21300000, guid: e7bcd10a46baf7044813ed7bca447b99, type: 3}
+    PistolLevelTextMission: Fire...! Help!
+  - EmojiTypeTarget: 1
+    _enemyTarget:
+    - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
+    - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: e761c461a70f65b4488f6a898f6274d1, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: b10fdab46eaf10b46b62e1559c6dc3cf, type: 3}
+    PreviewCharaterTarget2: {fileID: 21300000, guid: befdb7ae1a0390245a9e62deebde4ab9, type: 3}
+    PistolLevelTextMission: Fire...! Help!
+  selectedEmojiTypesPerCharacter: 0100000004000000060000000500000002000000
+  quantityEmojiRandom: 3

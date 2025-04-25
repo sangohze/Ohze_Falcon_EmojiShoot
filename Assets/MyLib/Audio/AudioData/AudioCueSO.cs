@@ -71,7 +71,10 @@ public class AudioClipsGroup
 				case SequenceMode.Sequential:
 					_nextClipToPlay = (int)Mathf.Repeat(++_nextClipToPlay, audioClips.Length);
 					break;
-			}
+                case SequenceMode.OneOfTwo:
+                    _nextClipToPlay = UnityEngine.Random.Range(0, Mathf.Min(2, audioClips.Length));
+                    break;
+            }
 		}
 
 		_lastClipPlayed = _nextClipToPlay;
@@ -84,5 +87,6 @@ public class AudioClipsGroup
 		Random,
 		RandomNoImmediateRepeat,
 		Sequential,
-	}
+        OneOfTwo
+    }
 }

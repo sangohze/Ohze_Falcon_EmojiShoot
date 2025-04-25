@@ -14,20 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 41
   characters:
+  - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
+  - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
   - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
-  - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
-  - {fileID: 1687073297, guid: 4e08f0009cd891145bc70e47c987f2e2, type: 3}
-  map: {fileID: 283628267868528337, guid: c8a7e9e6c40eb9749b69cf42a9d88cbf, type: 3}
+  map: {fileID: 355144773906350180, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
   playerWeapon: 0
-  cameraPosition: {x: -390.88, y: -4.67, z: 6.02}
-  cameraRotation: {x: 0, y: -1, z: 0, w: 0}
+  cameraPosition: {x: -56.2, y: 132.51831, z: 86.8}
+  cameraRotation: {x: -0, y: -0.9440892, z: 0, w: -0.32969046}
   _characterTarget:
-  - EmojiTypeTarget: 3
+  - EmojiTypeTarget: 2
     _enemyTarget:
-    - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: 692ec6fb1daeaed41866a3948435afed, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: bd1650d721eddca469c67beda714b6da, type: 3}
+    - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 9bde78dc022809a46a8dab0383de03d8, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: dcbf26ca32670e94bb6e2319741caaf5, type: 3}
     PreviewCharaterTarget2: {fileID: 0}
-    PistolLevelTextMission: No more heaven.
-  selectedEmojiTypesPerCharacter: 03000000020000000100000005000000
-  quantityEmojiRandom: 3
+    PistolLevelTextMission: Make war, not love.
+  selectedEmojiTypesPerCharacter: 020000000300000001000000
+  quantityEmojiRandom: 2

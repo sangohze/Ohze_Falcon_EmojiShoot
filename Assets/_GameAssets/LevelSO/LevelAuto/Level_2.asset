@@ -15,18 +15,19 @@ MonoBehaviour:
   level: 2
   characters:
   - {fileID: 1687073297, guid: 4e08f0009cd891145bc70e47c987f2e2, type: 3}
-  - {fileID: 1339324416, guid: edb07d12f793e654eb331e176c1935ee, type: 3}
-  - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
-  map: {fileID: 355144773906350180, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
+  - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
+  - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
+  - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
+  map: {fileID: 2845783013389241524, guid: 0ffeb9facf1028b4d8b1956cc9f0593a, type: 3}
   playerWeapon: 1
-  cameraPosition: {x: -74.1, y: 132.51831, z: 75.1}
-  cameraRotation: {x: 0, y: -0.8438601, z: 0, w: -0.5365633}
+  cameraPosition: {x: 425.75845, y: 11.98, z: 870.11}
+  cameraRotation: {x: -0, y: -0.7071068, z: 0, w: -0.7071068}
   _characterTarget:
-  - EmojiTypeTarget: 3
+  - EmojiTypeTarget: 1
     _enemyTarget: []
     PreviewCharaterTarget: {fileID: 0}
-    PreviewEmojiTarget: {fileID: 21300000, guid: bd1650d721eddca469c67beda714b6da, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 9369e1e6951c66e4ca97e752aa7c30b9, type: 3}
     PreviewCharaterTarget2: {fileID: 0}
-    PistolLevelTextMission: No more heaven.
-  selectedEmojiTypesPerCharacter: 030000000400000005000000
+    PistolLevelTextMission: Fire...! Help!
+  selectedEmojiTypesPerCharacter: 010000000400000006000000
   quantityEmojiRandom: 2

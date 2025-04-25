@@ -14,20 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 49
   characters:
-  - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
-  - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
-  - {fileID: 1869493647, guid: 65704417072f21441a2d139595e887a5, type: 3}
   - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
-  map: {fileID: 355144773906350180, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
-  playerWeapon: 1
-  cameraPosition: {x: -56.2, y: 132.51831, z: 86.8}
-  cameraRotation: {x: -0, y: -0.9440892, z: 0, w: -0.32969046}
+  - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
+  - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
+  - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
+  map: {fileID: 1694664030495477767, guid: 6ad2e850b4bb2a247b2a216150f4755c, type: 3}
+  playerWeapon: 0
+  cameraPosition: {x: 29.98, y: 1.13, z: 37.6}
+  cameraRotation: {x: 0, y: 1, z: 0, w: 0}
   _characterTarget:
-  - EmojiTypeTarget: 4
-    _enemyTarget: []
-    PreviewCharaterTarget: {fileID: 0}
-    PreviewEmojiTarget: {fileID: 21300000, guid: 04d7a25f6d60216448a31069acb817cb, type: 3}
+  - EmojiTypeTarget: 3
+    _enemyTarget:
+    - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 82ae95b38ba64bd489092ca7b82895a3, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: bd1650d721eddca469c67beda714b6da, type: 3}
     PreviewCharaterTarget2: {fileID: 0}
     PistolLevelTextMission: In god, we trust
-  selectedEmojiTypesPerCharacter: 04000000010000000000000006000000
-  quantityEmojiRandom: 3
+  - EmojiTypeTarget: 4
+    _enemyTarget:
+    - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 5fadde877f47fea49bff686a810afe40, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 55312d3fdf51ef44c95e009a7872bc00, type: 3}
+    PreviewCharaterTarget2: {fileID: 0}
+    PistolLevelTextMission: No more heaven
+  selectedEmojiTypesPerCharacter: 030000000400000006000000
+  quantityEmojiRandom: 1
