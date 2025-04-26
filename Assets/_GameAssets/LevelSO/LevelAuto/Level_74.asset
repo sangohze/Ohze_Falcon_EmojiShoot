@@ -15,19 +15,30 @@ MonoBehaviour:
   level: 74
   characters:
   - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
-  - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
-  - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
+  - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
   - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
+  - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
+  - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
   map: {fileID: 283628267868528337, guid: c8a7e9e6c40eb9749b69cf42a9d88cbf, type: 3}
-  playerWeapon: 1
+  playerWeapon: 0
   cameraPosition: {x: -390.88, y: -4.67, z: 6.02}
-  cameraRotation: {x: 0, y: 0.04013158, z: 0, w: 0.9991944}
+  cameraRotation: {x: 0, y: -1, z: 0, w: 0}
   _characterTarget:
-  - EmojiTypeTarget: 3
-    _enemyTarget: []
-    PreviewCharaterTarget: {fileID: 0}
-    PreviewEmojiTarget: {fileID: 21300000, guid: bd1650d721eddca469c67beda714b6da, type: 3}
-    PreviewCharaterTarget2: {fileID: 0}
-    PistolLevelTextMission: In god, we trust
-  selectedEmojiTypesPerCharacter: 03000000010000000000000005000000
-  quantityEmojiRandom: 3
+  - EmojiTypeTarget: 5
+    _enemyTarget:
+    - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
+    - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 5fadde877f47fea49bff686a810afe40, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 496626521269ed640a04336d1be07168, type: 3}
+    PreviewCharaterTarget2: {fileID: 21300000, guid: 0f3fea16766a2064ca7f65b5ab5c3022, type: 3}
+    PistolLevelTextMission: More passion, more footwork, more energy.
+  - EmojiTypeTarget: 6
+    _enemyTarget:
+    - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
+    - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 0f3fea16766a2064ca7f65b5ab5c3022, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 7ac77cf155a7e5345a8bd003f00c875c, type: 3}
+    PreviewCharaterTarget2: {fileID: 21300000, guid: 692ec6fb1daeaed41866a3948435afed, type: 3}
+    PistolLevelTextMission: 
+  selectedEmojiTypesPerCharacter: 050000000600000003000000
+  quantityEmojiRandom: 1

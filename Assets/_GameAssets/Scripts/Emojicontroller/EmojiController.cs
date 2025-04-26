@@ -73,7 +73,10 @@ public enum EmojiType
     Pray,
     Devil,
     Dance,
-    Vomit
+    Vomit,
+    //Talkative,
+    //Shit,
+    //Scared,
 }
 
 

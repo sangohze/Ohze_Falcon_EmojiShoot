@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class LevelDataGeneratorEditor
 {
@@ -14,10 +15,35 @@ public class LevelDataGeneratorEditor
         // Tạo folder nếu chưa có
         string rootFolder = "Assets/_GameAssets/LevelSO";
         string folderPath = rootFolder + "/LevelAuto";
+
         if (!AssetDatabase.IsValidFolder(folderPath))
         {
             AssetDatabase.CreateFolder(rootFolder, "LevelAuto");
         }
+        //setup
+        // Pool dàn đều
+        List<EmojiType> emojiTypePool = System.Enum.GetValues(typeof(EmojiType)).Cast<EmojiType>().ToList();
+        List<EmojiType> emojiTypePoolNoVomit = emojiTypePool.Where(e => e != EmojiType.Vomit).ToList();
+
+        // Shuffle hàm
+        void ShuffleEmojiPool(List<EmojiType> pool)
+        {
+            for (int k = pool.Count - 1; k > 0; k--)
+            {
+                int rnd = UnityEngine.Random.Range(0, k + 1);
+                (pool[k], pool[rnd]) = (pool[rnd], pool[k]);
+            }
+        }
+
+        ShuffleEmojiPool(emojiTypePool);
+        ShuffleEmojiPool(emojiTypePoolNoVomit);
+
+        // Pool index
+        int emojiPoolIndex = 0;
+        int emojiPoolNoVomitIndex = 0;
+
+        // Thống kê xuất hiện
+        Dictionary<EmojiType, int> emojiTypeStats = new();
 
         // Load các LevelData mẫu có map
         var allLevelDataWithMaps = AssetDatabase.FindAssets("t:LevelData", new[] { "Assets/_GameAssets/LevelSO/LevelTest" })
@@ -44,14 +70,14 @@ public class LevelDataGeneratorEditor
             if ((i - 1) % 5 == 0)
             {
                 // Đầu mỗi cụm 5 level → chọn random 1 trong 2 level là pistol
-                isLevel2Pistol = Random.value < 0.5f;
+                isLevel2Pistol = UnityEngine.Random.value < 0.5f;
             }
 
             LevelData level = ScriptableObject.CreateInstance<LevelData>();
             level.level = i;
 
             // 1. Random map + camera
-            var reference = allLevelDataWithMaps.OrderBy(_ => Random.value).First();
+            var reference = allLevelDataWithMaps.OrderBy(_ => UnityEngine.Random.value).First();
             level.map = reference.map;
             level.cameraPosition = reference.cameraPosition;
             level.cameraRotation = reference.cameraRotation;
@@ -106,11 +132,11 @@ public class LevelDataGeneratorEditor
             // 3. Chọn character
             int totalCharCount = targetCount switch
             {
-                1 => Random.Range(3, 5),
-                2 => Random.Range(4, 6),
-                _ => Random.Range(5, 7),
+                1 => UnityEngine.Random.Range(3, 5),
+                2 => UnityEngine.Random.Range(4, 6),
+                _ => UnityEngine.Random.Range(5, 7),
             };
-            var selectedChars = allCharacters.OrderBy(c => Random.value).Take(totalCharCount).ToList();
+            var selectedChars = allCharacters.OrderBy(c => UnityEngine.Random.value).Take(totalCharCount).ToList();
             level.characters = selectedChars;
 
             // 4. Gán CharacterTarget
@@ -118,21 +144,57 @@ public class LevelDataGeneratorEditor
             for (int j = 0; j < targetCount; j++)
             {
                 var ct = new CharacterTarget();
-                ct.EmojiTypeTarget = (EmojiType)Random.Range(0, System.Enum.GetValues(typeof(EmojiType)).Length);
-                int enemyCount = Random.Range(1, Mathf.Min(3, selectedChars.Count + 1));
-                ct.EnemyTarget = selectedChars.OrderBy(c => Random.value).Take(enemyCount).ToList();
+
+                // === EmojiType dàn đều ===
+                // Chọn từ pool theo index
+                if (isPistolLevel && targetCount == 1)
+                {
+                    ct.EmojiTypeTarget = emojiTypePoolNoVomit[emojiPoolNoVomitIndex];
+                    emojiPoolNoVomitIndex++;
+                    if (emojiPoolNoVomitIndex >= emojiTypePoolNoVomit.Count)
+                    {
+                        ShuffleEmojiPool(emojiTypePoolNoVomit);
+                        emojiPoolNoVomitIndex = 0;
+                    }
+                }
+                else
+                {
+                    ct.EmojiTypeTarget = emojiTypePool[emojiPoolIndex];
+                    emojiPoolIndex++;
+                    if (emojiPoolIndex >= emojiTypePool.Count)
+                    {
+                        ShuffleEmojiPool(emojiTypePool);
+                        emojiPoolIndex = 0;
+                    }
+                }
+
+                // === Gán enemy ngẫu nhiên ===
+                int enemyCount = UnityEngine.Random.Range(1, Mathf.Min(3, selectedChars.Count + 1));
+                ct.EnemyTarget = selectedChars.OrderBy(c => UnityEngine.Random.value).Take(enemyCount).ToList();
                 ct.UpdatePreviewSprites(level.playerWeapon);
                 level._characterTarget[j] = ct;
+
+                // === Thống kê EmojiType ===
+                if (!emojiTypeStats.ContainsKey(ct.EmojiTypeTarget))
+                    emojiTypeStats[ct.EmojiTypeTarget] = 0;
+                emojiTypeStats[ct.EmojiTypeTarget]++;
+
             }
 
-            level.quantityEmojiRandom = Random.Range(1, 4);
+
+
+            level.quantityEmojiRandom = UnityEngine.Random.Range(1, 4);
             level.GenerateEmojiTypeList();
 
             string path = $"{folderPath}/Level_{i}.asset";
             AssetDatabase.CreateAsset(level, path);
             batch.generatedLevels.Add(level);
         }
-
+        Debug.Log("=== EmojiType xuất hiện tổng kết ===");
+        foreach (var kvp in emojiTypeStats.OrderBy(k => k.Key.ToString()))
+        {
+            Debug.Log($"{kvp.Key}: {kvp.Value} lần");
+        }
 
         AssetDatabase.CreateAsset(batch, $"{folderPath}/LevelDataBatch.asset");
         AssetDatabase.SaveAssets();

@@ -14,30 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 33
   characters:
+  - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
+  - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
   - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
-  - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
-  - {fileID: 341427779, guid: 64d9012f6f795ef439c08bf0ca92fcde, type: 3}
-  - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
-  - {fileID: 1339324416, guid: edb07d12f793e654eb331e176c1935ee, type: 3}
-  map: {fileID: 2845783013389241524, guid: 0ffeb9facf1028b4d8b1956cc9f0593a, type: 3}
+  - {fileID: 1687073297, guid: 4e08f0009cd891145bc70e47c987f2e2, type: 3}
+  map: {fileID: 355144773906350180, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
   playerWeapon: 0
-  cameraPosition: {x: 425.75845, y: 11.98, z: 870.11}
-  cameraRotation: {x: 0, y: -0.70710677, z: 0, w: 0.70710677}
+  cameraPosition: {x: -72.9, y: 132.51831, z: 64.5}
+  cameraRotation: {x: 0, y: 0.44463533, z: 0, w: 0.89571166}
   _characterTarget:
-  - EmojiTypeTarget: 4
+  - EmojiTypeTarget: 6
     _enemyTarget:
-    - {fileID: 341427779, guid: 64d9012f6f795ef439c08bf0ca92fcde, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: 35699ab2e891fb44a984968ce997e26b, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: 55312d3fdf51ef44c95e009a7872bc00, type: 3}
+    - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 0f3fea16766a2064ca7f65b5ab5c3022, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 4c94fa207116d9d4ea98b730ea584cd4, type: 3}
     PreviewCharaterTarget2: {fileID: 0}
-    PistolLevelTextMission: No more heaven
-  - EmojiTypeTarget: 4
+    PistolLevelTextMission: 
+  - EmojiTypeTarget: 1
     _enemyTarget:
-    - {fileID: 1339324416, guid: edb07d12f793e654eb331e176c1935ee, type: 3}
-    - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: 9f8ac7ad3d55def408ef0e21490a8160, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: 04d7a25f6d60216448a31069acb817cb, type: 3}
-    PreviewCharaterTarget2: {fileID: 21300000, guid: 82ae95b38ba64bd489092ca7b82895a3, type: 3}
-    PistolLevelTextMission: No more heaven
-  selectedEmojiTypesPerCharacter: 040000000000000006000000
-  quantityEmojiRandom: 1
+    - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
+    - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 0f3fea16766a2064ca7f65b5ab5c3022, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: b10fdab46eaf10b46b62e1559c6dc3cf, type: 3}
+    PreviewCharaterTarget2: {fileID: 21300000, guid: e7bcd10a46baf7044813ed7bca447b99, type: 3}
+    PistolLevelTextMission: Fire...! Help!
+  selectedEmojiTypesPerCharacter: 0600000001000000020000000400000005000000
+  quantityEmojiRandom: 3

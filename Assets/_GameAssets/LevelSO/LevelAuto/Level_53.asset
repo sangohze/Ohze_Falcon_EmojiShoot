@@ -14,31 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 53
   characters:
-  - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
-  - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
-  - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
   - {fileID: 341427779, guid: 64d9012f6f795ef439c08bf0ca92fcde, type: 3}
+  - {fileID: 1339324416, guid: edb07d12f793e654eb331e176c1935ee, type: 3}
+  - {fileID: 1869493647, guid: 65704417072f21441a2d139595e887a5, type: 3}
+  - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
   - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
   map: {fileID: 1677278121890170233, guid: 9f7771a89fae93d4dba6b17042efc77a, type: 3}
   playerWeapon: 0
-  cameraPosition: {x: -704.1, y: 20.15, z: -270.2}
-  cameraRotation: {x: 0, y: -0.38026357, z: 0, w: -0.9248782}
+  cameraPosition: {x: -690.7, y: 5, z: -240.98}
+  cameraRotation: {x: 0, y: 0.8923496, z: 0, w: 0.45134497}
   _characterTarget:
-  - EmojiTypeTarget: 1
+  - EmojiTypeTarget: 4
     _enemyTarget:
-    - {fileID: 341427779, guid: 64d9012f6f795ef439c08bf0ca92fcde, type: 3}
-    - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: 35699ab2e891fb44a984968ce997e26b, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: b10fdab46eaf10b46b62e1559c6dc3cf, type: 3}
-    PreviewCharaterTarget2: {fileID: 21300000, guid: 5fadde877f47fea49bff686a810afe40, type: 3}
-    PistolLevelTextMission: Fire...! Help!
-  - EmojiTypeTarget: 5
-    _enemyTarget:
+    - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
     - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
-    - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: e7bcd10a46baf7044813ed7bca447b99, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: 496626521269ed640a04336d1be07168, type: 3}
-    PreviewCharaterTarget2: {fileID: 21300000, guid: 5fadde877f47fea49bff686a810afe40, type: 3}
-    PistolLevelTextMission: More passion, more footwork, more energy.
-  selectedEmojiTypesPerCharacter: 010000000500000002000000
-  quantityEmojiRandom: 1
+    PreviewCharaterTarget: {fileID: 21300000, guid: 1ec00a552bcca0e45bd80adb5a80cc70, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 04d7a25f6d60216448a31069acb817cb, type: 3}
+    PreviewCharaterTarget2: {fileID: 21300000, guid: e7bcd10a46baf7044813ed7bca447b99, type: 3}
+    PistolLevelTextMission: No more heaven
+  - EmojiTypeTarget: 2
+    _enemyTarget:
+    - {fileID: 1869493647, guid: 65704417072f21441a2d139595e887a5, type: 3}
+    - {fileID: 341427779, guid: 64d9012f6f795ef439c08bf0ca92fcde, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 3e6388fc730aaf1499de0bd151a8e993, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: cbca078370274c84eb3c3019fba7d595, type: 3}
+    PreviewCharaterTarget2: {fileID: 21300000, guid: 35699ab2e891fb44a984968ce997e26b, type: 3}
+    PistolLevelTextMission: Make war, not love.
+  selectedEmojiTypesPerCharacter: 0400000002000000050000000100000000000000
+  quantityEmojiRandom: 3

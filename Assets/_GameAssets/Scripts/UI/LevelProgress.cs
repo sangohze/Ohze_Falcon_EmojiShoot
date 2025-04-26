@@ -92,14 +92,12 @@ public class LevelProgress : MonoBehaviour
                 if (levelImages[i].GetComponentInParent<UIScale>() is UIScale scaleInParent)
                 {
                     scaleInParent.Show();
-                }
-                else
-                {
-                    Debug.Log("Sangnon");
-                }    
+                }   
             }
         }
     }
+
+     
 
     private void UpdateUpcomingSpecialSprites()
     {

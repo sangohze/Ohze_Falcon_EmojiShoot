@@ -14,21 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 71
   characters:
+  - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
   - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
-  - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
-  - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
-  - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
-  map: {fileID: 2541357118248142963, guid: c14ae7e6480fcf3458f2fe0eca1031b1, type: 3}
+  - {fileID: 1687073297, guid: 4e08f0009cd891145bc70e47c987f2e2, type: 3}
+  - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
+  map: {fileID: 1677278121890170233, guid: 9f7771a89fae93d4dba6b17042efc77a, type: 3}
   playerWeapon: 0
-  cameraPosition: {x: -499.1, y: 3.7, z: 34.2}
-  cameraRotation: {x: 0, y: 0, z: 0, w: 1}
+  cameraPosition: {x: -704.1, y: 20.15, z: -270.2}
+  cameraRotation: {x: 0, y: -0.38026357, z: 0, w: -0.9248782}
   _characterTarget:
-  - EmojiTypeTarget: 3
+  - EmojiTypeTarget: 2
     _enemyTarget:
-    - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: 9bde78dc022809a46a8dab0383de03d8, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: bd1650d721eddca469c67beda714b6da, type: 3}
+    - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 82ae95b38ba64bd489092ca7b82895a3, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: dcbf26ca32670e94bb6e2319741caaf5, type: 3}
     PreviewCharaterTarget2: {fileID: 0}
-    PistolLevelTextMission: In god, we trust
-  selectedEmojiTypesPerCharacter: 0300000001000000
+    PistolLevelTextMission: Make war, not love.
+  selectedEmojiTypesPerCharacter: 0200000000000000
   quantityEmojiRandom: 1

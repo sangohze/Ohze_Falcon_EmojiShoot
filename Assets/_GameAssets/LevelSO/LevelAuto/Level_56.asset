@@ -15,21 +15,19 @@ MonoBehaviour:
   level: 56
   characters:
   - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
-  - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
+  - {fileID: 341427779, guid: 64d9012f6f795ef439c08bf0ca92fcde, type: 3}
   - {fileID: 1339324416, guid: edb07d12f793e654eb331e176c1935ee, type: 3}
-  - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
-  map: {fileID: 2541357118248142963, guid: c14ae7e6480fcf3458f2fe0eca1031b1, type: 3}
+  map: {fileID: 355144773906350180, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
   playerWeapon: 0
-  cameraPosition: {x: -499.1, y: 3.7, z: 40}
-  cameraRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  cameraPosition: {x: -74.1, y: 132.51831, z: 75.1}
+  cameraRotation: {x: 0, y: -0.8438601, z: 0, w: -0.5365633}
   _characterTarget:
-  - EmojiTypeTarget: 6
+  - EmojiTypeTarget: 3
     _enemyTarget:
-    - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
-    - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: 9bde78dc022809a46a8dab0383de03d8, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: 7ac77cf155a7e5345a8bd003f00c875c, type: 3}
-    PreviewCharaterTarget2: {fileID: 21300000, guid: 692ec6fb1daeaed41866a3948435afed, type: 3}
-    PistolLevelTextMission: 
-  selectedEmojiTypesPerCharacter: 0600000003000000
-  quantityEmojiRandom: 1
+    - {fileID: 341427779, guid: 64d9012f6f795ef439c08bf0ca92fcde, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 35699ab2e891fb44a984968ce997e26b, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: bd1650d721eddca469c67beda714b6da, type: 3}
+    PreviewCharaterTarget2: {fileID: 0}
+    PistolLevelTextMission: In god, we trust
+  selectedEmojiTypesPerCharacter: 03000000050000000100000002000000
+  quantityEmojiRandom: 3

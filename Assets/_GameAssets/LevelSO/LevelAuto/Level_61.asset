@@ -14,22 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 61
   characters:
-  - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
-  - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
-  - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
+  - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
   - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
+  - {fileID: 341427779, guid: 64d9012f6f795ef439c08bf0ca92fcde, type: 3}
   map: {fileID: 283628267868528337, guid: c8a7e9e6c40eb9749b69cf42a9d88cbf, type: 3}
   playerWeapon: 0
   cameraPosition: {x: -390.88, y: -4.67, z: 6.02}
-  cameraRotation: {x: 0, y: 0.04013158, z: 0, w: 0.9991944}
+  cameraRotation: {x: 0, y: -1, z: 0, w: 0}
   _characterTarget:
   - EmojiTypeTarget: 6
     _enemyTarget:
-    - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
-    - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: 5fadde877f47fea49bff686a810afe40, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: 7ac77cf155a7e5345a8bd003f00c875c, type: 3}
-    PreviewCharaterTarget2: {fileID: 21300000, guid: 9bde78dc022809a46a8dab0383de03d8, type: 3}
+    - {fileID: 341427779, guid: 64d9012f6f795ef439c08bf0ca92fcde, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 35699ab2e891fb44a984968ce997e26b, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 4c94fa207116d9d4ea98b730ea584cd4, type: 3}
+    PreviewCharaterTarget2: {fileID: 0}
     PistolLevelTextMission: 
-  selectedEmojiTypesPerCharacter: 06000000030000000200000000000000
+  selectedEmojiTypesPerCharacter: 06000000020000000100000003000000
   quantityEmojiRandom: 3
