@@ -36,7 +36,7 @@ public class CharacterController : MonoBehaviour
     private GameObject? _currentEffectComboObjMidpoint;
     private Vector3 effectPositions = new Vector3(0, 2.4f, 0);
     private BulletCollisionHandler bulletHandler;
-
+    private bool _PlaySFXScaredcombo = true;
     private void InitEffectMap()
     {
         emojiEffectMap = new Dictionary<EmojiType, TypeEffect>
@@ -280,6 +280,7 @@ public class CharacterController : MonoBehaviour
         }
         character.HideEffOne();
         character.characterMove.RestartMovement(Characteranimationkey.Walking);
+        character._PlaySFXScaredcombo = true;
     }
 
 
@@ -410,19 +411,20 @@ public class CharacterController : MonoBehaviour
             _currentEffectCombo = TypeEffect.Eff_ShitSmoke;
             break;
 
-        case EmojiType.Scared:
-            parentTransform = enemy.mouthPosition.transform;
-            _currentEffectCombo = TypeEffect.Eff_GhotSingle;
+        //case EmojiType.Scared:
+        //        if (!_PlaySFXScaredcombo) return;
+        //    parentTransform = enemy.mouthPosition.transform;
+        //    _currentEffectCombo = TypeEffect.Eff_GhotSingle;
 
-            effList = SpawnMultipleEffectsAround(
-                enemy.transform,
-                TypeEffect.Eff_GhotSingle,
-                3,
-                1f,
-                Vector3.one,
-                1f
-            );
-            break;
+        //    effList = SpawnMultipleEffectsAround(
+        //        enemy.transform,
+        //        TypeEffect.Eff_GhotSingle,
+        //        3,
+        //        1f,
+        //        Vector3.one,
+        //        1f
+        //    );
+        //    break;
 
         default:
             return;
@@ -431,7 +433,7 @@ public class CharacterController : MonoBehaviour
     _currentEffectComboObj = effList;
 }
 
-
+  
     public void PlayEffectComboMidPoint(Vector3 pos, EmojiType emojiType)
     {
         GameObject eff;
@@ -462,6 +464,7 @@ public class CharacterController : MonoBehaviour
                 _currentEffectComboMidpoint = TypeEffect.Eff_ShitCombo;
                 break;
             case EmojiType.Scared:
+                _PlaySFXScaredcombo = false;
                 eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Devil, pos);
                 _currentEffectComboMidpoint = TypeEffect.Eff_Devil;
                 //SpawnGhost()
