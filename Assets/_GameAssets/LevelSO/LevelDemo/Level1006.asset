@@ -20,16 +20,24 @@ MonoBehaviour:
   - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
   - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
   map: {fileID: 1010007371309662939, guid: 92a13a74bddc0c548817d9ebd2838c8a, type: 3}
-  playerWeapon: {fileID: 0}
+  playerWeapon: 0
   cameraPosition: {x: 7.6, y: 0, z: -49}
   cameraRotation: {x: 0, y: 0.7564245, z: 0, w: -0.65408105}
   _characterTarget:
-  - EmojiTypeTarget: 2
+  - EmojiTypeTarget: 7
     _enemyTarget:
     - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
     - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: 9dc0fde548fdf8647b7457aa18a19ff8, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: cbca078370274c84eb3c3019fba7d595, type: 3}
-    PreviewCharaterTarget2: {fileID: 21300000, guid: ab01cf68ee6a3e545b79aba2a1412090, type: 3}
-  selectedEmojiTypesPerCharacter: 02000000000000000400000001000000
+    PreviewCharaterTarget: {fileID: 21300000, guid: e7bcd10a46baf7044813ed7bca447b99, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 7abcc06185782d540ba9d3b03ed2c8b4, type: 3}
+    PreviewCharaterTarget2: {fileID: 21300000, guid: 692ec6fb1daeaed41866a3948435afed, type: 3}
+    PistolLevelTextMission: Make war, not love.
+  - EmojiTypeTarget: 9
+    _enemyTarget:
+    - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: e7bcd10a46baf7044813ed7bca447b99, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 6efe03d5d00d16242aa9912bf9908789, type: 3}
+    PreviewCharaterTarget2: {fileID: 0}
+    PistolLevelTextMission: Make love, not war.
+  selectedEmojiTypesPerCharacter: 02000000070000000900000008000000
   quantityEmojiRandom: 3

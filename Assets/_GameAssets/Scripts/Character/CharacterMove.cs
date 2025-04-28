@@ -17,7 +17,7 @@ public class CharacterMove : MonoBehaviour
     private Camera mainCamera;
     public Coroutine moveCoroutine;
 
-  
+
     [SerializeField] float moveSpeed = 2f;
     private NavMeshAgent navMeshAgent;
     private float originalWaitime;
@@ -100,7 +100,7 @@ public class CharacterMove : MonoBehaviour
 
                 animator.CrossFade(Characteranimationkey.Idel, 0.1f, 0);
             }
-            if(animwalking == Characteranimationkey.DevilRemaining)
+            if (animwalking == Characteranimationkey.DevilRemaining)
             {
                 waitTime = 0;
             }
@@ -174,6 +174,9 @@ public class CharacterMove : MonoBehaviour
         { EmojiType.Devil, 3 },
         { EmojiType.Dance, 6},
         { EmojiType.Vomit, 5 },
+        { EmojiType.Talkative, 4 },
+        { EmojiType.Scared, 4 },
+        { EmojiType.Shit, 6 },
     };
         float multiplier = distance[emojitype];
         float stoppingRange = navMeshAgent.stoppingDistance * multiplier;
@@ -189,7 +192,7 @@ public class CharacterMove : MonoBehaviour
 
             transform.LookAt(otherEnemy.transform);
             otherEnemy.transform.LookAt(transform);
-            
+
             onComplete?.Invoke(midpoint);
             yield break;
         }
@@ -240,6 +243,9 @@ public class CharacterMove : MonoBehaviour
         { EmojiType.Devil, 3 },
         { EmojiType.Dance, 6 },
         { EmojiType.Vomit, 5 },
+        { EmojiType.Talkative, 4 },
+        { EmojiType.Scared, 4 },
+        { EmojiType.Shit, 6 },
     };
 
         float multiplier = distance.ContainsKey(emojiType) ? distance[emojiType] : 3f;

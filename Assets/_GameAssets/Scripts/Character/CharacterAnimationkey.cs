@@ -11,3 +11,4 @@ public  class Characteranimationkey : MonoBehaviour
     public static string Cherring = "Cherring";
     public static string Vomit = "Vomit";
 }
+

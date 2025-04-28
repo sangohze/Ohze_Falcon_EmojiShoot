@@ -74,6 +74,11 @@ public enum TypeSound
     SFX_Lose,
     SFX_ClockWarning,
     SFX_GunSound,
+    SFX_Talkative_male,
+    SFX_Talkative_female,
+    SFX_Emoji_Shit,
+    SFX_Scared,
+    SFX_Combo_Emoji_Shit,
 }
 
 [System.Serializable] public class SoundDataDictionary : UnitySerializedDictionary<TypeSound, AudioCueSO> { }

@@ -25,6 +25,14 @@ public enum TypeEffect
     Eff_Hit,
     Eff_GunPistol,
     Eff_FireSpecial,
+    //newemoji
+    Eff_TalkativeSingle,
+    Eff_ScraredSingle,
+    Eff_ShitSingle,
+    Eff_ShitSmoke,
+    Eff_FloatText,
+    Eff_ShitCombo,
+    Eff_GhotSingle,
 }
 public class EffectManager : Singleton<EffectManager>
 {

@@ -64,8 +64,8 @@ MonoBehaviour:
     - MoreMountains.NiceVibrations.Editor
     - com.homemade.modules.audio.editor
     - Lofelt.NiceVibrations.Editor
-    - Sirenix.OdinInspector.Modules.UnityMathematics
     - sc.utilities.screenshot.editor
+    - Sirenix.OdinInspector.Modules.UnityMathematics
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

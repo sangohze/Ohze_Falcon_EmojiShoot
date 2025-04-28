@@ -74,9 +74,9 @@ public enum EmojiType
     Devil,
     Dance,
     Vomit,
-    //Talkative,
-    //Shit,
-    //Scared,
+    Scared,
+    Talkative,
+    Shit,
 }
 
 
