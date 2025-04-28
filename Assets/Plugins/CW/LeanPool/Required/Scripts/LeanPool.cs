@@ -23,7 +23,7 @@ namespace Lean.Pool
 		}
 
 		/// <summary>This allows you to spawn a prefab via Component.</summary>
-		public static T Spawn<T>(T prefab, Vector3 position, Quaternion rotation, Transform parent = null)
+		public static T Spawn<T>(T prefab, Vector3 position, Quaternion rotation, Transform parent = null, bool v = false)
 			where T : Component
 		{
 			if (prefab == null) { Debug.LogError("Attempting to spawn a null prefab."); return null; }

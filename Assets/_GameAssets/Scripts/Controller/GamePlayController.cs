@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Lean.Pool;
 using UnityEngine;
 using static LevelData;
 
@@ -27,13 +28,13 @@ public class GamePlayController : Singleton<GamePlayController>
     [SerializeField] DotGroupController groupDOT;
     [SerializeField] GameObject _Effects;
     public bool isTransitioningMission = false;
-  
+
 
     private IWeaponGameWinHandler weaponGameWinHandler;
     private PistolInitAnimHandler pistolInitHandler;
 
-   
- 
+    [SerializeField] GameObject _ghostAnim;
+
     public void InitWeaponLogic(WeaponType weaponType)
     {
         switch (weaponType)
@@ -69,16 +70,16 @@ public class GamePlayController : Singleton<GamePlayController>
         UIManager.I.Show<PanelGameWin>();
     }
 
-   
 
 
-  
-  
+
+
+
 
     public void WaitGameWin()
     {
         StartCoroutine(IEWaitGameWin());
-    }    
+    }
 
     public IEnumerator IEWaitGameWin()
     {
@@ -137,7 +138,7 @@ public class GamePlayController : Singleton<GamePlayController>
         }
         isWaitingForSecondHit = true;
         yield return new WaitForSeconds(timeToTarget);
-       tickPreview1.SetActive(false);
+        tickPreview1.SetActive(false);
         tickPreview2.SetActive(false);
 
         isWaitingForSecondHit = false;
@@ -146,6 +147,38 @@ public class GamePlayController : Singleton<GamePlayController>
             hitCount = 0;
         }
     }
+
+    //
+    public void SpawnGhostAnim(Vector3 midPoint)
+    {
+        if (_ghostAnim != null)
+        {
+            // Spawn ghost tại midPoint với y - 3
+            LeanPool.Spawn(_ghostAnim, midPoint, Quaternion.identity, null);
+            Vector3 spawnPosition = new Vector3(midPoint.x, midPoint.y - 3f, midPoint.z);
+            _ghostAnim.transform.position = spawnPosition;
+
+            // Di chuyển lên midPoint
+            _ghostAnim.transform.DOMove(midPoint, 1.5f).SetEase(Ease.OutBack);
+        }
+    }
+
+    public void HideGhostAnim()
+    {
+        if (_ghostAnim != null)
+        {
+            // Lấy vị trí hiện tại của _ghostAnim
+            Vector3 currentPos = _ghostAnim.transform.position;
+            Vector3 downPosition = new Vector3(currentPos.x, currentPos.y - 3f, currentPos.z);
+
+            _ghostAnim.transform.DOMove(downPosition, 1.5f).SetEase(Ease.InBack).OnComplete(() =>
+            {
+                // Sau khi di chuyển xong thì trả lại pool
+                LeanPool.Despawn(_ghostAnim);
+            });
+        }
+    }
+
 
 }
 

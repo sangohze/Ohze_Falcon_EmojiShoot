@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using Lean.Pool;
+using Unity.VisualScripting;
 using UnityEngine;
 using static LevelData;
 using static UnityEngine.EventSystems.EventTrigger;
@@ -36,7 +37,6 @@ public class CharacterController : MonoBehaviour
     private GameObject? _currentEffectComboObjMidpoint;
     private Vector3 effectPositions = new Vector3(0, 2.4f, 0);
     private BulletCollisionHandler bulletHandler;
-    private bool _PlaySFXScaredcombo = true;
     private void InitEffectMap()
     {
         emojiEffectMap = new Dictionary<EmojiType, TypeEffect>
@@ -189,6 +189,7 @@ public class CharacterController : MonoBehaviour
                     PlaySoundFXCombo(currentEmoji, this);
                     SpawnEmojiEffectSingle(currentEmoji);
                     PlayEffectCombo(this, currentEmoji);
+
                     GamePlayController.I.secondHitEnemy.animator.CrossFade(animState, 0, 0);
                     GamePlayController.I.secondHitEnemy.SpawnEmojiEffectSingle(currentEmoji);
                     GamePlayController.I.secondHitEnemy.PlayEffectCombo(GamePlayController.I.secondHitEnemy, currentEmoji);
@@ -242,21 +243,7 @@ public class CharacterController : MonoBehaviour
             EffectManager.I.HideEffectOne(_currentEffectSingle.Value, _currentEffectSingleObj);
             _currentEffectSingle = null;
         }
-        if (_currentEffectCombo != null && _currentEffectComboObj.Count > 0)
-        {
-            foreach (var eff in _currentEffectComboObj)
-            {
-                if (eff != null)
-                {
-                    EffectManager.I.HideEffectOne(_currentEffectCombo.Value, eff);
-                }
-            }
-
-            // Reset hoặc xóa các effect sau khi hide
-            _currentEffectComboObj.Clear();
-            _currentEffectCombo = null;
-        }
-
+        HideEffCombo();
         HideEffMidpoint();
     }
 
@@ -280,7 +267,7 @@ public class CharacterController : MonoBehaviour
         }
         character.HideEffOne();
         character.characterMove.RestartMovement(Characteranimationkey.Walking);
-        character._PlaySFXScaredcombo = true;
+        GamePlayController.I.HideGhostAnim();
     }
 
 
@@ -411,22 +398,23 @@ public class CharacterController : MonoBehaviour
             _currentEffectCombo = TypeEffect.Eff_ShitSmoke;
             break;
 
-        //case EmojiType.Scared:
-        //        if (!_PlaySFXScaredcombo) return;
-        //    parentTransform = enemy.mouthPosition.transform;
-        //    _currentEffectCombo = TypeEffect.Eff_GhotSingle;
+            case EmojiType.Scared:
+                if (GamePlayController.I.secondHitEnemy != null && GamePlayController.I.firstHitEmoji == emojiType)
+                    return;
+                parentTransform = enemy.mouthPosition.transform;
+                _currentEffectCombo = TypeEffect.Eff_GhotSingle;
 
-        //    effList = SpawnMultipleEffectsAround(
-        //        enemy.transform,
-        //        TypeEffect.Eff_GhotSingle,
-        //        3,
-        //        1f,
-        //        Vector3.one,
-        //        1f
-        //    );
-        //    break;
+                effList = SpawnMultipleEffectsAround(
+                    enemy.transform,
+                    TypeEffect.Eff_GhotSingle,
+                    3,
+                    1f,
+                    Vector3.one,
+                    1f
+                );
+                break;
 
-        default:
+            default:
             return;
     }
 
@@ -464,10 +452,9 @@ public class CharacterController : MonoBehaviour
                 _currentEffectComboMidpoint = TypeEffect.Eff_ShitCombo;
                 break;
             case EmojiType.Scared:
-                _PlaySFXScaredcombo = false;
                 eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Devil, pos);
                 _currentEffectComboMidpoint = TypeEffect.Eff_Devil;
-                //SpawnGhost()
+                GamePlayController.I.SpawnGhostAnim(pos);
                 break;
             default:
                 return;
@@ -484,6 +471,24 @@ public class CharacterController : MonoBehaviour
             _currentEffectComboObjMidpoint = null;
         }
     }
+
+    public void HideEffCombo()
+    {
+        if (_currentEffectCombo != null && _currentEffectComboObj.Count > 0)
+        {
+            foreach (var eff in _currentEffectComboObj)
+            {
+                if (eff != null)
+                {
+                    EffectManager.I.HideEffectOne(_currentEffectCombo.Value, eff);
+                }
+            }
+
+            // Reset hoặc xóa các effect sau khi hide
+            _currentEffectComboObj.Clear();
+            _currentEffectCombo = null;
+        }
+    }    
     public void PlaySoundFXSingle(EmojiType emojiType, CharacterController enemy)
     {
         SoundManager.I.StopAllSFX();
