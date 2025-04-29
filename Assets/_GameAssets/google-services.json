@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "154199040007",
+    "project_id": "oh-fc-emoji-archer",
+    "storage_bucket": "oh-fc-emoji-archer.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154199040007:android:b16b9a205cff94f87acaa2",
+        "android_client_info": {
+          "package_name": "com.Emoji.Archer.Arrow.Blaster"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1_eQ3Q0SJ-nr3l2tAAqICYQZi9tEpBnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

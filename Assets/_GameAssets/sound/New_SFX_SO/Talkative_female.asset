@@ -16,4 +16,4 @@ MonoBehaviour:
   _audioClipGroups:
   - sequenceMode: 1
     audioClips:
-    - {fileID: 8300000, guid: bfa27a4e32a8a3848a5d101d7dae5fa7, type: 3}
+    - {fileID: 8300000, guid: ec8f1ed821d2b6f4485c1c002d0f9d35, type: 3}

@@ -1,25 +1,85 @@
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(TextMesh))]
 public class FloatingText : MonoBehaviour
 {
-    public TextMesh textMesh;
-    public float LifeTime = 1;
-    //public bool FadeEnd = false;
+    public float LifeTime = 2f;
+    public float SpawnInterval = 1f;
     public Color TextColor = Color.white;
+    public Vector3 NextOffset = new Vector3(0, 1.5f, 0);
+    public GameObject floatingTextPrefab;
 
-    private float alpha = 1;
-    private float timeTemp = 0;
+    private TextMesh textMesh;
+    private float lifeTimer = 0f;
+    private float spawnTimer = 0f;
+    private float alpha = 1f;
+    private bool hasSpawnedNext = false;
+    private bool isStopped = false;
+    public Transform spawnRoot;
 
-    private void Awake()
+    // Danh sách static để lưu các hiệu ứng đã spawn
+    private static List<FloatingText> spawnedEffects = new List<FloatingText>();
+
+    private void OnEnable()
     {
-        textMesh = this.GetComponent<TextMesh>();
+        if (textMesh == null)
+            textMesh = GetComponent<TextMesh>();
+
+        SetText("#@!" + Random.Range(10, 100));
+        lifeTimer = 0f;
+        spawnTimer = 0f;
+        alpha = 1f;
+        hasSpawnedNext = false;
+        isStopped = false;
+        textMesh.color = TextColor;
+
+        // Lưu hiệu ứng này vào danh sách spawnedEffects
+        spawnedEffects.Add(this);
     }
 
-    void Start()
+    private void Update()
     {
-        timeTemp = Time.time;
-        //GameObject.Destroy(this.gameObject, LifeTime);
+        if (isStopped) return;
+
+        lifeTimer += Time.deltaTime;
+        spawnTimer += Time.deltaTime;
+
+        alpha = Mathf.Lerp(1f, 0f, lifeTimer / LifeTime);
+        textMesh.color = new Color(TextColor.r, TextColor.g, TextColor.b, alpha);
+
+        if (Camera.main)
+        {
+            transform.LookAt(Camera.main.transform);
+            transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
+        }
+
+        if (!hasSpawnedNext && spawnTimer >= SpawnInterval)
+        {
+            hasSpawnedNext = true;
+
+            Vector3 basePos = spawnRoot != null ? spawnRoot.position : transform.position;
+            Vector3 nextPos = basePos + NextOffset;
+
+            if (floatingTextPrefab != null)
+            {
+                GameObject next = Lean.Pool.LeanPool.Spawn(floatingTextPrefab, nextPos, Quaternion.identity);
+
+                FloatingText ft = next.GetComponent<FloatingText>();
+                if (ft != null)
+                {
+                    ft.spawnRoot = this.spawnRoot;
+                    ft.floatingTextPrefab = this.floatingTextPrefab;
+                }
+
+                spawnedEffects.Add(ft);
+            }
+
+            spawnTimer = 0f;
+        }
+
+        // Kiểm tra và ẩn hiệu ứng nếu cần
+        HideEffectOne();
     }
 
     public void SetText(string text)
@@ -28,24 +88,32 @@ public class FloatingText : MonoBehaviour
             textMesh.text = text;
     }
 
-    void Update()
+    /// <summary>
+    /// Ẩn tất cả các hiệu ứng đã spawn từ cái đầu tiên.
+    /// </summary>
+    public void HideEffectOne()
     {
-        //if (FadeEnd)
-        //{
-        //    if (Time.time >= ((timeTemp + LifeTime) - 1))
-        //    {
-        //        alpha = 1.0f - (Time.time - ((timeTemp + LifeTime) - 1));
-        //    }
-        //}
+        if (spawnedEffects.Count == 0)
+            return;
 
-        textMesh.color = new Color(TextColor.r, TextColor.g, TextColor.b, alpha);
-
-        if (Camera.current != null)
+        // Nếu cái đầu tiên đã bị tắt hoặc null (do đã despawn)
+        if (spawnedEffects[0] == null || !spawnedEffects[0].gameObject.activeSelf)
         {
-            this.transform.localScale = Vector3.one;
-            Quaternion rota = Quaternion.LookRotation((this.transform.position - Camera.current.transform.position).normalized);
-            this.transform.rotation = rota;
+            foreach (var effect in spawnedEffects)
+            {
+                if (effect != null)
+                {
+                    FloatingText ft = effect.GetComponent<FloatingText>();
+                    if (ft != null)
+                        ft.isStopped = true;
+
+                    if (effect.gameObject.activeSelf)
+                        Lean.Pool.LeanPool.Despawn(effect);
+                }
+            }
+
+            spawnedEffects.Clear();
         }
-        
     }
+
 }

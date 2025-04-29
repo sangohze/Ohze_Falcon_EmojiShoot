@@ -76,6 +76,13 @@ public class EffectManager : Singleton<EffectManager>
         for (int j = 0; j < _mapper[type].Count; j++)
         {
             GameObject efobj2 = _mapper[type][j];
+            //if (efobj2 == null)
+            //{
+            //    GameObject effectObject = LeanPool.Spawn(_mapper[type][j], transform) as GameObject;
+            //    //effectObject.transform.position = pos;
+            //    effectObject.gameObject.SetActive(true);
+            //    return effectObject;
+            //}
             if (efobj2.activeSelf == false)
             {
                 efobj2.transform.position = pos;

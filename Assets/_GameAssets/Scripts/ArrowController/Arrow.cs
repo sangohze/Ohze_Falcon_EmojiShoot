@@ -7,7 +7,9 @@ public class Arrow : MonoBehaviour
 {
     [SerializeField] Rigidbody rb;
     [SerializeField] TrailRenderer trailRenderer;
-    [SerializeField] MeshRenderer headArrow;
+    private MeshRenderer headArrow;
+    [SerializeField] MeshRenderer shitheadArrow;
+    [SerializeField] MeshRenderer normalheadArrow;
 
 
     private void OnEnable()
@@ -72,11 +74,22 @@ public class Arrow : MonoBehaviour
     public void UpdateArrowMaterial(EmojiType newEmoji)
     {
         int emojiIndex = (int)newEmoji;
+        if(newEmoji == EmojiType.Shit)
+        {
+            normalheadArrow.gameObject.SetActive(false);
+            shitheadArrow.gameObject.SetActive(true);
+            headArrow = shitheadArrow;
+            return;
+        }
+        normalheadArrow.gameObject.SetActive(true);
+        shitheadArrow.gameObject.SetActive(false);
+        headArrow = normalheadArrow;
         if (emojiIndex >= 0 && emojiIndex < EmojiController.I.materialsEmoji.Count)
         {
             Material newMaterial = EmojiController.I.materialsEmoji[emojiIndex];
             UpdateHeadMaterial(newMaterial);
         }
+
     }
 
     void OnDestroy()

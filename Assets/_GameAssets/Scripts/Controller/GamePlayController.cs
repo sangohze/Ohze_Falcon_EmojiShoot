@@ -33,8 +33,8 @@ public class GamePlayController : Singleton<GamePlayController>
     private IWeaponGameWinHandler weaponGameWinHandler;
     private PistolInitAnimHandler pistolInitHandler;
 
-    [SerializeField] GameObject _ghostAnim;
-
+    [SerializeField] private List<GameObject> _ghostAnims = new List<GameObject>();
+    private List<GameObject> _currentGhostAnims = new List<GameObject>();
     public void InitWeaponLogic(WeaponType weaponType)
     {
         switch (weaponType)
@@ -151,33 +151,45 @@ public class GamePlayController : Singleton<GamePlayController>
     //
     public void SpawnGhostAnim(Vector3 midPoint)
     {
-        if (_ghostAnim != null)
-        {
-            // Spawn ghost tại midPoint với y - 3
-            LeanPool.Spawn(_ghostAnim, midPoint, Quaternion.identity, null);
-            Vector3 spawnPosition = new Vector3(midPoint.x, midPoint.y - 3f, midPoint.z);
-            _ghostAnim.transform.position = spawnPosition;
+        _currentGhostAnims.Clear();
 
-            // Di chuyển lên midPoint
-            _ghostAnim.transform.DOMove(midPoint, 1.5f).SetEase(Ease.OutBack);
+        float radius = 1.0f; // bán kính rải ghost quanh midPoint
+        int ghostCount = _ghostAnims.Count;
+
+        for (int i = 0; i < ghostCount; i++)
+        {
+            if (_ghostAnims[i] != null)
+            {
+                // Tính vị trí spawn theo hình tròn xung quanh midPoint
+                float angle = (360f / ghostCount) * i * Mathf.Deg2Rad;
+                Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
+                Vector3 spawnPosition = new Vector3(midPoint.x, midPoint.y - 3f, midPoint.z) + offset;
+
+                GameObject ghost = LeanPool.Spawn(_ghostAnims[i], spawnPosition, Quaternion.identity, null);
+                ghost.GetComponent<GhostFollower>().Init(midPoint, secondHitEnemy.transform, i);
+
+
+                _currentGhostAnims.Add(ghost);
+            }
         }
     }
+
+
+
 
     public void HideGhostAnim()
     {
-        if (_ghostAnim != null)
+        foreach (var ghost in _currentGhostAnims)
         {
-            // Lấy vị trí hiện tại của _ghostAnim
-            Vector3 currentPos = _ghostAnim.transform.position;
-            Vector3 downPosition = new Vector3(currentPos.x, currentPos.y - 3f, currentPos.z);
-
-            _ghostAnim.transform.DOMove(downPosition, 1.5f).SetEase(Ease.InBack).OnComplete(() =>
+            if (ghost != null)
             {
-                // Sau khi di chuyển xong thì trả lại pool
-                LeanPool.Despawn(_ghostAnim);
-            });
+                ghost.GetComponent<GhostFollower>().StopFollowAndDespawn();
+            }
         }
+
+        _currentGhostAnims.Clear();
     }
+
 
 
 }

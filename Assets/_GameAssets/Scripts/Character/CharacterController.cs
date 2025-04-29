@@ -133,6 +133,7 @@ public class CharacterController : MonoBehaviour
         {
             if (currentEmoji == GamePlayController.I.firstHitEmoji)
                 return;
+
             characterMove.StopMoving();
             StopCoroutineResetMovement();
             HandleFirstHit(animStateSingle, currentEmoji);
@@ -179,14 +180,27 @@ public class CharacterController : MonoBehaviour
             }
             if (GamePlayController.I.secondHitEnemy != null)
             {
+                GamePlayController.I.HideGhostAnim();
+                GamePlayController.I.secondHitEnemy.HideEffCombo();
+                GamePlayController.I.secondHitEnemy.characterMove.StopMoving();
                 GamePlayController.I.secondHitEnemy.characterMove.MoveTowardsEnemy(characterMove, currentEmoji, (midpoint) =>
                 {
 
                     HideEffOne();
                     GamePlayController.I.secondHitEnemy.HideEffOne();
-                    PlayEffectComboMidPoint(midpoint, currentEmoji);
                     this.animator.CrossFade(animState, 0, 0);
-                    PlaySoundFXCombo(currentEmoji, this);
+
+                    if (currentEmoji == EmojiType.Shit)
+                    {
+                        delayedEmoji = currentEmoji;
+                        delayedMidpoint = midpoint;// lưu lại để dùng trong delay
+                        Invoke(nameof(DelayedComboEffects), 1.5f);
+                    }
+                    else
+                    {
+                        PlayEffectComboMidPoint(midpoint, currentEmoji);
+                        PlaySoundFXCombo(currentEmoji, this);
+                    }
                     SpawnEmojiEffectSingle(currentEmoji);
                     PlayEffectCombo(this, currentEmoji);
 
@@ -197,6 +211,12 @@ public class CharacterController : MonoBehaviour
                     PlayAnimationForRemainingEnemies(currentEmoji, () =>
                         {
                         });
+                    if (currentEmoji == EmojiType.Scared)
+                    {
+                        this.characterMove.RestartMovement(Characteranimationkey.DevilRemaining);
+                        GamePlayController.I.secondHitEnemy.characterMove.RestartMovement(Characteranimationkey.DevilRemaining);
+                        Invoke(nameof(HideEffMidpoint), 1f);
+                    }
 
                     ResetAllCharacters();
                     if (isEnemyTarget && currentEmoji == GamePlayController.I.EmojiTypeTarget)
@@ -209,7 +229,14 @@ public class CharacterController : MonoBehaviour
         }
     }
 
+    private EmojiType delayedEmoji;
+    private Vector3 delayedMidpoint;
 
+    void DelayedComboEffects()
+    {
+        PlayEffectComboMidPoint(delayedMidpoint, delayedEmoji);
+        PlaySoundFXCombo(delayedEmoji, this);
+    }
 
     public void StopAllCharaterMoving()
     {
@@ -340,63 +367,69 @@ public class CharacterController : MonoBehaviour
         onComplete?.Invoke();
     }
 
-   public void PlayEffectCombo(CharacterController enemy, EmojiType emojiType)
-{
-    List<GameObject> effList = new List<GameObject>();
-    Transform parentTransform = null;
-
-    switch (emojiType)
+    public void PlayEffectCombo(CharacterController enemy, EmojiType emojiType)
     {
-        case EmojiType.Angry:
-            parentTransform = enemy.headPosition.transform;
-            GameObject effAngry = EffectManager.I.PlayEffect(TypeEffect.Eff_FireAngry, transform.position);
-            effAngry.transform.SetParent(parentTransform, worldPositionStays: false);
-            effAngry.transform.localPosition = Vector3.zero;
-            effAngry.transform.localRotation = Quaternion.identity;
-            effAngry.transform.localScale = Vector3.one;
-            effList.Add(effAngry);
-            _currentEffectCombo = TypeEffect.Eff_FireAngry;
-            break;
+        List<GameObject> effList = new List<GameObject>();
+        Transform parentTransform = null;
+        switch (emojiType)
+        {
+            case EmojiType.Angry:
+                parentTransform = enemy.headPosition.transform;
+                GameObject effAngry = EffectManager.I.PlayEffect(TypeEffect.Eff_FireAngry, transform.position);
+                effAngry.transform.SetParent(parentTransform, worldPositionStays: false);
+                effAngry.transform.localPosition = Vector3.zero;
+                effAngry.transform.localRotation = Quaternion.identity;
+                effAngry.transform.localScale = Vector3.one;
+                effList.Add(effAngry);
+                _currentEffectCombo = TypeEffect.Eff_FireAngry;
+                break;
 
-        case EmojiType.Vomit:
-            parentTransform = enemy.mouthPosition.transform;
-            GameObject effVomit = EffectManager.I.PlayEffect(TypeEffect.Eff_Vomit, transform.position);
-            effVomit.transform.SetParent(parentTransform, worldPositionStays: false);
-            effVomit.transform.localPosition = Vector3.zero;
-            effVomit.transform.localRotation = Quaternion.identity;
-            effVomit.transform.localScale = Vector3.one;
-            effList.Add(effVomit);
-            _currentEffectCombo = TypeEffect.Eff_Vomit;
-            break;
+            case EmojiType.Vomit:
+                parentTransform = enemy.mouthPosition.transform;
+                GameObject effVomit = EffectManager.I.PlayEffect(TypeEffect.Eff_Vomit, transform.position);
+                effVomit.transform.SetParent(parentTransform, worldPositionStays: false);
+                effVomit.transform.localPosition = Vector3.zero;
+                effVomit.transform.localRotation = Quaternion.identity;
+                effVomit.transform.localScale = Vector3.one;
+                effList.Add(effVomit);
+                _currentEffectCombo = TypeEffect.Eff_Vomit;
+                break;
 
-        case EmojiType.Sad:
-            parentTransform = enemy.eyesPosition.transform;
-            GameObject effSad = EffectManager.I.PlayEffect(TypeEffect.Eff_SadClould, transform.position);
-            effList.Add(effSad);
-            _currentEffectCombo = TypeEffect.Eff_SadClould;
-            break;
+            case EmojiType.Sad:
+                parentTransform = enemy.eyesPosition.transform;
+                GameObject effSad = EffectManager.I.PlayEffect(TypeEffect.Eff_SadClould, transform.position);
+                effList.Add(effSad);
+                _currentEffectCombo = TypeEffect.Eff_SadClould;
+                break;
 
-        case EmojiType.Talkative:
-            parentTransform = enemy.mouthPosition.transform;
-            GameObject effTalk = EffectManager.I.PlayEffect(TypeEffect.Eff_FloatText, transform.position);
-            effTalk.transform.SetParent(parentTransform, worldPositionStays: false);
-            effTalk.transform.localPosition = Vector3.zero;
-            effTalk.transform.localRotation = Quaternion.identity;
-            effTalk.transform.localScale = new Vector3(3, 3, 3);
-            effList.Add(effTalk);
-            _currentEffectCombo = TypeEffect.Eff_FloatText;
-            break;
+            case EmojiType.Talkative:
+                parentTransform = enemy.mouthPosition.transform;
+                parentTransform.transform.localRotation = Quaternion.identity;
+                GameObject effTalk = EffectManager.I.PlayEffect(TypeEffect.Eff_FloatText, enemy.mouthPosition.transform.position);
+                //effTalk.transform.SetParent(parentTransform, worldPositionStays: false);
+                //effTalk.transform.localPosition = Vector3.zero;
+                //effTalk.transform.localRotation = Quaternion.identity;
+                //effTalk.transform.localScale = new Vector3(3, 3, 3);
+                effList.Add(effTalk);
+                _currentEffectCombo = TypeEffect.Eff_FloatText;
+                FloatingText ft = effTalk.GetComponent<FloatingText>();
+                if (ft != null)
+                {
+                    ft.spawnRoot = enemy.mouthPosition.transform; // gốc tọa độ để dùng cho các bản tiếp theo
+                    ft.floatingTextPrefab = effTalk; // hoặc prefab gốc nếu khác
+                }
+                break;
 
-        case EmojiType.Shit:
-            parentTransform = enemy.mouthPosition.transform;
-            GameObject effShit = EffectManager.I.PlayEffect(TypeEffect.Eff_ShitSmoke, transform.position);
-            effShit.transform.SetParent(parentTransform, worldPositionStays: false);
-            effShit.transform.localPosition = Vector3.zero;
-            effShit.transform.localRotation = Quaternion.identity;
-            effShit.transform.localScale = new Vector3(3, 3, 3);
-            effList.Add(effShit);
-            _currentEffectCombo = TypeEffect.Eff_ShitSmoke;
-            break;
+            case EmojiType.Shit:
+                parentTransform = enemy.mouthPosition.transform;
+                GameObject effShit = EffectManager.I.PlayEffect(TypeEffect.Eff_ShitSmoke, transform.position);
+                effShit.transform.SetParent(parentTransform, worldPositionStays: false);
+                effShit.transform.localPosition = Vector3.zero;
+                effShit.transform.localRotation = Quaternion.identity;
+                effShit.transform.localScale = new Vector3(3, 3, 3);
+                effList.Add(effShit);
+                _currentEffectCombo = TypeEffect.Eff_ShitSmoke;
+                break;
 
             case EmojiType.Scared:
                 if (GamePlayController.I.secondHitEnemy != null && GamePlayController.I.firstHitEmoji == emojiType)
@@ -415,13 +448,13 @@ public class CharacterController : MonoBehaviour
                 break;
 
             default:
-            return;
+                return;
+        }
+
+        _currentEffectComboObj = effList;
     }
-
-    _currentEffectComboObj = effList;
-}
-
   
+
     public void PlayEffectComboMidPoint(Vector3 pos, EmojiType emojiType)
     {
         GameObject eff;
@@ -452,6 +485,7 @@ public class CharacterController : MonoBehaviour
                 _currentEffectComboMidpoint = TypeEffect.Eff_ShitCombo;
                 break;
             case EmojiType.Scared:
+                GamePlayController.I.HideGhostAnim();
                 eff = EffectManager.I.PlayEffect(TypeEffect.Eff_Devil, pos);
                 _currentEffectComboMidpoint = TypeEffect.Eff_Devil;
                 GamePlayController.I.SpawnGhostAnim(pos);
@@ -460,7 +494,6 @@ public class CharacterController : MonoBehaviour
                 return;
         }
         _currentEffectComboObjMidpoint = eff;
-
     }
 
     public void HideEffMidpoint()
@@ -470,6 +503,7 @@ public class CharacterController : MonoBehaviour
             EffectManager.I.HideEffectOne(_currentEffectComboMidpoint.Value, _currentEffectComboObjMidpoint);
             _currentEffectComboObjMidpoint = null;
         }
+        //  
     }
 
     public void HideEffCombo()
@@ -488,7 +522,7 @@ public class CharacterController : MonoBehaviour
             _currentEffectComboObj.Clear();
             _currentEffectCombo = null;
         }
-    }    
+    }
     public void PlaySoundFXSingle(EmojiType emojiType, CharacterController enemy)
     {
         SoundManager.I.StopAllSFX();
@@ -561,33 +595,36 @@ public class CharacterController : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            // Random vị trí xung quanh
-            Vector2 randomCircle = UnityEngine.Random.insideUnitCircle.normalized * distance;
+            // Calculate the angle for each effect based on the number of effects
+            float angle = (i / (float)count) * 360f; // Evenly spread the effects in a circle
+            float angleRad = Mathf.Deg2Rad * angle; // Convert angle to radians
+
+            // Calculate the position based on the angle
             Vector3 spawnPos = new Vector3(
-                target.position.x + randomCircle.x,
+                target.position.x + Mathf.Cos(angleRad) * distance,
                 target.position.y + yOffset,
-                target.position.z + randomCircle.y
+                target.position.z + Mathf.Sin(angleRad) * distance
             );
 
             // Play effect
             GameObject eff = EffectManager.I.PlayEffect(effectType, spawnPos);
 
-            // Gán parent
+            // Set the parent of the effect
             eff.transform.SetParent(target, worldPositionStays: true);
 
-            // Hướng effect về target
+            // Make the effect face the target
             Vector3 lookAtPos = new Vector3(target.position.x, eff.transform.position.y, target.position.z);
             eff.transform.LookAt(lookAtPos);
 
-            // Fix rotation z = 0
+            // Fix rotation on the Z axis
             Vector3 euler = eff.transform.eulerAngles;
             euler.z = 0f;
             eff.transform.eulerAngles = euler;
 
-            // Scale
+            // Apply scale to the effect
             eff.transform.localScale = scale;
 
-            // Thêm vào danh sách
+            // Add to the list of spawned effects
             spawnedEffects.Add(eff);
         }
 

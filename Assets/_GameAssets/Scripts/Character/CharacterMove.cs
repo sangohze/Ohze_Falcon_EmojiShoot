@@ -103,6 +103,7 @@ public class CharacterMove : MonoBehaviour
             if (animwalking == Characteranimationkey.DevilRemaining)
             {
                 waitTime = 0;
+
             }
             else
             {
