@@ -14,28 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 3
   characters:
-  - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
-  - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
   - {fileID: 341427779, guid: 64d9012f6f795ef439c08bf0ca92fcde, type: 3}
   - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
-  map: {fileID: 2541357118248142963, guid: c14ae7e6480fcf3458f2fe0eca1031b1, type: 3}
+  - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
+  - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
+  map: {fileID: 2845783013389241524, guid: 0ffeb9facf1028b4d8b1956cc9f0593a, type: 3}
   playerWeapon: 0
-  cameraPosition: {x: -499.1, y: 3.7, z: 40}
-  cameraRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  cameraPosition: {x: 425.75845, y: 11.98, z: 870.11}
+  cameraRotation: {x: -0, y: -0.7071068, z: 0, w: -0.7071068}
   _characterTarget:
-  - EmojiTypeTarget: 0
+  - EmojiTypeTarget: 1
+    _enemyTarget:
+    - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
+    - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 1ec00a552bcca0e45bd80adb5a80cc70, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: b10fdab46eaf10b46b62e1559c6dc3cf, type: 3}
+    PreviewCharaterTarget2: {fileID: 21300000, guid: 5fadde877f47fea49bff686a810afe40, type: 3}
+    PistolLevelTextMission: Fire...! Help!
+  - EmojiTypeTarget: 3
     _enemyTarget:
     - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
     PreviewCharaterTarget: {fileID: 21300000, guid: 692ec6fb1daeaed41866a3948435afed, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: ab1816a305f6e5b45b223a8bbc685640, type: 3}
-    PreviewCharaterTarget2: {fileID: 0}
-    PistolLevelTextMission: Make love, not war.
-  - EmojiTypeTarget: 3
-    _enemyTarget:
-    - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: befdb7ae1a0390245a9e62deebde4ab9, type: 3}
     PreviewEmojiTarget: {fileID: 21300000, guid: bd1650d721eddca469c67beda714b6da, type: 3}
     PreviewCharaterTarget2: {fileID: 0}
     PistolLevelTextMission: In god, we trust
-  selectedEmojiTypesPerCharacter: 00000000030000000400000001000000
+  selectedEmojiTypesPerCharacter: 01000000030000000600000009000000
   quantityEmojiRandom: 2

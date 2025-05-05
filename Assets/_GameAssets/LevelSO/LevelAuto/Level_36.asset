@@ -14,21 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 36
   characters:
-  - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
+  - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
   - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
-  - {fileID: 1687073297, guid: 4e08f0009cd891145bc70e47c987f2e2, type: 3}
-  map: {fileID: 1677278121890170233, guid: 9f7771a89fae93d4dba6b17042efc77a, type: 3}
+  - {fileID: 341427779, guid: 64d9012f6f795ef439c08bf0ca92fcde, type: 3}
+  - {fileID: 1869493647, guid: 65704417072f21441a2d139595e887a5, type: 3}
+  map: {fileID: 2845783013389241524, guid: 0ffeb9facf1028b4d8b1956cc9f0593a, type: 3}
   playerWeapon: 0
-  cameraPosition: {x: -704.1, y: 20.15, z: -270.2}
-  cameraRotation: {x: 0, y: -0.38026357, z: 0, w: -0.9248782}
+  cameraPosition: {x: 425.75845, y: 11.98, z: 870.11}
+  cameraRotation: {x: 0, y: -0.70710677, z: 0, w: 0.70710677}
   _characterTarget:
-  - EmojiTypeTarget: 5
+  - EmojiTypeTarget: 4
     _enemyTarget:
-    - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
-    - {fileID: 1687073297, guid: 4e08f0009cd891145bc70e47c987f2e2, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: e761c461a70f65b4488f6a898f6274d1, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: 496626521269ed640a04336d1be07168, type: 3}
-    PreviewCharaterTarget2: {fileID: 21300000, guid: e34c53e2b1c87cf459ab11b86e172d44, type: 3}
-    PistolLevelTextMission: More passion, more footwork, more energy.
-  selectedEmojiTypesPerCharacter: 0500000003000000
+    - {fileID: 186648840, guid: db8789e65d57d674d869396ed503eaec, type: 3}
+    - {fileID: 1869493647, guid: 65704417072f21441a2d139595e887a5, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: e7bcd10a46baf7044813ed7bca447b99, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 04d7a25f6d60216448a31069acb817cb, type: 3}
+    PreviewCharaterTarget2: {fileID: 21300000, guid: 3e6388fc730aaf1499de0bd151a8e993, type: 3}
+    PistolLevelTextMission: No more heaven
+  selectedEmojiTypesPerCharacter: 0400000009000000
   quantityEmojiRandom: 1

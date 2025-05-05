@@ -23,7 +23,17 @@ public class LevelDataGeneratorEditor
         //setup
         // Pool dàn đều
         List<EmojiType> emojiTypePool = System.Enum.GetValues(typeof(EmojiType)).Cast<EmojiType>().ToList();
-        List<EmojiType> emojiTypePoolNoVomit = emojiTypePool.Where(e => e != EmojiType.Vomit).ToList();
+        List<EmojiType> excludeList = new List<EmojiType>
+{
+    EmojiType.Vomit,
+    EmojiType.Shit,
+    EmojiType.Scared,
+    EmojiType.Talkative,
+};
+
+        List<EmojiType> emojiTypePoolFiltered = emojiTypePool
+            .Where(e => !excludeList.Contains(e))
+            .ToList();
 
         // Shuffle hàm
         void ShuffleEmojiPool(List<EmojiType> pool)
@@ -36,7 +46,7 @@ public class LevelDataGeneratorEditor
         }
 
         ShuffleEmojiPool(emojiTypePool);
-        ShuffleEmojiPool(emojiTypePoolNoVomit);
+        ShuffleEmojiPool(emojiTypePoolFiltered);
 
         // Pool index
         int emojiPoolIndex = 0;
@@ -149,11 +159,11 @@ public class LevelDataGeneratorEditor
                 // Chọn từ pool theo index
                 if (isPistolLevel && targetCount == 1)
                 {
-                    ct.EmojiTypeTarget = emojiTypePoolNoVomit[emojiPoolNoVomitIndex];
+                    ct.EmojiTypeTarget = emojiTypePoolFiltered[emojiPoolNoVomitIndex];
                     emojiPoolNoVomitIndex++;
-                    if (emojiPoolNoVomitIndex >= emojiTypePoolNoVomit.Count)
+                    if (emojiPoolNoVomitIndex >= emojiTypePoolFiltered.Count)
                     {
-                        ShuffleEmojiPool(emojiTypePoolNoVomit);
+                        ShuffleEmojiPool(emojiTypePoolFiltered);
                         emojiPoolNoVomitIndex = 0;
                     }
                 }

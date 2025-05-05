@@ -14,19 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 62
   characters:
-  - {fileID: 1392860938, guid: cbe875f83232da2439ee0dc71ff5a64a, type: 3}
+  - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
   - {fileID: 341427779, guid: 64d9012f6f795ef439c08bf0ca92fcde, type: 3}
-  - {fileID: 1244974224, guid: b4beb9b51f3e1864baa9f8246a812607, type: 3}
-  map: {fileID: 355144773906350180, guid: 54a9df35567ff0d4eb508e2346c524f3, type: 3}
-  playerWeapon: 1
-  cameraPosition: {x: -74.1, y: 132.51831, z: 75.1}
-  cameraRotation: {x: 0, y: -0.8438601, z: 0, w: -0.5365633}
+  - {fileID: 1392860938, guid: cbe875f83232da2439ee0dc71ff5a64a, type: 3}
+  - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
+  map: {fileID: 283628267868528337, guid: c8a7e9e6c40eb9749b69cf42a9d88cbf, type: 3}
+  playerWeapon: 0
+  cameraPosition: {x: -390.88, y: -4.67, z: 6.02}
+  cameraRotation: {x: 0, y: 0.04013158, z: 0, w: 0.9991944}
   _characterTarget:
-  - EmojiTypeTarget: 5
-    _enemyTarget: []
-    PreviewCharaterTarget: {fileID: 0}
-    PreviewEmojiTarget: {fileID: 21300000, guid: 496626521269ed640a04336d1be07168, type: 3}
+  - EmojiTypeTarget: 4
+    _enemyTarget:
+    - {fileID: 1392860938, guid: cbe875f83232da2439ee0dc71ff5a64a, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: e0c0d78da820bbd45803e4676668a4cb, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 55312d3fdf51ef44c95e009a7872bc00, type: 3}
     PreviewCharaterTarget2: {fileID: 0}
-    PistolLevelTextMission: More passion, more footwork, more energy.
-  selectedEmojiTypesPerCharacter: 0500000001000000
+    PistolLevelTextMission: No more heaven
+  - EmojiTypeTarget: 1
+    _enemyTarget:
+    - {fileID: 341427779, guid: 64d9012f6f795ef439c08bf0ca92fcde, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 35699ab2e891fb44a984968ce997e26b, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 9369e1e6951c66e4ca97e752aa7c30b9, type: 3}
+    PreviewCharaterTarget2: {fileID: 0}
+    PistolLevelTextMission: Fire...! Help!
+  selectedEmojiTypesPerCharacter: 040000000100000008000000
   quantityEmojiRandom: 1

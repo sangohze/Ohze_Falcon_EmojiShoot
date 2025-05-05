@@ -14,20 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 59
   characters:
-  - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
-  - {fileID: 1339324416, guid: edb07d12f793e654eb331e176c1935ee, type: 3}
   - {fileID: 1869493647, guid: 65704417072f21441a2d139595e887a5, type: 3}
-  - {fileID: 196817132, guid: 76514a09b680a634f887f5e09593125e, type: 3}
+  - {fileID: 1339324416, guid: edb07d12f793e654eb331e176c1935ee, type: 3}
+  - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
+  - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
+  - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
   map: {fileID: 1677278121890170233, guid: 9f7771a89fae93d4dba6b17042efc77a, type: 3}
-  playerWeapon: 1
-  cameraPosition: {x: -357.95, y: -2.49, z: 564.39}
-  cameraRotation: {x: 0, y: 0.14331986, z: 0, w: 0.9896765}
+  playerWeapon: 0
+  cameraPosition: {x: -704.1, y: 20.15, z: -270.2}
+  cameraRotation: {x: 0, y: -0.38026357, z: 0, w: -0.9248782}
   _characterTarget:
-  - EmojiTypeTarget: 0
-    _enemyTarget: []
-    PreviewCharaterTarget: {fileID: 0}
-    PreviewEmojiTarget: {fileID: 21300000, guid: 9ab54b4cd98c8ba468b05ef05b71f16a, type: 3}
-    PreviewCharaterTarget2: {fileID: 0}
-    PistolLevelTextMission: Make love, not war.
-  selectedEmojiTypesPerCharacter: 0000000006000000
-  quantityEmojiRandom: 1
+  - EmojiTypeTarget: 8
+    _enemyTarget:
+    - {fileID: 671989378167827421, guid: fc24c71b41b834c41b27112aba8bff3c, type: 3}
+    - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 9bde78dc022809a46a8dab0383de03d8, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: d130b2c5de210da4191afc38f441200a, type: 3}
+    PreviewCharaterTarget2: {fileID: 21300000, guid: 0f3fea16766a2064ca7f65b5ab5c3022, type: 3}
+    PistolLevelTextMission: 
+  - EmojiTypeTarget: 6
+    _enemyTarget:
+    - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
+    - {fileID: 1869493647, guid: 65704417072f21441a2d139595e887a5, type: 3}
+    PreviewCharaterTarget: {fileID: 21300000, guid: 0f3fea16766a2064ca7f65b5ab5c3022, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 7ac77cf155a7e5345a8bd003f00c875c, type: 3}
+    PreviewCharaterTarget2: {fileID: 21300000, guid: 3e6388fc730aaf1499de0bd151a8e993, type: 3}
+    PistolLevelTextMission: 
+  selectedEmojiTypesPerCharacter: 08000000060000000500000003000000
+  quantityEmojiRandom: 2
