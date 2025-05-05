@@ -2039,10 +2039,13 @@ MonoBehaviour:
   animator: {fileID: 3436733152452030604}
   characterMove: {fileID: 1869493649}
   isEnemyTarget: 0
+  characterRotationDefault: {x: 0, y: 0, z: 0, w: 0}
   isMan: 1
   parentPos: {fileID: 9087167074556762179}
+  handParentPos: {fileID: 5470775683556390724}
   characterID: 11
   Avatar: {fileID: 21300000, guid: 3e6388fc730aaf1499de0bd151a8e993, type: 3}
+  timeEndAnim: 10
 --- !u!114 &1869493649
 MonoBehaviour:
   m_ObjectHideFlags: 0

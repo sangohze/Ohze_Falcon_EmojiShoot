@@ -33,6 +33,7 @@ public enum TypeEffect
     Eff_FloatText,
     Eff_ShitCombo,
     Eff_GhotSingle,
+    Eff_shitHand,
 }
 public class EffectManager : Singleton<EffectManager>
 {

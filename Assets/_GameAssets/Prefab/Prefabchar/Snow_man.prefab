@@ -661,10 +661,13 @@ MonoBehaviour:
   animator: {fileID: 8141510075995489337}
   characterMove: {fileID: 437918460}
   isEnemyTarget: 0
+  characterRotationDefault: {x: 0, y: 0, z: 0, w: 0}
   isMan: 1
   parentPos: {fileID: 7718291019970567797}
+  handParentPos: {fileID: 927292854829704156}
   characterID: 13
   Avatar: {fileID: 21300000, guid: e761c461a70f65b4488f6a898f6274d1, type: 3}
+  timeEndAnim: 10
 --- !u!114 &437918460
 MonoBehaviour:
   m_ObjectHideFlags: 0

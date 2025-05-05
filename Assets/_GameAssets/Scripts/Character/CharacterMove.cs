@@ -182,10 +182,32 @@ public class CharacterMove : MonoBehaviour
         float multiplier = distance[emojitype];
         float stoppingRange = navMeshAgent.stoppingDistance * multiplier;
 
+        float currentDistance = Vector3.Distance(transform.position, otherEnemy.transform.position);
+
+        // Nếu đang quá gần, thì lùi ra trước
+        if (currentDistance < stoppingRange)
+        {
+            Vector3 awayDir = (transform.position - otherEnemy.transform.position).normalized;
+            Vector3 selfTarget = transform.position + awayDir * (stoppingRange - currentDistance + 0.5f); // +0.5 để chắc chắn đủ khoảng cách
+            Vector3 otherTarget = otherEnemy.transform.position - awayDir * (stoppingRange - currentDistance + 0.5f);
+
+            navMeshAgent.SetDestination(selfTarget);
+            otherEnemy.navMeshAgent.SetDestination(otherTarget);
+
+            animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
+            otherEnemy.animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
+
+            // Chờ đến khi cả hai đã cách xa nhau
+            while (Vector3.Distance(transform.position, otherEnemy.transform.position) < stoppingRange)
+            {
+                yield return null;
+            }
+        }
+
+        // Bắt đầu di chuyển lại gần midpoint nếu chưa gần đủ
         float selfToMid = Vector3.Distance(transform.position, midpoint);
         float otherToMid = Vector3.Distance(otherEnemy.transform.position, midpoint);
 
-        // Nếu cả 2 đã đủ gần midpoint thì skip di chuyển
         if (selfToMid <= stoppingRange && otherToMid <= stoppingRange)
         {
             navMeshAgent.isStopped = true;
@@ -198,13 +220,11 @@ public class CharacterMove : MonoBehaviour
             yield break;
         }
 
-        // Nếu chưa gần thì mới tiếp tục di chuyển
         navMeshAgent.isStopped = false;
         otherEnemy.navMeshAgent.isStopped = false;
 
         StopMoving();
-        // otherEnemy.StopMoving(); // Nếu muốn dùng lại
-        otherEnemy.StopCoroutine(moveCoroutine);
+        otherEnemy.StopCoroutine(moveCoroutine); // Đảm bảo không bị conflict
 
         navMeshAgent.SetDestination(midpoint);
         otherEnemy.navMeshAgent.SetDestination(midpoint);
@@ -212,7 +232,6 @@ public class CharacterMove : MonoBehaviour
         animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
         otherEnemy.animator.CrossFade(Characteranimationkey.Walking, 0f, 0);
 
-        // Chờ đến khi khoảng cách giữa 2 nhân vật đủ gần nhau
         while (Vector3.Distance(transform.position, otherEnemy.transform.position) > stoppingRange)
         {
             yield return null;
@@ -226,6 +245,7 @@ public class CharacterMove : MonoBehaviour
 
         onComplete?.Invoke(midpoint);
     }
+
 
     //
     public void MoveTowardsPositionSpecialLevel(Vector3 targetPosition, EmojiType emojiType, Action<CharacterMove> onComplete = null)
@@ -246,7 +266,7 @@ public class CharacterMove : MonoBehaviour
         { EmojiType.Vomit, 5 },
         { EmojiType.Talkative, 4 },
         { EmojiType.Scared, 4 },
-        { EmojiType.Shit, 6 },
+        { EmojiType.Shit, 10 },
     };
 
         float multiplier = distance.ContainsKey(emojiType) ? distance[emojiType] : 3f;

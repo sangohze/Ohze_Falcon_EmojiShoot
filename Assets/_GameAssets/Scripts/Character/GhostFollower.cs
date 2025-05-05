@@ -64,27 +64,33 @@ public class GhostFollower : MonoBehaviour
             behindTarget += right * (_indexOffset * _offsetSpacing - _offsetSpacing); // offset -1.5, 0, 1.5 cho index 0-2
             behindTarget.y = transform.position.y;
 
+            Vector3 moveDirection = behindTarget - transform.position;
+
             if (_agent != null && _agent.isOnNavMesh)
             {
                 _agent.SetDestination(behindTarget);
+
+                if (_agent.velocity.sqrMagnitude > 0.01f)
+                {
+                    Quaternion lookRotation = Quaternion.LookRotation(_agent.velocity.normalized);
+                    lookRotation *= Quaternion.Euler(0, 180f, 0); // Nếu cần xoay model
+                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _rotationSpeed);
+                }
             }
             else
             {
                 transform.position = Vector3.MoveTowards(transform.position, behindTarget, _followSpeed * Time.deltaTime);
+
+                if (moveDirection.sqrMagnitude > 0.01f)
+                {
+                    Quaternion lookRotation = Quaternion.LookRotation(moveDirection.normalized);
+                    lookRotation *= Quaternion.Euler(0, 180f, 0); // Nếu cần xoay model
+                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _rotationSpeed);
+                }
             }
 
-            // Xoay cùng hướng với target
-            Quaternion targetRotation = Quaternion.Euler(0f, _target.eulerAngles.y + 180f, 0f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _rotationSpeed);
         }
     }
-
-
-
-
-
-
-
 
     public void StopFollowAndDespawn()
     {
