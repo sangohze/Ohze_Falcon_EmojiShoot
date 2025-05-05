@@ -286,6 +286,7 @@ public class CharacterController : MonoBehaviour
 
     void DelayedComboEffects()
     {
+        delayedMidpoint.y += 1f;
         PlayEffectComboMidPoint(delayedMidpoint, delayedEmoji);
         PlaySoundFXCombo(delayedEmoji, this);
     }
