@@ -21,29 +21,16 @@ MonoBehaviour:
   - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
   - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
   map: {fileID: 2541357118248142963, guid: c14ae7e6480fcf3458f2fe0eca1031b1, type: 3}
-  playerWeapon: {fileID: 0}
+  playerWeapon: 0
   cameraPosition: {x: -499.1, y: 3.7, z: 40}
   cameraRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   _characterTarget:
-  - EmojiTypeTarget: 0
+  - EmojiTypeTarget: 9
     _enemyTarget:
     - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
     PreviewCharaterTarget: {fileID: 21300000, guid: 82ae95b38ba64bd489092ca7b82895a3, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: ab1816a305f6e5b45b223a8bbc685640, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 6efe03d5d00d16242aa9912bf9908789, type: 3}
     PreviewCharaterTarget2: {fileID: 0}
-  - EmojiTypeTarget: 2
-    _enemyTarget:
-    - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
-    - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: 5fadde877f47fea49bff686a810afe40, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: cbca078370274c84eb3c3019fba7d595, type: 3}
-    PreviewCharaterTarget2: {fileID: 21300000, guid: befdb7ae1a0390245a9e62deebde4ab9, type: 3}
-  - EmojiTypeTarget: 1
-    _enemyTarget:
-    - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
-    - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
-    PreviewCharaterTarget: {fileID: 21300000, guid: 1ec00a552bcca0e45bd80adb5a80cc70, type: 3}
-    PreviewEmojiTarget: {fileID: 21300000, guid: b10fdab46eaf10b46b62e1559c6dc3cf, type: 3}
-    PreviewCharaterTarget2: {fileID: 21300000, guid: e761c461a70f65b4488f6a898f6274d1, type: 3}
-  selectedEmojiTypesPerCharacter: 0000000002000000010000000300000004000000
+    PistolLevelTextMission: 
+  selectedEmojiTypesPerCharacter: 090000000500000004000000
   quantityEmojiRandom: 2

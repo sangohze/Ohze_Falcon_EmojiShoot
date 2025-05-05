@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80eb8161b1c30c94dbaff5b54a66a7f6, type: 3}
+  m_Name: Level30special
+  m_EditorClassIdentifier: 
+  level: 25
+  characters:
+  - {fileID: 437918459, guid: 3e77d21f025b35147a39094d8a0ffbd2, type: 3}
+  - {fileID: 759810005, guid: 8b2f43bbe5307e94c95e15a3e165dbc4, type: 3}
+  - {fileID: 1858136549, guid: 36550107a1e172840a39c58197f7f461, type: 3}
+  - {fileID: 532694168, guid: be44e04368882394bad28d572df57a95, type: 3}
+  - {fileID: 89405384, guid: f4ee7f1ec8fea3a4b936a9bb581cf45c, type: 3}
+  - {fileID: 2120300188, guid: 06d734b4fbe173c44badd6db8e1deeda, type: 3}
+  map: {fileID: 1694664030495477767, guid: 6ad2e850b4bb2a247b2a216150f4755c, type: 3}
+  playerWeapon: 1
+  cameraPosition: {x: 29.98, y: 1.13, z: 37.6}
+  cameraRotation: {x: 0, y: 1, z: 0, w: 0}
+  _characterTarget:
+  - EmojiTypeTarget: 0
+    _enemyTarget: []
+    PreviewCharaterTarget: {fileID: 21300000, guid: 63416f2fb1422344b9f7b2e5ee9ec70a, type: 3}
+    PreviewEmojiTarget: {fileID: 21300000, guid: 9ab54b4cd98c8ba468b05ef05b71f16a, type: 3}
+    PreviewCharaterTarget2: {fileID: 21300000, guid: 63416f2fb1422344b9f7b2e5ee9ec70a, type: 3}
+    PistolLevelTextMission: Make love, not war.
+  selectedEmojiTypesPerCharacter: 00000000040000000600000005000000
+  quantityEmojiRandom: 3

@@ -70,7 +70,7 @@ public class CharacterController : MonoBehaviour
         EmojiType.Shit, new List<EffectData>
         {
             new EffectData(TypeEffect.Eff_ShitSmoke, e => e.mouthPosition.transform, Vector3.zero, new Vector3(3, 3, 3)),
-            new EffectData(TypeEffect.Eff_shitHand, e => e.handPosition.transform, Vector3.zero, Vector3.one),
+            //new EffectData(TypeEffect.Eff_shitHand, e => e.handPosition.transform, Vector3.zero, Vector3.one),
         }
     },
     {
@@ -244,6 +244,8 @@ public class CharacterController : MonoBehaviour
                     {
                         delayedEmoji = currentEmoji;
                         delayedMidpoint = midpoint;// lưu lại để dùng trong delay
+                        PlayShitHandEffect(this);
+                        PlayShitHandEffect(GamePlayController.I.secondHitEnemy);
                         Invoke(nameof(DelayedComboEffects), 1.5f);
                     }
                     else
@@ -623,6 +625,19 @@ public class CharacterController : MonoBehaviour
         return spawnedEffects;
     }
 
+    private void PlayShitHandEffect(CharacterController enemy)
+    {
+        if (enemy == null) return;
+
+        Transform parent = enemy.handPosition.transform;
+        GameObject handEff = EffectManager.I.PlayEffect(TypeEffect.Eff_shitHand, parent.position);
+        handEff.transform.SetParent(parent, worldPositionStays: false);
+        handEff.transform.localPosition = Vector3.zero;
+        handEff.transform.localRotation = Quaternion.identity;
+        handEff.transform.localScale = Vector3.one;
+
+        _currentEffectComboObj.Add((TypeEffect.Eff_shitHand, handEff));
+    }
 
 
 }
