@@ -35,7 +35,7 @@ public class LevelManager : Singleton<LevelManager>
         { WeaponType.Pistol, GetRandomSpawnPositionLevelPistol },
         // Thêm weapon khác nếu cần
     };
-        GameManager.Instance.clickArrow = true;
+        //GameManager.Instance.clickArrow = true;
         if (_isTest)
         {
             LoadLevelTest();
@@ -176,7 +176,6 @@ public class LevelManager : Singleton<LevelManager>
             return;
         }
 
-        Debug.LogError("🔁 Sang Level: " + currentLevelIndex);
 
         currentLevelData = level;
 

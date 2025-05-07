@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 using static LevelData;
@@ -19,9 +18,9 @@ public class CharacterTarget
     }
 
 
-    [PreviewField] public Sprite PreviewCharaterTarget;  // Sprite của EnemyTarget[0]
-    [PreviewField] public Sprite PreviewEmojiTarget;     // Sprite của EmojiTypeTarget
-    [PreviewField] public Sprite PreviewCharaterTarget2; // Sprite của EnemyTarget[1]
+     public Sprite PreviewCharaterTarget;  // Sprite của EnemyTarget[0]
+     public Sprite PreviewEmojiTarget;     // Sprite của EmojiTypeTarget
+     public Sprite PreviewCharaterTarget2; // Sprite của EnemyTarget[1]
     private Dictionary<EmojiType, Sprite> emojiSpriteMapSingle = new Dictionary<EmojiType, Sprite>();
     private Dictionary<EmojiType, Sprite> emojiSpriteMapCombo = new Dictionary<EmojiType, Sprite>();
     private Sprite PistolPreviewAva;

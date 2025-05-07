@@ -98,7 +98,6 @@ public class EffectManager : Singleton<EffectManager>
         }
         if (isPool == false)
         {
-            Debug.LogWarning("PLEASE ADD MORE POOL: " + type.ToString());
             GameObject effectObject = LeanPool.Spawn(_mapper[type][0], transform) as GameObject;
             effectObject.transform.position = pos;
             //if (time != 0)

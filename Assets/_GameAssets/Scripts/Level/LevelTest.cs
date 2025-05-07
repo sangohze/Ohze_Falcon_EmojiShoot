@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using RootMotion.FinalIK;
-using Sirenix.OdinInspector;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
@@ -110,7 +109,7 @@ public class LevelTest : Singleton<LevelTest>
         return spawnPosition; 
     }
 
-    [Button]
+
     public void GenerateEmojiTypeList()
     {
         selectedEmojiTypesPerCharacter = new List<EmojiType>();
@@ -148,7 +147,7 @@ public class LevelTest : Singleton<LevelTest>
         }
     }
 
-    [Button]
+
     public void SaveLevelData()
     {
         LevelData newLevelData = ScriptableObject.CreateInstance<LevelData>();

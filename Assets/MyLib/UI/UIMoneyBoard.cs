@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
-using Sirenix.OdinInspector;
+
 
 public class UIMoneyBoard : MonoBehaviour
 {
@@ -53,7 +53,6 @@ public class UIMoneyBoard : MonoBehaviour
         _oldCoin = (int)GamePlayManager.I.COIN;
     }
 
-    [Button(ButtonSizes.Large)]
     public void CheatCoin()
     {
         GamePlayManager.I.COIN += 10000;

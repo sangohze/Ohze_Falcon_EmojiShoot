@@ -1,11 +1,11 @@
-﻿using Sirenix.OdinInspector.Editor;
+﻿
 using UnityEditor;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CustomEditor(typeof(LevelTest))]
-public class LevelTestEditor : OdinEditor // ✅ Kế thừa từ OdinEditor thay vì Editor
+public class LevelTestEditor : Editor // ✅ Kế thừa từ OdinEditor thay vì Editor
 {
     private List<LevelData> allLevelData = new List<LevelData>();
     private string[] levelOptions;

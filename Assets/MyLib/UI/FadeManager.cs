@@ -7,6 +7,10 @@ public class FadeManager : MonoBehaviour
     [SerializeField] private FadeChannelSO _fadeChannelSO;
     [SerializeField] private Image _imageComponent;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
     private void OnEnable()
     {
         _fadeChannelSO.OnEventRaised += InitiateFade;

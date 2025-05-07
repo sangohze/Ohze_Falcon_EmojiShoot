@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sirenix.OdinInspector;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,7 +19,6 @@ public class LevelData : ScriptableObject
     public int quantityEmojiRandom;
 
 
-    [Button]
 
     public void GenerateEmojiTypeList()
     {

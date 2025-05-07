@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public bool clickArrow = true;
+    public bool clickArrow = false;
     public Button btn_touch;
     public Sprite[] Image;
 
@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        clickArrow = false;
     }
 
     

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector;
 using Newtonsoft.Json;
 
 public class GamePlayManager : Singleton<GamePlayManager>
@@ -71,6 +70,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
 
     public void InitGame()
     {
+
         StateGame = TypeStateGame.Lobby;
         IscanRevive = true;
         _onGameInit.RaiseEvent();
@@ -111,7 +111,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
         _onGameReload.RaiseEvent();
     }
 
-    [Button]
+
     public void GoToGamePlayDIY()
     {
         Application.targetFrameRate = 60;
@@ -127,7 +127,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
         SecondPlay = false;
         _loadGamePlayEvent.RaiseEvent(_gamePlay, false);
     }    
-    [Button]
+
     public void GoToGamePlayScreen()
     {
         Application.targetFrameRate = 60;
@@ -137,7 +137,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
     }
     
     //Main
-    [Button]
+
     public void GoToGamePlayMain()
     {
         Application.targetFrameRate = 60;

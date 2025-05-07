@@ -83,7 +83,6 @@ public class SpecialPistolLevelManager : WeaponGameWinHandlerBase
             if (originalCombos.TryGetValue(character, out var originalConfig))
             {
                 character.animator.CrossFade(originalConfig.animName, 0, 0);
-                Debug.LogError("sangcharacter" + character.name);
                 character.SpawnEmojiEffectSingle(originalConfig.emoji);
 
                 if (originalConfig.playMidPointEffect)
@@ -253,7 +252,6 @@ public class SpecialPistolLevelManager : WeaponGameWinHandlerBase
 
         SetTickActive(allHit, allHit);
 
-        Debug.Log($"SetTickPreviewByEnemy {emoji} - All Hit: {allHit}");
     }
     private void SetTickActive(bool tick1, bool tick2)
     {

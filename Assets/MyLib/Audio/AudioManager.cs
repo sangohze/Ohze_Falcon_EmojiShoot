@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using System;
 using DG.Tweening;
-using Sirenix.Utilities;
+
 
 public class AudioManager : Singleton<AudioManager>
 {
@@ -319,12 +319,10 @@ public class AudioManager : Singleton<AudioManager>
                 }
             }
 
-            Debug.Log($"Stopped all SFX. Total stopped: {allEmitters.Length}");
             return true; // Có ít nhất một emitter được dừng
         }
         else
         {
-            Debug.LogWarning("No SFX found to stop.");
             return false; // Không có emitter nào để dừng
         }
     }

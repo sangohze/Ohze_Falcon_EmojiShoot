@@ -33,6 +33,10 @@ public class SceneLoader : MonoBehaviour
     private Scene _gameplayManagerScene;
     private Scene _currentLoadingScene;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
     private void OnEnable()
     {
         _loadGamePlay.OnLoadingRequested += LoadGame;
@@ -81,16 +85,17 @@ public class SceneLoader : MonoBehaviour
         _showLoadingScreen = showLoadingScreen;
 
         //In case we are coming from the main menu, we need to load the Gameplay manager scene first
-        if (_gameplayManagerScene == null
-            || !_gameplayManagerScene.isLoaded)
-        {
-            _gameplayManagerLoadingOpHandle = _gamecommonScene.sceneReference.LoadSceneAsync(LoadSceneMode.Additive);
-            _gameplayManagerLoadingOpHandle.completed += OnGameplayMangersLoaded;
-        }
-        else
-        {
-            UnloadPreviousScene();
-        }
+        //if (_gameplayManagerScene == null
+        //    || !_gameplayManagerScene.isLoaded)
+        //{
+        //    _gameplayManagerLoadingOpHandle = _gamecommonScene.sceneReference.LoadSceneAsync(LoadSceneMode.Additive);
+        //    _gameplayManagerLoadingOpHandle.completed += OnGameplayMangersLoaded;
+        //}
+        //else
+        //{
+        //    UnloadPreviousScene();
+        //}
+        UnloadPreviousScene();
     }
 
     private void OnGameplayMangersLoaded(AsyncOperation obj)
@@ -146,10 +151,23 @@ public class SceneLoader : MonoBehaviour
         if (_showLoadingScreen)
             _toggleLoadingScreen.RaiseEvent(true);
 
-        _loadingOperationHandle = _sceneToLoad.sceneReference.LoadSceneAsync(LoadSceneMode.Additive);
+        TransitionGUI.I.ShowTransition(
+            stepFinish: () =>
+            {
+                _loadingOperationHandle = _sceneToLoad.sceneReference.LoadSceneAsync(LoadSceneMode.Single);
+                _loadingOperationHandle.completed += OnNewSceneLoaded;
+            },
+            finish: () =>
+            {
+                if (_showLoadingScreen)
+                    _toggleLoadingScreen.RaiseEvent(false);
 
-        _loadingOperationHandle.completed += OnNewSceneLoaded;
+                _onSceneReady.RaiseEvent();
+            });
     }
+
+
+
 
     private void OnNewSceneLoaded(AsyncOperation obj)
     {

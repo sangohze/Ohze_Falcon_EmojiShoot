@@ -394,7 +394,7 @@ public class CharacterController : MonoBehaviour
                 {
                     enemy.SpawnEmojiEffectSingle(emojiTypeRemaining);
                     enemy.PlayEffectCombo(enemy, emojiTypeRemaining);
-                    Debug.LogError("emojiTypeRemaining" + emojiTypeRemaining);
+                    
                 }
                 enemy.characterMove.StopMoving();
                 enemy.animator.CrossFade(animationKey, 0, 0);
@@ -569,7 +569,6 @@ public class CharacterController : MonoBehaviour
         if (resetMovementCoroutine != null)
         {
             StopCoroutine(resetMovementCoroutine);
-            Debug.Log($"Stopped reset coroutine for: {this.name}");
             resetMovementCoroutine = null;
         }
 
@@ -579,7 +578,6 @@ public class CharacterController : MonoBehaviour
         if (ResetAfterDelayPistol != null)
         {
             StopCoroutine(ResetAfterDelayPistol);
-            Debug.Log($"Stopped reset coroutine for: {this.name}");
             ResetAfterDelayPistol = null;
         }
     }
